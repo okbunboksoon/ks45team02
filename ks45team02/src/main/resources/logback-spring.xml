@@ -8,7 +8,7 @@
 -->
 <configuration>
 	<!-- 변수 지정 -->
-    <property name="LOG_DIR" value="src/main/resources/logs" />
+    <property name="LOG_DIR" value="/home/springboot/teamproject/logs" />
     <property name="LOG_PATH_NAME" value="${LOG_DIR}/application.log" />
 	
 	<!-- ConsoleAppender -->
@@ -24,7 +24,6 @@
 		</encoder>
 	</appender>
 	
-	<!-- Rolling File Appender
     <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         	파일 경로
         <file>${LOG_PATH_NAME}</file>
@@ -42,10 +41,10 @@
             	일자별 로그파일 최대 보관주기(일단위)만약 해당 설정일 이상된 파일은 자동으로 제거
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-    </appender> -->
+    </appender>
 	
 	<!-- 프로젝트 패키지 안 클래스에 설정된 로그 출력 -->
-	<logger name="ks45.team02" level="INFO" additivity="false">
+	<logger name="ks45team02.ire" level="INFO" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
@@ -84,7 +83,8 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<root level="ERROR">
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ROLLING_FILE" />
 	</root>
 </configuration>
