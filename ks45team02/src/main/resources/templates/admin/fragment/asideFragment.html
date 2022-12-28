@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>asideFragment</title>
 </head>
 
 <div class="col-md-3 left_col" th:fragment="asideFragment">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a th:href="@{index.html}" class="site_title"><i class="fa fa-paw"></i> <span>아이레</span></a>
+            <a th:href="@{/}" class="site_title"><i class="fa fa-paw"></i> <span>아이레</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -19,8 +19,8 @@
                 <img th:src="@{/admin/images/img.jpg}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <span>환영한다...,</span>
+                <h2>2팀 관리자</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -35,22 +35,164 @@
 		        <ul class="nav side-menu">
 		            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
-		                    <li><a href="index.html">Dashboard</a></li>
-		                    <li><a href="index2.html">Dashboard2</a></li>
-		                    <li><a href="index3.html">Dashboard3</a></li>
+		                    <li><a href="adminMain.html">관리자메인창</a></li>
+		                    <li><a href="userMain.html">유저 메인창</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>회원폼폼 Forms <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
-		                    <li><a href="form.html">General Form</a></li>
-		                    <li><a href="form_advanced.html">Advanced Components</a></li>
-		                    <li><a href="form_validation.html">Form Validation</a></li>
-		                    <li><a href="form_wizards.html">Form Wizard</a></li>
-		                    <li><a href="form_upload.html">Form Upload</a></li>
-		                    <li><a href="form_buttons.html">Form Buttons</a></li>
+		                    <li><a href="admin/userAdd.html">회원 추가</a></li>
+		                    <li><a href="admin/userModify.html">회원 수정</a></li>
+		                    <li><a href="admin/userDelete.html">회원 삭제</a></li>
+		                    <li><a href="admin/userBasket.html">장바구니</a></li>
+		                    <li><a href="admin/userFindId.html">회원 아이디 찾기</a></li>
+		                    <li><a href="admin/userFindPw.html">회원 비밀번호 찾기</a></li>
+		                    <li><a href="admin/userList.html">회원 조회</a></li>
+		                    <li><a href="admin/userListDormant.html">휴면 회원 조회</a></li>
+		                    <li><a href="admin/userListDrop.html">삭제 회원 조회</a></li>
+		                    <li><a href="admin/userListDrop.html">삭제 회원 조회</a></li>
+		                    <li><a href="admin/userPointSave.html">회원 포인트 적립</a></li>
+		                    <li><a href="admin/userLogin.html">회원 로그인</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>상품 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/goodsAdd.html">상품추가</a></li>
+		                    <li><a href="admin/goodsModify.html">상품 수정</a></li>
+		                    <li><a href="admin/goodsDelete.html">상품 삭제</a></li>
+		                    <li><a href="admin/goodsList.html">상품 조회</a></li>
+		                    <li><a href="admin/goodsOrder.html">상품 주문</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>카테고리 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/categoryAdd.html">카테고리 추가</a></li>
+		                    <li><a href="admin/categoryModify.html">카테고리 수정</a></li>
+		                    <li><a href="admin/categoryDelete.html">카테고리 삭제</a></li>
+		                    <li><a href="admin/categoryList.html">카테고리 조회</a></li>
+		                </ul>
+		            </li>
+                    <li><a><i class="fa fa-edit"></i>주문 Forms <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/orderAdd.html">주문 추가</a></li>
+                            <li><a href="admin/orderModify.html">주문 수정</a></li>
+                            <li><a href="admin/orderDelete.html">주문 삭제</a></li>
+                            <li><a href="admin/orderList.html">주문 조회</a></li>
+                        </ul>
+                    </li>
+		            <li><a><i class="fa fa-edit"></i>장바구니 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/basketAdd.html">장바구니 추가</a></li>
+		                    <li><a href="admin/basketModify.html">장바구니 수정</a></li>
+		                    <li><a href="admin/basketDelete.html">장바구니 삭제</a></li>
+		                    <li><a href="admin/basketList.html">장바구니 조회</a></li>
+		                </ul>
+		            </li>
+                    <li><a><i class="fa fa-edit"></i>계약 Forms <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/contractAdd.html">계약 추가</a></li>
+                            <li><a href="admin/contractModify.html">계약 수정</a></li>
+                            <li><a href="admin/contractDelete.html">계약 삭제</a></li>
+                            <li><a href="admin/contractList.html">계약 조회</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>배송 Forms <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/deliveryAdd.html">배송 추가</a></li>
+                            <li><a href="admin/deliveryModify.html">배송 수정</a></li>
+                            <li><a href="admin/deliveryDelete.html">배송 삭제</a></li>
+                            <li><a href="admin/deliveryList.html">배송 조회</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>기부 Forms <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/donationAdd.html">기부 추가</a></li>
+                            <li><a href="admin/donationModify.html">기부 수정</a></li>
+                            <li><a href="admin/donationAddPointSave.html">기부 포인트적립</a></li>
+                            <li><a href="admin/donationDelete.html">기부 삭제</a></li>
+                            <li><a href="admin/donationList.html">기부 조회</a></li>
+                            <li><a href="admin/donationRequest.html">기부 요청</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>상품매입 및 판매단가 Forms <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/unitpriceAddGoods.html">상품매입 및 판매단가 추가</a></li>
+                            <li><a href="admin/unitpriceListGoods.html">상품매입 및 판매단가 조회</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>포인트 Forms <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/pointAdd.html">포인트 추가</a></li>
+                            <li><a href="admin/pointList.html">포인트 조회</a></li>
+                            <li><a href="admin/pointListStandard.html">포인트 조회 기준</a></li>
+                            <li><a href="admin/pointMinus.html">포인트 차감</a></li>
+                            <li><a href="admin/pointModifyStandard.html">포인트 수정 기준</a></li>
+                            <li><a href="admin/pointSave.html">포인트 저장</a></li>
+                            <li><a href="admin/pointUse.html">포인트 사용</a></li>
+                        </ul>
+                    </li>
+
+
+
+
+
+		            <li><a><i class="fa fa-edit"></i>이벤트 게시판 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/boardAddEvent.html">이벤트 추가</a></li>
+		                    <li><a href="admin/boardModifyEvent.html">이벤트 수정</a></li>
+		                    <li><a href="admin/boardDeleteEvent.html">이벤트 삭제</a></li>
+		                    <li><a href="admin/boardListEvent.html">이벤트 조회</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>자주묻는질문게시판 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/boardAddFAQ.html">자주묻는질문 추가</a></li>
+		                    <li><a href="admin/boardModifyFAQ.html">자주묻는질문 수정</a></li>
+		                    <li><a href="admin/boardDeleteFAQ.html">자주묻는질문 삭제</a></li>
+		                    <li><a href="admin/boardListFAQ.html">자주묻는질문 조회</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>1:1문의 게시판 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/boardAddInquiry.html">1:1문의 추가</a></li>
+		                    <li><a href="admin/boardModifyInquiry.html">1:1문의 수정</a></li>
+		                    <li><a href="admin/boardDeleteInquiry.html">1:1문의 삭제</a></li>
+		                    <li><a href="admin/boardListInquery.html">1:1문의 조회</a></li>
+		                    <li><a href="admin/boardListInqueryAnswer.html">1:1문의 답변</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>공지사항 게시판 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/boardAddNotice.html">공지사항 추가</a></li>
+		                    <li><a href="admin/boardModifyNotice.html">공지사항 수정</a></li>
+		                    <li><a href="admin/boardDeleteNotice.html">공지사항 삭제</a></li>
+		                    <li><a href="admin/boardListNotice.html">공지사항 조회</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>리뷰 게시판 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/boardAddReview.html">리뷰 추가</a></li>
+		                    <li><a href="admin/boardModifyReview.html">리뷰 수정</a></li>
+		                    <li><a href="admin/boardDeleteReview.html">리뷰 삭제</a></li>
+		                    <li><a href="admin/boardListReview.html">리뷰 조회</a></li>
+		                    <li><a href="admin/boardSearchReview.html">리뷰 검색</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>유저가이드 게시판 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/boardAddUserGuide.html">유저가이드 추가</a></li>
+		                    <li><a href="admin/boardModifyUserGuide.html">유저가이드 수정</a></li>
+		                    <li><a href="admin/boardDeleteUserGuide.html">유저가이드 삭제</a></li>
+		                    <li><a href="admin/boardListUserGuide.html">유저가이드 조회</a></li>
+		                </ul>
+		            </li>
+		            <li><a><i class="fa fa-edit"></i>세금 Forms <span class="fa fa-chevron-down"></span></a>
+		                <ul class="nav child_menu">
+		                    <li><a href="admin/vatList.html">세금 조회</a></li>
+		                </ul>
+		            </li>
+
+		            <li><a><i class="fa fa-desktop"></i> UI Elements????이게모람 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="general_elements.html">General Elements</a></li>
 		                    <li><a href="media_gallery.html">Media Gallery</a></li>
@@ -63,13 +205,13 @@
 		                    <li><a href="calendar.html">Calendar</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-table"></i> Tables 테이블 조회>>>??? <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="tables.html">Tables</a></li>
 		                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation 통계자료 화면<span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="chartjs.html">Chart JS</a></li>
 		                    <li><a href="chartjs2.html">Chart JS2</a></li>
@@ -78,57 +220,9 @@
 		                    <li><a href="other_charts.html">Other Charts</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-		                <ul class="nav child_menu">
-		                    <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-		                    <li><a href="fixed_footer.html">Fixed Footer</a></li>
-		                </ul>
-		            </li>
 		        </ul>
 		    </div>
-		    <div class="menu_section">
-		        <h3>Live On</h3>
-		        <ul class="nav side-menu">
-		            <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-		                <ul class="nav child_menu">
-		                    <li><a href="e_commerce.html">E-commerce</a></li>
-		                    <li><a href="projects.html">Projects</a></li>
-		                    <li><a href="project_detail.html">Project Detail</a></li>
-		                    <li><a href="contacts.html">Contacts</a></li>
-		                    <li><a href="profile.html">Profile</a></li>
-		                </ul>
-		            </li>
-		            <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-		                <ul class="nav child_menu">
-		                    <li><a href="page_403.html">403 Error</a></li>
-		                    <li><a href="page_404.html">404 Error</a></li>
-		                    <li><a href="page_500.html">500 Error</a></li>
-		                    <li><a href="plain_page.html">Plain Page</a></li>
-		                    <li><a href="login.html">Login Page</a></li>
-		                    <li><a href="pricing_tables.html">Pricing Tables</a></li>
-		                </ul>
-		            </li>
-		            <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-		                <ul class="nav child_menu">
-		                    <li><a href="#level1_1">Level One</a>
-		                    <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-		                        <ul class="nav child_menu">
-		                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-		                            </li>
-		                            <li><a href="#level2_1">Level Two</a>
-		                            </li>
-		                            <li><a href="#level2_2">Level Two</a>
-		                            </li>
-		                        </ul>
-		                    </li>
-		                    <li><a href="#level1_2">Level One</a>
-		                    </li>
-		                </ul>
-		            </li>
-		            <li><a th:href="@{#}"><i class="fa fa-laptop"></i> Landing Page <span
-		                        class="label label-success pull-right">Coming Soon</span></a></li>
-		        </ul>
-		    </div>
+
 		
 		</div>
         <!-- /sidebar menu -->
@@ -144,7 +238,7 @@
             <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="/">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
         </div>
