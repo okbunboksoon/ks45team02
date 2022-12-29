@@ -12,26 +12,26 @@ public class CategoryController {
 	@GetMapping("/addCategory")
 	public String addCategory(Model model) {
 		
-		return "/admin/category/categoryAdd";
+		return "admin/category/categoryAdd";
 	}
 	
 	@GetMapping("/deleteCategory")
 	public String deleteCategory() {
 		
-		return "/admin/category/categoryDelete";
+		return "admin/category/categoryDelete";
 	}
 	
 	@GetMapping("/listCategory")
 	public String listCategory() {
 		
-		return "/admin/category/categoryList";
+		return "admin/category/categoryList";
 	}
 	
 	
 	@GetMapping("/modifyCategory")
 	public String modifyCategory() {
 		
-		return "/admin/category/categoryModify";
+		return "admin/category/categoryModify";
 	}
 
 }

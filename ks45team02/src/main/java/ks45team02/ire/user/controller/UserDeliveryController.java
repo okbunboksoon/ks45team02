@@ -14,7 +14,7 @@ public class UserDeliveryController {
 	@GetMapping("/listDelivery")
 	public String listDelivery() {
 		
-		return "/user/delivery/deliveryList";
+		return "user/delivery/deliveryList";
 	}
 	
 

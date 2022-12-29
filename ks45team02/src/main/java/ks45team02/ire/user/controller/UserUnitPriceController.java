@@ -13,7 +13,7 @@ public class UserUnitPriceController {
 	@GetMapping("/listUnitPrice")
 	public String listUnitPrice() {
 		
-		return "/user/unitprice/unitpriceListGoods";
+		return "user/unitprice/unitpriceListGoods";
 	}
 	
 

@@ -12,26 +12,26 @@ public class OutGoingController {
 	@GetMapping("/addOutGoing")
 	public String addOutGoing(Model model) {
 		
-		return "/admin/outgoing/outgoingAdd";
+		return "admin/outgoing/outgoingAdd";
 	}
 	
 	@GetMapping("/deleteOutGoing")
 	public String deleteOutGoing() {
 		
-		return "/admin/outgoing/outgoingDelete";
+		return "admin/outgoing/outgoingDelete";
 	}
 	
 	@GetMapping("/listOutGoing")
 	public String listOutGoing() {
 		
-		return "/admin/outgoing/outgoingList";
+		return "admin/outgoing/outgoingList";
 	}
 	
 	
 	@GetMapping("/modifyOutGoing")
 	public String modifyOutGoing() {
 		
-		return "/admin/outgoing/outgoingModify";
+		return "admin/outgoing/outgoingModify";
 	}
 
 }
