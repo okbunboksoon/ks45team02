@@ -15,38 +15,54 @@ public class PointController {
 		return "admin/point/pointAddStandard";
 	}
 	
-	@GetMapping("/listPoint")
-	public String listPoint() {
-		
-		return "admin/point/pointList";
-	}
 	@GetMapping("/listStandardPoint")
 	public String listStandardPoint() {
 		
 		return "admin/point/pointListStandard";
 	}
-	@GetMapping("/minusPoint")
-	public String MinusPoint() {
-		
-		return "admin/point/pointMinus";
-	}
+	
 	@GetMapping("/modifyStandardPoint")
 	public String modifyStandardPoint() {
 		
 		return "admin/point/pointModifyStandard";
 	}
-	@GetMapping("/savePoint")
-	public String savePoint() {
+	
+	@GetMapping("/deleteStandardPoint")
+	public String deleteStandardPoint() {
 		
-		return "admin/point/pointSave";
+		return "admin/point/pointDeleteStandard";
 	}
 	
-	
-	@GetMapping("/usePoint")
-	public String usePoint() {
+	@GetMapping("/listPoint")
+	public String listPoint() {
 		
-		return "admin/point/pointUse";
+		return "admin/point/pointList";
 	}
-
+	@GetMapping("/addSavePoint")
+	public String addSavePoint() {
+		
+		return "admin/point/pointSaveAdd";
+	}
+	@GetMapping("/addMinusPoint")
+	public String addMinusPoint() {
+		
+		return "admin/point/pointMinusAdd";
+	}
+	@GetMapping("/modifySavePoint")
+	public String modifySavePoint() {
+		
+		return "admin/point/pointSaveModify";
+	}
+	@GetMapping("/modifyMinusPoint")
+	public String modifyMinusPoint() {
+		
+		return "admin/point/pointMinusModify";
+	}
+	@GetMapping("/deletePoint")
+	public String deletePoint() {
+		
+		return "admin/point/pointDelete";
+	}
+	
 }
 
