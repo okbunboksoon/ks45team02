@@ -20,7 +20,7 @@ public class UserDonationController {
 	@GetMapping("/requestDonation")
 	public String requestDonation() {
 		
-		return "user/donation/donationrequest";
+		return "user/donation/donationRequest";
 	}
 
 }
