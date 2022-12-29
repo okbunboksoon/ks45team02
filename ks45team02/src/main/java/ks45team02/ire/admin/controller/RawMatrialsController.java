@@ -12,55 +12,55 @@ public class RawMatrialsController {
 	@GetMapping("/addIncomingRawMatrials")
 	public String addIncomingRawMatrials(Model model) {
 		
-		return "/admin/rawmatrials/rawmatrialsAddIncoming.html";
+		return "admin/rawmatrials/rawmatrialsAddIncoming";
 	}
 	@GetMapping("/addoutgoingRawMatrials")
 	public String addoutgoingRawMatrials(Model model) {
 		
-		return "/admin/rawmatrials/rawmatrialsAddOutgoing.html";
+		return "admin/rawmatrials/rawmatrialsAddOutgoing";
 	}
 	
 	@GetMapping("/deleteIncomingRawMatrials")
 	public String deleteIncomingRawMatrials() {
 		
-		return "/admin/rawmatrials/rawmatrialsDeleteIncoming.html";
+		return "admin/rawmatrials/rawmatrialsDeleteIncoming";
 	}
 	@GetMapping("/deleteoutgoingRawMatrials")
 	public String deleteoutgoingRawMatrials() {
 		
-		return "/admin/rawmatrials/rawmatrialsDeleteOutgoing.html";
+		return "admin/rawmatrials/rawmatrialsDeleteOutgoing";
 	}
 	@GetMapping("/listIncomingRawMatrials")
 	public String listIncomingRawMatrials() {
 		
-		return "/admin/rawmatrials/rawmatrialsListIncoming.html";
+		return "admin/rawmatrials/rawmatrialsListIncoming";
 	}
 	@GetMapping("/listNowRawMatrials")
 	public String listNow() {
 		
-		return "/admin/rawmatrials/rawmatrialsListNow.html";
+		return "admin/rawmatrials/rawmatrialsListNow";
 	}
 	@GetMapping("/listOutgoingRawMatrials")
 	public String listOutgoing() {
 		
-		return "/admin/rawmatrials/rawmatrialsListOutgoing.html";
+		return "admin/rawmatrials/rawmatrialsListOutgoing";
 	}
 	@GetMapping("/modifyIncomingRawMatrials")
 	public String modifyIncomingRawMatrials() {
 		
-		return "/admin/rawmatrials/rawmatrialsModifyIncoming.html";
+		return "admin/rawmatrials/rawmatrialsModifyIncoming";
 	}
 	@GetMapping("/modifyOutgoingRawMatrials")
 	public String modifyOutgoingRawMatrials() {
 		
-		return "/admin/rawmatrials/rawmatrialsModifyOutgoing.html";
+		return "admin/rawmatrials/rawmatrialsModifyOutgoing";
 	}
 	
 	
 	@GetMapping("/totalRawMatrialsInOut")
 	public String totalRawMatrialsInOut() {
 		
-		return "/admin/rawmatrials/rawmatrialsTotalInOut.html";
+		return "admin/rawmatrials/rawmatrialsTotalInOut";
 	}
 	
 

@@ -13,26 +13,26 @@ public class BoardFAQController {
 	@GetMapping("/addBoardFAQ")
 	public String addBoardFAQ(Model model) {
 		
-		return "/admin/board/boardAddFAQ";
+		return "admin/board/boardAddFAQ";
 	}
 	
 	@GetMapping("/deleteBoardFAQ")
 	public String deleteBoardFAQ() {
 		
-		return "/admin/board/boardDeleteFAQ";
+		return "admin/board/boardDeleteFAQ";
 	}
 	
 	@GetMapping("/listBoardFAQ")
 	public String listBoardFAQ() {
 		
-		return "/admin/board/boardListFAQ";
+		return "admin/board/boardListFAQ";
 	}
 	
 	
 	@GetMapping("/modifyBoardFAQ")
 	public String modifyBoardFAQ() {
 		
-		return "/admin/board/boardModifyFAQ";
+		return "admin/board/boardModifyFAQ";
 	}
 
 }

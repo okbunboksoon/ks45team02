@@ -9,33 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class UserDonationController {
 
-	@GetMapping("/addDonation")
-	public String addDonation(Model model) {
-		
-		return "/user/donation/donationAdd";
-	}
-
-	@GetMapping("/deleteDonation")
-	public String deleteDonation() {
-		
-		return "/user/donation/donationDelete";
-	}
 	
 	@GetMapping("/listDonation")
 	public String listDonation() {
 		
-		return "/user/donation/donationList";
+		return "user/donation/donationList";
 	}
 		
-	@GetMapping("/modifyDonation")
-	public String modifyDonation() {
-		
-		return "/user/donation/donationModify";
-	}
+	
 	@GetMapping("/requestDonation")
 	public String requestDonation() {
 		
-		return "/user/donation/donationrequest";
+		return "user/donation/donationrequest";
 	}
 
 }

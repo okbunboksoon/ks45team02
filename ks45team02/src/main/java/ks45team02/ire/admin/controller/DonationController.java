@@ -12,35 +12,35 @@ public class DonationController {
 	@GetMapping("/addDonation")
 	public String addDonation(Model model) {
 		
-		return "/admin/donation/donationAdd";
+		return "admin/donation/donationAdd";
 	}
 	@GetMapping("/addDonationPointSave")
 	public String addDonationPointSave() {
 		
-		return "/admin/donation/donationAddPointSave";
+		return "admin/donation/donationAddPointSave";
 	}
 	
 	@GetMapping("/deleteDonation")
 	public String deleteDonation() {
 		
-		return "/admin/donation/donationDelete";
+		return "admin/donation/donationDelete";
 	}
 	
 	@GetMapping("/listDonation")
 	public String listDonation() {
 		
-		return "/admin/donation/donationList";
+		return "admin/donation/donationList";
 	}
 		
 	@GetMapping("/modifyDonation")
 	public String modifyDonation() {
 		
-		return "/admin/donation/donationModify";
+		return "admin/donation/donationModify";
 	}
 	@GetMapping("/requestDonation")
 	public String requestDonation() {
 		
-		return "/admin/donation/donationRequest";
+		return "admin/donation/donationRequest";
 	}
 
 }

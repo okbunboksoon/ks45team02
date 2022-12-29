@@ -12,26 +12,26 @@ public class BasketController {
 	@GetMapping("/addBasket")
 	public String addBasket(Model model) {
 		
-		return "/admin/basket/basketAdd";
+		return "admin/basket/basketAdd";
 	}
 	
 	@GetMapping("/deleteBasket")
 	public String deleteBasket() {
 		
-		return "/admin/basket/basketDelete";
+		return "admin/basket/basketDelete";
 	}
 	
 	@GetMapping("/listBasket")
 	public String listBasket() {
 		
-		return "/admin/basket/basketList";
+		return "admin/basket/basketList";
 	}
 	
 	
 	@GetMapping("/modifyBasket")
 	public String modifyBasket() {
 		
-		return "/admin/basket/basketModify";
+		return "admin/basket/basketModify";
 	}
 
 }

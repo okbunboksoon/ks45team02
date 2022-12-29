@@ -12,13 +12,13 @@ public class UnitPriceController {
 	@GetMapping("/addUnitPrice")
 	public String addUnitPrice(Model model) {
 		
-		return "/admin/unitprice/unitpriceAddGoods";
+		return "admin/unitprice/unitpriceAddGoods";
 	}	
 
 	@GetMapping("/listUnitPrice")
 	public String listUnitPrice() {
 		
-		return "/admin/unitprice/unitpriceListGoods";
+		return "admin/unitprice/unitpriceListGoods";
 	}
 	
 
