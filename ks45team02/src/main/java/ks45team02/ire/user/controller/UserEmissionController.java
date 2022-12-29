@@ -12,18 +12,18 @@ public class UserEmissionController {
 	@GetMapping("/listEmissionC02GoodsTotal")
 	public String listEmissionC02GoodsTotal() {
 		
-		return "/user/emission/emissionListCO2goodsTotal";
+		return "user/emission/emissionListCO2goodsTotal";
 	}
 		
 	@GetMapping("/listEmissionC02Total")
 	public String listEmissionC02Total() {
 		
-		return "/user/emission/emissionListCO2Total";
+		return "user/emission/emissionListCO2Total";
 	}
 	@GetMapping("/listEmissionRawMaterialsGroupStatistics")
 	public String listEmissionRawMaterialsGroupStatistics() {
 		
-		return "/user/emission/emissionListRawMaterialsGroupStatistics";
+		return "user/emission/emissionListRawMaterialsGroupStatistics";
 	}
 	
 }

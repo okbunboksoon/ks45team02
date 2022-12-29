@@ -12,31 +12,31 @@ public class IncomingController {
 	@GetMapping("/addIncoming")
 	public String addIncoming(Model model) {
 		
-		return "/admin/incoming/incomingAdd";
+		return "admin/incoming/incomingAdd";
 	}
 	
 	@GetMapping("/deleteIncoming")
 	public String deleteIncoming() {
 		
-		return "/admin/incoming/incomingDelete";
+		return "admin/incoming/incomingDelete";
 	}
 	
 	@GetMapping("/listIncoming")
 	public String listIncoming() {
 		
-		return "/admin/incoming/incomingList";
+		return "admin/incoming/incomingList";
 	}
 	
 	
 	@GetMapping("/listIncomingStock")
 	public String listIncomingStock() {
 		
-		return "/admin/incoming/incomingListStock";
+		return "admin/incoming/incomingListStock";
 	}
 	@GetMapping("/modifyIncoming")
 	public String modifyIncoming() {
 		
-		return "/admin/incoming/incomingModify";
+		return "admin/incoming/incomingModify";
 	}
 
 }

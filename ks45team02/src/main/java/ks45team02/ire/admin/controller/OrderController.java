@@ -12,26 +12,26 @@ public class OrderController {
 	@GetMapping("/addOrder")
 	public String addOrder(Model model) {
 		
-		return "/admin/order/orderAdd";
+		return "admin/order/orderAdd";
 	}
 	
 	@GetMapping("/deleteOrder")
 	public String deleteOrder() {
 		
-		return "/admin/order/orderDelete";
+		return "admin/order/orderDelete";
 	}
 	
 	@GetMapping("/listOrder")
 	public String listOrder() {
 		
-		return "/admin/order/orderList";
+		return "admin/order/orderList";
 	}
 	
 	
 	@GetMapping("/modifyOrder")
 	public String modifyOrder() {
 		
-		return "/admin/order/orderModify";
+		return "admin/order/orderModify";
 	}
 
 }

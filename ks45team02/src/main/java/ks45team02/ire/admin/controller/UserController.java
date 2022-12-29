@@ -12,69 +12,69 @@ public class UserController {
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
 		
-		return "/admin/user/userAdd";
+		return "admin/user/userAdd";
 	}
 	
 	@GetMapping("/basketUser")
 	public String basketUser() {
 		
-		return "/admin/user/userBasket";
+		return "admin/user/userBasket";
 	}
 	
 	@GetMapping("/deleteUser")
 	public String deleteUser() {
 		
-		return "/admin/user/userDelete";
+		return "admin/user/userDelete";
 	}
 	
 	
 	@GetMapping("/deliveryUser")
 	public String deliveryUser() {
 		
-		return "/admin/user/userDelivery";
+		return "admin/user/userDelivery";
 	}
 	
 	@GetMapping("/findIdUser")
 	public String findIdUser() {
 		
-		return "/admin/user/userFindId";
+		return "admin/user/userFindId";
 	}
 	
 	@GetMapping("/findPwUser")
 	public String findPwUser() {
 		
-		return "/admin/user/userFindPw";
+		return "admin/user/userFindPw";
 	}
 	
 	@GetMapping("/listUser")
 	public String listUser() {
 		
-		return "/admin/user/userList";
+		return "admin/user/userList";
 	}
 	@GetMapping("/listDormantUser")
 	public String listDormant() {
 		
-		return "/admin/user/userListDormant";
+		return "admin/user/userListDormant";
 	}
 	@GetMapping("/listDropUser")
 	public String listDrop() {
 		
-		return "/admin/user/userListDrop";
+		return "admin/user/userListDrop";
 	}
 	@GetMapping("/loginUser")
 	public String loginUser() {
 		
-		return "/admin/user/userLogin";
+		return "admin/user/userLogin";
 	}
 	@GetMapping("/modifyUser")
 	public String modifyUser() {
 		
-		return "/admin/user/userModify";
+		return "admin/user/userModify";
 	}
 	@GetMapping("/usePointSaveUser")
 	public String usePointSaveUser() {
 		
-		return "/admin/user/userPointSave";
+		return "admin/user/userPointSave";
 	}
 
 

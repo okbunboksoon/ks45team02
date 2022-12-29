@@ -14,7 +14,7 @@ public class UserBoardUserGuideController {
 	@GetMapping("/listBoardUserGuide")
 	public String listBoardUserGuide() {
 		
-		return "/user/board/boardListUserGuide";
+		return "user/board/boardListUserGuide";
 	}
 	
 

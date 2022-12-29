@@ -12,30 +12,30 @@ public class UserBoardReviewController {
 	@GetMapping("/addBoardReview")
 	public String addBoardReview(Model model) {
 		
-		return "/user/board/boardAddReview";
+		return "user/board/boardAddReview";
 	}
 	
 	@GetMapping("/deleteBoardReview")
 	public String deleteBoardReview() {
 		
-		return "/user/board/boardDeleteReview";
+		return "user/board/boardDeleteReview";
 	}
 	
 	@GetMapping("/listBoardReview")
 	public String listBoardReview() {
 		
-		return "/user/board/boardListReview";
+		return "user/board/boardListReview";
 	}
 		
 	@GetMapping("/modifyBoardReview")
 	public String modifyBoardReview() {
 		
-		return "/user/board/boardModifyReview";
+		return "user/board/boardModifyReview";
 	}
 	@GetMapping("/searchBoardReview")
 	public String searchBoardReview() {
 		
-		return "/user/board/boardSearchReview";
+		return "user/board/boardSearchReview";
 	}
 }
 

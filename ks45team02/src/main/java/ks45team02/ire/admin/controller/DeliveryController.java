@@ -12,26 +12,26 @@ public class DeliveryController {
 	@GetMapping("/addDelivery")
 	public String addDelivery(Model model) {
 		
-		return "/admin/delivery/deliveryAdd";
+		return "admin/delivery/deliveryAdd";
 	}
 	
 	@GetMapping("/deleteDelivery")
 	public String deleteDelivery() {
 		
-		return "/admin/delivery/deliveryDelete";
+		return "admin/delivery/deliveryDelete";
 	}
 	
 	@GetMapping("/listDelivery")
 	public String listDelivery() {
 		
-		return "/admin/delivery/deliveryList";
+		return "admin/delivery/deliveryList";
 	}
 	
 	
 	@GetMapping("/modifyDelivery")
 	public String modifyDelivery() {
 		
-		return "/admin/delivery/deliveryModify";
+		return "admin/delivery/deliveryModify";
 	}
 
 }
