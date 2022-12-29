@@ -42,6 +42,11 @@ public class PaymentController {
 		
 		return "admin/payment/paymentList";
 	}
+	@GetMapping("/modifyPayment")
+	public String modifyPayment() {
+
+		return "admin/payment/paymentModify";
+	}
 
 }
 
