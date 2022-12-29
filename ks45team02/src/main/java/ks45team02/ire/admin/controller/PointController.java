@@ -33,11 +33,6 @@ public class PointController {
 		return "admin/point/pointDeleteStandard";
 	}
 	
-	@GetMapping("/listPoint")
-	public String listPoint() {
-		
-		return "admin/point/pointList";
-	}
 	@GetMapping("/addSavePoint")
 	public String addSavePoint() {
 		
@@ -47,6 +42,11 @@ public class PointController {
 	public String addMinusPoint() {
 		
 		return "admin/point/pointMinusAdd";
+	}
+	@GetMapping("/listPoint")
+	public String listPoint() {
+		
+		return "admin/point/pointList";
 	}
 	@GetMapping("/modifySavePoint")
 	public String modifySavePoint() {
