@@ -28,39 +28,39 @@ public class RawmaterialsController {
 	@GetMapping("/deleteoutgoingRawmaterials")
 	public String deleteoutgoingRawMatrials() {
 		
-		return "admin/rawmatrials/rawmaterialsDeleteOutgoing";
+		return "admin/rawmaterials/rawmaterialsDeleteOutgoing";
 	}
 	@GetMapping("/listIncomingRawmaterials")
 	public String listIncomingRawMatrials() {
 		
-		return "admin/rawmatrials/rawmaterialsListIncoming";
+		return "admin/rawmaterials/rawmaterialsListIncoming";
 	}
 	@GetMapping("/listNowRawmaterials")
 	public String listNow() {
 		
-		return "admin/rawmatrials/rawmaterialsListNow";
+		return "admin/rawmaterials/rawmaterialsListNow";
 	}
 	@GetMapping("/listOutgoingRawmaterials")
 	public String listOutgoingRawMatrials() {
 		
-		return "admin/rawmatrials/rawmaterialsListOutgoing";
+		return "admin/rawmaterials/rawmaterialsListOutgoing";
 	}
 	@GetMapping("/modifyIncomingRawmaterials")
 	public String modifyIncomingRawMatrials() {
 		
-		return "admin/rawmatrials/rawmaterialsModifyIncoming";
+		return "admin/rawmaterials/rawmaterialsModifyIncoming";
 	}
 	@GetMapping("/modifyOutgoingRawmaterials")
 	public String modifyOutgoingRawMatrials() {
 		
-		return "admin/rawmatrials/rawmaterialsModifyOutgoing";
+		return "admin/rawmaterials/rawmaterialsModifyOutgoing";
 	}
 	
 	
 	@GetMapping("/totalRawmaterialsInOut")
 	public String totalRawMatrialsInOut() {
 		
-		return "admin/rawmatrials/rawmaterialsTotalInOut";
+		return "admin/rawmaterials/rawmaterialsTotalInOut";
 	}
 	
 
