@@ -12,26 +12,26 @@ public class ContractController {
 	@GetMapping("/addContract")
 	public String addContract(Model model) {
 		
-		return "/admin/contract/contractAdd";
+		return "admin/contract/contractAdd";
 	}
 	
 	@GetMapping("/deleteContract")
 	public String deleteContract() {
 		
-		return "/admin/contract/contractDelete";
+		return "admin/contract/contractDelete";
 	}
 	
 	@GetMapping("/listContract")
 	public String listContract() {
 		
-		return "/admin/contract/contractList";
+		return "admin/contract/contractList";
 	}
 	
 	
 	@GetMapping("/modifyContract")
 	public String modifyContract() {
 		
-		return "/admin/contract/contractModify";
+		return "admin/contract/contractModify";
 	}
 
 }

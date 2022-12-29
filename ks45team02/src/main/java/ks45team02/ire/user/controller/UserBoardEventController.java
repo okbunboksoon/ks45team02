@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class UserBoardEventController {
 
-	
-
-	
 	@GetMapping("/listBoardEvent")
 	public String listBoardEvent() {
 		

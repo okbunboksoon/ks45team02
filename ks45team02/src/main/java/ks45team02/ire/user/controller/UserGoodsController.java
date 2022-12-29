@@ -12,8 +12,13 @@ public class UserGoodsController {
 	@GetMapping("/orderGoods")
 	public String orderGoods() {
 		
-		return "/user/goods/goodsOrder";
+		return "user/goods/goodsOrder";
 	}
-
+	@GetMapping("/listGoods")
+	public String listGoods() {
+		
+		return "user/goods/goodsList";
+	}
+	
 }
 

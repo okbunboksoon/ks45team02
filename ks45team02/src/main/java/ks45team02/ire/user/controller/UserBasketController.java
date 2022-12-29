@@ -11,26 +11,26 @@ public class UserBasketController {
 	@GetMapping("/addBasket")
 	public String addBasket(Model model) {
 		
-		return "/user/basket/basketAdd";
+		return "user/basket/basketAdd";
 	}
 	
 	@GetMapping("/deleteBasket")
 	public String deleteBasket() {
 		
-		return "/user/basket/basketDelete";
+		return "user/basket/basketDelete";
 	}
 	
 	@GetMapping("/listBasket")
 	public String listBasket() {
 		
-		return "/user/basket/basketList";
+		return "user/basket/basketList";
 	}
 	
 	
 	@GetMapping("/modifyBasket")
 	public String modifyBasket() {
 		
-		return "/user/basket/basketList";
+		return "user/basket/basketList";
 	}
 
 }

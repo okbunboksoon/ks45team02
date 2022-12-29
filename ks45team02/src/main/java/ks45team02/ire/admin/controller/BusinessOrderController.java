@@ -12,26 +12,26 @@ public class BusinessOrderController {
 	@GetMapping("/addBusiness")
 	public String addBusiness(Model model) {
 		
-		return "/admin/business/businessAdd";
+		return "admin/businessorder/businessAdd";
 	}
 	
 	@GetMapping("/deleteBusiness")
 	public String deleteBusiness() {
 		
-		return "/admin/business/businessDelete";
+		return "admin/businessorder/businessDelete";
 	}
 	
 	@GetMapping("/listBusiness")
 	public String listBusiness() {
 		
-		return "/admin/business/businessList";
+		return "admin/businessorder/businessList";
 	}
 	
 	
 	@GetMapping("/modifyBusiness")
 	public String modifyBusiness() {
 		
-		return "/admin/business/businessModify";
+		return "admin/businessorder/businessModify";
 	}
 
 }

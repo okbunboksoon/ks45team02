@@ -12,26 +12,26 @@ public class BoardUserGuideController {
 	@GetMapping("/addBoardUserGuide")
 	public String addBoardUserGuide(Model model) {
 		
-		return "/admin/board/boardAddUserGuide";
+		return "admin/board/boardAddUserGuide";
 	}
 	
 	@GetMapping("/deleteBoardUserGuide")
 	public String deleteBoardUserGuide() {
 		
-		return "/admin/board/boardDeleteUserGuide";
+		return "admin/board/boardDeleteUserGuide";
 	}
 	
 	@GetMapping("/listBoardUserGuide")
 	public String listBoardUserGuide() {
 		
-		return "/admin/board/boardListUserGuide";
+		return "admin/board/boardListUserGuide";
 	}
 	
 	
 	@GetMapping("/modifyBoardUserGuide")
 	public String modifyBoardUserGuide() {
 		
-		return "/admin/board/boardModifyUserGuide";
+		return "admin/board/boardModifyUserGuide";
 	}
 
 }

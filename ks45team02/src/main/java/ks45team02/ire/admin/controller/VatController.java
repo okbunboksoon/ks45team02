@@ -12,7 +12,7 @@ public class VatController {
 	@GetMapping("/listVat")
 	public String listVat() {
 		
-		return "/admin/vat/vatList";
+		return "admin/vat/vatList";
 	}
 
 

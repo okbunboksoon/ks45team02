@@ -12,30 +12,30 @@ public class GoodsController {
 	@GetMapping("/addGoods")
 	public String addGoods(Model model) {
 		
-		return "/admin/goods/goodsAdd";
+		return "admin/goods/goodsAdd";
 	}
 	
 	@GetMapping("/deleteGoods")
 	public String deleteGoods() {
 		
-		return "/admin/goods/goodsDelete";
+		return "admin/goods/goodsDelete";
 	}
 	
 	@GetMapping("/listGoods")
 	public String listGoods() {
 		
-		return "/admin/goods/goodsList";
+		return "admin/goods/goodsList";
 	}
 	
 	@GetMapping("/modifyGoods")
 	public String modifyGoods() {
 		
-		return "/admin/goods/goodsModify";
+		return "admin/goods/goodsModify";
 	}
 	@GetMapping("/orderGoods")
 	public String orderGoods() {
 		
-		return "/admin/goods/goodsOrder";
+		return "admin/goods/goodsOrder";
 	}
 
 }
