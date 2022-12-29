@@ -18,9 +18,9 @@ public class UserDonationController {
 		
 	
 	@GetMapping("/requestDonation")
-	public String requestDonation() {
+	public String requestDonation(Model model) {
 		
-		return "user/donation/donationrequest";
+		return "user/donation/donationRequest";
 	}
 
 }
