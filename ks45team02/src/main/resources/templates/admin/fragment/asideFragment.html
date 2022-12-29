@@ -44,7 +44,6 @@
 		                    <li><a href="admin/addUser">#회원 등록</a></li>
 		                    <li><a href="admin/modifyUser">#회원 수정</a></li>
 		                    <li><a href="admin/deleteUser">#회원 삭제</a></li>
-		                    <li><a href="admin/basketUser">#장바구니</a></li>
 		                    <li><a href="admin/findIdUser">#회원 아이디 찾기</a></li>
 		                    <li><a href="admin/findPwUser">#회원 비밀번호 찾기</a></li>
 		                    <li><a href="admin/listUser">#회원 조회</a></li>
@@ -200,15 +199,44 @@
                             <li><a href="admin/listQualityInspectionStandard">#품질검사 결과 조회</a></li>
                         </ul>
                     </li>
+                    <li><a><i class="fa fa-edit"></i>#장바구니 구매 - 김민경 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/addBuyBasket">#장바구니 구매 등록</a></li>
+                            <li><a href="admin/modifyBuyBasket">#장바구니 구매 수정</a></li>
+                            <li><a href="admin/deleteBuyBasket">#장바구니 구매 삭제</a></li>
+                            <li><a href="admin/listBuyBasket">#장바구니 구매 조회</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>#즉시 구매 - 김민경 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/addBuyNow">#즉시 구매 등록</a></li>
+                            <li><a href="admin/modifyBuyNow">#즉시 구매 수정</a></li>
+                            <li><a href="admin/deleteBuyNow">#즉시 구매 삭제</a></li>
+                            <li><a href="admin/listBuyNow">#즉시 구매 조회</a></li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-edit"></i>#결제 내역 - 김민경 <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="admin/addPayment">#결제내역 등록</a></li>
                             <li><a href="admin/modifyPayment">#결제내역 수정</a></li>
                             <li><a href="admin/deletePayment">#결제내역 삭제</a></li>
                             <li><a href="admin/listPayment">#결제내역 조회</a></li>
-                            <li><a href="admin/buyNowPayment">#즉시구매 결제내역 등록</a></li>
-                            <li><a href="admin/buyNowCancelPayment">#즉시구매 결제내역 취소</a></li>
-                            <li><a href="admin/buyNowListPayment">#즉시구매 결제내역 조회</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>#구매자별 결제 종류 - 김민경 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/addTypePaymentInfo">#구매자별 결제 종류 등록</a></li>
+                            <li><a href="admin/modifyTypePaymentInfo">#구매자별 결제 종류 수정</a></li>
+                            <li><a href="admin/deleteTypePaymentInfo">#구매자별 결제 종류 삭제</a></li>
+                            <li><a href="admin/listTypePaymentInfo">#구매자별 결제 종류 조회</a></li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i>#현금영수증 - 김민경 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="admin/addCashReceipts">#현금영수증 등록</a></li>
+                            <li><a href="admin/modifyCashReceipts">#현금영수증 수정</a></li>
+                            <li><a href="admin/deleteCashReceipts">#현금영수증 삭제</a></li>
+                            <li><a href="admin/listCashReceipts">#현금영수증 조회</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i>#상품입고 - 김부희 <span class="fa fa-chevron-down"></span></a>
@@ -254,7 +282,7 @@
                     </li>
 
 
-                    <li><a><i class="fa fa-edit"></i>이벤트게시판 - 임수락 <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-edit"></i>#이벤트게시판 - 임수락 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="admin/addBoardEvent">#이벤트 등록</a></li>
 		                    <li><a href="admin/modifyBoardEvent">#이벤트 수정</a></li>
@@ -262,7 +290,7 @@
 		                    <li><a href="admin/listBoardEvent">#이벤트 조회</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-edit"></i>자주묻는질문게시판 - 이유민 <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>#자주묻는질문게시판 - 이유민 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="admin/addBoardFAQ">#자주묻는질문 등록</a></li>
 		                    <li><a href="admin/modifyBoardFAQ">#자주묻는질문 수정</a></li>
@@ -270,7 +298,7 @@
 		                    <li><a href="admin/listBoardFAQ">#자주묻는질문 조회</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-edit"></i>1:1문의 게시판 - 김재범 <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>#1:1문의 게시판 - 김재범 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="admin/addBoardInquiry">#1:1문의 등록</a></li>
 		                    <li><a href="admin/modifyBoardInquiry">#1:1문의 수정</a></li>
@@ -288,7 +316,7 @@
 		                    <li><a href="admin/listBoardNotice">#공지사항 조회</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-edit"></i>리뷰 게시판 - 김민경 <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>#리뷰 게시판 - 김민경 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="admin/addBoardReview">#리뷰 등록</a></li>
 		                    <li><a href="admin/modifyBoardReview">#리뷰 수정</a></li>
@@ -297,7 +325,7 @@
 		                    <li><a href="admin/searchBoardReview">#리뷰 검색</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-edit"></i>유저가이드 게시판 - 김부희 <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>#유저가이드 게시판 - 김부희 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="admin/addBoardUserGuide">#유저가이드 등록</a></li>
 		                    <li><a href="admin/modifyBoardUserGuide">#유저가이드 수정</a></li>
@@ -305,13 +333,13 @@
 		                    <li><a href="admin/listBoardUserGuide">#유저가이드 조회</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-edit"></i>부가세 - 김부희 <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-edit"></i>#부가세 - 김부희 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="admin/listVat">#부가세 조회</a></li>
 		                </ul>
 		            </li>
 
-		            <li><a><i class="fa fa-desktop"></i> UI Elements????이게모람 <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-desktop"></i>#UI Elements????이게모람 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="general_elements">General Elements</a></li>
 		                    <li><a href="media_gallery">Media Gallery</a></li>
@@ -324,7 +352,7 @@
 		                    <li><a href="calendar">Calendar</a></li>
 		                </ul>
 		            </li>
-		            <li><a><i class="fa fa-table"></i> Tables 테이블 조회>>>??? <span class="fa fa-chevron-down"></span></a>
+		            <li><a><i class="fa fa-table"></i> #Tables 테이블 조회>>>??? <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="tables">Tables</a></li>
 		                    <li><a href="tables_dynamic">Table Dynamic</a></li>
