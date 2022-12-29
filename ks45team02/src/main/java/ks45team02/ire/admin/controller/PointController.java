@@ -25,7 +25,7 @@ public class PointController {
 		
 		return "admin/point/pointListStandard";
 	}
-	@GetMapping("/MinusPoint")
+	@GetMapping("/minusPoint")
 	public String MinusPoint() {
 		
 		return "admin/point/pointMinus";
