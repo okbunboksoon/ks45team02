@@ -12,46 +12,56 @@ public class QualityController {
 	@GetMapping("/addQualityGeneralLevel")
 	public String addQualityGeneralLevel(Model model) {
 		
-		return "/admin/quality/qualityAddGeneralLevel";
+		return "admin/quality/qualityAddGeneralLevel";
 	}
 	
 	@GetMapping("/addQualityHazadousSubstanceLevel")
 	public String addQualityHazadousSubstanceLevel() {
 		
-		return "/admin/quality/qualityAddHazadousSubstanceLevel";
+		return "admin/quality/qualityAddHazadousSubstanceLevel";
 	}
 	@GetMapping("/deleteQualityGeneralLevel")
 	public String deleteQualityGeneralLevel() {
 		
-		return "/admin/quality/qualityDeleteGeneralLevel";
+		return "admin/quality/qualityDeleteGeneralLevel";
 	}
 	@GetMapping("/deleteQualityHazadousSubstanceLevel")
 	public String deleteQualityHazadousSubstanceLevel() {
 		
-		return "/admin/quality/qualityDeleteHazadousSubstanceLevel";
+		return "admin/quality/qualityDeleteHazadousSubstanceLevel";
 	}
 	@GetMapping("/listQualityGeneralLevel")
 	public String listQualityGeneralLevel() {
 		
-		return "/admin/quality/qualityListGeneralLevel";
+		return "admin/quality/qualityListGeneralLevel";
 	}
 	@GetMapping("/listQualityHazadousSubstanceLevel")
 	public String listQualityHazadousSubstanceLevel() {
 		
-		return "/admin/quality/qualityListHazadousSubStanceLevel";
+		return "admin/quality/qualityListHazadousSubStanceLevel";
 	}
 	
 	
 	@GetMapping("/listQualityInspectionStandard")
 	public String listQualityInspectionStandard() {
 		
-		return "/admin/quality/qualityListInspectionStandard";
+		return "admin/quality/qualityListInspectionStandard";
+	}
+	@GetMapping("/modifyQualityGeneralLevel")
+	public String modifyQualityGeneralLevel() {
+		
+		return "admin/quality/qualityModifyGeneralLevel";
+	}
+	@GetMapping("/modifyQualityHazadousSubstanceLevel")
+	public String modifyQualityHazadousSubstanceLevel() {
+		
+		return "admin/quality/qualityModifyHazadousSubstanceLevel";
 	}
 	
 	@GetMapping("/requestQualityInspection")
 	public String requestQualityInspection() {
 		
-		return "/admin/quality/qualityRequestInspection";
+		return "admin/quality/qualityRequestInspection";
 	}
 }
 

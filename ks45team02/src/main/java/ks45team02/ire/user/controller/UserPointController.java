@@ -13,12 +13,12 @@ public class UserPointController {
 	@GetMapping("/listPoint")
 	public String listPoint() {
 		
-		return "/user/point/pointList";
+		return "user/point/pointList";
 	}
 	@GetMapping("/listStandardPoint")
 	public String listStandardPoint() {
 		
-		return "/user/point/pointListStandard";
+		return "user/point/pointListStandard";
 	}
 
 

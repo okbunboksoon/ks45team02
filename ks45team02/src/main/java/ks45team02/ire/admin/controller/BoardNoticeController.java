@@ -12,26 +12,26 @@ public class BoardNoticeController {
 	@GetMapping("/addBoardNotice")
 	public String addBoardNotice(Model model) {
 		
-		return "/admin/board/boardAddNotice";
+		return "admin/board/boardAddNotice";
 	}
 	
 	@GetMapping("/deleteBoardNotice")
 	public String deleteBoardNotice() {
 		
-		return "/admin/board/boardDeleteNotice";
+		return "admin/board/boardDeleteNotice";
 	}
 	
 	@GetMapping("/listBoardNotice")
 	public String listBoardNotice() {
 		
-		return "/admin/board/boardListNotice";
+		return "admin/board/boardListNotice";
 	}
 	
 	
 	@GetMapping("/modifyBoardNotice")
 	public String modifyBoardNotice() {
 		
-		return "/admin/board/boardModifyNotice";
+		return "admin/board/boardModifyNotice";
 	}
 
 }

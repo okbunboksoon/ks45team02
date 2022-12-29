@@ -13,7 +13,7 @@ public class UserBoardNoticeController {
 	@GetMapping("/listBoardNotice")
 	public String listBoardNotice() {
 		
-		return "/user/board/boardListNotice";
+		return "user/board/boardListNotice";
 	}
 	
 	
