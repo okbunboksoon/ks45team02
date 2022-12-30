@@ -17,10 +17,10 @@ public class UserDonationController {
 	}
 		
 	
-	@GetMapping("/requestDonation")
-	public String requestDonation(Model model) {
+	@GetMapping("/addDonation")
+	public String addDonation(Model model) {
 		
-		return "user/donation/donationRequest";
+		return "user/donation/donationAdd";
 	}
 
 }
