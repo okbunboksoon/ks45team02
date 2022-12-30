@@ -6,31 +6,5 @@
     
 <mapper namespace="ks45team02.ire.admin.mapper.RawMaterialsMapper">
 
-<select id="rawmaterialsList" resultMap="rawmaterialsResultMap">
-        SELECT
-             r.raw_materials_incoming_date
-            ,r.raw_materials_outcoming_date
-            ,r.raw_materials_num
-            ,r.goods_co2_code
-            ,r.raw_materials_amount
-            ,u.user_id
-            ,u.user_pw
-            ,u.user_name
-            ,u.user_nickname
-            ,u.user_addr
-            ,u.user_phone
-            ,u.user_email
-            ,u.user_birth
-            ,u.point_state
-            ,u.user_join_date
-        FROM
-            raw_materials AS r
-            INNER JOIN
-            user AS u
-            on
-            r.user_id=u.user_id
-            order by r.raw_materials_num
-
-    </select>
 
 </mapper>
