@@ -15,12 +15,6 @@ public class UserController {
 		return "admin/user/userAdd";
 	}
 	
-	@GetMapping("/basketUser")
-	public String basketUser() {
-		
-		return "admin/user/userBasket";
-	}
-	
 	@GetMapping("/deleteUser")
 	public String deleteUser() {
 		

@@ -37,11 +37,6 @@ public class DonationController {
 		
 		return "admin/donation/donationModify";
 	}
-	@GetMapping("/requestDonation")
-	public String requestDonation() {
-		
-		return "admin/donation/donationRequest";
-	}
 
 }
 

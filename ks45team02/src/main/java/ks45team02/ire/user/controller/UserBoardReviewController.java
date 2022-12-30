@@ -15,27 +15,10 @@ public class UserBoardReviewController {
 		return "user/board/boardAddReview";
 	}
 	
-	@GetMapping("/deleteBoardReview")
-	public String deleteBoardReview() {
-		
-		return "user/board/boardDeleteReview";
-	}
-	
 	@GetMapping("/listBoardReview")
 	public String listBoardReview() {
 		
 		return "user/board/boardListReview";
 	}
-		
-	@GetMapping("/modifyBoardReview")
-	public String modifyBoardReview() {
-		
-		return "user/board/boardModifyReview";
-	}
-	@GetMapping("/searchBoardReview")
-	public String searchBoardReview() {
-		
-		return "user/board/boardSearchReview";
-	}
+	
 }
-
