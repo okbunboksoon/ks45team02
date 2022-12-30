@@ -14,39 +14,22 @@ public class PaymentController {
 		
 		return "admin/payment/paymentAdd";
 	}
-	
-	@GetMapping("/buyNowPayment")
-	public String buyNowPayment() {
-		
-		return "admin/payment/paymentBuyNow";
-	}
-	@GetMapping("/buyNowCancelPayment")
-	public String buyNowCancelPayment() {
-		
-		return "admin/payment/paymentBuyNowCancel";
-	}
-	@GetMapping("/buyNowListPayment")
-	public String buyNowListPayment() {
-		
-		return "admin/payment/paymentBuyNowList";
-	}
 	@GetMapping("/deletePayment")
-	public String deletePayment() {
+	public String deletePayment(Model model) {
 		
 		return "admin/payment/paymentDelete";
 	}
-	
-	
 	@GetMapping("/listPayment")
-	public String listPayment() {
+	public String listPayment(Model model) {
 		
 		return "admin/payment/paymentList";
 	}
 	@GetMapping("/modifyPayment")
-	public String modifyPayment() {
-
+	public String modifyPayment(Model model) {
+		
 		return "admin/payment/paymentModify";
 	}
+	
 
 }
 
