@@ -20,4 +20,12 @@
             FROM
             event AS e
         </select>
+    <insert id = "addBoardEvent" parameterType="boardEvent">
+        INSERT INTO EVENT
+        (event_num, event_title, event_contents, event_image, event_start, event_end, event_reg_date)
+        VALUES
+        ( sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
+    </insert>
+
+
 </mapper>

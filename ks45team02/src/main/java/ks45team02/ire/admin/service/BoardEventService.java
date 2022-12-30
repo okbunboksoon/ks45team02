@@ -22,4 +22,8 @@ public class BoardEventService {
         return boardEventList;
 
     }
+
+    public void addBoardEvent(BoardEvent boardEvent){
+        boardEventMapper.addBoardEvent(boardEvent);
+    }
 }

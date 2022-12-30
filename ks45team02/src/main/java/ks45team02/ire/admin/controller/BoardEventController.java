@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -26,10 +27,20 @@ public class BoardEventController {
 		this.boardEventMapper = boardEventMapper;
 	}
 
+	@PostMapping("/addBoardEvent")
+	public String addBoardEvent(BoardEvent boardEvent){
+		log.info("이벤트 등록: {}", boardEvent);
+		boardEventService.addBoardEvent(boardEvent);
+
+		return "redirect:/board/boardListEvent";
+	}
+
 
 	@GetMapping("/addBoardEvent")
 	public String addBoardEvent(Model model) {
-		
+
+		model.addAttribute("title", "이벤트 등록");
+
 		return "admin/board/boardAddEvent";
 	}
 
