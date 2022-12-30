@@ -4,6 +4,22 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
+		<style type="text/css">
+			table{
+				border : 1px solid black;
+				width: 1000px;
+				table-layout : auto;
+				text-align : center
+			}
+			th{
+				border : 1px solid black;
+				height : 30px;
+			}
+			td{
+				border : 1px solid black;
+				height : 30px;
+			}
+			</style>
 	</head>
 
 	<th:block layout:fragment="customContents">
@@ -30,12 +46,9 @@
 					<td th:text="${l.donationDate}"></td>
 					<td th:text="${l.donationStatus}"></td>
 				</tr>
-				
-				
-				<tr th:if="${#lists.isEmpty(donationList)">
-					<td colspan="6">기부 데이터가 존재하지 않습니다.</td>
+				<tr th:if="${#lists.isEmpty(donationList)}">
+					<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
 				</tr>
-			
 			</tbody>
 		</table>
 		

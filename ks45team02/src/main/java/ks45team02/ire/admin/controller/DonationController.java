@@ -19,10 +19,10 @@ public class DonationController {
 	
 	private static final Logger log = LoggerFactory.getLogger(DonationController.class);
 
-	private static DonationService donationservice;
+	private final DonationService donationService;
 	
 	public DonationController(DonationService donationService) {
-		this.donationservice = donationservice;
+		this.donationService = donationService;
 	}
 	
 
@@ -46,7 +46,7 @@ public class DonationController {
 	@GetMapping("/listDonation")
 	public String listDonation(Model model) {
 		
-		List<Donation> donationList = donationservice.getDonationList();
+		List<Donation> donationList = donationService.getDonationList();
 		
 		model.addAttribute("title", "기부 조회");
 		model.addAttribute("donationList", donationList);
