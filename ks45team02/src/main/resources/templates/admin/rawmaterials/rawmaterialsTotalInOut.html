@@ -64,19 +64,17 @@
                     <th>삭제</th>
                 </tr>
             </thead>
-            <tbody>
-					<tr th:if="${not #lists.isEmpty(goodsList)}"
-					 th:each="l : ${goodsList}">
-                    <td th:text="${l.goodsCode}" />
-                    <td th:text="${l.goodsName}" />
-					<td th:text="${'₩' + #numbers.formatInteger
-					(l.goodsPrice, 3, 'COMMA')}"></td>
-					<th:block th:object="${l.member}">
-                        <td th:text="{memberId}" />
-                        <td th:text="{memberName}" />
-                        <td th:text="*{memberEmail}" />
+            <tbody>	
+            	<th:block th:object="${l.user}">
+                        <td th:text="{userId}" />
                     </th:block>
-                    <td th:text="${l.goodsRegDate}" />
+					<tr th:if="${not #lists.isEmpty(rawmaterialsList)}"
+					 th:each="l : ${rawmaterialsList}">
+                    <td th:text="${l.rawmaterialsIncomingDate}" />
+                    <td th:text="${l.rawmaterialsOutcomingDate}" />
+                     <td th:text="${l.rawmaterialsAmount}" />
+					 <td th:text="${l.rawmaterialsNum}" />
+			
                     <td>
                         <a th:href="@{#}">수정</a>
                     </td>
@@ -84,7 +82,7 @@
                         <a th:href="@{#}">삭제</a>
                     </td>
                 </tr>
-                <tr th:unless="${not #lists.isEmpty(goodsList)}">
+                <tr th:unless="${not #lists.isEmpty(rawmaterialsList)}">
                     <td colspan="9">등록된 재고가 없습니다.</td>
                 </tr>
             </tbody>
