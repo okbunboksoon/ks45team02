@@ -2,9 +2,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>원자재리스트</title>
 </head>
 <body>
-totalRawmaterialsInOut
+	<th:block layout:fragment="customContents">
+		<h1>원자재리스트</h1>
+		<table>
+        <thead>
+         <tr>
+              <th>작성자아이디</th>
+              <th>입고날짜</th>
+              <th>출고날짜</th>
+              <th>원자재NO.</th>
+              <th>상품별 co2배출 기준코드</th>
+              <th>원자재 재고 수량</th>
+              </tr>
+          </thead>
+              <tbody>
+            <tr th:unless="${memberList == null}"
+            th:each="l :${memberList}">
+                  <td th:text="${l.memberId}"></td>
+                <td th:text="${l.memberPw}"></td>
+                <td th:text="${l.memberName}"></td>
+                <td th:text="${l.memberLevel}"></td>
+                <td th:text="${l.memberEmail}"></td>
+                </tr>
+              </tbody>
+              </table>
+              </th:block>
+</body>
+		
+		
+		
+		
+		
+	</th:block>
 </body>
 </html>
