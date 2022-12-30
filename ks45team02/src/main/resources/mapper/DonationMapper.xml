@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.DonationMapper">
+
+	<select id="getDonationList" resultType="Donation">
+		SELECT 
+			 donation_num as donationNum
+			,user_id as userId
+			,goods_co2_code as goodsC02Code
+			,donation_amount as donationAmount
+			,donation_date as donationDate
+			,donation_status as donationStatus
+		FROM 
+			donation
+		;
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

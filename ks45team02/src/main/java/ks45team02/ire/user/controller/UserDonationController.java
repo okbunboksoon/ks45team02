@@ -20,6 +20,8 @@ public class UserDonationController {
 	@GetMapping("/addDonation")
 	public String addDonation(Model model) {
 		
+		
+		
 		return "user/donation/donationAdd";
 	}
 
