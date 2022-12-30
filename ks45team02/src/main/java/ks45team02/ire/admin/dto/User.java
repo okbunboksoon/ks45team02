@@ -8,11 +8,14 @@ public class User {
 	 private String userNickName;
 	 private String userAddr;
 	 private String userPhone;
-	 @Override
-		public String toString() {
-			return "User [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userNickName="
-					+ userNickName + ", userAddr=" + userAddr + ", userPhone=" + userPhone + "]";
-		}
+	 private String userEmail;
+	 private String userBirth;
+	 private int pointState;
+	 private String userJoinDate;
+	 
+	 private User user;
+	 
+	 
 	 
 	public String getUserId() {
 		return userId;
@@ -50,6 +53,39 @@ public class User {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public String getUserBirth() {
+		return userBirth;
+	}
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+	public int getPointState() {
+		return pointState;
+	}
+	public void setPointState(int pointState) {
+		this.pointState = pointState;
+	}
+	public String getUserJoinDate() {
+		return userJoinDate;
+	}
+	public void setUserJoinDate(String userJoinDate) {
+		this.userJoinDate = userJoinDate;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userNickName="
+				+ userNickName + ", userAddr=" + userAddr + ", userPhone=" + userPhone + ", userEmail=" + userEmail
+				+ ", userBirth=" + userBirth + ", pointState=" + pointState + ", userJoinDate=" + userJoinDate + "]";
+	}
+	 
+
 	
-	
+	 
+	 
 }
