@@ -13,6 +13,8 @@ public class User {
 	 private int pointState;
 	 private String userJoinDate;
 	 
+	 private User user;
+	 
 	 
 	 
 	public String getUserId() {
