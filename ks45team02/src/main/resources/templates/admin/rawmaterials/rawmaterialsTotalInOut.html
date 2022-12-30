@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
 <meta charset="UTF-8">
 <title>원자재리스트</title>
@@ -47,7 +49,7 @@
             }
         </style>
     </head>
-</head>
+
 <body>
 	<th:block layout:fragment="customContents">
 		<h1>원자재재고</h1>
@@ -65,15 +67,16 @@
                 </tr>
             </thead>
             <tbody>	
-            	<th:block th:object="${l.user}">
-                        <td th:text="{userId}" />
-                    </th:block>
+            	
+             
 					<tr th:if="${not #lists.isEmpty(rawmaterialsList)}"
-					 th:each="l : ${rawmaterialsList}">
+					 th:each="l : ${rawmaterialsList}">					
+                    <td th:text="${l.userId}"/>              
                     <td th:text="${l.rawmaterialsIncomingDate}" />
                     <td th:text="${l.rawmaterialsOutcomingDate}" />
-                     <td th:text="${l.rawmaterialsAmount}" />
-					 <td th:text="${l.rawmaterialsNum}" />
+                    <td th:text="${l.rawmaterialsNum}" />
+                    <td th:text="${l.goodsCo2Code}" />
+                    <td th:text="${l.rawmaterialsAmount}" />
 			
                     <td>
                         <a th:href="@{#}">수정</a>
@@ -81,10 +84,7 @@
                     <td>
                         <a th:href="@{#}">삭제</a>
                     </td>
-                </tr>
-                <tr th:unless="${not #lists.isEmpty(rawmaterialsList)}">
-                    <td colspan="9">등록된 재고가 없습니다.</td>
-                </tr>
+          
             </tbody>
         </table>
               </th:block>
