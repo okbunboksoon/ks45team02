@@ -4,10 +4,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/admin")
 public class RawmaterialsController {
+	
+	private static final Logger log=
+	 LoggerFactory.getLogger(RawmaterialsController.class);
+	
+	
+	
 
 	@GetMapping("/addIncomingRawmaterials")
 	public String addIncomingRawMatrials(Model model) {
