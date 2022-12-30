@@ -3,39 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <title>원자재리스트</title>
+<head>
+        <style type="text/css">
+            table {
+                border: 1px solid black;
+                width: 100%;
+                table-layout: auto;
+                text-align: center;
+            }
+            th {
+                border: 1px solid black;
+                background-color: cornflowerblue;
+                color: azure;
+                height: 30px;
+            }
+            td {
+                border: 1px solid black;
+                height: 30px;
+            }
+            #rightcolumn{
+                overflow: scroll;
+            } 
+            div {
+                width: 100%;
+                height: 30px;
+                margin-bottom: 10px;
+            }
+            div input{
+                width: 270px;
+                height: 22px;
+            }
+            div select{
+                text-align-last: center;
+                text-align: center;
+                -ms-text-align-last: center;
+                -moz-text-align-last: center;
+                width: 150px;
+                height: 25px;
+            }
+            div button{
+                width: 70px;
+                height: 25px;
+            }
+        </style>
+    </head>
 </head>
 <body>
 	<th:block layout:fragment="customContents">
-		<h1>원자재리스트</h1>
-		<table>
-        <thead>
-         <tr>
-              <th>작성자아이디</th>
-              <th>입고날짜</th>
-              <th>출고날짜</th>
-              <th>원자재NO.</th>
-              <th>상품별 co2배출 기준코드</th>
-              <th>원자재 재고 수량</th>
-              </tr>
-          </thead>
-              <tbody>
-            <tr th:unless="${memberList == null}"
-            th:each="l :${memberList}">
-                  <td th:text="${l.memberId}"></td>
-                <td th:text="${l.memberPw}"></td>
-                <td th:text="${l.memberName}"></td>
-                <td th:text="${l.memberLevel}"></td>
-                <td th:text="${l.memberEmail}"></td>
+		<h1>원자재재고</h1>
+	<table>
+            <thead>
+                <tr>
+                    <th>작성자아이디</th>
+                    <th>입고날짜</th>
+                    <th>출고날짜</th>
+                    <th>원자재NO.</th>
+                    <th>상품별 co2배출 기준코드</th>
+                    <th>원자재 재고 수량</th>
+                    <th>수정</th>
+                    <th>삭제</th>
                 </tr>
-              </tbody>
-              </table>
+            </thead>
+            <tbody>
+					<tr th:if="${not #lists.isEmpty(goodsList)}"
+					 th:each="l : ${goodsList}">
+                    <td th:text="${l.goodsCode}" />
+                    <td th:text="${l.goodsName}" />
+					<td th:text="${'₩' + #numbers.formatInteger
+					(l.goodsPrice, 3, 'COMMA')}"></td>
+					<th:block th:object="${l.member}">
+                        <td th:text="{memberId}" />
+                        <td th:text="{memberName}" />
+                        <td th:text="*{memberEmail}" />
+                    </th:block>
+                    <td th:text="${l.goodsRegDate}" />
+                    <td>
+                        <a th:href="@{#}">수정</a>
+                    </td>
+                    <td>
+                        <a th:href="@{#}">삭제</a>
+                    </td>
+                </tr>
+                <tr th:unless="${not #lists.isEmpty(goodsList)}">
+                    <td colspan="9">등록된 재고가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
               </th:block>
-</body>
-		
-		
-		
-		
-		
-	</th:block>
+
 </body>
 </html>
