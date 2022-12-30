@@ -1,19 +1,19 @@
 package ks45team02.ire.admin.dto;
 
+
 public class RawMaterials {
 
-	
+	private String userId;
 	private String rawmaterialsIncomingDate;
 	private String rawmaterialsOutcomingDate;
 	private String rawmaterialsNum;
 	private String goodsCo2Code;
 	private int rawmaterialsAmount;
-	public User user;
-	@Override
-	public String toString() {
-		return "RawMaterials [rawmaterialsIncomingDate=" + rawmaterialsIncomingDate + ", rawmaterialsOutcomingDate="
-				+ rawmaterialsOutcomingDate + ", rawmaterialsNum=" + rawmaterialsNum + ", goodsCo2Code=" + goodsCo2Code
-				+ ", rawmaterialsAmount=" + rawmaterialsAmount + ", user=" + user + "]";
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getRawmaterialsIncomingDate() {
 		return rawmaterialsIncomingDate;
@@ -45,12 +45,14 @@ public class RawMaterials {
 	public void setRawmaterialsAmount(int rawmaterialsAmount) {
 		this.rawmaterialsAmount = rawmaterialsAmount;
 	}
-	public User getUser() {
-		return user;
+	@Override
+	public String toString() {
+		return "RawMaterials [userId=" + userId + ", rawmaterialsIncomingDate=" + rawmaterialsIncomingDate
+				+ ", rawmaterialsOutcomingDate=" + rawmaterialsOutcomingDate + ", rawmaterialsNum=" + rawmaterialsNum
+				+ ", goodsCo2Code=" + goodsCo2Code + ", rawmaterialsAmount=" + rawmaterialsAmount + "]";
 	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-
+	
+	
+	
 	
 }

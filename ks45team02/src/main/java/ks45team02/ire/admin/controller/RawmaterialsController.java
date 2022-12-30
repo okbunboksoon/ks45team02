@@ -1,18 +1,16 @@
 package ks45team02.ire.admin.controller;
 
+import ks45team02.ire.admin.dto.RawMaterials;
+import ks45team02.ire.admin.mapper.RawMaterialsMapper;
+import ks45team02.ire.admin.service.RawMaterialsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ks45team02.ire.admin.dto.RawMaterials;
-import ks45team02.ire.admin.mapper.RawMaterialsMapper;
-import ks45team02.ire.admin.service.RawMaterialsService;
-
 import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,8 +31,6 @@ public class RawmaterialsController {
 	}
 	
 	
-	
-
 	@GetMapping("/addIncomingRawmaterials")
 	public String addIncomingRawMatrials(Model model) {
 		
@@ -85,11 +81,12 @@ public class RawmaterialsController {
 	
 	@GetMapping("/totalRawmaterialsInOut")
 	public String totalRawMatrialsInOut(Model model) {
-		List<RawMaterials> rawmaterialsList =rawmaterialsService.getRawMaterialsList();
+		List<RawMaterials> rawmaterialsList =rawmaterialsService.rawmaterialsList();
 		
 		model.addAttribute("title", "원자재리스트");
-		model.addAttribute(rawmaterialsList);
-		
+		model.addAttribute("rawmaterialsList",rawmaterialsList);
+		log.info("찍히나?");
+	
 		return "admin/rawmaterials/rawmaterialsTotalInOut";
 	}
 	
