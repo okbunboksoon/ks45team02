@@ -29,18 +29,20 @@ public class BoardEventController {
 
 	@PostMapping("/addBoardEvent")
 	public String addBoardEvent(BoardEvent boardEvent){
-		log.info("이벤트 등록: {}", boardEvent);
+		log.info("이벤트 등록 쿼리파라미터: {}", boardEvent);
 		boardEventService.addBoardEvent(boardEvent);
 
-		return "redirect:/board/boardListEvent";
+		return "redirect:/admin/listBoardEvent";
 	}
 
 
 	@GetMapping("/addBoardEvent")
 	public String addBoardEvent(Model model) {
 
-		model.addAttribute("title", "이벤트 등록");
+		List<BoardEvent> boardEventTitleList = boardEventMapper.getBoardEventTitleList();
 
+		model.addAttribute("title", "이벤트 등록");
+		model.addAttribute("boardEventTitleList", boardEventTitleList );
 		return "admin/board/boardAddEvent";
 	}
 

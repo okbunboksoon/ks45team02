@@ -110,12 +110,9 @@
     <script th:src="@{/admin/build/js/custom.min.js}"></script>
     <script>
             /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
-
-        $(function(){
             $('#submitBtn').click(function(){
-                location.href = '/admin/addBoardEvent';
+                if(true) $('#boardAddEvent').submit();
             });
-        });
     </script>
 </body>
 </html>
