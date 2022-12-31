@@ -27,7 +27,7 @@ public class UserController {
 		model.addAttribute("title","회원가입");
 		return "admin/user/userAdd";
 	}
-//	회원가입2 -김재범
+	//	회원가입2 -김재범
 	@PostMapping("/addUser")
 	public String addUser(User user){
 		log.info("회원가입 :{}",user);
