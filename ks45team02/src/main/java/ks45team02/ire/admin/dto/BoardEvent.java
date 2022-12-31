@@ -8,8 +8,7 @@ public class BoardEvent {
     private String eventStartDate;
     private String eventEndDate;
     private String eventRegdate;
-//아 왜 안돼
-    private BoardEvent boardEvent;
+
 
     @Override
     public String toString() {

@@ -108,5 +108,11 @@
 
     <!-- Custom Theme Scripts -->
     <script th:src="@{/admin/build/js/custom.min.js}"></script>
+    <script>
+            /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
+            $('#submitBtn').click(function(){
+                if(true) $('#boardAddEvent').submit();
+            });
+    </script>
 </body>
 </html>
