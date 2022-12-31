@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
+	
 
-</body>
+	<th:block layout:fragment="customContents">
+		<h1>기부 신청 내역</h1>
+	</th:block>
 </html>
