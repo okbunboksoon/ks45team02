@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style type="text/css">
+			div {
+				color : black;
+			}
+			#noticeTitle {
+				border-top: solid 3px black;
+				border-bottom: solid 1px gray;
+				font-size: 25px;
+				text-align : center;
+				padding: 10px;
+				white-space:pre;
+			}
+			#noticeNumDate {
+				border-bottom: solid 1px gray;
+				background-color : ivory;
+				font-size: 13px;
+				text-align : right;
+				padding: 10px;
+			}
+			#noticeContents {
+				border-bottom: solid 3px black;
+				font-size: 15px;
+				white-space:pre;
+				height: 900px;
+			}
+			#button {
+				text-align : right;	
+				padding: 10px;		
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<h1>상세페이지</h1>
+		<br><br>
+		
+		<body>
+			<div  class="container" th:if="${not #lists.isEmpty(detailsNotice)}" th:each="dl : ${detailsNotice}">
+				<div id="noticeTitle" th:text="${dl.noticeTitle}"></div>
+				<div id="noticeNumDate">
+					<span>등록번호</span>
+					<span th:text="${dl.noticeNum}"></span>
+					<span>등록날짜</span>
+					<span th:text="${dl.noticeDate}"></span>
+				</div>
+				<div id="noticeContents">
+					<div th:text="${dl.noticeContents}"></div>
+				</div>
+				<div id="button">
+					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardNotice}'|">목록으로</button>
+					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardNotice}'|">수정</button>
+					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardNotice}'|">삭제</button>
+				</div>
+			
+			</div>
+		</body>
+		
+	</th:block>
+
+</html>
