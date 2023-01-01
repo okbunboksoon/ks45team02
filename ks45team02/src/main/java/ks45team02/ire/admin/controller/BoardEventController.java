@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -61,6 +62,15 @@ public class BoardEventController {
 		model.addAttribute("boardEventList", boardEventList);
 		
 		return "admin/board/boardListEvent";
+	}
+
+	@GetMapping("/viewBoardEvent")
+	public String viewBoardEvent(@RequestParam(value = "eventTitle", required = false)String eventTitle, Model model){
+		List<BoardEvent> boardEventContents = boardEventService.viewBoardEvent(eventTitle);
+
+		model.addAttribute("title", "이벤트 내용");
+		model.addAttribute("boardEventContents", boardEventContents);
+		return "admin/board/boardViewEvent";
 	}
 	
 	@GetMapping("/modifyBoardEvent")
