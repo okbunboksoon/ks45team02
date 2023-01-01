@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
+<div class="x_content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box table-responsive">
+                <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>이벤트 내역</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>이벤트 제목</td>
+                        <td colspan="2" th:text ="${l.eventTitle}" /></td>
+                    </tr>
+                    <tr>
+                        <td>이벤트 내용</td>
+                        <td colspan="2" th:text ="${l.eventContents}" /></td>
+                    </tr>
+                    <tr>
+                        <td>이벤트 이미지</td>
+                        <td colspan="2" th:text ="${l.eventContents}" /></td>
+                    </tr>
+                    <tr>
+                        <td>이벤트 시작일</td>
+                        <td colspan="2" th:text ="${l.eventStartDate}" /></td>
+                    </tr>
+                    <tr>
+                        <td style = "width: 20%">이벤트 종료일</td>
+                        <td colspan="2" th:text ="${l.eventEndDate}" /></td>
+                    </tr>
+                    <tr>
+                        <td style = "width: 20%">등록 날짜</td>
+                        <td colspan="2" th:text ="${l.eventRegdate}" /></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
