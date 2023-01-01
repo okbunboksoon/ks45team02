@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardFAQMapper">
+	<resultMap id="BoardFAQResultMap" type="BoardFAQ">
+        <id property="FAQ_num"			column="FAQ_num" />
+        <result property="FAQ_title"			column="FAQ_title" />
+        <result property="FAQ_contents"		column="FAQ_contents" />
+        <result property="FAQ_file"		column="FAQ_file" />
+        <result property="FAQ_views"		column="FAQ_views" />
+        <result property="FAQ_reg_date"	column="FAQ_reg_date" />
+    </resultMap>
+    
+
+    
+    <!-- faq 등록 -->
+    <insert id="addFAQ" parameterType="BoardFAQ">
+    	INSERT INTO faq(
+    		FAQ_num
+			,FAQ_title
+			,FAQ_contents
+			,FAQ_file
+			,FAQ_views
+			,FAQ_reg_date
+		)VALUES(
+			sf_new_faq_num(), 
+			#{FAQ_title}, 
+			#{FAQ_contents}, 
+			null, 
+			'0', 
+			CURDATE()
+		)
+    </insert>
+</mapper>
