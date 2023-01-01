@@ -32,7 +32,9 @@
         <tbody>
         <tr th:if ="${not #lists.isEmpty(boardEventList)}" th:each="l : ${boardEventList}">
             <td th:text ="${l.eventNum}"/></td>
-            <td th:text ="${l.eventTitle}"/></td>
+            <td>
+                <a th:text ="${l.eventTitle}" th:href="@{/admin/viewBoardEvent (eventTitle=${l.eventTitle})}"></a>
+            </td>
             <td th:text = "${l.eventRegdate}"/></td>
             <td>
                 <a th:href="@{./modifyBoardEvent}">수정</a>

@@ -32,4 +32,12 @@
         FROM
         event AS e
     </select>
+    <select id="viewBoardEvent" resultType="String"  resultMap="BoardEventResultMap">
+        SELECT
+        e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
+        FROM
+        event AS e
+        WHERE
+        e.event_title = #{eventTitle};
+    </select>
 </mapper>

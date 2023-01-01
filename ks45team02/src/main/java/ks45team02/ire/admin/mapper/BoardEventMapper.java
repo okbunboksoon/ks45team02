@@ -13,4 +13,6 @@ public interface BoardEventMapper {
     public void addBoardEvent(BoardEvent boardEvent);
 
     List<BoardEvent> getBoardEventTitleList();
+
+    List<BoardEvent> viewBoardEvent(String eventTitle);
 }

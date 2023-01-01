@@ -27,4 +27,10 @@ public class BoardEventService {
 
         boardEventMapper.addBoardEvent(boardEvent);
     }
+
+    public List<BoardEvent> viewBoardEvent(String eventTitle) {
+        List<BoardEvent> boardEventContents = boardEventMapper.viewBoardEvent(eventTitle);
+
+        return boardEventContents;
+    }
 }
