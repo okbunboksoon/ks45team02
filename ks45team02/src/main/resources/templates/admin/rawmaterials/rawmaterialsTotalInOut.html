@@ -32,8 +32,6 @@
                     <th class = "rawmaterialsNum">원자재번호.</th>
                     <th class = "goodsCo2Code">상품별 co2배출 기준코드</th>
                     <th class = "rawmaterialsAmount">원자재 재고 수량</th>
-                    <th>수정</th>
-                    <th>삭제</th>
                 </tr>
             </thead>
             <tbody>	
@@ -47,13 +45,6 @@
                     <td th:text="${l.rawmaterialsNum}" />
                     <td th:text="${l.goodsCo2Code}" />
                     <td th:text="${l.rawmaterialsAmount}" />
-			
-                    <td>
-                        <a th:href="@{#}">수정</a>
-                    </td>
-                    <td>
-                        <a th:href="@{#}">삭제</a>
-                    </td>
           
             </tbody>
         </table>
