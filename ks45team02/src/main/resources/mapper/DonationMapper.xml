@@ -3,18 +3,83 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.DonationMapper">
+	<resultMap type="Donation" id="donationResultMap">
+		<id property="donationNum" column="donation_num" />
+		<result property="userId" column="user_id" />
+		<result property="goodsC02Code" column="goods_co2_code" />
+		<result property="donationAmount" column="donation_amount" />
+		<result property="donationDate" column="donation_date" />
+		<result property="donationStatus" column="donation_status" />
+	</resultMap>
 
-	<select id="getDonationList" resultType="Donation">
+	<update id="modifyDonation" parameterType="Donation">
+		<!-- 기부 수정 -->
+		UPDATE 
+			donation
+		SET 
+			 user_id = #{userId}
+			,goods_co2_code = #{goodsC02Code}
+			,donation_amount = #{donationAmount}
+			,donation_date = #{donationDate}
+			,donation_status = #{donationStatus}
+		WHERE 
+			donation_num = #{donationNum};
+	</update>
+
+	<select id="getDonationInfo" resultMap="donationResultMap" parameterType="String">
+		<!-- 기부신청 번호로 기부 정보 조회 -->
 		SELECT 
-			 donation_num as donationNum
-			,user_id as userId
-			,goods_co2_code as goodsC02Code
-			,donation_amount as donationAmount
-			,donation_date as donationDate
-			,donation_status as donationStatus
+			 donation_num
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		FROM 
+			donation 
+		WHERE 
+			donation_num = #{donationNum};
+	</select>
+
+	<insert id="addDonation" parameterType="Donation">
+		<!-- 기부 등록 -->
+		INSERT INTO donation (
+		 	 donation_num
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		)VALUES(
+			 sf_new_donation_num()
+			,#{userId}
+			,#{goodsC02Code}
+			,#{donationAmount}
+			,#{donationDate}
+			,#{donationStatus}
+		);
+	
+	</insert>
+	
+	<select id="getDonationList" resultMap="donationResultMap" parameterType="String">
+		<!-- 기부 조회 및 검색 -->
+		SELECT 
+			 donation_num
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date 
+			,donation_status
 		FROM 
 			donation
-		;
+		<where>
+			<if test="searchKey != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDate != '' and startDate != null and endDate != '' and endDate != null">
+				AND <![CDATA[donation_date >= #{startDate} AND donation_date <= #{endDate}]]>
+			</if>	 
+		</where>
 	</select>
 
 

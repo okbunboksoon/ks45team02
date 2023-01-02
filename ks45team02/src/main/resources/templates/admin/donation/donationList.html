@@ -4,28 +4,13 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
-		<style type="text/css">
-			table{
-				border : 1px solid black;
-				width: 1000px;
-				table-layout : auto;
-				text-align : center
-			}
-			th{
-				border : 1px solid black;
-				height : 30px;
-			}
-			td{
-				border : 1px solid black;
-				height : 30px;
-			}
-			</style>
 	</head>
 
 	<th:block layout:fragment="customContents">
+	<div th:include="~{admin/search/search :: donationSearchFragment}"></div>
 		<h1>기부 내역</h1>
 		
-		<table>
+		<table class="table table-striped jambo_table">
 			<thead>
 				<tr>
 					<th>기부 신청 번호</th>
@@ -34,6 +19,8 @@
 					<th>중고매입상품 개수</th>
 					<th>기부신청 날짜</th>
 					<th>기부신청 상태</th>
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			
@@ -45,6 +32,8 @@
 					<td th:text="${l.donationAmount}"></td>
 					<td th:text="${l.donationDate}"></td>
 					<td th:text="${l.donationStatus}"></td>
+					<td><a th:href="@{/admin/modifyDonation(donationNum=${l.donationNum})}">수정</a></td>
+					<td><a th:href="@{/admin/deleteDonation(donationNum=${l.donationNum})}">삭제</a></td>
 				</tr>
 				<tr th:if="${#lists.isEmpty(donationList)}">
 					<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
@@ -52,7 +41,22 @@
 			</tbody>
 		</table>
 		
-		
+	</th:block>
+	
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
 	</th:block>
 
 </html>
