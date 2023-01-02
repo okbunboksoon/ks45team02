@@ -51,8 +51,4 @@ public class RawMaterials {
 				+ ", rawmaterialsOutcomingDate=" + rawmaterialsOutcomingDate + ", rawmaterialsNum=" + rawmaterialsNum
 				+ ", goodsCo2Code=" + goodsCo2Code + ", rawmaterialsAmount=" + rawmaterialsAmount + "]";
 	}
-	
-	
-	
-	
 }

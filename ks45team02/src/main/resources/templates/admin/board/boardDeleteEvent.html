@@ -2,22 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-    <style>
-        .tg  {border-collapse:collapse;border-spacing:0;}
-        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg .tg-baqh{text-align:center;vertical-align:top}
-        .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    <style type="text/css">
+        div {
+            color: black;
+        }
+        #inputTitle {
+            width: 100%
+        }
+        #inputContent {
+            width: 100%
+        }
+        .btnGroup {
+            text-align : center;
+        }
+        button {
+            width: 20%
+        }
+        label {
+            font-size: 20px;
+            margin: 5px;
+        }
     </style>
 </head>
+
+<!-- 사용자 지정 js 파일 -->
 <th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </th:block>
-<!-- 사용자 지정 js script -->
-<th:block layout:fragment="customScript">
+
 
 </th:block>
     <h1>이벤트 삭제</h1>
