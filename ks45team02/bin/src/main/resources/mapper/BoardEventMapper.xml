@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardEventMapper">
+    <resultMap id="BoardEventResultMap" type="BoardEvent">
+        <id property="eventNum"         column="event_num" />
+        <result property="eventTitle"    column="event_title" />
+        <result property="eventContents"    column="event_contents" />
+        <result property="eventImage"    column="event_image" />
+        <result property="eventStartDate"    column="event_start" />
+        <result property="eventEndDate"    column="event_finish" />
+        <result property="eventRegdate"    column="event_reg_date" />
+    </resultMap>
+        <select id="getBoardEventList" resultMap="BoardEventResultMap">
+            SELECT
+            e.event_num
+            , e.event_title
+            , e.event_reg_date
+            FROM
+            event AS e
+        </select>
+    <insert id = "addBoardEvent" parameterType="BoardEvent">
+        INSERT INTO event
+        (event_num, event_title, event_contents, event_image, event_start, event_finish, event_reg_date)
+        VALUES
+        (sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
+    </insert>
+    <select id = "getBoardEventTitleList" resultType="BoardEvent">
+        SELECT
+        e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish
+        FROM
+        event AS e
+    </select>
+    <select id="viewBoardEvent" resultType="String"  resultMap="BoardEventResultMap">
+        SELECT
+         e.event_num, e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
+        FROM
+        event AS e
+        WHERE
+        e.event_title = #{eventTitle};
+    </select>
+    <update id = "modifyBoardEventInfo" parameterType="BoardEvent">
+        UPDATE event
+            <trim prefix="SET" prefixOverrides=",">
+                <if test="eventTitle != null and eventTitle != '' ">
+                    event_title= #{eventTitle}
+                 </if>
+                 <if test="eventContents != null and eventContents != '' ">
+                    ,event_contents= #{eventContents}
+                 </if>
+                 <if test="eventImage != null and eventImage != '' ">
+                    ,event_image= #{eventImage}
+                 </if>
+                <if test="eventStartDate != null and eventStartDate != '' ">
+                    ,event_start= #{eventStartDate}
+                </if>
+                <if test="eventEndDate != null and eventEndDate != '' ">
+                    ,event_finish= #{eventEndDate}
+                </if>
+                <if test="eventRegdate != null and eventRegdate != '' ">
+                    ,event_reg_date= CURDATE()
+                </if>
+            </trim>
+            WHERE
+                event_num = #{eventNum}
+    </update>
+</mapper>

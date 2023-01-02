@@ -80,12 +80,12 @@ public class BoardNoticeService {
 	
 	/**
 	 * 공지사항 상세페이지
-	 * @param noticeNum
+	 * @param noticeCode
 	 * @return detailsNotice
 	 */
-	public List<BoardNotice> detailsNotice(String noticeNum){
+	public List<BoardNotice> detailsNotice(String noticeCode){
 		
-		List<BoardNotice> detailsNotice = boardNoticeMapper.detailsNotice(noticeNum);
+		List<BoardNotice> detailsNotice = boardNoticeMapper.detailsNotice(noticeCode);
 		
 		return detailsNotice;
 	}
@@ -99,4 +99,10 @@ public class BoardNoticeService {
 		
 		return boardNoticeMapper.modifyBoardNotice(boardNotice);
 	}
+	
+	public int deleteBoardNotice(BoardNotice boardNotice) {
+		
+		return boardNoticeMapper.deleteBoardNotice(boardNotice);
+	}
 }
+

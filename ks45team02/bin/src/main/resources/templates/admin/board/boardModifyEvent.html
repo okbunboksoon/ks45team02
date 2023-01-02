@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
+<head>
+    <style type="text/css">
+        div {
+            color: black;
+        }
+        #inputTitle {
+            width: 100%
+        }
+        #inputContent {
+            width: 100%
+        }
+        .btnGroup {
+            text-align : center;
+        }
+        button {
+            width: 20%
+        }
+        label {
+            font-size: 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<script>
+    /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
+    $('#submitBtn').click(function(){
+        if(true) $('#boardModifyEvenEvent').submit();
+    });
+</script>
+
+<th:block layout:fragment="customContents">
+    <form id="boardModifyEvent" th:action="@{/admin/modifyBoardEvent}" method="post" >
+        <h1>이벤트 수정</h1>
+        <br><br>
+        <th:block th:if="${not #lists.isEmpty(boardEventInfo)}" th:each="mn : ${boardEventInfo}">
+            <input type="hidden" class="form-control" id="eventNum" name="eventNum" th:value="${mn.eventNum}">
+            <div class="mb-3">
+                <label class="form-label">이벤트 제목</label>
+                <input type="text" class="form-control" id="eventTitle" name="eventTitle" th:value="${mn.eventTitle}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">이벤트 내용</label>
+                <input type="text" class="form-control" id="eventContents" name="eventContents" th:value="${mn.eventContents}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">이벤트 이미지</label>
+                <input type ="image" id = "eventImage" name = "eventImage" th:text="${mn.eventImage}" th:value="${mn.eventImage}" alt="제출" style = "width: 250px; height: 175px;" />
+            </div>
+            <div class = "mb-3">
+                <label class = "form-label">이벤트 시작일</label>
+                <input type ="date" id = "eventStartDate" name = "eventStartDate" th:text="${mn.eventStartDate}" th:value="${mn.eventStartDate}" />
+            </div>
+            <div class = "mb-3">
+                <label class = "form-label">이벤트 종료일</label>
+                <input type ="date" id = "eventEndDate" name = "eventEndDate" th:text="${mn.eventEndDate}" th:value="${mn.eventEndDate}" />
+            </div>
+            <div class="btnGroup">
+                <button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
+                <button type="button" class="btn btn-outline-danger" id="resetBtn" th:onclick="|location.href='@{/admin/listBoardEvent}'|">취소</button>
+            </div>
+        </th:block>
+    </form>
+</th:block>
+</html>

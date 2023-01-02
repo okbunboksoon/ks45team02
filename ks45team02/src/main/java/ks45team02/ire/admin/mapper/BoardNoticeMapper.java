@@ -28,10 +28,15 @@ public interface BoardNoticeMapper {
 	/**
 	 * 공지사항 상세페이지
 	 */
-	public List<BoardNotice> detailsNotice(String noticeNum);
+	public List<BoardNotice> detailsNotice(String noticeCode);
 	
 	/**
 	 * 공지사항 수정처리
 	 */
 	public int modifyBoardNotice(BoardNotice boardNotice);
+	
+	/**
+	 * 공지사항 삭제처리
+	 */
+	public int deleteBoardNotice(BoardNotice boardNotice);
 }
