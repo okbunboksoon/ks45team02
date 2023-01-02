@@ -22,6 +22,20 @@ public class DonationService {
 		this.donationMapper = donationMapper;
 	}
 	
+	
+	/**
+	 * 기부 등록
+	 * @param donation
+	 * @return int
+	 */
+	public int addDonation(Donation donation) {
+		
+		int result = donationMapper.addDonation(donation);
+		
+		return result;
+	}
+	
+	
 	/**
 	 * 기부 조회 및 검색
 	 * @param searchKey

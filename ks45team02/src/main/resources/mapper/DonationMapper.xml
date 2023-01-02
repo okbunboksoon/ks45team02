@@ -3,18 +3,44 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.DonationMapper">
+	<resultMap type="Donation" id="donationResultMap">
+		<id property="donationNum" column="donation_num" />
+		<result property="userId" column="user_id" />
+		<result property="goodsC02Code" column="goods_co2_code" />
+		<result property="donationAmount" column="donation_amount" />
+		<result property="donationDate" column="donation_date" />
+		<result property="donationStatus" column="donation_status" />
+	</resultMap>
 
-
+	<insert id="addDonation" parameterType="Donation">
+		<!-- 기부 등록 -->
+		INSERT INTO donation (
+		 	 donation_num
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		)VALUES(
+			 sf_new_donation_num()
+			,#{userId}
+			,#{goodsC02Code}
+			,#{donationAmount}
+			,#{donationDate}
+			,#{donationStatus}
+		);
 	
-	<select id="getDonationList" resultType="Donation" parameterType="String">
+	</insert>
+	
+	<select id="getDonationList" resultMap="donationResultMap" parameterType="String">
 		<!-- 기부 조회 및 검색 -->
 		SELECT 
-			 donation_num as donationNum
-			,user_id as userId
-			,goods_co2_code as goodsC02Code
-			,donation_amount as donationAmount
-			,donation_date as donationDate
-			,donation_status as donationStatus
+			 donation_num
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date 
+			,donation_status
 		FROM 
 			donation
 		<where>
