@@ -24,7 +24,7 @@
         INSERT INTO event
         (event_num, event_title, event_contents, event_image, event_start, event_finish, event_reg_date)
         VALUES
-        ( sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
+        (sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
     </insert>
     <select id = "getBoardEventTitleList" resultType="BoardEvent">
         SELECT
@@ -40,4 +40,30 @@
         WHERE
         e.event_title = #{eventTitle};
     </select>
+    <select id = "modifyBoardEvent" parameterType="String" resultMap="BoardEventResultMap">
+        SELECT
+        e.event_num, e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
+        FROM
+        event AS e
+        WHERE
+        e.event_num = #{eventNum};
+    </select>
+    <update id = "modifyBoardEventInfo" parameterType="BoardEvent">
+        UPDATE event
+
+                SET
+                    event_title= #{eventTitle}
+
+                    ,event_contents= #{eventContents}
+
+                    ,event_image= #{eventImage}
+
+                    ,event_start= #{eventStartDate}
+
+                    ,event_finish= #{eventEndDate}
+
+                    ,event_reg_date= CURDATE()
+            WHERE
+                event_num = #{eventNum}
+    </update>
 </mapper>
