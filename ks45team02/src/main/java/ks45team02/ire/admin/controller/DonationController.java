@@ -66,8 +66,37 @@ public class DonationController {
 		return "admin/donation/donationAddPointSave";
 	}
 	
+	//기부 삭제 처리
+	@PostMapping("/deleteDonation")
+	public String deleteDonation(@RequestParam(value="donationCode") String donationCode
+								,RedirectAttributes reAttr) {
+		
+		int result = donationService.deleteDonation(donationCode);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "삭제에 실패하였습니다.");
+			return "redirect:/admin/deleteDonation";
+		}else {
+			reAttr.addAttribute("msg", result + "개의 데이터가 삭제되었습니다.");
+		}
+		
+		return "redirect:/admin/listDonation";
+	}
+	
+	
+	//기부 삭제 페이지
 	@GetMapping("/deleteDonation")
-	public String deleteDonation() {
+	public String deleteDonation(@RequestParam(value="donationCode") String donationCode
+								,@RequestParam(value="msg", required=false) String msg
+								,Model model) {
+		
+		Donation donationInfo = donationMapper.getDonationInfo(donationCode);
+		
+		model.addAttribute("title", "기부 삭제");
+		model.addAttribute("donationInfo", donationInfo); 
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/donation/donationDelete";
 	}
@@ -110,11 +139,11 @@ public class DonationController {
 	
 	//기부 수정 페이지
 	@GetMapping("/modifyDonation")
-	public String modifyDonation(@RequestParam(value="donationNum") String donationNum
+	public String modifyDonation(@RequestParam(value="donationCode") String donationCode
 								,@RequestParam(value="msg", required=false) String msg
 								,Model model) {
 			
-		Donation donationInfo = donationMapper.getDonationInfo(donationNum);
+		Donation donationInfo = donationMapper.getDonationInfo(donationCode);
 		
 		model.addAttribute("title", "기부 수정");
 		model.addAttribute("donationInfo", donationInfo);

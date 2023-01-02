@@ -26,14 +26,14 @@
 			
 			<tbody>
 				<tr th:unless="${#lists.isEmpty(donationList)}" th:each="l : ${donationList}">
-					<td th:text="${l.donationNum}"></td>
+					<td th:text="${l.donationCode}"></td>
 					<td th:text="${l.userId}"></td>
 					<td th:text="${l.goodsC02Code}"></td>
 					<td th:text="${l.donationAmount}"></td>
 					<td th:text="${l.donationDate}"></td>
 					<td th:text="${l.donationStatus}"></td>
-					<td><a th:href="@{/admin/modifyDonation(donationNum=${l.donationNum})}">수정</a></td>
-					<td><a th:href="@{/admin/deleteDonation(donationNum=${l.donationNum})}">삭제</a></td>
+					<td><a th:href="@{/admin/modifyDonation(donationCode=${l.donationCode})}">수정</a></td>
+					<td><a th:href="@{/admin/deleteDonation(donationCode=${l.donationCode})}">삭제</a></td>
 				</tr>
 				<tr th:if="${#lists.isEmpty(donationList)}">
 					<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
