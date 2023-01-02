@@ -55,12 +55,6 @@
 				<!-- footer(하단) end -->
 				
 			</div>
-		
-			<!-- 사용자 지정 js 파일 -->
-			<th:block layout:fragment="customJs"></th:block>
-			
-			<!-- 사용자 지정 js script -->
-			<th:block layout:fragment="customScript"></th:block>
 		</div>
 	</div>
 	
@@ -114,5 +108,10 @@
                 if(true) $('#boardAddEvent').submit();
             });
     </script>
+    <!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs"></th:block>
+	
+	<!-- 사용자 지정 js script -->
+	<th:block layout:fragment="customScript"></th:block>
 </body>
 </html>
