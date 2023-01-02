@@ -2,6 +2,7 @@ package ks45team02.ire.admin.service;
 
 import java.util.List;
 import ks45team02.ire.admin.dto.RawMaterials;
+import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,18 @@ public class RawMaterialsService {
 	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper) {
 		this.rawmaterialsMapper =rawmaterialsMapper;
 	
+	}
+	
+	/**
+	 * 원자재 입고 조회
+	 * @return List<RawMaterialsIncoming>
+	 */
+	public List<RawMaterialsIncoming> getRawMaterialsIncomingList(){
+		
+		List<RawMaterialsIncoming> rawMaterialsIncomingList = rawmaterialsMapper.getRawMaterialsIncomingList();
+		
+		return rawMaterialsIncomingList;
+
 	}
 
 	public List<RawMaterials> rawmaterialsList() {

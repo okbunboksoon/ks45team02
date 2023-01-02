@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-listIncomingRawmaterials
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<h1>subtitle?</h1>
+		
+		<table class="table table-striped jambo_table">
+			<thead>
+				<tr>
+					<th>원자재 코드</th>
+					<th>기부신청 번호</th>
+					<th>원자재 입고 수량</th>
+					<th>입고 날짜</th>
+					<th>상태</th>
+					<th>일반 상품별 이산화탄소 배출량</th>
+					<th>일별 기부상품 입고 그룹</th>
+					<th>기부 후 포인트 적립 금액</th>
+					<th>시간별 기부 포인트 상세 그룹코드</th>
+					<th>수정</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:unless="${#lists.isEmpty(rawMaterialsIncomingList)}" th:each="l : ${rawMaterialsIncomingList}">
+					<td th:text="${l.rawMaterialsCode}"></td>
+					<td th:text="${l.donationCode}"></td>
+					<td th:text="${l.rawMaterialsIncomingAmount}"></td>
+					<td th:text="${l.rawMaterialsIncomingDate}"></td>
+					<td th:text="${l.rawMaterialsStatus}"></td>
+					<td th:text="${l.carbonDioxideEmissionLevel}"></td>
+					<td th:text="${l.rawMaterialsDaygroup}"></td>
+					<td th:text="${l.donationPointSave}"></td>
+					<td th:text="${l.donationPointGroup}"></td>
+					<td><a th:href="@{/admin/modifyIncomingRawmaterials(rawMaterialsCode=${l.rawMaterialsCode})}">수정</a></td>
+					<td><a th:href="@{/admin/deleteIncomingRawmaterials(rawMaterialsCode=${l.rawMaterialsCode})}">삭제</a></td>
+				</tr>
+				<tr th:if="${#lists.isEmpty(rawMaterialsIncomingList)}">
+					<td colspan="6">등록된 원자재 입고가 존재하지 않습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</th:block>
+	
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
+
 </html>
