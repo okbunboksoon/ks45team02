@@ -33,11 +33,6 @@ public class BoardReviewController {
 		
 		return "admin/board/boardModifyReview";
 	}
-	@GetMapping("/searchBoardReview")
-	public String searchBoardReview() {
-		
-		return "admin/board/boardSearchReview";
-	}
 
 }
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class TypePaymentInfo {
+public class TypePaymentInfoController {
 
 	@GetMapping("/addTypePaymentInfo")
 	public String addTypePaymentInfo(Model model) {

@@ -1,24 +1,41 @@
 package ks45team02.ire.admin.controller;
 
+import ks45team02.ire.admin.dto.User;
+import ks45team02.ire.admin.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class UserController {
+	private static final Logger log= LoggerFactory.getLogger(UserController.class);
+	private final UserService userService;
 
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
+
+
+	//	회원 가입1 -김재범
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
-		
+		model.addAttribute("title","회원가입");
 		return "admin/user/userAdd";
 	}
-	
-	@GetMapping("/basketUser")
-	public String basketUser() {
-		
-		return "admin/user/userBasket";
+	//	회원가입2 -김재범
+	@PostMapping("/addUser")
+	public String addUser(User user){
+		log.info("회원가입 :{}",user);
+		userService.addUser(user);
+
+		return "redirect:/admin";
 	}
 	
 	@GetMapping("/deleteUser")
@@ -45,10 +62,13 @@ public class UserController {
 		
 		return "admin/user/userFindPw";
 	}
-	
+
+	//회원 조회
 	@GetMapping("/listUser")
-	public String listUser() {
-		
+	public String listUser(Model model) {
+		List<User>listUser=userService.listUser();
+		model.addAttribute("title","회원 조회");
+		model.addAttribute("listUser",listUser);
 		return "admin/user/userList";
 	}
 	@GetMapping("/listDormantUser")

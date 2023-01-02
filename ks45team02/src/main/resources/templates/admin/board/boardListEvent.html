@@ -24,19 +24,23 @@
         <tr>
             <th>이벤트 번호</th>
             <th>이벤트 제목</th>
+            <th>이벤트 등록날짜</th>
             <th>수정</th>
             <th>삭제</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>번호번호번호번호</td>
-            <td>이름이름이름이름</td>
+        <tr th:if ="${not #lists.isEmpty(boardEventList)}" th:each="l : ${boardEventList}">
+            <td th:text ="${l.eventNum}"/></td>
+            <td>
+                <a th:text ="${l.eventTitle}" th:href="@{/admin/viewBoardEvent (eventTitle=${l.eventTitle})}"></a>
+            </td>
+            <td th:text = "${l.eventRegdate}"/></td>
             <td>
                 <a th:href="@{./modifyBoardEvent}">수정</a>
             </td>
             <td>
-                <a th:href ="@{/deleteBoardEvent}">삭제</a>
+                <a th:href ="@{./deleteBoardEvent}">삭제</a>
             </td>
         </tr>
         </tbody>

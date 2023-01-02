@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="ks45team02.ire.admin.mapper.RawMaterialsMapper">
+<resultMap type="RawMaterials" id="rawmaterialsResultMap">
+<id property="userId"               column="user_id" />
+<result property="rawmaterialsIncomingDate"    column="raw_materials_incoming_date" />
+<result property="rawmaterialsOutcomingDate"   column="raw_materials_outcoming_date" />
+<result property="rawmaterialsNum"         column="raw_materials_num" />
+<result property="goodsCo2Code"         		   column="goods_co2_code" />
+<result property="rawmaterialsAmount"         column="raw_materials_amount" />
+
+    </resultMap>
+<select id="rawmaterialsList" resultMap="rawmaterialsResultMap">
+        SELECT
+           	r.user_id
+            ,r.raw_materials_incoming_date
+            ,r.raw_materials_outcoming_date
+            ,r.raw_materials_num
+            ,r.goods_co2_code
+            ,r.raw_materials_amount
+     
+        FROM
+          	raw_materials as r
+
+    </select>
+</mapper>

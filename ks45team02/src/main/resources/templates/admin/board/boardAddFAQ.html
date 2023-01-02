@@ -4,10 +4,95 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
+		<style type="text/css">
+			div {
+				color: black;
+			}
+			#inputTitle {
+				width: 100%
+			}
+			#inputContent {
+				width: 100%
+			}
+			.btnGroup {
+				text-align : center;
+			}
+			button {
+				width: 20%
+			}
+		</style>
 	</head>
-
-	<th:block layout:fragment="customContents">
-		<h1>자주묻는질문 등록 페이지</h1>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	</th:block>
-
+	
+	<th:block layout:fragment="customScript">
+		<script>
+		$(function(){
+			function validateValue(checkValue) {
+				if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+					return true;
+				}
+				return false;	
+			}
+			
+			$('#submitBtn').click(function(){
+				let isSubmit = true;
+				
+				$('#addFAQForm input').each(function(idx, item){
+					let checkValue = $(item).val();
+					let labelValue = $(item).parents('div').find('label').text();
+					if(validateValue(checkValue)){
+						
+						alert(`${labelValue}를 입력해주세요`);
+						$(item).focus();
+						isSubmit = false;
+						
+						return false;
+					}5
+				});
+			
+				if(isSubmit) $('#addFAQForm').submit();
+			});
+		});
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+	<form id="addFAQForm" th:action="@{/admin/addBoardFAQ}" method="post">
+		<br><br>
+		<div class="x_panel">
+		 <div class="x_title">
+		<h1>FAQ 등록</h1>
+		<div class="clearfix"></div>
+		</div>
+		<div class="x_content">
+		<br>
+		<div class="form-group row ">
+			<label class="control-label col-md-3 col-sm-3 ">FAQ 질문</label>
+			<div class="col-md-9 col-sm-9 ">
+			<input id="faqTitle" name="faqTitle" type="text" class="form-control" placeholder="질문을 입력해주세요.">
+			</div>
+			</div>
+		</div>
+		<div class="control-group row">
+			<label class="control-label col-md-3 col-sm-3 ">FAQ 답변</label>
+			<div class="col-md-9 col-sm-9 ">
+			<input id="faqContent" name="faqContent" class="form-control" rows="3" placeholder="답변을 입력해주세요.">
+			<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+			</div>
+		</div>
+		<div class="ln_solid"></div>
+		<div class="form-group">
+		<div class="col-md-9 col-sm-9  offset-md-3">
+		<button id="submitBtn" type="button" class="btn btn-success">Submit</button>
+		<button type="button" class="btn btn-secondary">Cancel</button>
+		</div>
+		</div>
+		</div>
+		</div>
+	</form>
+</th:block>
 </html>
