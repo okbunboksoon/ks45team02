@@ -12,6 +12,35 @@
 		<result property="donationStatus" column="donation_status" />
 	</resultMap>
 
+	<update id="modifyDonation" parameterType="Donation">
+		<!-- 기부 수정 -->
+		UPDATE 
+			donation
+		SET 
+			 user_id = #{userId}
+			,goods_co2_code = #{goodsC02Code}
+			,donation_amount = #{donationAmount}
+			,donation_date = #{donationDate}
+			,donation_status = #{donationStatus}
+		WHERE 
+			donation_num = #{donationNum};
+	</update>
+
+	<select id="getDonationInfo" resultMap="donationResultMap" parameterType="String">
+		<!-- 기부신청 번호로 기부 정보 조회 -->
+		SELECT 
+			 donation_num
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		FROM 
+			donation 
+		WHERE 
+			donation_num = #{donationNum};
+	</select>
+
 	<insert id="addDonation" parameterType="Donation">
 		<!-- 기부 등록 -->
 		INSERT INTO donation (

@@ -24,6 +24,18 @@ public class DonationService {
 	
 	
 	/**
+	 * 기부 수정
+	 * @param donation
+	 * @return int
+	 */
+	public int modifyDonation(Donation donation) {
+		
+		int result = donationMapper.modifyDonation(donation);
+		
+		return result;
+	}
+	
+	/**
 	 * 기부 등록
 	 * @param donation
 	 * @return int

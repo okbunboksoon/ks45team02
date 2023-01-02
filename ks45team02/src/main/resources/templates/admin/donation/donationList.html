@@ -32,8 +32,8 @@
 					<td th:text="${l.donationAmount}"></td>
 					<td th:text="${l.donationDate}"></td>
 					<td th:text="${l.donationStatus}"></td>
-					<td><a th:href="@{/admin/modifyDonation}">수정</a></td>
-					<td><a th:href="@{/admin/deleteDonation}">삭제</a></td>
+					<td><a th:href="@{/admin/modifyDonation(donationNum=${l.donationNum})}">수정</a></td>
+					<td><a th:href="@{/admin/deleteDonation(donationNum=${l.donationNum})}">삭제</a></td>
 				</tr>
 				<tr th:if="${#lists.isEmpty(donationList)}">
 					<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
@@ -43,11 +43,7 @@
 		
 	</th:block>
 	
-	<!-- 사용자 지정 js 파일 -->
 	
-	<th:block layout:fragment="customJs">
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	</th:block>
 	
 	<!-- 사용자 지정 js script -->
 	 
