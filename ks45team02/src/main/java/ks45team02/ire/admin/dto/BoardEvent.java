@@ -1,5 +1,7 @@
 package ks45team02.ire.admin.dto;
 
+import java.util.List;
+
 public class BoardEvent {
     private String eventNum;
     private String eventTitle;
@@ -8,7 +10,6 @@ public class BoardEvent {
     private String eventStartDate;
     private String eventEndDate;
     private String eventRegdate;
-
 
     @Override
     public String toString() {

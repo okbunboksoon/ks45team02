@@ -24,7 +24,7 @@
         INSERT INTO event
         (event_num, event_title, event_contents, event_image, event_start, event_finish, event_reg_date)
         VALUES
-        ( sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
+        (sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
     </insert>
     <select id = "getBoardEventTitleList" resultType="BoardEvent">
         SELECT
@@ -34,10 +34,35 @@
     </select>
     <select id="viewBoardEvent" resultType="String"  resultMap="BoardEventResultMap">
         SELECT
-        e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
+         e.event_num, e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
         FROM
         event AS e
         WHERE
         e.event_title = #{eventTitle};
     </select>
+    <update id = "modifyBoardEventInfo" parameterType="BoardEvent">
+        UPDATE event
+            <trim prefix="SET" prefixOverrides=",">
+                <if test="eventTitle != null and eventTitle != '' ">
+                    event_title= #{eventTitle}
+                 </if>
+                 <if test="eventContents != null and eventContents != '' ">
+                    ,event_contents= #{eventContents}
+                 </if>
+                 <if test="eventImage != null and eventImage != '' ">
+                    ,event_image= #{eventImage}
+                 </if>
+                <if test="eventStartDate != null and eventStartDate != '' ">
+                    ,event_start= #{eventStartDate}
+                </if>
+                <if test="eventEndDate != null and eventEndDate != '' ">
+                    ,event_finish= #{eventEndDate}
+                </if>
+                <if test="eventRegdate != null and eventRegdate != '' ">
+                    ,event_reg_date= CURDATE()
+                </if>
+            </trim>
+            WHERE
+                event_num = #{eventNum}
+    </update>
 </mapper>

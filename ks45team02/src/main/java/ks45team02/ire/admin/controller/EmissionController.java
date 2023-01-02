@@ -1,14 +1,27 @@
 package ks45team02.ire.admin.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ks45team02.ire.admin.dto.Emission;
+import ks45team02.ire.admin.service.EmissionService;
+
+
 @Controller
 @RequestMapping("/admin")
 public class EmissionController {
-
+	
+	private final EmissionService emissionService;
+	
+	public EmissionController (EmissionService emissionService) {
+		this.emissionService = emissionService;
+		
+	}
+	
 	@GetMapping("/addEmission")
 	public String addEmission(Model model) {
 		
@@ -22,7 +35,10 @@ public class EmissionController {
 	}
 	
 	@GetMapping("/listEmissionC02GoodsTotal")
-	public String listEmissionC02GoodsTotal() {
+	public String listEmissionC02GoodsTotal(Model model) {
+		
+		List<Emission> EmissionList = emissionService.EmissionList();
+		model.addAttribute("EmissionList", EmissionList);
 		
 		return "admin/emission/emissionListCO2goodsTotal";
 	}

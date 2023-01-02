@@ -33,4 +33,14 @@ public class BoardEventService {
 
         return boardEventContents;
     }
+
+    public int modifyBoardEventInfo(BoardEvent boardEvent) {
+        int result = boardEventMapper.modifyBoardEventInfo(boardEvent);
+        return result;
+    }
+
+    public List<BoardEvent> modifyBoardEvent(String eventTitle){
+        List<BoardEvent> boardEventInfo = boardEventMapper.viewBoardEvent(eventTitle);
+        return boardEventInfo;
+    }
 }
