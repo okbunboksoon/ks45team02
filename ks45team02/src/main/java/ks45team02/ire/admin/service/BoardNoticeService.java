@@ -58,7 +58,7 @@ public class BoardNoticeService {
 		paramNoticeMap.put("startRowNum", startRowNum);
 		paramNoticeMap.put("rowPerPage", rowPerPage);
 		
-		List<BoardNotice> noticeList = boardNoticeMapper.getNoticeList();
+		List<BoardNotice> noticeList = boardNoticeMapper.getNoticeList(paramNoticeMap);
 		paramNoticeMap.clear();
 		paramNoticeMap.put("noticeList", noticeList);
 		paramNoticeMap.put("lastPage", lastPage);
@@ -78,10 +78,25 @@ public class BoardNoticeService {
 		return boardNoticeMapper.addNotice(boardNotice);
 	}
 	
+	/**
+	 * 공지사항 상세페이지
+	 * @param noticeNum
+	 * @return detailsNotice
+	 */
 	public List<BoardNotice> detailsNotice(String noticeNum){
 		
 		List<BoardNotice> detailsNotice = boardNoticeMapper.detailsNotice(noticeNum);
 		
 		return detailsNotice;
+	}
+	
+	/**
+	 * 공지사항 수정처리
+	 * @param boardNotice
+	 * @return boardNoticeMapper.modifyBoardNotice(boardNotice)
+	 */
+	public int modifyBoardNotice(BoardNotice boardNotice) {
+		
+		return boardNoticeMapper.modifyBoardNotice(boardNotice);
 	}
 }

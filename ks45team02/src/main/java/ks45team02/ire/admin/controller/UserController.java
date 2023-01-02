@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class UserController {
@@ -60,10 +62,13 @@ public class UserController {
 		
 		return "admin/user/userFindPw";
 	}
-	
+
+	//회원 조회
 	@GetMapping("/listUser")
-	public String listUser() {
-		
+	public String listUser(Model model) {
+		List<User>listUser=userService.listUser();
+		model.addAttribute("title","회원 조회");
+		model.addAttribute("listUser",listUser);
 		return "admin/user/userList";
 	}
 	@GetMapping("/listDormantUser")

@@ -10,6 +10,18 @@
         <result property="noticeCate"		column="notice_cate" />
         <result property="noticeDate"		column="notice_date" />
         <result property="noticeContents"	column="notice_contents" />
+        <association property="user" javaType="User">
+        	<id property="userId" 				column="user_id" />
+        	<result property="userPw" 			column="user_pw"/>
+        	<result property="userName" 		column="user_name"/>
+        	<result property="userNickName" 	column="user_nickname"/>
+        	<result property="userAddr" 		column="user_addr"/>
+        	<result property="userPhone" 		column="user_phone"/>
+        	<result property="userEmail" 		column="user_email"/>
+        	<result property="userBirth" 		column="user_birth"/>
+        	<result property="pointState" 		column="point_state"/>
+        	<result property="userJoinDate" 	column="user_join_date"/>
+        </association>
     </resultMap>
     
     <!-- 공지사항 목록 -->
@@ -49,6 +61,7 @@
 			(sf_new_notice_num(), 'id001', #{noticeTitle}, #{noticeCate}, CURDATE(), #{noticeContents})
     </insert>
     
+    <!-- 공지사항 상세페이지 -->
     <select id="detailsNotice" resultMap="BoardNoticeResultMap">
 	    SELECT
 			 notice.notice_num
@@ -62,4 +75,26 @@
 		WHERE
 			notice.notice_num = #{noticeNum}
     </select>
+    
+    <!-- 공지사항 수정처리 -->
+    <update id="modifyBoardNotice" parameterType="BoardNotice">
+   		UPDATE notice_board
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="noticeTitle != null and noticeTitle != '' ">
+			 	,notice_title = #{noticeTitle} 
+			</if>		
+			<if test="noticeCate != null and noticeCate != '' ">
+			 	,notice_cate = #{noticeCate} 
+			</if>		
+			<if test="noticeContents != null and noticeContents != '' ">
+			 	,notice_contents = #{noticeContents} 
+			</if>		
+		</trim>
+		WHERE 
+			notice_num = #{noticeNum}
+    </update>
+    
+    <!-- 공지사항 삭제 화면 -->
+    <!-- 공지사항 삭제 비밀번호 확인 -->
+    <!-- 공지사항 삭제처리 -->
 </mapper>

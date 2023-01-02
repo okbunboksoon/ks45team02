@@ -20,6 +20,10 @@
 			button {
 				width: 20%
 			}
+			label {
+				font-size: 20px;
+				margin: 5px;
+			}
 		</style>
 	</head>
 	
@@ -41,9 +45,9 @@
 			$('#submitBtn').click(function(){
 				let isSubmit = true;
 				
-				$('#addNoticeForm input').each(function(idx, item){
+				$('#addNoticeForm input,textarea').each(function(idx, item){
 					let checkValue = $(item).val();
-					let labelValue = $(item).parents('div').find('label').text();
+					let labelValue = $(item).parent('div').find('label').text();
 					if(validateValue(checkValue)){
 						
 						alert(`${labelValue}를 입력해주세요`);
@@ -76,13 +80,9 @@
 				<option>시스템</option>
 			</select>
 		</div>
-<!-- 		<div class="mb-3">
-			<label for="exampleFormControlFile1">업로드이미지</label>
-			<input type="file" class="form-control-file" id="noticeImage" name="noticeImage">
-		</div> -->
 		<div class="mb-3">
 			<label class="form-label">내용</label>
-			<textarea class="form-control" rows="15" id="noticeContents"name="noticeContents" placeholder="내용을 입력해주세요"></textarea>
+			<textarea class="form-control" rows="30" id="noticeContents"name="noticeContents" placeholder="내용을 입력해주세요"></textarea>
 		</div>
 		<div class="btnGroup">
 			<button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
