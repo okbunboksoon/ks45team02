@@ -9,6 +9,7 @@ import ks45team02.ire.admin.dto.Donation;
 @Mapper
 public interface DonationMapper {
 
-	public List<Donation> getDonationList();
+	//기부 조회 및 검색
+	public List<Donation> getDonationList(String searchKey, String searchValue, String startDate, String endDate);
 	
 }

@@ -22,9 +22,37 @@ public class DonationService {
 		this.donationMapper = donationMapper;
 	}
 	
-	public List<Donation> getDonationList() {
+	/**
+	 * 기부 조회 및 검색
+	 * @param searchKey
+	 * @param searchValue
+	 * @param startDate
+	 * @param endDate
+	 * @return List<Donation>
+	 */
+	public List<Donation> getDonationList(String searchKey, String searchValue, String startDate, String endDate) {
 		
-		List<Donation> donationList = donationMapper.getDonationList();
+		if(searchKey != null) {
+			switch(searchKey) {
+			case "donationNum" : 
+				searchKey = "donation_num"; 
+				break;
+			
+			case "userId" : 
+				searchKey = "user_id"; 
+				break;
+				
+			case "goodsC02Code" : 
+				searchKey = "goods_co2_code"; 
+				break;
+			case "donationStatus" : 
+				searchKey = "donation_status"; 
+				break;
+			}
+		}
+		
+		
+		List<Donation> donationList = donationMapper.getDonationList(searchKey, searchValue, startDate, endDate);
 		
 		return donationList;
 	}

@@ -4,25 +4,10 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
-		<style type="text/css">
-			table{
-				border : 1px solid black;
-				width: 1000px;
-				table-layout : auto;
-				text-align : center
-			}
-			th{
-				border : 1px solid black;
-				height : 30px;
-			}
-			td{
-				border : 1px solid black;
-				height : 30px;
-			}
-			</style>
 	</head>
 
 	<th:block layout:fragment="customContents">
+	<div th:include="~{admin/search/search :: donationSearchFragment}"></div>
 		<h1>기부 내역</h1>
 		
 		<table class="table table-striped jambo_table">
