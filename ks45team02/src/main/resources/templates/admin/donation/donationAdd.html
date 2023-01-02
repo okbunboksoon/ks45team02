@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-addDonation
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<form th:action="@{/admin/addDonation}" method="post">
+			<table>
+				<thead>
+				</thead>
+				
+				<tbody>
+				
+				
+				</tbody>
+			
+				<tfoot>
+				</tfoot>
+			
+			</table>
+		</form>
+	</th:block>
 </html>
