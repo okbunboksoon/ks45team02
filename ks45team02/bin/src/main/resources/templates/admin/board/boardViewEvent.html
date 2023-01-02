@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
+<head>
+    <style type="text/css">
+        div {
+            color : black;
+        }
+        #eventTitle {
+            border-top: solid 3px black;
+            border-bottom: solid 1px gray;
+            font-size: 25px;
+            text-align : center;
+            padding: 10px;
+            white-space:pre;
+        }
+        #eventNumDate
+        {
+            border-bottom: solid 1px gray;
+            background-color : ivory;
+            font-size: 13px;
+            text-align : right;
+            padding: 10px;
+        }
+
+        #eventContents {
+            border-bottom: solid 3px black;
+            font-size: 15px;
+            white-space:pre;
+            height: 900px;
+        }
+        #button {
+            text-align : right;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<th:block layout:fragment="customContents">
+    <h1>상세페이지</h1>
+    <br><br>
+
+    <body>
+    <div  class="container" th:if="${not #lists.isEmpty(boardEventContents)}" th:each="l : ${boardEventContents}">
+        <div id="eventTitle" th:text ="${l.eventTitle}">
+        </div>
+        <div id="eventNumDate">
+            <span>등록번호</span>
+            <span th:text="${l.eventNum}"></span>
+            <span>이벤트 시작일: </span>
+            <span th:text="${l.eventStartDate}"></span>
+            <span>이벤트 종료일: </span>
+            <span th:text="${l.eventEndDate}"></span>
+            <span>등록날짜: </span>
+            <span th:text="${l.eventRegdate}"></span>
+        </div>
+        <div id="eventContents">
+            <span th:text="${l.eventContents}"></span>
+            <span th:text="${l.eventImage}"></span>
+        </div>
+        <div id="button">
+            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardEvent}'|">목록으로</button>
+            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardEvent(eventTitle=${l.eventTitle})}'|">수정</button>
+            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardEvent(eventTitle=${l.eventTitle})}'|">삭제</button>
+        </div>
+    </div>
+    </body>
+
+</th:block>
+</html>

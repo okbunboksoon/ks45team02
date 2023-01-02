@@ -22,4 +22,25 @@ public class BoardEventService {
         return boardEventList;
 
     }
+
+    public void addBoardEvent(BoardEvent boardEvent){
+
+        boardEventMapper.addBoardEvent(boardEvent);
+    }
+
+    public List<BoardEvent> viewBoardEvent(String eventTitle) {
+        List<BoardEvent> boardEventContents = boardEventMapper.viewBoardEvent(eventTitle);
+
+        return boardEventContents;
+    }
+
+    public int modifyBoardEventInfo(BoardEvent boardEvent) {
+        int result = boardEventMapper.modifyBoardEventInfo(boardEvent);
+        return result;
+    }
+
+    public List<BoardEvent> modifyBoardEvent(String eventTitle){
+        List<BoardEvent> boardEventInfo = boardEventMapper.viewBoardEvent(eventTitle);
+        return boardEventInfo;
+    }
 }

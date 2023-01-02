@@ -4,74 +4,69 @@
       layout:decorate="~{admin/layout/adminDefault}">
 
 <head>
-    <style>
-        .tg  {border-collapse:collapse;border-spacing:0;}
-        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg .tg-baqh{text-align:center;vertical-align:top}
-        .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    <style type="text/css">
+        div {
+            color: black;
+        }
+        #inputTitle {
+            width: 100%
+        }
+        #inputContent {
+            width: 100%
+        }
+        .btnGroup {
+            text-align : center;
+        }
+        button {
+            width: 20%
+        }
+        label {
+            font-size: 20px;
+            margin: 5px;
+        }
     </style>
 </head>
 
-<th:block layout:fragment="customContents">
-    <h1>이벤트 등록</h1>
-
-    <table class="tg">
-        <thead>
-        <tr>
-            <th class="tg-c3ow" colspan="2">이벤트 등록</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="tg-0pky">이벤트 번호</td>
-            <td class="tg-0pky">
-                <input type = "text" id = "eventNum">
-            </td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">이벤트 제목</td>
-            <td class="tg-0pky">
-                <input type = "text" id = "eventName">
-            </td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">이벤트 내용</td>
-            <td class="tg-0pky">
-                <input type = "text" id = "eventContents">
-            </td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">이벤트 사진</td>
-            <td class="tg-0pky">
-                <input type="image" name="button" src="">
-            </td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">이벤트 시작일</td>
-            <td class="tg-0pky">
-                <input type = "date" id = "eventStart">
-            </td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">이벤트 종료일</td>
-            <td class="tg-0pky">
-                <input type = "date" id = "eventEnd">
-            </td>
-        </tr>
-        <tr>
-            <td class="tg-baqh">
-                <button type="button" id="submitBtn">등록</button>
-            </td>
-            <td class="tg-baqh">
-                <button type="reset" id="resetBtn">취소</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </th:block>
 
+<script>
+    /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
+    $('#submitBtn').click(function(){
+        if(true) $('#boardAddEvent').submit();
+    });
+</script>
+
+<th:block layout:fragment="customContents">
+    <form id = "boardAddEvent" th:action = "@{/admin/addBoardEvent}" method = "post">
+        <h1>이벤트 등록</h1>
+        <br><br>
+        <div class ="mb-3">
+            <label class ="form-label">이벤트 제목</label>
+            <input type = "text" class ="form-controll" id = "eventTitle" name ="eventTitle" placeholder="제목을 입력해주세요">
+        </div>
+        <div class ="mb-3">
+            <label class ="form-label">이벤트 내용</label>
+            <textarea type ="text" id = "eventContents" name = "eventContents"
+                      placeholder = "이벤트 내용을 입력해주세요" maxlength="2048" style = "width: 500px; height: 350px;"> </textarea>
+        </div>
+        <div class ="mb-3">
+            <label class ="form-label">이벤트 사진</label>
+            <input type ="image" id = "eventImage" name = "eventImage" alt="제출" style = "width: 250px; height: 175px;" />
+        </div>
+        <div class = "mb-3">
+            <label class ="form-label">이벤트 시작일</label>
+            <input type ="date" id = "eventStartDate" name = "eventStartDate"/>
+        </div>
+        <div class = "mb-3">
+            <label class ="form-label">이벤트 마감일</label>
+            <input type ="date" id = "eventEndDate" name = "eventEndDate"/>
+        </div>
+        <div class = "btnGroup">
+            <button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
+            <button type="button" class="btn btn-outline-danger" id="resetBtn">취소</button>
+        </div>
+    </form>
+</th:block>
 </html>

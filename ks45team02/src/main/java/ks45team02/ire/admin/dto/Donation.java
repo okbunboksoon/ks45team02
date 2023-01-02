@@ -2,18 +2,18 @@ package ks45team02.ire.admin.dto;
 
 public class Donation {
 
-	private String donationNum;
+	private String donationCode;
 	private String userId;
 	private String goodsC02Code;
 	private String donationAmount;
 	private String donationDate;
 	private String donationStatus;
 	
-	public String getDonationNum() {
-		return donationNum;
+	public String getDonationCode() {
+		return donationCode;
 	}
-	public void setDonationNum(String donationNum) {
-		this.donationNum = donationNum;
+	public void setDonationCode(String donationCode) {
+		this.donationCode = donationCode;
 	}
 	public String getUserId() {
 		return userId;
@@ -47,7 +47,7 @@ public class Donation {
 	}
 	@Override
 	public String toString() {
-		return "Donation [donationNum=" + donationNum + ", userId=" + userId + ", goodsC02Code=" + goodsC02Code
+		return "Donation [donationCode=" + donationCode + ", userId=" + userId + ", goodsC02Code=" + goodsC02Code
 				+ ", donationAmount=" + donationAmount + ", donationDate=" + donationDate + ", donationStatus="
 				+ donationStatus + "]";
 	}

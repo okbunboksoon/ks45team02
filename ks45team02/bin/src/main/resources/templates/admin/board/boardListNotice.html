@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- <style type="text/css">
+			table {
+				border: 1px solid black;
+				width: 100%;
+				table-layout: auto;
+				text-align: center;
+				color: black;
+			}
+			th {
+				border: 1px solid black;
+		        color: black;
+		        height: 35px;
+		        background-color: ivory;
+		        font-size: 17px;	
+			}
+			td {
+				border: 1px solid black;
+				height: 30px;
+				font-size: 15px;
+			}
+			tfoot {
+				color: black;
+			}
+			h1 {
+				color: black;
+			}
+			.noticeNum {
+				width: 5%;
+			}
+			.noticeCategory {
+				width: 5%;
+			}
+			.noticeTitle {
+				width: 30%;
+			}
+			.noticeWriter {
+				width: 5%;
+			}
+			.noticeDate {
+				width: 7%;
+			}
+		</style> -->
+	</head>
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){				
+				$('#listNotice').DataTable();
+			})
+		</script>	
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<h1>공지사항 목록</h1>
+		<table id="listNotice" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="noticeNum">번호</th>
+					<th class="noticeCategory">구분</th>
+					<th class="noticeTitle">제목</th>
+					<th class="noticeWriter">작성자</th>
+					<th class="noticeDate">등록날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${not #lists.isEmpty(noticeList)}" th:each="nl : ${noticeList}">
+					<td th:text="${nl.noticeNum}" />
+					<td th:text="${nl.noticeCate}" />
+					<td><a th:text="${nl.noticeTitle}" th:href="@{/admin/detailsNotice(noticeNum=${nl.noticeNum})}"></a></td>
+					<td th:text="${nl.userId}" />
+					<td th:text="${nl.noticeDate}" />
+				</tr>
+				<tr th:unless="${not #lists.isEmpty(noticeList)}">
+					<td colspan="9">등록된 공지사항이 없습니다.</td>
+				</tr>
+			</tbody>
+			<!-- <tfoot>
+				<tr>
+					<td colspan="5">
+						<a th:href="@{/admin/listBoardNotice}">[맨처음으로]</a>
+						<a th:if="${currentPage > 1}" th:href="@{/admin/listBoardNotice(currentPage=${currentPage - 1})}">[이전]</a>
+						<span th:unless="${currentPage > 1}" >[이전]</span>
+						<th:block th:each="num : ${#numbers.sequence(startPageNum, endPageNum)}">
+							<a th:if="${currentPage != num}" th:href="@{/admin/listBoardNotice(currentPage=${num})}" 
+								th:text="|[ ${num} ]|" ></a>
+							<span th:if="${currentPage == num}">[[${'[ ' + num + ' ]'}]]</span>
+						</th:block>
+						<a th:if="${currentPage < lastPage}" th:href="@{/admin/listBoardNotice(currentPage=${currentPage + 1})}">[다음]</a>
+						<span th:unless="${currentPage < lastPage}" >[다음]</span>
+						<a th:href="@{/admin/listBoardNotice(currentPage=${lastPage})}">[맨마지막으로]</a>
+					</td>
+			</tfoot> -->
+		</table>
+	</th:block>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	
+	</th:block>
+	
+</html>

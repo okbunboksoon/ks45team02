@@ -3,18 +3,144 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.DonationMapper">
+	<resultMap type="Donation" id="donationResultMap">
+		<id property="donationCode" column="donation_code" />
+		<result property="userId" column="user_id" />
+		<result property="goodsC02Code" column="goods_co2_code" />
+		<result property="donationAmount" column="donation_amount" />
+		<result property="donationDate" column="donation_date" />
+		<result property="donationStatus" column="donation_status" />
+	</resultMap>
 
-	<select id="getDonationList" resultType="Donation">
+
+	<delete id="deleteDonation" parameterType="String">
+		<!-- 기부신청 코드로 기부 삭제 -->
+		DELETE 
+			d
+		FROM 	
+			donation AS d
+		WHERE 
+			donation_code = #{donationCode};
+	</delete>
+
+	<delete id="deleteRawMaterialsInComingByDonationCode" parameterType="String">
+		<!-- 기부신청 코드로 raw_materials_incoming 삭제 -->
+		DELETE 
+			rmi
+		FROM 
+			raw_materials_incoming AS rmi
+			INNER JOIN 
+			donation AS d
+			ON 
+			rmi.donation_code = d.donation_code
+		WHERE 
+			d.donation_code = #{donationCode};
+	</delete>
+
+	<delete id="deleteRawMaterialsOutGoingByDonationCode" parameterType="String">
+		<!-- 기부신청 코드로 raw_materials_outgoing 삭제 -->
+		DELETE 
+			rmo
+		FROM 
+			raw_materials_outgoing AS rmo
+			INNER JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			rmo.raw_materials_code = rmi.raw_materials_code
+			INNER JOIN 
+			donation AS d
+			ON 
+			rmi.donation_code = d.donation_code
+		WHERE 
+			d.donation_code = #{donationCode};
+	</delete>
+
+	<delete id="deleteRawMaterialsByDonationCode" parameterType="String">
+		<!-- 기부신청 코드로 raw_materials 삭제 -->
+		DELETE 
+			rm
+		FROM 	
+			raw_materials AS rm
+			INNER JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			rm.raw_materials_incoming_date = rmi.raw_materials_incoming_date
+			INNER JOIN 
+			donation AS d
+			ON 
+			rmi.donation_code = d.donation_code
+		WHERE 
+			d.donation_code = #{donationCode};
+	</delete>
+
+	<update id="modifyDonation" parameterType="Donation">
+		<!-- 기부 수정 -->
+		UPDATE 
+			donation
+		SET 
+			 user_id = #{userId}
+			,goods_co2_code = #{goodsC02Code}
+			,donation_amount = #{donationAmount}
+			,donation_date = #{donationDate}
+			,donation_status = #{donationStatus}
+		WHERE 
+			donation_code = #{donationCode};
+	</update>
+
+	<select id="getDonationInfo" resultMap="donationResultMap" parameterType="String">
+		<!-- 기부신청 번호로 기부 정보 조회 -->
 		SELECT 
-			 donation_num as donationNum
-			,user_id as userId
-			,goods_co2_code as goodsC02Code
-			,donation_amount as donationAmount
-			,donation_date as donationDate
-			,donation_status as donationStatus
+			 donation_code
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		FROM 
+			donation 
+		WHERE 
+			donation_code = #{donationCode};
+	</select>
+
+	<insert id="addDonation" parameterType="Donation">
+		<!-- 기부 등록 -->
+		INSERT INTO donation (
+		 	 donation_code
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		)VALUES(
+			 sf_new_donation_code()
+			,#{userId}
+			,#{goodsC02Code}
+			,#{donationAmount}
+			,#{donationDate}
+			,#{donationStatus}
+		);
+	
+	</insert>
+	
+	<select id="getDonationList" resultMap="donationResultMap" parameterType="String">
+		<!-- 기부 조회 및 검색 -->
+		SELECT 
+			 donation_code
+			,user_id
+			,goods_co2_code
+			,donation_amount
+			,donation_date 
+			,donation_status
 		FROM 
 			donation
-		;
+		<where>
+			<if test="searchKey != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDate != '' and startDate != null and endDate != '' and endDate != null">
+				AND <![CDATA[donation_date >= #{startDate} AND donation_date <= #{endDate}]]>
+			</if>	 
+		</where>
 	</select>
 
 

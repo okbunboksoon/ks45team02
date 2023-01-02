@@ -4,45 +4,56 @@
       layout:decorate="~{admin/layout/adminDefault}">
 
 <head>
-    <style>
-        .tg  {border-collapse:collapse;border-spacing:0;}
-        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-            font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg .tg-baqh{text-align:center;vertical-align:top}
-        .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-        .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-    </style>
+
 </head>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+            $('#listEvent').DataTable();
+        })
+    </script>
+</th:block>
 
 <th:block layout:fragment="customContents">
     <h1>이벤트 리스트</h1>
-
-    <table class="tg">
+    <table id="listEvent" class="table table-striped table-bordered">
         <thead>
-        <tr>
-            <th>이벤트 번호</th>
-            <th>이벤트 제목</th>
-            <th>이벤트 등록날짜</th>
-            <th>수정</th>
-            <th>삭제</th>
-        </tr>
+            <tr>
+               <th class = "eventNum">이벤트 번호</th>
+               <th class = "eventTitle">이벤트 제목</th>
+               <th class = "eventRegdate"이벤트 등록날짜</th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:if ="${not #lists.isEmpty(boardEventList)}" th:each="l : ${boardEventList}">
-            <td th:text ="${l.eventNum}"/></td>
-            <td th:text ="${l.eventTitle}"/></td>
-            <td th:text = "${l.eventRegdate}"/></td>
-            <td>
-                <a th:href="@{./modifyBoardEvent}">수정</a>
-            </td>
-            <td>
-                <a th:href ="@{/deleteBoardEvent}">삭제</a>
-            </td>
-        </tr>
+            <tr th:if ="${not #lists.isEmpty(boardEventList)}" th:each="l : ${boardEventList}">
+                <td th:text ="${l.eventNum}"/></td>
+                <td>
+                    <a th:text ="${l.eventTitle}" th:href="@{/admin/viewBoardEvent (eventTitle=${l.eventTitle})}"></a>
+                </td>
+                <td th:text = "${l.eventRegdate}"/>
+            </tr>
         </tbody>
     </table>
 </th:block>
+
+    <th:block layout:fragment="customJs">
+        <!-- Datatables -->
+        <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+        <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+        <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+        <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+        <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+
+    </th:block>
 
 </html>

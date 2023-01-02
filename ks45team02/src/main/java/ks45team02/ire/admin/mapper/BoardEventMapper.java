@@ -8,5 +8,17 @@ import java.util.List;
 @Mapper
 public interface BoardEventMapper {
 
-    public List<BoardEvent> getBoardEventList();
+    List<BoardEvent> getBoardEventList();
+
+    public void addBoardEvent(BoardEvent boardEvent);
+
+    List<BoardEvent> getBoardEventTitleList();
+
+    List<BoardEvent> viewBoardEvent(String eventTitle);
+
+    //이벤트 수정 화면
+
+    //이벤트 수정 처리
+    public int modifyBoardEventInfo(BoardEvent boardEvent);
+
 }

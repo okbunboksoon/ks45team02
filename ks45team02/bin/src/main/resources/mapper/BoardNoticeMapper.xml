@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardNoticeMapper">
+	<resultMap id="BoardNoticeResultMap" type="BoardNotice">
+        <id property="noticeNum"			column="notice_num" />
+        <result property="userId"			column="user_id" />
+        <result property="noticeTitle"		column="notice_title" />
+        <result property="noticeCate"		column="notice_cate" />
+        <result property="noticeDate"		column="notice_date" />
+        <result property="noticeContents"	column="notice_contents" />
+        <association property="user" javaType="User">
+        	<id property="userId" 				column="user_id" />
+        	<result property="userPw" 			column="user_pw"/>
+        	<result property="userName" 		column="user_name"/>
+        	<result property="userNickName" 	column="user_nickname"/>
+        	<result property="userAddr" 		column="user_addr"/>
+        	<result property="userPhone" 		column="user_phone"/>
+        	<result property="userEmail" 		column="user_email"/>
+        	<result property="userBirth" 		column="user_birth"/>
+        	<result property="pointState" 		column="point_state"/>
+        	<result property="userJoinDate" 	column="user_join_date"/>
+        </association>
+    </resultMap>
+    
+    <!-- 공지사항 목록 -->
+    <select id="getNoticeList" resultMap="BoardNoticeResultMap">
+		SELECT
+			 notice.notice_num
+			,notice.user_id
+			,notice.notice_title
+			,notice.notice_cate
+			,notice.notice_date
+			,notice.notice_contents
+		FROM
+			notice_board AS notice
+		<if test="startRowNum != null and startRowNum > -1">		
+			LIMIT #{startRowNum}, #{rowPerPage};
+		</if>
+    </select>
+    
+    <!-- 공지사항 전체갯수 -->
+    <select id="getNoticeListCnt" resultType="int">
+	   	SELECT
+			COUNT(1)
+		FROM
+			notice_board
+    </select>
+    
+    <!-- 공지사항 등록 -->
+    <insert id="addNotice" parameterType="BoardNotice">
+    	INSERT INTO notice_board
+			(notice_num
+			,user_id
+			,notice_title
+			,notice_cate
+			,notice_date
+			,notice_contents)
+			VALUES 
+			(sf_new_notice_num(), 'id001', #{noticeTitle}, #{noticeCate}, CURDATE(), #{noticeContents})
+    </insert>
+    
+    <!-- 공지사항 상세페이지 -->
+    <select id="detailsNotice" resultMap="BoardNoticeResultMap">
+	    SELECT
+			 notice.notice_num
+			,notice.user_id
+			,notice.notice_title
+			,notice.notice_cate
+			,notice.notice_date
+			,notice.notice_contents
+		FROM
+			notice_board AS notice
+		WHERE
+			notice.notice_num = #{noticeNum}
+    </select>
+    
+    <!-- 공지사항 수정처리 -->
+    <update id="modifyBoardNotice" parameterType="BoardNotice">
+   		UPDATE notice_board
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="noticeTitle != null and noticeTitle != '' ">
+			 	,notice_title = #{noticeTitle} 
+			</if>		
+			<if test="noticeCate != null and noticeCate != '' ">
+			 	,notice_cate = #{noticeCate} 
+			</if>		
+			<if test="noticeContents != null and noticeContents != '' "> 
+			 	,notice_contents = #{noticeContents} 
+			</if>		
+		</trim>
+		WHERE 
+			notice_num = #{noticeNum}
+    </update>
+    
+    <!-- 공지사항 삭제 화면 -->
+    <!-- 공지사항 삭제 비밀번호 확인 -->
+    <!-- 공지사항 삭제 비밀번호 확인 -->
+    <!-- 공지사항 삭제처리 -->
+</mapper>

@@ -1,10 +1,92 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-addBoardNotice
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style type="text/css">
+			div {
+				color: black;
+			}
+			#inputTitle {
+				width: 100%
+			}
+			#inputContent {
+				width: 100%
+			}
+			.btnGroup {
+				text-align : center;
+			}
+			button {
+				width: 20%
+			}
+			label {
+				font-size: 20px;
+				margin: 5px;
+			}
+		</style>
+	</head>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script>
+		$(function(){
+			function validateValue(checkValue) {
+				if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+					return true;
+				}
+				return false;	
+			}
+			
+			$('#submitBtn').click(function(){
+				let isSubmit = true;
+				
+				$('#addNoticeForm input,textarea').each(function(idx, item){
+					let checkValue = $(item).val();
+					let labelValue = $(item).parent('div').find('label').text();
+					if(validateValue(checkValue)){
+						
+						alert(`${labelValue}를 입력해주세요`);
+						$(item).focus();
+						isSubmit = false;
+						
+						return false;
+					}5
+				});
+			
+				if(isSubmit) $('#addNoticeForm').submit();
+			});
+		});
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+	<form id="addNoticeForm" th:action="@{/admin/addBoardNotice}" method="post">
+		<br><br>
+		<div class="mb-3">
+			<label class="form-label">제목</label> 
+			<input type="text" class="form-control" id="noticeTitle" name="noticeTitle" placeholder="제목을 입력해주세요">
+		</div>
+		<div class="mb-3">
+			<label for="exampleFormControlSelect1">공지사항카테고리</label>
+			<select class="form-control" id="noticeCate" name="noticeCate">
+				<option>일반</option>
+				<option>안내</option>
+				<option>시스템</option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">내용</label>
+			<textarea class="form-control" rows="30" id="noticeContents"name="noticeContents" placeholder="내용을 입력해주세요"></textarea>
+		</div>
+		<div class="btnGroup">
+			<button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
+			<button type="button" class="btn btn-outline-danger" id="resetBtn">취소</button>
+		</div>
+	</form>
+</th:block>
 </html>

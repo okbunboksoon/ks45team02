@@ -22,9 +22,79 @@ public class DonationService {
 		this.donationMapper = donationMapper;
 	}
 	
-	public List<Donation> getDonationList() {
+	/**
+	 * 기부 삭제
+	 * @param donationCode
+	 * @return int
+	 */
+	public int deleteDonation(String donationCode) {
 		
-		List<Donation> donationList = donationMapper.getDonationList();
+		int result = 0;
+		
+		result += donationMapper.deleteRawMaterialsByDonationCode(donationCode);
+		result += donationMapper.deleteRawMaterialsOutGoingByDonationCode(donationCode);
+		result += donationMapper.deleteRawMaterialsInComingByDonationCode(donationCode);
+		result += donationMapper.deleteDonation(donationCode);
+		
+		return result;
+	}
+	
+	/**
+	 * 기부 수정
+	 * @param donation
+	 * @return int
+	 */
+	public int modifyDonation(Donation donation) {
+		
+		int result = donationMapper.modifyDonation(donation);
+		
+		return result;
+	}
+	
+	/**
+	 * 기부 등록
+	 * @param donation
+	 * @return int
+	 */
+	public int addDonation(Donation donation) {
+		
+		int result = donationMapper.addDonation(donation);
+		
+		return result;
+	}
+	
+	
+	/**
+	 * 기부 조회 및 검색
+	 * @param searchKey
+	 * @param searchValue
+	 * @param startDate
+	 * @param endDate
+	 * @return List<Donation>
+	 */
+	public List<Donation> getDonationList(String searchKey, String searchValue, String startDate, String endDate) {
+		
+		if(searchKey != null) {
+			switch(searchKey) {
+			case "donationCode" : 
+				searchKey = "donation_num"; 
+				break;
+			
+			case "userId" : 
+				searchKey = "user_id"; 
+				break;
+				
+			case "goodsC02Code" : 
+				searchKey = "goods_co2_code"; 
+				break;
+			case "donationStatus" : 
+				searchKey = "donation_status"; 
+				break;
+			}
+		}
+		
+		
+		List<Donation> donationList = donationMapper.getDonationList(searchKey, searchValue, startDate, endDate);
 		
 		return donationList;
 	}

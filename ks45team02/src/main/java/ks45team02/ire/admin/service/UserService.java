@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+
 @Service
 @Transactional
 public class UserService {
@@ -23,5 +26,11 @@ public class UserService {
         System.out.println("올릴려고 적음");
         System.out.println(user);
         return result;
+
+    }
+    public List<User> listUser( ){
+        // 김재범 회원 조회
+        List<User>listUser=userMapper.listUser();
+        return listUser;
     }
 }
