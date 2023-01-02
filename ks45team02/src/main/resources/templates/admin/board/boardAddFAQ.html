@@ -43,7 +43,7 @@
 				
 				$('#addFAQForm input').each(function(idx, item){
 					let checkValue = $(item).val();
-					let labelValue = $(item).parents('div').find('label').text();
+					let labelValue = $(item).parent('div').find('label').text();
 					if(validateValue(checkValue)){
 						
 						alert(`${labelValue}를 입력해주세요`);
@@ -73,14 +73,14 @@
 		<div class="form-group row ">
 			<label class="control-label col-md-3 col-sm-3 ">FAQ 질문</label>
 			<div class="col-md-9 col-sm-9 ">
-			<input id="faqTitle" name="faqTitle" type="text" class="form-control" placeholder="질문을 입력해주세요.">
+			<input id="FAQ_title" name="FAQ_title" type="text" class="form-control" placeholder="질문을 입력해주세요.">
 			</div>
 			</div>
 		</div>
 		<div class="control-group row">
 			<label class="control-label col-md-3 col-sm-3 ">FAQ 답변</label>
 			<div class="col-md-9 col-sm-9 ">
-			<input id="faqContent" name="faqContent" class="form-control" rows="3" placeholder="답변을 입력해주세요.">
+			<input id="FAQ_content" name="FAQ_contents" class="form-control" rows="3" placeholder="답변을 입력해주세요.">
 			<div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
 			</div>
 		</div>

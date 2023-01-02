@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.EmissionMapper">
+	<resultMap id="EmissionResultMap" type="Emission">
+        <id property="goods_co2_code"			column="goods_co2_code" />
+        <result property="goods_category"			column="goods_category" />
+        <result property="goods_size"		column="goods_size" />
+        <result property="carbon_dioxide_emission_level"		column="carbon_dioxide_emission_level" />
+    </resultMap>
+    <select id="EmissionList" resultMap="EmissionResultMap">
+	   SELECT
+			emission.goods_co2_code
+			,emission.goods_category
+			,emission.goods_size
+			,emission.carbon_dioxide_emission_level
+		FROM
+			goods_emission AS emission
+    </select>
+</mapper>
