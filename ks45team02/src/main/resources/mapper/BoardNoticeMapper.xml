@@ -86,7 +86,7 @@
 			<if test="noticeCate != null and noticeCate != '' ">
 			 	,notice_cate = #{noticeCate} 
 			</if>		
-			<if test="noticeContents != null and noticeContents != '' ">
+			<if test="noticeContents != null and noticeContents != '' "> 
 			 	,notice_contents = #{noticeContents} 
 			</if>		
 		</trim>
