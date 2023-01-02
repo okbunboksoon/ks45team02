@@ -17,9 +17,9 @@
 				<form th:action="@{/admin/modifyDonation}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
 					
 					<div class="item form-group">
-						<label for="donationNum" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 번호</label>
+						<label for="donationCode" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 번호</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" id="donationNum" name="donationNum" th:value="*{donationNum}"
+							<input type="text" id="donationNum" name="donationCode" th:value="*{donationCode}"
 							 readonly="readonly" class="form-control"/>
 						</div>
 					</div>
@@ -98,8 +98,6 @@
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
 			const $inputEle = document.querySelectorAll('.item > div > input');
-			
-			console.log($inputEle);
 			
 			$cancelBtn.addEventListener('click', function(){
 				location.href = '/admin/listDonation';

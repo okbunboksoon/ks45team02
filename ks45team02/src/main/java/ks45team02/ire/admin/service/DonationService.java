@@ -22,6 +22,22 @@ public class DonationService {
 		this.donationMapper = donationMapper;
 	}
 	
+	/**
+	 * 기부 삭제
+	 * @param donationCode
+	 * @return int
+	 */
+	public int deleteDonation(String donationCode) {
+		
+		int result = 0;
+		
+		result += donationMapper.deleteRawMaterialsByDonationCode(donationCode);
+		result += donationMapper.deleteRawMaterialsOutGoingByDonationCode(donationCode);
+		result += donationMapper.deleteRawMaterialsInComingByDonationCode(donationCode);
+		result += donationMapper.deleteDonation(donationCode);
+		
+		return result;
+	}
 	
 	/**
 	 * 기부 수정
@@ -60,7 +76,7 @@ public class DonationService {
 		
 		if(searchKey != null) {
 			switch(searchKey) {
-			case "donationNum" : 
+			case "donationCode" : 
 				searchKey = "donation_num"; 
 				break;
 			
