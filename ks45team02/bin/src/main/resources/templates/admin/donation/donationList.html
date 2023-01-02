@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style type="text/css">
+			table{
+				border : 1px solid black;
+				width: 1000px;
+				table-layout : auto;
+				text-align : center
+			}
+			th{
+				border : 1px solid black;
+				height : 30px;
+			}
+			td{
+				border : 1px solid black;
+				height : 30px;
+			}
+			</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<h1>기부 내역</h1>
+		
+		<table>
+			<thead>
+				<tr>
+					<th>기부 신청 번호</th>
+					<th>기부 신청자 아이디</th>
+					<th>상품별 co2배출 기준코드</th>
+					<th>중고매입상품 개수</th>
+					<th>기부신청 날짜</th>
+					<th>기부신청 상태</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:unless="${#lists.isEmpty(donationList)}" th:each="l : ${donationList}">
+					<td th:text="${l.donationNum}"></td>
+					<td th:text="${l.userId}"></td>
+					<td th:text="${l.goodsC02Code}"></td>
+					<td th:text="${l.donationAmount}"></td>
+					<td th:text="${l.donationDate}"></td>
+					<td th:text="${l.donationStatus}"></td>
+				</tr>
+				<tr th:if="${#lists.isEmpty(donationList)}">
+					<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+	</th:block>
+
+</html>
