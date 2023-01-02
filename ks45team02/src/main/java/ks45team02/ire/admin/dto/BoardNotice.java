@@ -10,49 +10,72 @@ public class BoardNotice {
 	private String noticeContents;
 	private String noticeImage;
 	
+	private User user;
+
 	public String getNoticeNum() {
 		return noticeNum;
 	}
+
 	public void setNoticeNum(String noticeNum) {
 		this.noticeNum = noticeNum;
 	}
+
 	public String getUserId() {
 		return userId;
 	}
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public String getNoticeTitle() {
 		return noticeTitle;
 	}
+
 	public void setNoticeTitle(String noticeTitle) {
 		this.noticeTitle = noticeTitle;
 	}
+
 	public String getNoticeCate() {
 		return noticeCate;
 	}
+
 	public void setNoticeCate(String noticeCate) {
 		this.noticeCate = noticeCate;
 	}
+
 	public String getNoticeDate() {
 		return noticeDate;
 	}
+
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
+
 	public String getNoticeContents() {
 		return noticeContents;
 	}
+
 	public void setNoticeContents(String noticeContents) {
 		this.noticeContents = noticeContents;
 	}
+
 	public String getNoticeImage() {
 		return noticeImage;
 	}
+
 	public void setNoticeImage(String noticeImage) {
 		this.noticeImage = noticeImage;
 	}
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -70,7 +93,11 @@ public class BoardNotice {
 		builder.append(noticeContents);
 		builder.append(", noticeImage=");
 		builder.append(noticeImage);
+		builder.append(", user=");
+		builder.append(user);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
+	
+	
 }
