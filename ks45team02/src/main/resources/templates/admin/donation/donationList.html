@@ -25,7 +25,7 @@
 	<th:block layout:fragment="customContents">
 		<h1>기부 내역</h1>
 		
-		<table>
+		<table class="table table-striped jambo_table">
 			<thead>
 				<tr>
 					<th>기부 신청 번호</th>
@@ -34,6 +34,8 @@
 					<th>중고매입상품 개수</th>
 					<th>기부신청 날짜</th>
 					<th>기부신청 상태</th>
+					<th>수정</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			
@@ -45,6 +47,8 @@
 					<td th:text="${l.donationAmount}"></td>
 					<td th:text="${l.donationDate}"></td>
 					<td th:text="${l.donationStatus}"></td>
+					<td><a th:href="@{/admin/modifyDonation}">수정</a></td>
+					<td><a th:href="@{/admin/deleteDonation}">삭제</a></td>
 				</tr>
 				<tr th:if="${#lists.isEmpty(donationList)}">
 					<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
