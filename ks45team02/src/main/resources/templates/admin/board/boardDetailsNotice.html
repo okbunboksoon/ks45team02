@@ -14,7 +14,6 @@
 				font-size: 25px;
 				text-align : center;
 				padding: 10px;
-				white-space:pre;
 			}
 			#noticeNumDate {
 				border-bottom: solid 1px gray;
@@ -26,7 +25,7 @@
 			#noticeContents {
 				border-bottom: solid 3px black;
 				font-size: 15px;
-				white-space:pre;
+				white-space:pre-line;
 				height: 900px;
 			}
 			#button {
@@ -54,10 +53,9 @@
 				</div>
 				<div id="button">
 					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardNotice}'|">목록으로</button>
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardNotice}'|">수정</button>
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardNotice}'|">삭제</button>
-				</div>
-			
+					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardNotice(noticeNum=${dl.noticeNum})}'|">수정</button>
+					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardNotice(noticeNum=${dl.noticeNum})}'|">삭제</button>
+				</div>	
 			</div>
 		</body>
 		

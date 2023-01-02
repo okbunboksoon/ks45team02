@@ -59,11 +59,25 @@ public class BoardNoticeController {
 	}
 	
 	@GetMapping("/deleteBoardNotice")
-	public String deleteBoardNotice() {
+	public String deleteBoardNotice(@RequestParam(value = "noticeNum") String noticeNum, Model model) {
+		
+		log.info("deleteBoardNotice noticeNum : {}", noticeNum);
+		
+		List<BoardNotice> deleteNotice = boardNoticeService.detailsNotice(noticeNum);
+		model.addAttribute("deleteNotice", deleteNotice);
+		
+		log.info("deleteNotice : {}", deleteNotice);
 		
 		return "admin/board/boardDeleteNotice";
 	}
 	
+	@PostMapping("/deleteBoardNotice")
+	public String deleteBoardNotice(BoardNotice boardNotice) {
+		
+		log.info("공지사항삭제 정보 :{}", boardNotice);
+		
+		return "redirect:/admin/listBoardNotice";
+	}
 	
 	/**
 	 * 공시사항 목록
@@ -98,8 +112,7 @@ public class BoardNoticeController {
 	 */
 	@GetMapping("/detailsNotice")
 	public String detailsNotice(@RequestParam(value = "noticeNum") String noticeNum, Model model) {
-		
-		log.info("연결 : {}", "연결");
+
 		log.info("noticeNum : {}", noticeNum);
 		List<BoardNotice> detailsNotice = boardNoticeService.detailsNotice(noticeNum);
 		model.addAttribute("title", "공지사항 상세페이지");
@@ -110,10 +123,35 @@ public class BoardNoticeController {
 		return "admin/board/boardDetailsNotice";
 	}
 	
+	/**
+	 * 공지사항 수정화면
+	 * @param noticeNum model
+	 * @return admin/board/boardModifyNotice
+	 */
 	@GetMapping("/modifyBoardNotice")
-	public String modifyBoardNotice() {
+	public String modifyBoardNotice(@RequestParam(value = "noticeNum") String noticeNum, Model model) {
+		
+		List<BoardNotice> modifyNotice = boardNoticeService.detailsNotice(noticeNum);
+		
+		model.addAttribute("modifyNotice", modifyNotice);
+		log.info("modifyNotice : {}", modifyNotice);
 		
 		return "admin/board/boardModifyNotice";
+	}
+	
+	/**
+	 * 공지사항 수정처리
+	 * @param boardNotice
+	 * @return redirect:/admin/listBoardNotice
+	 */
+	@PostMapping("/modifyBoardNotice")
+	public String modifyBoardNotice(BoardNotice boardNotice) {
+		
+		log.info("공지사항수정 정보 :{}", boardNotice);
+		
+		boardNoticeService.modifyBoardNotice(boardNotice);
+		
+		return "redirect:/admin/listBoardNotice";
 	}
 
 }
