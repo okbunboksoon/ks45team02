@@ -74,9 +74,9 @@ public class BoardEventController {
 	}
 	
 	@GetMapping("/modifyBoardEvent")
-	public String modifyBoardEvent(@RequestParam(value = "eventNum", required = false)String eventNum, Model model) {
+	public String modifyBoardEvent(@RequestParam(value = "eventTitle", required = false)String eventTitle, Model model) {
 
-		BoardEvent boardEventInfo = boardEventService.modifyBoardEvent(eventNum);
+		List<BoardEvent> boardEventInfo = boardEventService.modifyBoardEvent(eventTitle);
 
 		model.addAttribute("title", "이벤트 수정");
 		model.addAttribute("boardEventInfo", boardEventInfo);

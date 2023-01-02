@@ -47,6 +47,8 @@
         <div id="eventTitle" th:text ="${l.eventTitle}">
         </div>
         <div id="eventNumDate">
+            <span>등록번호</span>
+            <span th:text="${l.eventNum}"></span>
             <span>이벤트 시작일: </span>
             <span th:text="${l.eventStartDate}"></span>
             <span>이벤트 종료일: </span>
@@ -60,6 +62,8 @@
         </div>
         <div id="button">
             <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardEvent}'|">목록으로</button>
+            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardEvent(eventTitle=${l.eventTitle})}'|">수정</button>
+            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardEvent(eventTitle=${l.eventTitle})}'|">삭제</button>
         </div>
     </div>
     </body>

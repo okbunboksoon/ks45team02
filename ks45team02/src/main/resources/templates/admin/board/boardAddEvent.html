@@ -15,9 +15,19 @@
     </style>
 </head>
 
-<th:block layout:fragment="customScript">
-
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </th:block>
+
+<script>
+    /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
+    $('#submitBtn').click(function(){
+        if(true) $('#boardAddEvent').submit();
+    });
+</script>
+
+
+
 
 <th:block layout:fragment="customContents">
     <form id = "boardAddEvent" th:action = "@{/admin/addBoardEvent}" method = "post">
