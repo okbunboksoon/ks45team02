@@ -3,13 +3,13 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.DonationMapper">
-	<resultMap type="Donation" id="donationResultMap">
-		<id property="donationCode" column="donation_code" />
-		<result property="userId" column="user_id" />
-		<result property="goodsC02Code" column="goods_co2_code" />
-		<result property="donationAmount" column="donation_amount" />
-		<result property="donationDate" column="donation_date" />
-		<result property="donationStatus" column="donation_status" />
+	<resultMap type="Donation" 				id="donationResultMap">
+		<id property="donationCode" 		column="donation_code" />
+		<result property="userId" 			column="user_id" />
+		<result property="goodsC02Code" 	column="goods_co2_code" />
+		<result property="donationAmount" 	column="donation_amount" />
+		<result property="donationDate" 	column="donation_date" />
+		<result property="donationStatus"	column="donation_status" />
 	</resultMap>
 
 
@@ -117,8 +117,7 @@
 			,#{goodsC02Code}
 			,#{donationAmount}
 			,#{donationDate}
-			,#{donationStatus}
-		);
+			,#{donationStatus});
 	
 	</insert>
 	

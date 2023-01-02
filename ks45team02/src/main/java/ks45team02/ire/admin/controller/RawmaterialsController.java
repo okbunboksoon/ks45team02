@@ -1,6 +1,7 @@
 package ks45team02.ire.admin.controller;
 
 import ks45team02.ire.admin.dto.RawMaterials;
+import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import ks45team02.ire.admin.service.RawMaterialsService;
 import org.slf4j.Logger;
@@ -53,7 +54,15 @@ public class RawmaterialsController {
 		return "admin/rawmaterials/rawmaterialsDeleteOutgoing";
 	}
 	@GetMapping("/listIncomingRawmaterials")
-	public String listIncomingRawMatrials() {
+	public String listIncomingRawMatrials(Model model) {
+		
+		List<RawMaterialsIncoming> rawMaterialsIncomingList = rawmaterialsMapper.getRawMaterialsIncomingList();
+		
+		model.addAttribute("title", "원자재 입고 조회");
+		model.addAttribute("rawMaterialsIncomingList", rawMaterialsIncomingList);
+		model.addAttribute("subTitle", "원자재 입고 조회");
+		
+		//log.info("rawMaterialsIncomingList: {}", rawMaterialsIncomingList);
 		
 		return "admin/rawmaterials/rawmaterialsListIncoming";
 	}
