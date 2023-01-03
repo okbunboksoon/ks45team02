@@ -28,11 +28,51 @@ public class BoardFAQService {
 	}
 	
 	/**
-	 * 공지사항 등록
+	 * FAQ 등록
+	 * @param boardNotice
+	 * @return boardNoticeMapper.insertNotice(boardNotice)
 	 */
 	public int addFAQ(BoardFAQ boardFAQ) {
 		
 		return boardFAQMapper.addFAQ(boardFAQ);
+	}
+	
+	
+	/**
+	 * FAQ 리스트
+	 * @param currentPage
+	 * @return paramNoticeMap
+	 */
+	public List<BoardFAQ> getFAQList(){
+		List<BoardFAQ> FAQList = boardFAQMapper.getFAQList();
+		return FAQList;
+		
+	}
+	
+	/**
+	 * FAQ 수정처리
+	 * @param boardFAQ
+	 * @return boardFAQMapper.modifyBoardFAQ(boardFAQ)
+	 */
+	public int modifyBoardFAQ(BoardFAQ boardFAQ) {
+		return boardFAQMapper.modifyBoardFAQ(boardFAQ);
+	}
+	
+	/**
+	 * FAQ 상세페이지
+	 * @param FAQ_code
+	 * @return contentsFAQ
+	 */
+	public List<BoardFAQ> contentsFAQ (String FAQ_code){
+		List<BoardFAQ> contentsFAQ = boardFAQMapper.contentsFAQ(FAQ_code);
+		return contentsFAQ;
+	}
+	
+	/**
+	 * FAQ 삭제처리
+	 */
+	public int deleteBoardFAQ(String FAQ_code) {
+		return boardFAQMapper.deleteBoardFAQ(FAQ_code);
 	}
 	
 }

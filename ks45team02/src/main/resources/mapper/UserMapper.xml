@@ -15,6 +15,91 @@
         <result property="pointState"    column="point_state" />
         <result property="userJoinDate"    column="user_join_date" />
     </resultMap>
+    <resultMap id="LoginResultMap" type="LoginOutHistory">
+        <id property="userId" column="user_id"/>
+        <result property="loginTime" column="login_time"/>
+        <result property="logoutTime" column="logout_time"/>
+        <association property="user" javaType="User">
+            <id property="userId"         column="user_id" />
+            <result property="userPw"    column="user_pw" />
+            <result property="userName"    column="user_name" />
+            <result property="userNickName"    column="user_nickname" />
+            <result property="userAddr"    column="user_addr" />
+            <result property="userPhone"    column="user_phone" />
+            <result property="userEmail"    column="user_email" />
+            <result property="userBirth"    column="user_birth" />
+            <result property="pointState"    column="point_state" />
+            <result property="userJoinDate"    column="user_join_date" />
+        </association>
+    </resultMap>
+    <select id="getLoginHistory" parameterType="map" resultMap="LoginResultMap">
+        SELECT
+            u.user_id,
+            u.user_name,
+            l.login_time,
+            l.logout_time
+        FROM
+            loginout_history AS l
+        INNER JOIN
+            user AS u
+            ON
+            u.user_id=l.user_id
+
+    </select>
+    <update id="modifyUser" parameterType="User">
+        <!--회원 수정 처리-->
+        UPDATE user
+        <trim prefix="SET" prefixOverrides=",">
+        <if test="userPw != null and userPw !=''">
+            user_pw=#{userPw}
+        </if>
+        <if test="userName != null and userName !=''">
+            ,user_name=#{userName}
+        </if>
+        <if test="userNickName != null and userNickName !=''">
+            ,user_nickname=#{userNickName}
+        </if>
+        <if test="userEmail != null and userEmail !=''">
+            ,user_email=#{userEmail}
+        </if>
+        <if test="userAddr != null and userAddr !=''">
+            ,user_addr=#{userAddr}
+        </if>
+        <if test="userPhone != null and userPhone !=''">
+            ,user_phone=#{userPhone}
+        </if>
+        <if test="userBirth != null and userBirth !=''">
+            ,user_birth=#{userBirth}
+        </if>
+        </trim>
+        WHERE user_id=#{userId}
+    </update>
+    <select id="getUserInfoById" resultMap="UserResultMap" parameterType="String">
+        <!--특정 회원 조회-->
+        select
+            user_id,
+            user_pw,
+            user_name,
+            user_nickname,
+            user_addr,
+            user_phone,
+            user_email,
+            user_birth,
+            point_state,
+            user_join_date
+        FROM
+            user
+        WHERE
+            user_id=#{userId}
+    </select>
+    <select id="idCheck" parameterType="String" resultType="int">
+        <!--아이디 중복 체크-->
+        select
+        COUNT(u.user_id)
+        FROM
+        user AS u
+        WHERE u.user_id=#{userId}
+    </select>
     <insert id="addUser" parameterType="User">
         <!--회원가입 처리-->
         INSERT INTO user
@@ -45,6 +130,7 @@
         );
     </insert>
     <select id="listUser" resultMap="UserResultMap">
+        <!--회원 조회-->
         select
             user_id,
             user_pw,
