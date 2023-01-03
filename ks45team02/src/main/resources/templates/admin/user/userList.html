@@ -39,7 +39,7 @@
         <tbody>
         <tr th:if ="${not #lists.isEmpty(listUser)}"
             th:each="l : ${listUser}">
-            <td th:text ="${l.getUserId()}"/></td>
+            <td th:text ="${l.userId}"/></td>
             <td th:text = "${l.getUserPw()}"/></td>
             <td th:text = "${l.getUserName()}"/></td>
             <td th:text = "${l.getUserNickName()}"/></td>
@@ -50,11 +50,14 @@
             <td th:text = "${l.getPointState()}"/></td>
             <td th:text = "${l.getUserJoinDate()}"/></td>
             <td>
-                <a th:href="@{#}">수정</a>
+                <a th:href="@{/admin/modifyUser(userId=${l.userId})}">수정</a>
             </td>
             <td>
-                <a th:href ="@{#}">삭제</a>
+                <a th:href ="@{/admin/deleteUser/{userId}(userId=${l.userId})}">삭제</a>
             </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(listUser)}">
+            <td colspan="9">등록한 회원이 없습니다.</td>
         </tr>
         </tbody>
     </table>

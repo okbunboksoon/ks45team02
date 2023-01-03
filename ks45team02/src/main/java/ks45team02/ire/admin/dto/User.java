@@ -2,6 +2,7 @@ package ks45team02.ire.admin.dto;
 
 public class User {
 
+
 	 private String userId;
 	 private String userPw;
 	 private String userName;

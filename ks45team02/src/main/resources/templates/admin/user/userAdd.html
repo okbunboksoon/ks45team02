@@ -4,9 +4,130 @@
       layout:decorate="~{admin/layout/adminDefault}">
 
 <head>
+    <style type="text/css">
+        table {
+            border: 1px solid black;
+            width: 100%;
+            table-layout: auto;
+            text-align: center;
+        }
+        th {
+            border: 1px solid black;
+            background-color: cornflowerblue;
+            color: azure;
+            height: 30px;
+        }
+        td {
+            border: 1px solid black;
+            height: 30px;
+        }
+
+        #submitBtn{
+            margin-right: 30px;
+        }
+        input{
+            width: 98%;
+            height: 97%
+        }
+        select{
+            width: 98%;
+            height: 90%;
+        }
+        button:not{
+            width: 98%;
+            height: 90%;
+        }
+        #submitBtn, #resetBtn{
+            width: 47%;
+        }
+    </style>
 </head>
 <th:block layout:fragment="customJs">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){ //window.onload(요소가 다 렌더링이 되고 나서 실행)
+            $('#submitBtn').click(function (){
+                let isSubmint =true;
+                $('#addUser input').each(function (idx,item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).parents('tr').find('label').text();
+                    if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
+                        alert(`${labelValue}를 입력해 주세여`);
+                        $(item).focus();
+                        isSubmint=false;
+                        return false;
+                    }
+                });
+                if(isSubmint) $('#addUser').submit();
+            });
+        });
+
+        $(function(){
+            const $idData = document.getElementById('userId');
+            const $submitBtn = document.getElementById('submitBtn');
+
+            $('#userPw').attr("disabled", true);
+            $('#userBirth').attr("disabled", true);
+            $('#userPwCheck').attr("disabled", true);
+            $('#userAddr').attr("disabled", true);
+            $('#userEmail').attr("disabled", true);
+            $('#userName').attr("disabled", true);
+            $('#userNickName').attr("disabled", true);
+            $('#userPhone').attr("disabled", true);
+
+            function validateValue(checkValue){
+                if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+                    return true;
+                }
+                return false;
+            }
+            $('#checkBtn').click(function(){
+                const $id = $('#userId').val();
+                console.log($id,"은나와라 1111");
+                if(validateValue($id))
+                {
+                    alert('회원 아이디 입력해주세요');
+                    $('#userId').focus();
+                    return false;
+                }
+
+                $('#userId').keypress(function(){
+                    $submitBtn.disabled = true;
+                    $('#addUser input').not('#userId').prop('disabled', true);
+                    $('#addUser button').not('#checkBtn').prop('disabled', true);
+
+                })
+                let idCheckApi = '/admin/idCheck/'+ $id;
+                fetch(idCheckApi)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data,"금나와라");
+                            console.log($id,"은나와라");
+
+                            if(data !== 0){
+                                alert(`${$id} 아이디 가 있습니다`);
+                                $('#userId').val('');
+                                $submitBtn.disabled = true;
+                                $('#addUser input').not('#userId').prop('disabled', true);
+                                $('#addUser button').not('#checkBtn').prop('disabled', true);
+                                $idData.focus();
+                                return false;
+                            }else {
+                                alert("중복이 아니다 이거야~");
+                                $submitBtn.disabled = false;
+                                $('#addUser input').not('#userId').prop('disabled', false);
+                                $('#addUser button').not('#checkBtn').prop('disabled', false);
+
+                            }
+
+                        })
+                        .catch(err =>console.log(err));
+            });
+        });
+
+    </script>
 </th:block>
 <th:block layout:fragment="customContents">
     <h1>회원등록</h1>
@@ -94,7 +215,7 @@
             <tfoot>
             <tr>
                 <td colspan="3">
-                    <button type="submit" id="submitBtn" >회원가입</button>
+                    <button type="button" id="submitBtn" >회원가입</button>
                     <button type="reset" id="resetBtn">취소</button>
                 </td>
             </tr>
