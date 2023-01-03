@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.GoodsMapper">
+	<resultMap id="GoodsResultMap" type="Goods">
+		<id property="goods_code" 					column="goods_code" />
+		<result property="goods_name" 				column="goods_name"/>
+		<result property="category_medium_num"		column="category_medium_num"/>
+		<result property="goods_price" 				column="goods_price"/>
+		<result property="goods_color" 				column="goods_color"/>
+		<result property="goods_size" 				column="goods_size"/>
+		<result property="goods_reg_date" 			column="goods_reg_date"/>
+		<result property="goods_sangse" 			column="goods_sangse"/>
+		<result property="goods_image" 				column="goods_image"/>
+		<result property="fabric" 					column="fabric"/>
+		<result property="rate" 					column="rate"/>
+		<result property="upcycling_carbon_dioxide_emission_level" column="upcycling_carbon_dioxide_emission_level"/>
+	</resultMap>
+	
+	<select id="getListGoods" resultMap="GoodsResultMap">
+		SELECT
+			g.goods_code
+			,g.goods_name
+			,g.category_medium_num
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,g.goods_reg_date
+			,g.goods_sangse
+			,g.goods_image
+			,g.fabric
+			,g.rate
+			,g.upcycling_carbon_dioxide_emission_level	
+		FROM
+			goods AS g
+	</select>
+</mapper>

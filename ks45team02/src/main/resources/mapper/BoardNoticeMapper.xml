@@ -35,9 +35,6 @@
 			,notice.notice_contents
 		FROM
 			notice_board AS notice
-		<if test="startRowNum != null and startRowNum > -1">		
-			LIMIT #{startRowNum}, #{rowPerPage};
-		</if>
     </select>
     
     <!-- 공지사항 전체갯수 -->
@@ -95,7 +92,7 @@
     </update>
     
     <!-- 공지사항 삭제처리 -->
-    <delete id="deleteBoardNotice" parameterType="BoardNotice">
+    <delete id="deleteBoardNotice" parameterType="String">
     DELETE 
 	FROM 
 		notice_board

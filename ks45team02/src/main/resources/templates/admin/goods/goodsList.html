@@ -4,35 +4,54 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
 	<th:block layout:fragment="customScript">
 		<script>
 			$(function(){				
-				$('#listNotice').DataTable();
+				$('#listGoods').DataTable();
 			})
 		</script>	
 	</th:block>
 	<th:block layout:fragment="customContents">
-		<h1>상품 목록</h1>
-		<table id="listNotice" class="table table-striped table-bordered" style="width:100%">
+		<table id="listGoods" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr>
-					<th class="noticeNum">번호</th>
-					<th class="noticeCategory">구분</th>
-					<th class="noticeTitle">제목</th>
-					<th class="noticeWriter">작성자</th>
-					<th class="noticeDate">등록날짜</th>
+					<th class="goods_code">상품코드</th>
+					<th class="goods_name">상품명</th>
+					<th class="category_medium_num">카테고리(중)</th>
+					<th class="goods_price">판매단가</th>
+					<th class="goods_color">색상</th>
+					<th class="goods_size">사이즈</th>
+					<th class="goods_reg_date">등록날짜</th>
+					<th class="goods_sangse">상세설명</th>
+					<th class="goods_image">이미지</th>
+					<th class="fabric">원단</th>
+					<th class="rate">비율</th>
+					<th class="upcycling_carbon_dioxide_emission_level">이산화탄소 배출량</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:if="${not #lists.isEmpty(noticeList)}" th:each="nl : ${noticeList}">
-					<td th:text="${nl.noticeNum}" />
-					<td th:text="${nl.noticeCate}" />
-					<td><a th:text="${nl.noticeTitle}" th:href="@{/admin/detailsNotice(noticeNum=${nl.noticeNum})}"></a></td>
-					<td th:text="${nl.userId}" />
-					<td th:text="${nl.noticeDate}" />
+				<tr th:if="${not #lists.isEmpty(listGoods)}" th:each="gl : ${listGoods}">
+					<td th:text="${gl.goods_code}" />
+					<td th:text="${gl.goods_name}" />
+					<td th:text="${gl.category_medium_num}" />
+					<td th:text="${gl.goods_price}" />
+					<td th:text="${gl.goods_color}" />
+					<td th:text="${gl.goods_size}" />
+					<td th:text="${gl.goods_reg_date}" />
+					<td th:text="${gl.goods_sangse}" />
+					<td th:text="${gl.goods_image}" />
+					<td th:text="${gl.fabric}" />
+					<td th:text="${gl.rate}" />
+					<td th:text="${gl.upcycling_carbon_dioxide_emission_level}" />	
 				</tr>
-				<tr th:unless="${not #lists.isEmpty(noticeList)}">
+				<tr th:unless="${not #lists.isEmpty(listGoods)}">
 					<td colspan="9">등록된 상품이 없습니다.</td>
 				</tr>
 			</tbody>
@@ -57,7 +76,6 @@
 	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
 	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
 	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
-	
 	</th:block>
 	
 </html>
