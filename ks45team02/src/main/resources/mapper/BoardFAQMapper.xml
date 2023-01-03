@@ -14,7 +14,7 @@
     
 
     
-    <!-- faq 등록 -->
+    <!-- FAQ 등록 -->
     <insert id="addFAQ" parameterType="BoardFAQ">
     	INSERT INTO faq(
     		FAQ_code
@@ -33,7 +33,7 @@
 		)
     </insert>
     
-    <!-- faq 리스트 -->
+    <!-- FAQ 리스트 -->
     <select id="getFAQList" resultMap="BoardFAQResultMap">   
     SELECT
 		faq.FAQ_code
@@ -46,5 +46,42 @@
 		faq AS faq
     </select>
     
+    <!-- FAQ 상세페이지 -->
+    <select id="contentsFAQ" resultMap="BoardFAQResultMap">
+    SELECT 
+	FAQ_code
+		, FAQ_title
+		, FAQ_contents
+		, FAQ_file
+		, FAQ_views
+		, FAQ_reg_date
+	FROM 
+		faq AS faq
+	WHERE
+		faq.FAQ_code =  #{FAQ_code};
+    </select>
+    
+    <!-- FAQ 수정처리 -->
+    <update id="modifyBoardFAQ" parameterType="BoardFAQ">
+	    UPDATE faq
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="FAQ_title != null and FAQ_title != '' ">
+				,FAQ_title = #{FAQ_title}
+			</if>
+			<if test="FAQ_contents != null and FAQ_contents != '' ">
+				,FAQ_contents = #{FAQ_contents}
+			</if>
+		</trim>
+		WHERE FAQ_code= #{FAQ_code}
+    </update>
+    
+    <!-- FAQ 삭제처리 -->
+    <delete id="deleteBoardFAQ" parameterType="String">
+    DELETE
+    FROM
+    	faq 
+    WHERE
+     	FAQ_code = #{FAQ_code}
+    </delete>
     
 </mapper>
