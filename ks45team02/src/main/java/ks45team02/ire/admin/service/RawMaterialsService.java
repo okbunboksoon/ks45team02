@@ -3,6 +3,7 @@ package ks45team02.ire.admin.service;
 import java.util.List;
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
+import ks45team02.ire.admin.mapper.DonationMapper;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 public class RawMaterialsService {
 
 	private final RawMaterialsMapper rawmaterialsMapper ;
+	private final DonationMapper donationMapper ;
 	public int result;
-	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper) {
-		this.rawmaterialsMapper =rawmaterialsMapper;
+	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper) {
+		this.rawmaterialsMapper = rawmaterialsMapper;
+		this.donationMapper = donationMapper;
 	
 	}
 	
 	public int addIncomingRawmaterials(RawMaterialsIncoming rawMaterialsIncoming) {
 		
 		int result = 0;
+		String donationCode = rawMaterialsIncoming.getDonationCode();
 		int rawMaterialsIncomingAmount = rawMaterialsIncoming.getRawMaterialsIncomingAmount();
 		String rawMaterialsStatus = rawMaterialsIncoming.getRawMaterialsStatus();
+		
+		int checkDonationCode = donationMapper.checkDonationCode(donationCode);
+		if(checkDonationCode == 0) {
+			return result;
+		}
 		
 		switch(rawMaterialsStatus) {
 		case "정상" 

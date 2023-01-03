@@ -12,6 +12,16 @@
 		<result property="donationStatus"	column="donation_status" />
 	</resultMap>
 
+	<select id="checkDonationCode" parameterType="String" resultType="int">
+		<!-- 기부신청 코드 존재 여부 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM
+			donation
+		WHERE 
+			donation_code = #{donationCode};
+	
+	</select>
 
 	<select id="getDonationCnt" resultType="int">
 	<!-- 기부 테이블의 전체 행의 갯수 -->

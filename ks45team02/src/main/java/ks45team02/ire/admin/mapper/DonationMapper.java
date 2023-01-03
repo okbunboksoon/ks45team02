@@ -10,6 +10,9 @@ import ks45team02.ire.admin.dto.Donation;
 @Mapper
 public interface DonationMapper {
 
+	//기부신청 코드 존재 여부 확인
+	public int checkDonationCode(String donationCode);
+	
 	//기부 테이블 행의 개수
 	public int getDonationCnt();
 	
