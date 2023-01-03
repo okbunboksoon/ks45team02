@@ -69,47 +69,8 @@ public class UserService {
         resultMap.put("userInfo",user);
         return resultMap;
     }
-    public Map<String,Object>getLoginHistory(int currentPage){
-        //보여질 행의 개수
-        int rowPerPage=10;
-        // 로그인 이력 테이블의 보여질 행의 시작점
-        int startRowNum=(currentPage-1)*rowPerPage;
-
-        // 마지막 페이지
-        // 1.로그인 이력테이블의 전체 행의 갯수
-        double rowCnt= userMapper.getLoginHistoryCNT();
-
-        // 2.마지막 페이지
-        int lastPage=(int) Math.ceil(rowCnt/rowPerPage);
-
-        //보여질 페이지 번호 구현
-        //보여질 페이지 번호 초기화
-        int startPageNum=1;
-        int endPageNum=10;
-
-        //동적 페이지 번호 구현
-        if(currentPage>6 && lastPage>9){
-            startPageNum=currentPage - 5;
-            endPageNum=currentPage + 4;
-            if(endPageNum>lastPage){
-                startPageNum=lastPage - (lastPage-1);
-                endPageNum=lastPage;
-            }
-        }
-        //로그인 이력조회시 Limit 인수 파라미터 셋팅
-        Map<String,Object>paramMap=new HashMap<String,Object>();
-        paramMap.put("startRowNum",startRowNum);
-        paramMap.put("rowPerPage",rowPerPage);
-
-        //로그인 이력 data
-        List<LoginOutHistory> loginHistory=userMapper.getLoginHistory(paramMap);
-
-        //controller에 전달하기 위한 파라미터 셋팅
-        paramMap.put("loginHistory",loginHistory);
-        paramMap.put("lastPage",lastPage);
-        paramMap.put("startPageNum",startPageNum);
-        paramMap.put("endPageNum",endPageNum);
-
-        return paramMap;
+    public List<LoginOutHistory>getLoginHistory(){
+        List<LoginOutHistory> loginHistory=userMapper.getLoginHistory();
+        return  loginHistory;
     }
 }

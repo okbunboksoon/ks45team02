@@ -5,7 +5,6 @@ import ks45team02.ire.admin.dto.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -20,8 +19,6 @@ public interface UserMapper {
     // 회원 수정
     public int modifyUser(User user);
     //로그인 이력조회
-    public List<LoginOutHistory>getLoginHistory(Map<String,Object> paramMap);
-    //로그인이력 전체행의 개수
-    public int getLoginHistoryCNT();
+    public List<LoginOutHistory>getLoginHistory();
 
 }
