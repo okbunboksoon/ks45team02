@@ -1,6 +1,8 @@
 
 package ks45team02.ire.admin.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -63,8 +65,19 @@ public class BoardFAQController {
 		return "admin/board/boardDeleteFAQ";
 	}
 	
+	/**
+	 * FAQ 리스트
+	 * @param model
+	 */
 	@GetMapping("/listBoardFAQ")
-	public String listBoardFAQ() {
+	public String listBoardFAQ(Model model) {
+		
+		List<BoardFAQ> FAQList = boardFAQService.getFAQList();
+		
+		model.addAttribute("FAQList", FAQList);
+		model.addAttribute("title", "FAQ 리스트");
+		model.addAttribute("subTitle", "FAQ 리스트");
+		log.info("FAQList : {}" , FAQList);
 		
 		return "admin/board/boardListFAQ";
 	}

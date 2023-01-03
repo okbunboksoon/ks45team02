@@ -12,4 +12,8 @@ public interface BoardFAQMapper {
 	/* FAQ 등록 */
 	public int addFAQ(BoardFAQ boardFAQ);
 	
+	/* FAQ 리스트 */
+	public List<BoardFAQ> getFAQList();
+	
+	
 }

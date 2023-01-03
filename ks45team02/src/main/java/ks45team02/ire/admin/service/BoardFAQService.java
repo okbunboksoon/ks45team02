@@ -28,11 +28,25 @@ public class BoardFAQService {
 	}
 	
 	/**
-	 * 공지사항 등록
+	 * FAQ 등록
+	 * @param boardNotice
+	 * @return boardNoticeMapper.insertNotice(boardNotice)
 	 */
 	public int addFAQ(BoardFAQ boardFAQ) {
 		
 		return boardFAQMapper.addFAQ(boardFAQ);
+	}
+	
+	
+	/**
+	 * FAQ 리스트
+	 * @param currentPage
+	 * @return paramNoticeMap
+	 */
+	public List<BoardFAQ> getFAQList(){
+		List<BoardFAQ> FAQList = boardFAQMapper.getFAQList();
+		return FAQList;
+		
 	}
 	
 }
