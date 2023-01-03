@@ -130,21 +130,11 @@ public class UserController {
 		return "admin/user/userLogin";
 	}
 	@GetMapping("/loginHistory")
-	public String getLoginHistory(Model model,
-								  @RequestParam(value = "currentPage",required = false,defaultValue = "1")int currentPage){
-		Map<String,Object>paramMap=userService.getLoginHistory(currentPage);
-		int lastPage=(int)paramMap.get("lastPage");
-		int startPageNum=(int)paramMap.get("startPageNum");
-		int endPageNum=(int)paramMap.get("endPageNum");
-		List<LoginOutHistory> loginHistory=(List<LoginOutHistory>)paramMap.get("loginHistory");
-
+	public String getLoginHistory(Model model){
+		List<LoginOutHistory> loginHistory=userService.getLoginHistory();
+		log.info("로그인 이력:{}",loginHistory);
 		model.addAttribute("pageTitle","로그인 이력");
-		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("loginHistory",loginHistory);
-		model.addAttribute("lastPage",lastPage);
-
-		model.addAttribute("startPageNum",startPageNum);
-		model.addAttribute("endPageNum",endPageNum);
 
 		return "admin/user/userLoginHistory";
 	}

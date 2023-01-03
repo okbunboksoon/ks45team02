@@ -44,14 +44,7 @@
             user AS u
             ON
             u.user_id=l.user_id
-        ORDER BY l.logout_time desc
-    </select>
-    <select id="getLoginHistoryCNT" resultType="int">
-        <!--로그인 이력 조회-->
-        SELECT
-            COUNT(1)
-        FROM
-            loginout_history
+
     </select>
     <update id="modifyUser" parameterType="User">
         <!--회원 수정 처리-->
