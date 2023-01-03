@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+	<style type="text/css">
+			div {
+				color : black;
+			}
+			#FAQ_title {
+				border-top: solid 3px black;
+				border-bottom: solid 1px gray;
+				background-color :white;
+				font-size: 25px;
+				text-align : center;
+				padding: 10px;
+			}
+			#FAQ_code_date {
+				border-bottom: solid 1px gray;
+				background-color :white;
+				font-size: 13px;
+				text-align : right;
+				padding: 10px;
+			}
+			#FAQ_contents {
+				border-bottom: solid 3px black;
+				background-color :white;
+				font-size: 15px;
+				white-space:pre-line;
+				height: 900px;
+			}
+			#button {
+				text-align : right;	
+				padding: 10px;		
+			}
+		</style>
+	</head>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+	        <script>
+	            $(function(){
+	                $('#deleteBtn').click(function(){
+	                    let deleteValue = $('#deleteBtn').val();
+	                    let deleteCheck = confirm("정말 삭제하시겠습니까?")
+	                    if(!deleteCheck){
+	                        return false;
+	                    }else{
+	                        $('#deleteFAQForm').submit();
+	                    }
+	                });
+	            });
+	        </script>
+	    </th:block>
+	
+		<th:block layout:fragment="customContents">
+		<br><br>
+		<th:block th:if="${not #lists.isEmpty(contentsFAQ)}" th:each="faq : ${contentsFAQ}">
+		<form id="deleteFAQForm" th:action="@{/admin/deleteBoardFAQ(FAQ_code=${faq.FAQ_code})}" method="post" />
+		<body>
+			<div  class="container">
+				<div id="FAQ_title" th:text="${faq.FAQ_title}"></div>
+				<div id="FAQ_code_date">
+					<span>등록번호</span>
+					<span th:text="${faq.FAQ_code}"></span>
+					<span>등록날짜</span>
+					<span th:text="${faq.FAQ_reg_date}"></span>
+				</div>
+				<div id="FAQ_contents">
+					<div th:text="${faq.FAQ_contents}"></div>
+				</div>
+				<div id="button">
+					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/listBoardFAQ}">목록으로</a></button>
+					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/modifyBoardFAQ(FAQ_code=${faq.FAQ_code})}">편집</a></button>
+					<button id="deleteBtn" type="button" class="btn btn-outline-dark" th:value="${faq.FAQ_code}">삭제</button>
+				</div>	
+			</div>
+		</body>
+		</th:block>
+	</th:block>
+</html>
