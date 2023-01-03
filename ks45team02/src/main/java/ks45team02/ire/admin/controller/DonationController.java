@@ -1,6 +1,7 @@
 package ks45team02.ire.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,13 +109,24 @@ public class DonationController {
 							  ,@RequestParam(value="startDate", required=false) String startDate		
 							  ,@RequestParam(value="endDate", required=false) String endDate	
 							  ,@RequestParam(value="msg", required=false)String msg
+							  ,@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
 							  ,Model model) {
 		
-		List<Donation> donationList = donationService.getDonationList(searchKey, searchValue, startDate, endDate);
+		Map<String, Object> paramMap = donationService.getDonationList(searchKey, searchValue, startDate, endDate, currentPage);
+		
+		@SuppressWarnings("unchecked")
+		List<Donation> donationList = (List<Donation>) paramMap.get("donationList");
+		int lastPage = (int) paramMap.get("lastPage");
+		int startPageNum = (int) paramMap.get("startPageNum");
+		int endPageNum = (int) paramMap.get("endPageNum");
 		
 		model.addAttribute("title", "기부 조회");
 		model.addAttribute("pageTitle", "기부 조회");
 		model.addAttribute("donationList", donationList);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("startPageNum", startPageNum);
+		model.addAttribute("endPageNum", endPageNum);
 		if(msg != null) {
 			model.addAttribute("msg", msg);
 		}
