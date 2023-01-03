@@ -4,10 +4,85 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
+		<style type="text/css">
+			div {
+				color: black;
+			}
+			#inputTitle {
+				width: 100%
+			}
+			#inputContent {
+				width: 100%
+			}
+			.btnGroup {
+				text-align : center;
+			}
+			button {
+				width: 20%
+			}
+			label {
+				font-size: 20px;
+				margin: 5px;
+			}
+		</style>
 	</head>
-
-	<th:block layout:fragment="customContents">
-		<h1>자주묻는질문 수정 페이지</h1>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script>
+		$(function(){
+			function validateValue(checkValue) {
+				if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+					return true;
+				}
+				return false;	
+			}
+			
+			$('#submitBtn').click(function(){
+				let isSubmit = true;
+				
+				$('#modifyFAQForm input,textarea').each(function(idx, item){
+					let checkValue = $(item).val();
+					let labelValue = $(item).parent('div').find('label').text();
+					if(validateValue(checkValue)){
+						
+						alert(`${labelValue}를 입력해주세요`);
+						$(item).focus();
+						isSubmit = false;
+						
+						return false;
+					}5
+				});
+			
+				if(isSubmit) $('#modifyFAQForm').submit();
+			});
+		});
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+	<form id="modifyFAQForm" th:action="@{/admin/modifyBoardFAQ}" method="post" >
 
+		<br><br>
+		<th:block th:if="${not #lists.isEmpty(modifyFAQ)}" th:each="faq : ${modifyFAQ}">
+		<input type="hidden" class="form-control" id="FAQ_code" name="FAQ_code" th:value="${faq.FAQ_code}">
+		<div class="mb-3">
+			<label class="form-label">제목</label> 
+			<input type="text" class="form-control" id="FAQ_title" name="FAQ_title" th:value="${faq.FAQ_title}">
+		</div>
+		<div class="mb-3">
+			<label class="form-label">내용</label>
+			<textarea class="form-control" rows="30" id="FAQ_contents"name="FAQ_contents" th:text="${faq.FAQ_contents}" th:value="${faq.FAQ_contents}"></textarea>
+		</div>
+		<div class="btnGroup">
+			<button type="button" class="btn btn-outline-primary" id="submitBtn">수정</button>
+			<button type="button" class="btn btn-outline-danger" id="resetBtn" th:onclick="|location.href='@{/admin/listBoardFAQ}'|">취소</button>
+		</div>
+		</th:block>
+	</form>
+</th:block>
 </html>

@@ -11,21 +11,19 @@
 			#noticeTitle {
 				border-top: solid 3px black;
 				border-bottom: solid 1px gray;
-				background-color :white;
 				font-size: 25px;
 				text-align : center;
 				padding: 10px;
 			}
 			#noticeCodeDate {
 				border-bottom: solid 1px gray;
-				background-color :white;
+				background-color : ivory;
 				font-size: 13px;
 				text-align : right;
 				padding: 10px;
 			}
 			#noticeContents {
 				border-bottom: solid 3px black;
-				background-color :white;
 				font-size: 15px;
 				white-space:pre-line;
 				height: 900px;
@@ -46,7 +44,7 @@
 					if(!deleteCheck){
 						return false;
 					}else{
-						location.href = '/admin/deleteBoardNotice?noticeCode='+deleteValue;						
+						$('#deleteNoticeForm').submit();					
 					}
 				});
 			});
@@ -55,26 +53,28 @@
 	
 	<th:block layout:fragment="customContents">
 		<br><br>
-		<body>
-			<div  class="container" th:if="${not #lists.isEmpty(detailsNotice)}" th:each="dl : ${detailsNotice}">
-				<div id="noticeTitle" th:text="${dl.noticeTitle}"></div>
-				<div id="noticeCodeDate">
-					<span>등록번호</span>
-					<span th:text="${dl.noticeCode}"></span>
-					<span>등록날짜</span>
-					<span th:text="${dl.noticeDate}"></span>
+		<th:block th:if="${not #lists.isEmpty(detailsNotice)}" th:each="dl : ${detailsNotice}">
+			<form id="deleteNoticeForm" th:action="@{/admin/deleteBoardNotice(noticeCode=${dl.noticeCode})}" method="post" />
+			<body>
+				<div  class="container">
+					<div id="noticeTitle" th:text="${dl.noticeTitle}"></div>
+					<div id="noticeCodeDate">
+						<span>등록번호</span>
+						<span th:text="${dl.noticeCode}"></span>
+						<span>등록날짜</span>
+						<span th:text="${dl.noticeDate}"></span>
+					</div>
+					<div id="noticeContents">
+						<div th:text="${dl.noticeContents}"></div>
+					</div>
+					<div id="button">
+						<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/listBoardNotice}">목록으로</a></button>
+						<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/modifyBoardNotice(noticeCode=${dl.noticeCode})}">편집</a></button>
+						<button id="deleteBtn" type="button" class="btn btn-outline-dark" th:value="${dl.noticeCode}">삭제</button>
+					</div>	
 				</div>
-				<div id="noticeContents">
-					<div th:text="${dl.noticeContents}"></div>
-				</div>
-				<div id="button">
-					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/listBoardNotice}">목록으로</a></button>
-					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/modifyBoardNotice(noticeCode=${dl.noticeCode})}">편집</a></button>
-					<button id="deleteBtn" type="button" class="btn btn-outline-dark" th:value="${dl.noticeCode}">삭제</button>
-				</div>	
-			</div>
-		</body>
-		
+			</body>
+		</th:block>
 	</th:block>
 
 </html>

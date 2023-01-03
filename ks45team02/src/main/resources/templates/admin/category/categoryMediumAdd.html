@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#addCategoryForm input').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#addCategoryForm').submit();
+				});
+			});
+		</script>
+	</th:block>
+
+	
+	
+	<th:block layout:fragment="customContents">
+		 <div class="">
+		     <div class="page-title">
+		     </div>
+		     <div class="clearfix"></div>
+		     <div class="row">
+		         <div class="col-md-12 col-sm-12">
+		             <div class="x_panel">
+		                 <div class="x_content">
+		                     <form id="addCategoryForm" th:action="@{/admin/addCategoryBig}" method="post">
+		                         <div class="field item form-group">
+		                             <label class="col-form-label col-md-3 col-sm-3  label-align">카테고리 대 이름<span class="required"></span></label>
+		                             <div class="col-md-6 col-sm-6">
+		                             	<select tpye="text" class="form-control"  id="CategoryBigName" name="CategoryBigName">
+		                             		<option>가방</option>
+		                             		<option>신발</option>
+		                             	</select>
+		                             </div>
+		                         </div>
+		                         <div class="field item form-group">
+		                             <label class="col-form-label col-md-3 col-sm-3  label-align">카테고리 중 이름<span class="required"></span></label>
+		                             <div class="col-md-6 col-sm-6">
+		                             	<input tpye="text" class="form-control"  id="CategoryMediumName" name="CategoryMediumName" placeholder="카테고리 이름을 입력해주세요" />
+		                             </div>
+		                         </div>
+		                         <div class="ln_solid">
+		                             <div class="form-group">
+		                                 <div class="col-md-6 offset-md-3">
+		                                     <button id="submitBtn" type='button' class="btn btn-primary">등록</button>
+		                                     <button id="resetBtn" type='reset' class="btn btn-success">취소</button>
+		                                 </div>
+		                             </div>
+		                         </div>
+		                     </form>
+		                 </div>
+		             </div>
+		         </div>
+		     </div>
+		 </div>
+	</th:block>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+	</th:block>
+</html>

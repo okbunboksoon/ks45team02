@@ -5,9 +5,62 @@
 
 	<head>
 	</head>
+	
+	
 
-	<th:block layout:fragment="customContents">
-		<h1>상품등록</h1>
+	
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs}">
+		
 	</th:block>
+	
+	<th:block layout:fragment="customScript">
+
+	</th:block>
+	
+	
+	
+	<th:block layout:fragment="customContents">
+      
+		 <div class="">
+		     <div class="page-title">
+		         <div class="title_left">
+		             <h3>Form Validation</h3>
+		         </div>
+		     </div>
+		     <div class="clearfix"></div>
+		
+		     <div class="row">
+		         <div class="col-md-12 col-sm-12">
+		             <div class="x_panel">
+		                 <div class="x_content">
+		                     <form class="" action="" method="post" novalidate>
+		                         <span class="section">등록</span>
+		                         <div class="field item form-group">
+		                             <label class="col-form-label col-md-3 col-sm-3  label-align">이름<span class="required">*</span></label>
+		                             <div class="col-md-6 col-sm-6">
+		                                 <input class="form-control"  name="name" />
+		                             </div>
+		                         </div>
+		             
+		                
+		                         <div class="ln_solid">
+		                             <div class="form-group">
+		                                 <div class="col-md-6 offset-md-3">
+		                                     <button type='submit' class="btn btn-primary">Submit</button>
+		                                     <button type='reset' class="btn btn-success">Reset</button>
+		                                 </div>
+		                             </div>
+		                         </div>
+		                     </form>
+		                 </div>
+		             </div>
+		         </div>
+		     </div>
+		 </div>
+      
+            <!-- /page content -->
+	</th:block>
+	
 
 </html>
