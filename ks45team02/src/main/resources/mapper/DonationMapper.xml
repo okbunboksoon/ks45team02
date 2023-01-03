@@ -129,7 +129,7 @@
 	
 	</insert>
 	
-	<select id="getDonationList" resultMap="donationResultMap" parameterType="String">
+	<select id="getDonationList" resultMap="donationResultMap">
 		<!-- 기부 조회 및 검색 -->
 		SELECT 
 			 donation_code
@@ -140,15 +140,6 @@
 			,donation_status
 		FROM 
 			donation
-		<where>
-			<if test="searchKey != null and searchValue != ''">
-				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
-			</if>
-			<if test="startDate != '' and startDate != null and endDate != '' and endDate != null">
-				AND <![CDATA[donation_date >= #{startDate} AND donation_date <= #{endDate}]]>
-			</if>	 
-		</where>
-		<if test="startRowNum != null and startRowNum > -1">LIMIT #{startRowNum}, #{rowPerPage};</if> 
 	</select>
 
 

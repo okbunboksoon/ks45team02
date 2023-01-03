@@ -35,6 +35,6 @@ public interface DonationMapper {
 	public int addDonation(Donation donation);
 	
 	//기부 조회 및 검색, 페이징
-	public List<Donation> getDonationList(Map<String, Object> paramMap);
+	public List<Donation> getDonationList();
 	
 }

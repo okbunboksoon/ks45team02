@@ -54,6 +54,7 @@ public class DonationController {
 							 ,@RequestParam(value="msg", required=false) String msg) {
 		
 		model.addAttribute("title", "기부 등록");
+		model.addAttribute("pageTitle", "기부 등록");
 		if(msg != null) {
 			model.addAttribute("msg", msg);
 		}
@@ -94,6 +95,7 @@ public class DonationController {
 		Donation donationInfo = donationMapper.getDonationInfo(donationCode);
 		
 		model.addAttribute("title", "기부 삭제");
+		model.addAttribute("pageTitle", "기부 삭제");
 		model.addAttribute("donationInfo", donationInfo); 
 		if(msg != null) {
 			model.addAttribute("msg", msg);
@@ -104,29 +106,15 @@ public class DonationController {
 	
 	//기부 조회
 	@GetMapping("/listDonation")
-	public String listDonation(@RequestParam(value="searchKey", required=false) String searchKey
-							  ,@RequestParam(value="searchValue", required=false) String searchValue
-							  ,@RequestParam(value="startDate", required=false) String startDate		
-							  ,@RequestParam(value="endDate", required=false) String endDate	
-							  ,@RequestParam(value="msg", required=false)String msg
-							  ,@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+	public String listDonation(@RequestParam(value="msg", required=false)String msg
 							  ,Model model) {
 		
-		Map<String, Object> paramMap = donationService.getDonationList(searchKey, searchValue, startDate, endDate, currentPage);
-		
-		@SuppressWarnings("unchecked")
-		List<Donation> donationList = (List<Donation>) paramMap.get("donationList");
-		int lastPage = (int) paramMap.get("lastPage");
-		int startPageNum = (int) paramMap.get("startPageNum");
-		int endPageNum = (int) paramMap.get("endPageNum");
+		List<Donation> donationList = donationService.getDonationList();
 		
 		model.addAttribute("title", "기부 조회");
 		model.addAttribute("pageTitle", "기부 조회");
 		model.addAttribute("donationList", donationList);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lastPage", lastPage);
-		model.addAttribute("startPageNum", startPageNum);
-		model.addAttribute("endPageNum", endPageNum);
+		
 		if(msg != null) {
 			model.addAttribute("msg", msg);
 		}
@@ -159,6 +147,7 @@ public class DonationController {
 		Donation donationInfo = donationMapper.getDonationInfo(donationCode);
 		
 		model.addAttribute("title", "기부 수정");
+		model.addAttribute("pageTitle", "기부 수정");
 		model.addAttribute("donationInfo", donationInfo);
 		if(msg != null) {
 			model.addAttribute("msg", msg);
