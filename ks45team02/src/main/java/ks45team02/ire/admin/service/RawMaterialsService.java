@@ -19,6 +19,29 @@ public class RawMaterialsService {
 	
 	}
 	
+	public int addIncomingRawmaterials(RawMaterialsIncoming rawMaterialsIncoming) {
+		
+		int result = 0;
+		int rawMaterialsIncomingAmount = rawMaterialsIncoming.getRawMaterialsIncomingAmount();
+		String rawMaterialsStatus = rawMaterialsIncoming.getRawMaterialsStatus();
+		
+		switch(rawMaterialsStatus) {
+		case "정상" 
+			: rawMaterialsIncoming.setDonationPointSave(500);
+			break;
+		case "폐기" 
+			: rawMaterialsIncoming.setDonationPointSave(0);
+			break;
+		}
+		
+		
+		for(int i = 0; i < rawMaterialsIncomingAmount; i++) {
+			result += rawmaterialsMapper.addIncomingRawmaterials(rawMaterialsIncoming);
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * 원자재 입고 조회
 	 * @return List<RawMaterialsIncoming>
