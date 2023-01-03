@@ -10,13 +10,24 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
-	
 	</head>
 	<th:block layout:fragment="customScript">
 		<script>
-			$(function(){				
+			$(function(){
+				$('#deleteBtn').click(function(){
+					let deleteValue = $('#deleteBtn').val();
+					let deleteCheck = confirm("정말 삭제하시겠습니까?")
+					if(!deleteCheck){
+						return false;
+					}else{
+						location.href = '/admin/deleteBoardNotice?noticeCode='+deleteValue;						
+					}
+				});
+				
+				
+				
 				$('#listNotice').DataTable();
-			})
+		});
 		</script>	
 	</th:block>
 	<th:block layout:fragment="customContents">
@@ -34,6 +45,8 @@
 											<th class="noticeTitle">제목</th>
 											<th class="noticeWriter">작성자</th>
 											<th class="noticeDate">등록날짜</th>
+											<th>수정</th>
+											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -43,12 +56,15 @@
 											<td><a th:text="${nl.noticeTitle}" th:href="@{/admin/detailsNotice(noticeCode=${nl.noticeCode})}"></a></td>
 											<td th:text="${nl.userId}" />
 											<td th:text="${nl.noticeDate}" />
+											<td><button type="button" class="btn btn-info"><a style ="color:white" th:href="@{/admin/modifyBoardNotice(noticeCode=${nl.noticeCode})}">편집</a></button></td>
+											<td><button id="deleteBtn" type="button" class="btn btn-outline-dark" th:value="${nl.noticeCode}">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(noticeList)}">
-											<td colspan="9">등록된 공지사항이 없습니다.</td>
+											<td colspan="5">등록된 공지사항이 없습니다.</td>
 										</tr>
 									</tbody>
 								</table>
+								<button type="submit" class="btn btn-primary" style="float: right"><a style ="color:white" th:href="@{/admin/addBoardNotice}">등록</a></button>
 							</div>
 						</div>
 					</div>
@@ -57,7 +73,7 @@
 		</div>
 	</th:block>
 	
-	<!-- 사용자 지정 js 파일 -->
+		<!-- 사용자 지정 js 파일 -->
 	<th:block layout:fragment="customJs">
 		<!-- Datatables -->
 	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>

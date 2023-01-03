@@ -13,7 +13,7 @@ public interface BoardNoticeMapper {
 	/**
 	 * 공지사항 전체 목록
 	 */
-	public List<BoardNotice> getNoticeList(Map<String, Object> paramNoticeMap); 
+	public List<BoardNotice> getNoticeList(); 
 
 	/**
 	 * 공지사항 전체 페이지갯수
@@ -38,5 +38,5 @@ public interface BoardNoticeMapper {
 	/**
 	 * 공지사항 삭제처리
 	 */
-	public int deleteBoardNotice(BoardNotice boardNotice);
+	public int deleteBoardNotice(String noticeCode);
 }

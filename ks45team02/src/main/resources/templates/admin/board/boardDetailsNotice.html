@@ -35,8 +35,21 @@
 		</style>
 	</head>
 
-	
-
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				$('#deleteBtn').click(function(){
+					let deleteValue = $('#deleteBtn').val();
+					let deleteCheck = confirm("정말 삭제하시겠습니까?")
+					if(!deleteCheck){
+						return false;
+					}else{
+						location.href = '/admin/deleteBoardNotice?noticeCode='+deleteValue;						
+					}
+				});
+			});
+		</script>
+	</th:block>
 	
 	<th:block layout:fragment="customContents">
 		<br><br>
@@ -53,9 +66,9 @@
 					<div th:text="${dl.noticeContents}"></div>
 				</div>
 				<div id="button">
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardNotice}'|">목록으로</button>
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardNotice(noticeCode=${dl.noticeCode})}'|">수정</button>
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardNotice(noticeCode=${dl.noticeCode})}'|">삭제</button>
+					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/listBoardNotice}">목록으로</a></button>
+					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/modifyBoardNotice(noticeCode=${dl.noticeCode})}">편집</a></button>
+					<button id="deleteBtn" type="button" class="btn btn-outline-dark" th:value="${dl.noticeCode}">삭제</button>
 				</div>	
 			</div>
 		</body>
