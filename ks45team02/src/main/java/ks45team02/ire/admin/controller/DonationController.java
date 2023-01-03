@@ -113,6 +113,7 @@ public class DonationController {
 		List<Donation> donationList = donationService.getDonationList(searchKey, searchValue, startDate, endDate);
 		
 		model.addAttribute("title", "기부 조회");
+		model.addAttribute("pageTitle", "기부 조회");
 		model.addAttribute("donationList", donationList);
 		if(msg != null) {
 			model.addAttribute("msg", msg);
