@@ -15,10 +15,6 @@ public interface BoardNoticeMapper {
 	 */
 	public List<BoardNotice> getNoticeList(); 
 
-	/**
-	 * 공지사항 전체 페이지갯수
-	 */
-	public int getNoticeListCnt();
 	
 	/**
 	 * 공지사항 등록
