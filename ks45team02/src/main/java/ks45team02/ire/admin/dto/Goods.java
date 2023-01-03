@@ -2,72 +2,71 @@ package ks45team02.ire.admin.dto;
 
 public class Goods {
 
-	private String goods_code;
-	private String goods_name;
-	private String category_medium_num;
-	private int goods_price;
-	private String goods_color;
-	private String goods_size;
-	private String goods_reg_date;
-	private String goods_sangse;
-	private String goods_image;
+	private String goodsCode;
+	private String goodsName;
+	private String categoryMediumNum;
+	private int goodsPrice;
+	private String goodsColor;
+	private String goodsSize;
+	private String goodsRegDate;
+	private String goodsSangse;
+	private String goodsImage;
 	private String fabric;
 	private String rate;
-	private float upcycling_carbon_dioxide_emission_level;
-	
-	public String getGoods_code() {
-		return goods_code;
+	private float upcyclingCarbonDioxideEmissionLevel;
+	public String getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoods_code(String goods_code) {
-		this.goods_code = goods_code;
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
 	}
-	public String getGoods_name() {
-		return goods_name;
+	public String getGoodsName() {
+		return goodsName;
 	}
-	public void setGoods_name(String goods_name) {
-		this.goods_name = goods_name;
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
 	}
-	public String getCategory_medium_num() {
-		return category_medium_num;
+	public String getCategoryMediumNum() {
+		return categoryMediumNum;
 	}
-	public void setCategory_medium_num(String category_medium_num) {
-		this.category_medium_num = category_medium_num;
+	public void setCategoryMediumNum(String categoryMediumNum) {
+		this.categoryMediumNum = categoryMediumNum;
 	}
-	public int getGoods_price() {
-		return goods_price;
+	public int getGoodsPrice() {
+		return goodsPrice;
 	}
-	public void setGoods_price(int goods_price) {
-		this.goods_price = goods_price;
+	public void setGoodsPrice(int goodsPrice) {
+		this.goodsPrice = goodsPrice;
 	}
-	public String getGoods_color() {
-		return goods_color;
+	public String getGoodsColor() {
+		return goodsColor;
 	}
-	public void setGoods_color(String goods_color) {
-		this.goods_color = goods_color;
+	public void setGoodsColor(String goodsColor) {
+		this.goodsColor = goodsColor;
 	}
-	public String getGoods_size() {
-		return goods_size;
+	public String getGoodsSize() {
+		return goodsSize;
 	}
-	public void setGoods_size(String goods_size) {
-		this.goods_size = goods_size;
+	public void setGoodsSize(String goodsSize) {
+		this.goodsSize = goodsSize;
 	}
-	public String getGoods_reg_date() {
-		return goods_reg_date;
+	public String getGoodsRegDate() {
+		return goodsRegDate;
 	}
-	public void setGoods_reg_date(String goods_reg_date) {
-		this.goods_reg_date = goods_reg_date;
+	public void setGoodsRegDate(String goodsRegDate) {
+		this.goodsRegDate = goodsRegDate;
 	}
-	public String getGoods_sangse() {
-		return goods_sangse;
+	public String getGoodsSangse() {
+		return goodsSangse;
 	}
-	public void setGoods_sangse(String goods_sangse) {
-		this.goods_sangse = goods_sangse;
+	public void setGoodsSangse(String goodsSangse) {
+		this.goodsSangse = goodsSangse;
 	}
-	public String getGoods_image() {
-		return goods_image;
+	public String getGoodsImage() {
+		return goodsImage;
 	}
-	public void setGoods_image(String goods_image) {
-		this.goods_image = goods_image;
+	public void setGoodsImage(String goodsImage) {
+		this.goodsImage = goodsImage;
 	}
 	public String getFabric() {
 		return fabric;
@@ -81,42 +80,44 @@ public class Goods {
 	public void setRate(String rate) {
 		this.rate = rate;
 	}
-	public float getUpcycling_carbon_dioxide_emission_level() {
-		return upcycling_carbon_dioxide_emission_level;
+	public float getUpcyclingCarbonDioxideEmissionLevel() {
+		return upcyclingCarbonDioxideEmissionLevel;
 	}
-	public void setUpcycling_carbon_dioxide_emission_level(float upcycling_carbon_dioxide_emission_level) {
-		this.upcycling_carbon_dioxide_emission_level = upcycling_carbon_dioxide_emission_level;
+	public void setUpcyclingCarbonDioxideEmissionLevel(float upcyclingCarbonDioxideEmissionLevel) {
+		this.upcyclingCarbonDioxideEmissionLevel = upcyclingCarbonDioxideEmissionLevel;
 	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Goods [goods_code=");
-		builder.append(goods_code);
-		builder.append(", goods_name=");
-		builder.append(goods_name);
-		builder.append(", category_medium_num=");
-		builder.append(category_medium_num);
-		builder.append(", goods_price=");
-		builder.append(goods_price);
-		builder.append(", goods_color=");
-		builder.append(goods_color);
-		builder.append(", goods_size=");
-		builder.append(goods_size);
-		builder.append(", goods_reg_date=");
-		builder.append(goods_reg_date);
-		builder.append(", goods_sangse=");
-		builder.append(goods_sangse);
-		builder.append(", goods_image=");
-		builder.append(goods_image);
+		builder.append("Goods [goodsCode=");
+		builder.append(goodsCode);
+		builder.append(", goodsName=");
+		builder.append(goodsName);
+		builder.append(", categoryMediumNum=");
+		builder.append(categoryMediumNum);
+		builder.append(", goodsPrice=");
+		builder.append(goodsPrice);
+		builder.append(", goodsColor=");
+		builder.append(goodsColor);
+		builder.append(", goodsSize=");
+		builder.append(goodsSize);
+		builder.append(", goodsRegDate=");
+		builder.append(goodsRegDate);
+		builder.append(", goodsSangse=");
+		builder.append(goodsSangse);
+		builder.append(", goodsImage=");
+		builder.append(goodsImage);
 		builder.append(", fabric=");
 		builder.append(fabric);
 		builder.append(", rate=");
 		builder.append(rate);
-		builder.append(", upcycling_carbon_dioxide_emission_level=");
-		builder.append(upcycling_carbon_dioxide_emission_level);
+		builder.append(", upcyclingCarbonDioxideEmissionLevel=");
+		builder.append(upcyclingCarbonDioxideEmissionLevel);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 
