@@ -4,7 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.BoardFAQMapper">
 	<resultMap id="BoardFAQResultMap" type="BoardFAQ">
-        <id property="FAQ_num"			column="FAQ_num" />
+        <id property="FAQ_code"			column="FAQ_code" />
         <result property="FAQ_title"			column="FAQ_title" />
         <result property="FAQ_contents"		column="FAQ_contents" />
         <result property="FAQ_file"		column="FAQ_file" />
@@ -17,14 +17,14 @@
     <!-- faq 등록 -->
     <insert id="addFAQ" parameterType="BoardFAQ">
     	INSERT INTO faq(
-    		FAQ_num
+    		FAQ_code
 			,FAQ_title
 			,FAQ_contents
 			,FAQ_file
 			,FAQ_views
 			,FAQ_reg_date
 		)VALUES(
-			sf_new_faq_num(), 
+			sf_new_faq_code(), 
 			#{FAQ_title}, 
 			#{FAQ_contents}, 
 			null, 
@@ -32,4 +32,19 @@
 			CURDATE()
 		)
     </insert>
+    
+    <!-- faq 리스트 -->
+    <select id="getFAQList" resultMap="BoardFAQResultMap">   
+    SELECT
+		faq.FAQ_code
+		,faq.FAQ_title
+		,faq.FAQ_contents
+		,faq.FAQ_file
+		,faq.FAQ_views
+		,faq.FAQ_reg_date
+	FROM
+		faq AS faq
+    </select>
+    
+    
 </mapper>
