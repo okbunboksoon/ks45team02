@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.CategoryMapper">
+	<resultMap id="CategoryBigResultMap" type="CategoryBig">
+		<id property="CategoryBigCode"			column="category_big_code" />
+		<result property="CategoryBigName"		column="category_big_name"/>
+		<association property="categoryMedium" javaType="CategoryMedium">
+		<id property="categoryMediumCode" 		column="category_medium_code" />
+		<result property="categoryBigCode" 		column="category_big_code"/>
+		<result property="categoryMediumName" 	column="category_medium_name"/>
+		</association>
+	</resultMap>
+	
+	<!-- 카테고리 대 추가 -->
+	<insert id="addCategoryBig" parameterType="CategoryBig">
+		INSERT INTO category_big
+			(category_big_code, 
+			 category_big_name)
+		VALUES 
+			(sf_new_categoryBig_code(), #{CategoryBigName});
+	</insert>
+	
+	<select id="getCategoryMedium" parameterMap="CategoryBigResultMap">
+		SELECT
+			cb.category_big_code
+			,cb.category_big_name
+		FROM
+			category_big AS cb
+	</select>
+
+</mapper>
