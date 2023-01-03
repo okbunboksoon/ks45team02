@@ -12,6 +12,24 @@
 		<result property="donationStatus"	column="donation_status" />
 	</resultMap>
 
+	<select id="checkDonationCode" parameterType="String" resultType="int">
+		<!-- 기부신청 코드 존재 여부 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM
+			donation
+		WHERE 
+			donation_code = #{donationCode};
+	
+	</select>
+
+	<select id="getDonationCnt" resultType="int">
+	<!-- 기부 테이블의 전체 행의 갯수 -->
+	SELECT 
+		COUNT(1) 
+	FROM 
+		donation;
+	</select> 
 
 	<delete id="deleteDonation" parameterType="String">
 		<!-- 기부신청 코드로 기부 삭제 -->
@@ -121,7 +139,7 @@
 	
 	</insert>
 	
-	<select id="getDonationList" resultMap="donationResultMap" parameterType="String">
+	<select id="getDonationList" resultMap="donationResultMap">
 		<!-- 기부 조회 및 검색 -->
 		SELECT 
 			 donation_code
@@ -132,14 +150,6 @@
 			,donation_status
 		FROM 
 			donation
-		<where>
-			<if test="searchKey != null and searchValue != ''">
-				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
-			</if>
-			<if test="startDate != '' and startDate != null and endDate != '' and endDate != null">
-				AND <![CDATA[donation_date >= #{startDate} AND donation_date <= #{endDate}]]>
-			</if>	 
-		</where>
 	</select>
 
 

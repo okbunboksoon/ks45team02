@@ -8,7 +8,6 @@
 	<th:block layout:fragment="customContents">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>기부 수정</h2>
 				<div class="clearfix"></div>
 			</div>
 			
@@ -79,7 +78,7 @@
 						<div class="col-md-6 col-sm-6 offset-md-3">
 							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
 							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
-							<button class="btn btn-success" type="submit" id="submitBtn">등록</button>
+							<button class="btn btn-success" type="button" id="submitBtn">등록</button>
 						</div>
 					</div>
 				</form>
@@ -97,6 +96,7 @@
 		<script type="text/javascript" th:inline="javascript">
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			$cancelBtn.addEventListener('click', function(){
@@ -108,6 +108,20 @@
 					item.value = '';
 				})
 
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
 			});
 			
 			const msg = [[${msg}]];

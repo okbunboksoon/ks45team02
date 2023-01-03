@@ -9,7 +9,6 @@
 	<th:block layout:fragment="customContents">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>기부 등록</h2>
 				<div class="clearfix"></div>
 			</div>
 			
@@ -28,15 +27,15 @@
 						<label for="goodsC02Code" class="col-form-label col-md-3 col-sm-3 label-align">상품별 co2배출 기준코드</label>
 						<div class="col-md-6 col-sm-6 ">
 							<select id="goodsC02Code" name="goodsC02Code" class="form-control">
-								<option value="co2_001">상의:S</option>
-								<option value="co2_002">상의:M</option>
-								<option value="co2_003">상의:L</option>
-								<option value="co2_004">하의:S</option>
-								<option value="co2_005">하의:M</option>
-								<option value="co2_006">하의:L</option>
-								<option value="co2_007">아우터:S</option>
-								<option value="co2_008">아우터:M</option>
-								<option value="co2_009">아우터:L</option>
+								<option value="co2_001">상의 : S</option>
+								<option value="co2_002">상의 : M</option>
+								<option value="co2_003">상의 : L</option>
+								<option value="co2_004">하의 : S</option>
+								<option value="co2_005">하의 : M</option>
+								<option value="co2_006">하의 : L</option>
+								<option value="co2_007">아우터 : S</option>
+								<option value="co2_008">아우터 : M</option>
+								<option value="co2_009">아우터 : L</option>
 							</select>
 						</div>
 					</div>
@@ -73,7 +72,7 @@
 						<div class="col-md-6 col-sm-6 offset-md-3">
 							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
 							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
-							<button class="btn btn-success" type="submit" id="submitBtn">등록</button>
+							<button class="btn btn-success" type="button" id="submitBtn">등록</button>
 						</div>
 					</div>
 				</form>
@@ -91,6 +90,7 @@
 		<script type="text/javascript" th:inline="javascript">
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			console.log($inputEle);
@@ -104,6 +104,20 @@
 					item.value = '';
 				})
 
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
 			});
 			
 			const msg = [[${msg}]];

@@ -3,17 +3,27 @@
 
 	<div th:fragment="donationSearchFragment">
 		<form th:action="@{/admin/listDonation}" method="get">
-			<select name="searchKey">
-				<option value="donationNum">기부 신청 번호</option>
-				<option value="userId">기부 신청자 아이디</option>
-				<option value="goodsC02Code">상품별 co2배출 기준코드</option>
-				<option value="donationStatus">기부신청 상태</option>
-			</select>
-			<input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
-			<input type="date" name="startDate">
-			<input type="date" name="endDate">
-
-			<button type="submit">검색</button>
+			<div class="title_right">
+				<div class="row">
+				
+					<div class="input-group">
+						<select name="searchKey" class="form-control">
+							<option value="donationNum">기부 신청 번호</option>
+							<option value="userId">기부 신청자 아이디</option>
+							<option value="goodsC02Code">상품별 co2배출 기준코드</option>
+							<option value="donationStatus">기부신청 상태</option>
+						</select>
+						<input type="date" class="form-control" name="startDate">
+						<input type="date" class="form-control" name="endDate">
+						<input type="text" class="form-control" name="searchValue">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default">검색</button>
+						</span>
+					
+					</div>
+				
+				</div>
+			</div>
 
 		</form>
 	</div>
