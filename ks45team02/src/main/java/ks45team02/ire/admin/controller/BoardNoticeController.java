@@ -58,12 +58,12 @@ public class BoardNoticeController {
 		return "redirect:/admin/listBoardNotice";
 	}
 	
-	@GetMapping("/deleteBoardNotice")
-	public String deleteBoardNotice(@RequestParam(value = "noticeNum") String noticeNum, Model model) {
+	//@GetMapping("/deleteBoardNotice")
+	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
 		
-		log.info("deleteBoardNotice noticeNum : {}", noticeNum);
+		log.info("deleteBoardNotice noticeCode : {}", noticeCode);
 		
-		List<BoardNotice> deleteNotice = boardNoticeService.detailsNotice(noticeNum);
+		List<BoardNotice> deleteNotice = boardNoticeService.detailsNotice(noticeCode);
 		model.addAttribute("deleteNotice", deleteNotice);
 		
 		log.info("deleteNotice : {}", deleteNotice);
@@ -71,10 +71,17 @@ public class BoardNoticeController {
 		return "admin/board/boardDeleteNotice";
 	}
 	
-	@PostMapping("/deleteBoardNotice")
-	public String deleteBoardNotice(BoardNotice boardNotice) {
+	/**
+	 * 삭제 처리
+	 * @param boardNotice
+	 * @return
+	 */
+	@GetMapping("/deleteBoardNotice")
+	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode) {
 		
-		log.info("공지사항삭제 정보 :{}", boardNotice);
+		log.info("공지사항삭제 정보 :{}", noticeCode);
+		
+		boardNoticeService.deleteBoardNotice(noticeCode);
 		
 		return "redirect:/admin/listBoardNotice";
 	}
@@ -82,42 +89,33 @@ public class BoardNoticeController {
 	/**
 	 * 공시사항 목록
 	 * @param model
-	 * @return admin/board/boardListNotice
 	 */
 	@GetMapping("/listBoardNotice")
-	public String listBoardNotice(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+	public String listBoardNotice(Model model) {
 		
-		Map<String, Object> paramNoticeMap = boardNoticeService.getNoticeList(currentPage);
-		List<BoardNotice> noticeList = (List<BoardNotice>) paramNoticeMap.get("noticeList");
-		int startPageNum = (int) paramNoticeMap.get("startPageNum");
-		int endPageNum = (int) paramNoticeMap.get("endPageNum");
-		int lastPage = (int) paramNoticeMap.get("lastPage");
+		List<BoardNotice> noticeList = boardNoticeService.getNoticeList();
 		
-		model.addAttribute("title", "공지사항목록");
-		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("noticeList", noticeList);
-		model.addAttribute("startPageNum", startPageNum);
-		model.addAttribute("endPageNum", endPageNum);
-		model.addAttribute("lastPage", lastPage);
-		
+		model.addAttribute("title", "공지사항목록");
+		model.addAttribute("subTitle", "공지사항목록");
 		log.info("noticeList : {}", noticeList);
-
+	
 		return "admin/board/boardListNotice";
 	}
 	
 	/**
 	 * 상세페이지 만들기
-	 * @param noticeNum model
+	 * @param noticeCode model
 	 * @return admin/board/boardDetailsNotice
 	 */
 	@GetMapping("/detailsNotice")
-	public String detailsNotice(@RequestParam(value = "noticeNum") String noticeNum, Model model) {
+	public String detailsNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
 
-		log.info("noticeNum : {}", noticeNum);
-		List<BoardNotice> detailsNotice = boardNoticeService.detailsNotice(noticeNum);
+		log.info("noticeCode : {}", noticeCode);
+		List<BoardNotice> detailsNotice = boardNoticeService.detailsNotice(noticeCode);
 		model.addAttribute("title", "공지사항 상세페이지");
 		model.addAttribute("detailsNotice", detailsNotice);
-		
+		model.addAttribute("subTitle", "상세페이지");
 		log.info("detailsNotice : {}", detailsNotice);
 		
 		return "admin/board/boardDetailsNotice";
@@ -125,13 +123,13 @@ public class BoardNoticeController {
 	
 	/**
 	 * 공지사항 수정화면
-	 * @param noticeNum model
+	 * @param noticeCode model
 	 * @return admin/board/boardModifyNotice
 	 */
 	@GetMapping("/modifyBoardNotice")
-	public String modifyBoardNotice(@RequestParam(value = "noticeNum") String noticeNum, Model model) {
+	public String modifyBoardNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
 		
-		List<BoardNotice> modifyNotice = boardNoticeService.detailsNotice(noticeNum);
+		List<BoardNotice> modifyNotice = boardNoticeService.detailsNotice(noticeCode);
 		
 		model.addAttribute("modifyNotice", modifyNotice);
 		log.info("modifyNotice : {}", modifyNotice);

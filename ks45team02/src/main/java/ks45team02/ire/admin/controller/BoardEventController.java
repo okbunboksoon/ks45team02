@@ -47,9 +47,18 @@ public class BoardEventController {
 		return "admin/board/boardAddEvent";
 	}
 
+	@PostMapping("/deleteBoardEvent")
+	public String deleteBoardEvent(){
+
+		return "redirect:/admin/listBoardEvent";
+	}
+
 	@GetMapping("/deleteBoardEvent")
-	public String deleteBoardEvent() {
-		
+	public String deleteBoardEvent(@RequestParam(value = "eventTitle") String eventTitle, Model model) {
+
+		model.addAttribute("title", "회원탈퇴");
+		model.addAttribute("eventTitle", eventTitle);
+
 		return "admin/board/boardDeleteEvent";
 	}
 	
@@ -74,10 +83,20 @@ public class BoardEventController {
 	}
 	
 	@GetMapping("/modifyBoardEvent")
-	public String modifyBoardEvent() {
-		
+	public String modifyBoardEvent(@RequestParam(value = "eventTitle", required = false)String eventTitle, Model model) {
+
+		List<BoardEvent> boardEventInfo = boardEventService.modifyBoardEvent(eventTitle);
+
+		model.addAttribute("title", "이벤트 수정");
+		model.addAttribute("boardEventInfo", boardEventInfo);
 		return "admin/board/boardModifyEvent";
 	}
 
+	@PostMapping("/modifyBoardEvent")
+	public String modifyBoardEvent(BoardEvent boardEvent){
 
+		log.info("수정할 이벤트 정보: {}", boardEvent);
+		boardEventService.modifyBoardEventInfo(boardEvent);
+		return "redirect:/admin/listBoardEvent";
+	}
 }

@@ -59,7 +59,6 @@
 	
 	<th:block layout:fragment="customContents">
 	<form id="deleteNoticeForm" th:action="@{/admin/deleteBoardNotice}" method="post" >
-		<h1>공지사항 삭제</h1>
 		<br><br>
 		<th:block th:if="${not #lists.isEmpty(deleteNotice)}" th:each="dl : ${deleteNotice}">
 		<div class="checkInput">

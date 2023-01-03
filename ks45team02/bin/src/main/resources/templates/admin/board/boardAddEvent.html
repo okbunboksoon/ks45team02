@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
+<head>
+    <style>
+        button:not(#submitBtn, #resetBtn){
+            width: 98%;
+            height: 90%;
+        }
+        #submitBtn, #resetBtn{
+            width: 47%;
+        }
+    </style>
+</head>
+
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+
+<script>
+    /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
+    $('#submitBtn').click(function(){
+        if(true) $('#boardAddEvent').submit();
+    });
+</script>
+
+
+
+
+<th:block layout:fragment="customContents">
+    <form id = "boardAddEvent" th:action = "@{/admin/addBoardEvent}" method = "post">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <label for = "eventTitle">이벤트 제목</label>
+                </td>
+                <td colspan="2" style="width:100px;">
+                    <input type ="text" id = "eventTitle" name = "eventTitle"
+                           placeholder = "이벤트 제목을 입력해주세요" maxlength="50" style = "width: 500px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for = "eventContents">이벤트 내용</label>
+                </td>
+                <td colspan="2">
+                    <textarea type ="text" id = "eventContents" name = "eventContents"
+                              placeholder = "이벤트 내용을 입력해주세요" maxlength="2048" style = "width: 500px; height: 350px;"> </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for = "eventImage">이벤트 이미지를 넣어주세요</label>
+                </td>
+                <td colspan="2">
+                    <input type ="image" id = "eventImage" name = "eventImage" alt="제출" style = "width: 250px; height: 175px;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for = "eventStartDate">이벤트 시작일을 넣어주세요</label>
+                </td>
+                <td colspan="2">
+                    <input type ="date" id = "eventStartDate" name = "eventStartDate"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for = "eventEndDate">이벤트 마감일을 넣어주세요</label>
+                </td>
+                <td colspan="2">
+                    <input type ="date" id = "eventEndDate" name = "eventEndDate"/>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">
+                    <button type="button" id="submitBtn">이벤트 등록</button>
+                    <button type="reset" id="resetBtn">취소</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</th:block>
+</html>

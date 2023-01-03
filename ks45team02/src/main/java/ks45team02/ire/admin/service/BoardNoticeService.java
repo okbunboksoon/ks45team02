@@ -30,42 +30,11 @@ public class BoardNoticeService {
 	 * @param currentPage
 	 * @return paramNoticeMap
 	 */
-	public Map<String, Object> getNoticeList(int currentPage){
+	public List<BoardNotice> getNoticeList(){
 		
-		int rowPerPage = 10;
+		List<BoardNotice> noticeList = boardNoticeMapper.getNoticeList();
 		
-		int startRowNum = (currentPage - 1) * rowPerPage;
-		
-		double rowCnt = boardNoticeMapper.getNoticeListCnt();
-		int lastPage = (int) Math.ceil(rowCnt/rowPerPage);
-		
-		int startPageNum = 1;
-		int endPageNum = 10;
-		
-		if(currentPage >6 && lastPage > 9) {
-			startPageNum = currentPage - 5;
-		   	endPageNum = currentPage + 4;
-            if(endPageNum >= lastPage){
-            	startPageNum = lastPage - 9;
-            	endPageNum = lastPage;
-            }
-        }
-		if(lastPage < 10) {
-			endPageNum = lastPage;
-		}
-		
-		Map<String, Object> paramNoticeMap = new HashMap<String, Object>();
-		paramNoticeMap.put("startRowNum", startRowNum);
-		paramNoticeMap.put("rowPerPage", rowPerPage);
-		
-		List<BoardNotice> noticeList = boardNoticeMapper.getNoticeList(paramNoticeMap);
-		paramNoticeMap.clear();
-		paramNoticeMap.put("noticeList", noticeList);
-		paramNoticeMap.put("lastPage", lastPage);
-		paramNoticeMap.put("startPageNum", startPageNum);
-		paramNoticeMap.put("endPageNum", endPageNum);
-		
-		return paramNoticeMap;
+		return noticeList;
 	}
 	
 	/**
@@ -80,12 +49,12 @@ public class BoardNoticeService {
 	
 	/**
 	 * 공지사항 상세페이지
-	 * @param noticeNum
+	 * @param noticeCode
 	 * @return detailsNotice
 	 */
-	public List<BoardNotice> detailsNotice(String noticeNum){
+	public List<BoardNotice> detailsNotice(String noticeCode){
 		
-		List<BoardNotice> detailsNotice = boardNoticeMapper.detailsNotice(noticeNum);
+		List<BoardNotice> detailsNotice = boardNoticeMapper.detailsNotice(noticeCode);
 		
 		return detailsNotice;
 	}
@@ -99,4 +68,10 @@ public class BoardNoticeService {
 		
 		return boardNoticeMapper.modifyBoardNotice(boardNotice);
 	}
+	
+	public int deleteBoardNotice(String noticeCode) {
+		
+		return boardNoticeMapper.deleteBoardNotice(noticeCode);
+	}
 }
+

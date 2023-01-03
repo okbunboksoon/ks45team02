@@ -15,7 +15,7 @@
 				text-align : center;
 				padding: 10px;
 			}
-			#noticeNumDate {
+			#noticeCodeDate {
 				border-bottom: solid 1px gray;
 				background-color : ivory;
 				font-size: 13px;
@@ -35,16 +35,30 @@
 		</style>
 	</head>
 
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				$('#deleteBtn').click(function(){
+					let deleteValue = $('#deleteBtn').val();
+					let deleteCheck = confirm("정말 삭제하시겠습니까?")
+					if(!deleteCheck){
+						return false;
+					}else{
+						location.href = '/admin/deleteBoardNotice?noticeCode='+deleteValue;						
+					}
+				});
+			});
+		</script>
+	</th:block>
+	
 	<th:block layout:fragment="customContents">
-		<h1>상세페이지</h1>
 		<br><br>
-		
 		<body>
 			<div  class="container" th:if="${not #lists.isEmpty(detailsNotice)}" th:each="dl : ${detailsNotice}">
 				<div id="noticeTitle" th:text="${dl.noticeTitle}"></div>
-				<div id="noticeNumDate">
+				<div id="noticeCodeDate">
 					<span>등록번호</span>
-					<span th:text="${dl.noticeNum}"></span>
+					<span th:text="${dl.noticeCode}"></span>
 					<span>등록날짜</span>
 					<span th:text="${dl.noticeDate}"></span>
 				</div>
@@ -52,9 +66,9 @@
 					<div th:text="${dl.noticeContents}"></div>
 				</div>
 				<div id="button">
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardNotice}'|">목록으로</button>
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardNotice(noticeNum=${dl.noticeNum})}'|">수정</button>
-					<button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardNotice(noticeNum=${dl.noticeNum})}'|">삭제</button>
+					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/listBoardNotice}">목록으로</a></button>
+					<button type="button" class="btn btn-outline-dark"><a th:href="@{/admin/modifyBoardNotice(noticeCode=${dl.noticeCode})}">편집</a></button>
+					<button id="deleteBtn" type="button" class="btn btn-outline-dark" th:value="${dl.noticeCode}">삭제</button>
 				</div>	
 			</div>
 		</body>

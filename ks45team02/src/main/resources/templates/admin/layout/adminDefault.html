@@ -44,6 +44,11 @@
 				
 				<!-- contents start -->
 					<div class="right_col" role="main">
+						<div class="page-title">
+							<div class="title_left">
+                				<h3 th:text="${pageTitle}"></h3>
+              				</div>
+            			</div>
 						<th:block layout:fragment="customContents">
 						</th:block>			
 					</div>
@@ -102,12 +107,7 @@
 
     <!-- Custom Theme Scripts -->
     <script th:src="@{/admin/build/js/custom.min.js}"></script>
-    <script>
-            /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
-            $('#submitBtn').click(function(){
-                if(true) $('#boardAddEvent').submit();
-            });
-    </script>
+
     <!-- 사용자 지정 js 파일 -->
 	<th:block layout:fragment="customJs"></th:block>
 	
