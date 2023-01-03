@@ -39,7 +39,7 @@ public class BoardNoticeController {
 	public String addBoardNotice(Model model) {
 		
 		model.addAttribute("title", "공지사항 등록");
-		
+		model.addAttribute("pageTitle", "공지사항 등록");
 		return "admin/board/boardAddNotice";
 	}
 	
@@ -76,7 +76,7 @@ public class BoardNoticeController {
 	 * @param boardNotice
 	 * @return
 	 */
-	@GetMapping("/deleteBoardNotice")
+	@PostMapping("/deleteBoardNotice")
 	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode) {
 		
 		log.info("공지사항삭제 정보 :{}", noticeCode);
@@ -97,7 +97,7 @@ public class BoardNoticeController {
 		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("title", "공지사항목록");
-		model.addAttribute("subTitle", "공지사항목록");
+		model.addAttribute("pageTitle", "공지사항목록");
 		log.info("noticeList : {}", noticeList);
 	
 		return "admin/board/boardListNotice";
@@ -108,17 +108,17 @@ public class BoardNoticeController {
 	 * @param noticeCode model
 	 * @return admin/board/boardDetailsNotice
 	 */
-	@GetMapping("/detailsNotice")
-	public String detailsNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
+	@GetMapping("/ContentsNotice")
+	public String ContentsNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
 
 		log.info("noticeCode : {}", noticeCode);
 		List<BoardNotice> detailsNotice = boardNoticeService.detailsNotice(noticeCode);
 		model.addAttribute("title", "공지사항 상세페이지");
 		model.addAttribute("detailsNotice", detailsNotice);
-		model.addAttribute("subTitle", "상세페이지");
+		model.addAttribute("pageTitle", "상세페이지");
 		log.info("detailsNotice : {}", detailsNotice);
 		
-		return "admin/board/boardDetailsNotice";
+		return "admin/board/boardContentsNotice";
 	}
 	
 	/**
@@ -132,6 +132,7 @@ public class BoardNoticeController {
 		List<BoardNotice> modifyNotice = boardNoticeService.detailsNotice(noticeCode);
 		
 		model.addAttribute("modifyNotice", modifyNotice);
+		model.addAttribute("pageTitle", "공지사항 수정");
 		log.info("modifyNotice : {}", modifyNotice);
 		
 		return "admin/board/boardModifyNotice";

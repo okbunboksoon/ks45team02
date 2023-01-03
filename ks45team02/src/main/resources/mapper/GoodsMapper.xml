@@ -4,18 +4,18 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.GoodsMapper">
 	<resultMap id="GoodsResultMap" type="Goods">
-		<id property="goods_code" 					column="goods_code" />
-		<result property="goods_name" 				column="goods_name"/>
-		<result property="category_medium_num"		column="category_medium_num"/>
-		<result property="goods_price" 				column="goods_price"/>
-		<result property="goods_color" 				column="goods_color"/>
-		<result property="goods_size" 				column="goods_size"/>
-		<result property="goods_reg_date" 			column="goods_reg_date"/>
-		<result property="goods_sangse" 			column="goods_sangse"/>
-		<result property="goods_image" 				column="goods_image"/>
+		<id property="goodsCode" 					column="goods_code" />
+		<result property="goodsName" 				column="goods_name"/>
+		<result property="categoryMediumNum"		column="category_medium_num"/>
+		<result property="goodsPrice" 				column="goods_price"/>
+		<result property="goodsColor" 				column="goods_color"/>
+		<result property="goodsSize" 				column="goods_size"/>
+		<result property="goodsRegDate" 			column="goods_reg_date"/>
+		<result property="goodsSangse" 			column="goods_sangse"/>
+		<result property="goodsImage" 				column="goods_image"/>
 		<result property="fabric" 					column="fabric"/>
 		<result property="rate" 					column="rate"/>
-		<result property="upcycling_carbon_dioxide_emission_level" column="upcycling_carbon_dioxide_emission_level"/>
+		<result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
 	</resultMap>
 	
 	<select id="getListGoods" resultMap="GoodsResultMap">
