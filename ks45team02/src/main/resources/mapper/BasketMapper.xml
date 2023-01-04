@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BasketMapper">
+	<resultMap type="Basket" 					id="basketResultMap">
+		<id property="basketCode" 				column="basket_code" />
+		<result property="goodsCode" 			column="goods_code" />
+		<result property="basketGroup"		 	column="basket_group" />
+		<result property="userId" 				column="user_id" />
+		<result property="goodsName" 			column="goods_name" />
+		<result property="categoryMediumCode"	column="category_medium_code" />
+		<result property="goodsPrice"			column="goods_price" />
+		<result property="basketAmount"			column="basket_amount" />
+		<result property="eachPaymentAmount"	column="each_payment_amount" />
+		<result property="regDate"				column="reg_date" />
+		<result property="basketState"			column="basket_state" />
+	</resultMap>
+	
+	<select id="getBasketList" resultMap="basketResultMap">
+		<!-- 장바구니 조회 -->
+		SELECT 
+			 basket_code
+			,goods_code
+			,basket_group
+			,user_id
+			,goods_name
+			,category_medium_code
+			,goods_price
+			,basket_amount
+			,each_payment_amount
+			,reg_date
+			,basket_state
+		FROM 
+			basket;
+	</select>
+
+</mapper>
