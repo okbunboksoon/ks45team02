@@ -14,6 +14,7 @@
         <result property="userBirth"    column="user_birth" />
         <result property="pointState"    column="point_state" />
         <result property="userJoinDate"    column="user_join_date" />
+        <result property="userDropState"    column="user_drop_state" />
         <collection property="loginOutHistoryList" resultMap="LoginResultMap">
         </collection>
     </resultMap>
@@ -92,7 +93,8 @@
             user_email,
             user_birth,
             point_state,
-            user_join_date
+            user_join_date,
+            user_drop_state
         FROM
             user
         WHERE
@@ -119,7 +121,8 @@
             user_email,
             user_birth,
             point_state,
-            user_join_date
+            user_join_date,
+            user_drop_state
         )
         VALUES
         (
@@ -132,7 +135,8 @@
             #{userEmail},
             #{userBirth},
             5000,
-            CURDATE()
+            CURDATE(),
+            'N'
         );
     </insert>
     <select id="listUser" resultMap="UserResultMap">
@@ -147,7 +151,8 @@
             user_email,
             user_birth,
             point_state,
-            user_join_date
+            user_join_date,
+            user_drop_state
         FROM
             user
 

@@ -13,6 +13,9 @@
         .tg .tg-baqh{text-align:center;vertical-align:top}
         .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
         .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+        .tr td{
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -32,6 +35,7 @@
             <th>회원생년월일</th>
             <th>포인트상태</th>
             <th>가입날짜</th>
+            <th>회원 탈퇴여부</th>
             <th>수정</th>
             <th>삭제</th>
         </tr>
@@ -49,6 +53,7 @@
             <td th:text = "${l.getUserBirth()}"/></td>
             <td th:text = "${l.getPointState()}"/></td>
             <td th:text = "${l.getUserJoinDate()}"/></td>
+            <td th:text = "${l.userDropState}"/></td>
             <td>
                 <a th:href="@{/admin/modifyUser(userId=${l.userId})}">수정</a>
             </td>

@@ -15,6 +15,7 @@ public class User {
 	 private String userBirth;
 	 private int pointState;
 	 private String userJoinDate;
+	 private String userDropState;
 	private List<LoginOutHistory> loginOutHistoryList;
 
 	@Override
@@ -30,8 +31,17 @@ public class User {
 				", userBirth='" + userBirth + '\'' +
 				", pointState=" + pointState +
 				", userJoinDate='" + userJoinDate + '\'' +
+				", userDropState='" + userDropState + '\'' +
 				", loginOutHistoryList=" + loginOutHistoryList +
 				'}';
+	}
+
+	public String getUserDropState() {
+		return userDropState;
+	}
+
+	public void setUserDropState(String userDropState) {
+		this.userDropState = userDropState;
 	}
 
 	public List<LoginOutHistory> getLoginOutHistoryList() {
