@@ -1,6 +1,5 @@
 package ks45team02.ire.admin.service;
 
-import ks45team02.ire.admin.dto.LoginOutHistory;
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.mapper.UserMapper;
 import org.slf4j.Logger;
@@ -59,6 +58,7 @@ public class UserService {
 
         boolean result = false;
         User user = userMapper.getUserInfoById(userId);
+
         if(user !=null){
             String checkPw=user.getUserPw();
             if(memberPw.equals(checkPw)){
@@ -69,8 +69,11 @@ public class UserService {
         resultMap.put("userInfo",user);
         return resultMap;
     }
-    public List<LoginOutHistory>getLoginHistory(){
-        List<LoginOutHistory> loginHistory=userMapper.getLoginHistory();
+    public int updateLoginHistory(String userId){
+        return userMapper.updateLoginHistory(userId);
+    }
+    public List<User>getLoginHistory(){
+        List<User> loginHistory=userMapper.getLoginHistory();
         return  loginHistory;
     }
 }
