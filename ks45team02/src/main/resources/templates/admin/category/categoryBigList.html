@@ -17,13 +17,21 @@
 				$('#listCategory').DataTable();
 				
 				$('#deleteBtn').click(function(){
-					let deleteValue = $('#deleteBtn').val();
-					alert(deleteValue);
 					let deleteCheck = confirm("정말 삭제하시겠습니까?")
+					let deleteValue = $('#deleteBtn').val();
+					
 					if(!deleteCheck){
 						return false;
 					}else{
-						$('#deleteNoticeForm').submit();					
+						$.ajax({
+							type: "post",
+							url: '/admin/deleteBigCategory',
+							data: {"categoryBigCode": deleteValue},
+							dataType: "json",
+							success: function(data){
+								alert("삭제됐습니다.")
+							}
+						})	
 					}
 				});
 		});
@@ -51,8 +59,11 @@
 										<tr th:if="${not #lists.isEmpty(listAllCategory)}" th:each="lc : ${listAllCategory}">
 											<td th:text="${lc.categoryBigCode}" />
 											<td th:text="${lc.categoryBigName}" />
-											<td><a th:href="@{/admin/modifyBigCategory(categoryBigCode=${lc.categoryBigCode})}">편집</a></td>
-											<td><a th:href="@{/admin/deleteBigCategory(categoryBigCode=${lc.categoryBigCode})}">삭제</a></td>
+											<td><button type="button" class="btn btn-primary btn-sm">
+														<a style ="color:white" th:href="@{/admin/modifyBigCategory(categoryBigCode=${lc.categoryBigCode})}">
+														편집</a></button></td>
+											<td><button id="deleteBtn" type="button" class="btn btn-danger btn-sm" 
+														th:value="${lc.categoryBigCode}">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(listAllCategory)}">
 											<td colspan="4">등록된 카테고리가 없습니다.</td>

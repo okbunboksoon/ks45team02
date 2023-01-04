@@ -3,19 +3,27 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.EmissionMapper">
-	<resultMap id="EmissionResultMap" type="Emission">
-        <id property="goods_co2_code"			column="goods_co2_code" />
-        <result property="goods_category"			column="goods_category" />
-        <result property="goods_size"		column="goods_size" />
+
+	<resultMap id="RawMaterialsEmissionResultMap" type="Emission">
+        <id property="raw_materials_co2_code"			column="raw_materials_co2_code" />
+        <result property="raw_materials_category"			column="raw_materials_category" />
+        <result property="raw_materials_size"		column="raw_materials_size" />
         <result property="carbon_dioxide_emission_level"		column="carbon_dioxide_emission_level" />
     </resultMap>
-    <select id="EmissionList" resultMap="EmissionResultMap">
-	   SELECT
-			emission.goods_co2_code
-			,emission.goods_category
-			,emission.goods_size
-			,emission.carbon_dioxide_emission_level
-		FROM
-			goods_emission AS emission
+    
+    
+    <!-- 기부받은 의류별 CO2 기준 리스트 -->
+    <select id="RawMaterialsEmissionList" resultMap="RawMaterialsEmissionResultMap">
+		SELECT
+		rme.raw_materials_co2_code
+		,rme.raw_materials_category
+		,rme.raw_materials_size
+		,rme.carbon_dioxide_emission_level
+	FROM
+		raw_materials_emission AS rme
     </select>
+    
+    
+    
+    
 </mapper>
