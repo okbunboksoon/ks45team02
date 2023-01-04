@@ -33,7 +33,7 @@
 					<div class="item form-group">
 						<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품 검색</label>
 						<div class="col-md-6 col-sm-6 ">
-							<button type="button" class="btn btn-secondary btn-sm">상품 검색</button>
+							<button type="button" class="btn btn-secondary btn-sm" id="goodsSearchBtn">상품 검색</button>
 						</div>
 					</div>
 					<div class="item form-group">
@@ -61,7 +61,7 @@
 						<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">상품가격</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="text" id="goodsPrice" name="goodsPrice"
-								   readonly="readonly" placeholder="상품가격" class="form-control"/>
+								   readonly="readonly" placeholder="상품가격" class="form-control" />
 						</div>
 					</div>
 					<div class="item form-group">
@@ -121,6 +121,10 @@
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
 			const $submitBtn = document.getElementById('submitBtn');
+			const $goodsSearchBtn = document.getElementById('goodsSearchBtn');
+			const $goodsPrice = document.getElementById('goodsPrice');
+			const $basketAmount = document.getElementById('basketAmount');
+			const $eachPaymentAmount = document.getElementById('eachPaymentAmount');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			console.log($inputEle);
@@ -149,6 +153,18 @@
 					alert('값을 전부 입력해주세요.');
 				}
 			});
+			
+			$goodsSearchBtn.addEventListener('click', function(){
+				window.name = "basketAdd";
+				let openWin = window.open('/admin/goodsSearchForBasketadd', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
+			})
+
+			$basketAmount.addEventListener('input', function(){
+				let eachPaymentAmount = $goodsPrice.value * $basketAmount.value;
+				$eachPaymentAmount.value = eachPaymentAmount;
+				console.log('값 변경');
+			})
+			
 			
 			const msg = [[${msg}]];
 			if(msg != null){
