@@ -34,6 +34,7 @@ public class RawmaterialsController {
 		
 	}
 	
+	//원자재 입고 등록 처리
 	@PostMapping("/addIncomingRawmaterials")
 	public String addIncomingRawmaterials(RawMaterialsIncoming rawMaterialsIncoming, RedirectAttributes reAttr) {
 		
@@ -49,6 +50,7 @@ public class RawmaterialsController {
 		return "redirect:/admin/listIncomingRawmaterials";
 	}
 	
+	//원자재 입고 등록 페이지
 	@GetMapping("/addIncomingRawmaterials")
 	public String addIncomingRawMatrials(Model model
 										,@RequestParam(value="msg", required=false) String msg) {
@@ -83,6 +85,7 @@ public class RawmaterialsController {
 		return "admin/rawmaterials/rawmaterialsDeleteOutgoing";
 	}
 	
+	//원자재 입고 리스트 페이지
 	@GetMapping("/listIncomingRawmaterials")
 	public String listIncomingRawMatrials(Model model
 										,@RequestParam(value="msg", required = false) String msg) {
@@ -111,11 +114,22 @@ public class RawmaterialsController {
 		
 		return "admin/rawmaterials/rawmaterialsListOutgoing";
 	}
+	
+	
+	//원자재 입고 수정 페이지
 	@GetMapping("/modifyIncomingRawmaterials")
-	public String modifyIncomingRawMatrials() {
+	public String modifyIncomingRawMatrials(Model model
+										  ,@RequestParam(value="rawMaterialsCode") String rawMaterialsCode) {
+		
+		RawMaterialsIncoming rawMaterialsIncomingInfo = rawmaterialsMapper.getRawMaterialsIncomingInfo(rawMaterialsCode);
+		
+		model.addAttribute("title", "원자재 입고 수정");
+		model.addAttribute("pageTitle", "원자재 입고 수정");
+		model.addAttribute("rawMaterialsIncomingInfo", rawMaterialsIncomingInfo);
 		
 		return "admin/rawmaterials/rawmaterialsModifyIncoming";
 	}
+	
 	@GetMapping("/modifyOutgoingRawmaterials")
 	public String modifyOutgoingRawMatrials() {
 		
