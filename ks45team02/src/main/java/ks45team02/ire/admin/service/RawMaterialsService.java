@@ -25,6 +25,54 @@ public class RawMaterialsService {
 		this.pointSaveStandardMapper = pointSaveStandardMapper;
 	}
 	
+	
+	/**
+	 * 원자재 입고 삭제
+	 * @param rawMaterialsCode
+	 * @return int
+	 */
+	public int deleteIncomingRawMatrials(String rawMaterialsCode) {
+		
+		int result = 0;
+		
+		result += rawmaterialsMapper.deleteRawMaterialsByRawMaterialsCode(rawMaterialsCode);
+		result += rawmaterialsMapper.deleteRawMaterialsOutgoingByRawMaterialsCode(rawMaterialsCode);
+		result += rawmaterialsMapper.deleteRawMaterialsIncomingByRawMaterialsCode(rawMaterialsCode);
+		
+		return result;
+	}
+	
+	/**
+	 * 원자재 입고 수정
+	 * @param rawMaterialsIncoming
+	 * @return int
+	 */
+	public int modifyIncomingRawMatrials(RawMaterialsIncoming rawMaterialsIncoming) {
+		
+		int result = 0;
+		String donationCode = rawMaterialsIncoming.getDonationCode();
+		String rawMaterialsStatus = rawMaterialsIncoming.getRawMaterialsStatus();
+		
+		int checkDonationCode = donationMapper.checkDonationCode(donationCode);
+		if(checkDonationCode == 0) {
+			return result;
+		}
+		
+		switch(rawMaterialsStatus) {
+		case "정상" 
+			: 	int pointSave = pointSaveStandardMapper.getPointSave("point_save_standard_004");
+				rawMaterialsIncoming.setDonationPointSave(pointSave);
+			break;
+		case "폐기" 
+			: rawMaterialsIncoming.setDonationPointSave(0);
+			break;
+		}
+		
+		result = rawmaterialsMapper.modifyIncomingRawMatrials(rawMaterialsIncoming);
+		
+		return result;
+	}
+	
 	/**
 	 * 원자재 입고 등록
 	 * @param rawMaterialsIncoming

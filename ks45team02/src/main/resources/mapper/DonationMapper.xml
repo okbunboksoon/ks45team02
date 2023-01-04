@@ -82,7 +82,7 @@
 			INNER JOIN 
 			raw_materials_incoming AS rmi
 			ON 
-			rm.raw_materials_incoming_date = rmi.raw_materials_incoming_date
+			rm.raw_materials_code = rmi.raw_materials_code
 			INNER JOIN 
 			donation AS d
 			ON 
