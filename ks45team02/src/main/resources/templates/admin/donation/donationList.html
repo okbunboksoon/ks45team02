@@ -24,7 +24,7 @@
 										<tr>
 											<th class="donationCode">기부 신청 번호</th>
 											<th class="userId">기부 신청자 아이디</th>
-											<th class="goodsC02Code">상품별 co2배출 기준코드</th>
+											<th class="rawMaterialsCo2Code">상품별 co2배출 기준코드</th>
 											<th class="donationAmount">중고매입상품 개수</th>
 											<th class="donationDate">기부신청 날짜</th>
 											<th class="donationStatus">기부신청 상태</th>
@@ -35,7 +35,7 @@
 										<tr th:unless="${#lists.isEmpty(donationList)}" th:each="l : ${donationList}">
 											<td th:text="${l.donationCode}"></td>
 											<td th:text="${l.userId}"></td>
-											<td th:text="${l.goodsC02Code}"></td>
+											<td th:text="${l.rawMaterialsCo2Code}"></td>
 											<td th:text="${l.donationAmount}"></td>
 											<td th:text="${l.donationDate}"></td>
 											<td th:text="${l.donationStatus}"></td>
