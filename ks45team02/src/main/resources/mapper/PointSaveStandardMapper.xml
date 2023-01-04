@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="ks45team02.ire.admin.mapper.PointSaveStandardMapper">
+	<resultMap type="PointSaveStandard" 			id="pointSaveStandardResultMap">
+		<id property="pointSaveStandardCode" 		column="point_save_standard_code" />
+		<result property="pointSaveStandardDetail" 	column="point_save_standard_detail" />
+		<result property="pointSave" 				column="point_save" />
+	</resultMap>
+	
+	<select id="getPointSave" parameterType="String" resultType="int">
+		<!-- 포인트 적립금 조회 -->
+		SELECT 
+			pss.point_save
+		FROM 
+			point_save_standard AS pss
+		WHERE 
+			point_save_standard_code = #{pointSaveStandardCode};
+	</select>
+	
+	
+</mapper>

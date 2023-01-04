@@ -26,14 +26,13 @@ public class RawmaterialsController {
 	private final RawMaterialsMapper rawmaterialsMapper;
 	private final RawMaterialsService rawmaterialsService;
 	
-	public RawmaterialsController(RawMaterialsService rawmaterialsService,
-			
-			RawMaterialsMapper rawmaterialsMapper) {
+	public RawmaterialsController(RawMaterialsService rawmaterialsService, RawMaterialsMapper rawmaterialsMapper) {
 		this.rawmaterialsMapper =rawmaterialsMapper;
 		this.rawmaterialsService=rawmaterialsService;
 		
 	}
 	
+	//원자재 입고 등록 처리
 	@PostMapping("/addIncomingRawmaterials")
 	public String addIncomingRawmaterials(RawMaterialsIncoming rawMaterialsIncoming, RedirectAttributes reAttr) {
 		
@@ -49,6 +48,7 @@ public class RawmaterialsController {
 		return "redirect:/admin/listIncomingRawmaterials";
 	}
 	
+	//원자재 입고 등록 페이지
 	@GetMapping("/addIncomingRawmaterials")
 	public String addIncomingRawMatrials(Model model
 										,@RequestParam(value="msg", required=false) String msg) {
@@ -72,17 +72,49 @@ public class RawmaterialsController {
 		return "admin/rawmatrials/rawmaterialsAddOutgoing";
 	}
 	
-	@GetMapping("/deleteIncomingRawmaterials")
-	public String deleteIncomingRawMatrials() {
+	
+	//원자재 입고 삭제 처리
+	@PostMapping("/deleteIncomingRawmaterials")
+	public String deleteIncomingRawMatrials(@RequestParam(value="rawMaterialsCode") String rawMaterialsCode
+										   ,RedirectAttributes reAttr) {
 		
-		return "admin/rawmatrials/rawmaterialsDeleteIncoming";
+		int result = rawmaterialsService.deleteIncomingRawMatrials(rawMaterialsCode);
+		if(result == 0) {
+			reAttr.addAttribute("rawMaterialsCode", rawMaterialsCode);
+			reAttr.addAttribute("msg", "원자재 입고 삭제에 실패하였습니다.");
+			return "redirect:/admin/deleteIncomingRawmaterials";
+		}else {
+			reAttr.addAttribute("msg", result + "개의 데이터가 삭제되었습니다.");
+		}
+		return "redirect:/admin/listIncomingRawmaterials";
 	}
+			
+			
+	//원자재 입고 삭제 페이지
+	@GetMapping("/deleteIncomingRawmaterials")
+	public String deleteIncomingRawMatrials(Model model
+											,@RequestParam(value="rawMaterialsCode") String rawMaterialsCode
+											,@RequestParam(value="msg", required = false) String msg) {
+			
+		RawMaterialsIncoming rawMaterialsIncomingInfo = rawmaterialsMapper.getRawMaterialsIncomingInfo(rawMaterialsCode);
+		
+		model.addAttribute("title", "원자재 입고 삭제");
+		model.addAttribute("pageTitle", "원자재 입고 삭제");
+		model.addAttribute("rawMaterialsIncomingInfo", rawMaterialsIncomingInfo);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		
+		return "admin/rawmaterials/rawmaterialsDeleteIncoming";
+	}
+	
 	@GetMapping("/deleteoutgoingRawmaterials")
 	public String deleteoutgoingRawMatrials() {
 		
 		return "admin/rawmaterials/rawmaterialsDeleteOutgoing";
 	}
 	
+	//원자재 입고 리스트 페이지
 	@GetMapping("/listIncomingRawmaterials")
 	public String listIncomingRawMatrials(Model model
 										,@RequestParam(value="msg", required = false) String msg) {
@@ -111,11 +143,42 @@ public class RawmaterialsController {
 		
 		return "admin/rawmaterials/rawmaterialsListOutgoing";
 	}
+	
+	//원자재 입고 수정 처리
+	@PostMapping("/modifyIncomingRawmaterials")
+	public String modifyIncomingRawMatrials(RawMaterialsIncoming rawMaterialsIncoming
+										   ,RedirectAttributes reAttr) {
+		
+		int result = rawmaterialsService.modifyIncomingRawMatrials(rawMaterialsIncoming);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "원자재 입고 수정에 실패하였습니다.");
+			reAttr.addAttribute("rawMaterialsCode", rawMaterialsIncoming.getRawMaterialsCode());
+			return "redirect:/admin/modifyIncomingRawmaterials";
+		}else {
+			reAttr.addAttribute("msg", "원자재 입고 수정에 성공하였습니다.");
+		}
+		return "redirect:/admin/listIncomingRawmaterials";
+	}
+
+	//원자재 입고 수정 페이지
 	@GetMapping("/modifyIncomingRawmaterials")
-	public String modifyIncomingRawMatrials() {
+	public String modifyIncomingRawMatrials(Model model
+										  ,@RequestParam(value="rawMaterialsCode") String rawMaterialsCode
+										  ,@RequestParam(value="msg", required = false) String msg) { 
+		
+		RawMaterialsIncoming rawMaterialsIncomingInfo = rawmaterialsMapper.getRawMaterialsIncomingInfo(rawMaterialsCode);
+		
+		model.addAttribute("title", "원자재 입고 수정");
+		model.addAttribute("pageTitle", "원자재 입고 수정");
+		model.addAttribute("rawMaterialsIncomingInfo", rawMaterialsIncomingInfo);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/rawmaterials/rawmaterialsModifyIncoming";
 	}
+	
 	@GetMapping("/modifyOutgoingRawmaterials")
 	public String modifyOutgoingRawMatrials() {
 		

@@ -25,9 +25,82 @@
 		<result property="donationPointSave" 			column="donation_point_save" />
 		<result property="donationPointGroup" 			column="donation_point_group" />
 	</resultMap>
-	   
+	
+	
+	<delete id="deleteRawMaterialsIncomingByRawMaterialsCode">
+		<!-- 원자재 입고 삭제 -->
+		DELETE 
+			rmi
+		FROM 	
+			raw_materials_incoming AS rmi
+		WHERE 
+			rmi.raw_materials_code = #{rawMaterialsCode};
+	</delete>
+	
+	<delete id="deleteRawMaterialsOutgoingByRawMaterialsCode">
+		<!-- 원자재 입고 코드로 raw_materials_outgoing 삭제 -->
+		DELETE 
+			rmo
+		FROM 	
+			raw_materials_outgoing AS rmo
+			INNER JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			rmo.raw_materials_code = rmi.raw_materials_code
+		WHERE 
+			rmi.raw_materials_code = #{rawMaterialsCode};
+	</delete>
+	
+	<delete id="deleteRawMaterialsByRawMaterialsCode">
+		<!-- 원자재 입고 코드로 raw_materials 삭제 -->
+		DELETE 
+			rm
+		FROM 
+			raw_materials AS rm
+			INNER JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			rm.raw_materials_code = rmi.raw_materials_code
+		WHERE 
+			rm.raw_materials_code = #{rawMaterialsCode};
+	</delete>
+	
+	<update id="modifyIncomingRawMatrials" parameterType="RawMaterialsIncoming">
+		<!-- 원자재 입고 수정 -->
+		UPDATE 
+			raw_materials_incoming
+		SET 
+			 donation_code = #{donationCode}
+			,raw_materials_incoming_date = #{rawMaterialsIncomingDate}
+			,raw_materials_status = #{rawMaterialsStatus}
+			,carbon_dioxide_emission_level = #{carbonDioxideEmissionLevel}
+			,raw_materials_daygroup = #{rawMaterialsDaygroup}
+			,donation_point_save = #{donationPointSave}
+			,donation_point_group = #{donationPointGroup}
+		WHERE 
+			raw_materials_code = #{rawMaterialsCode};
+	</update>
+	
+	<select id="getRawMaterialsIncomingInfo" parameterType="String" resultMap="rawMaterialsIncomingResultMap">
+		<!-- 원자재 입고 코드로 원자재 입고 조회 -->
+		SELECT 
+			 raw_materials_code
+			,donation_code
+			,raw_materials_incoming_amount
+			,raw_materials_incoming_date
+			,raw_materials_status
+			,carbon_dioxide_emission_level
+			,raw_materials_daygroup
+			,donation_point_save
+			,donation_point_group
+		FROM 
+			raw_materials_incoming
+		WHERE 
+			raw_materials_code = #{rawMaterialsCode};
+	</select>
+		   
 	<insert id="addIncomingRawmaterials" parameterType="RawMaterialsIncoming">
-		<!-- 원자재 등록 -->
+		<!-- 원자재 입고 등록 -->
 		INSERT INTO raw_materials_incoming (
 			 raw_materials_code
 			,donation_code
