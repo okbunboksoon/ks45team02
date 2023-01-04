@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.LoginInfo;
-import ks45team02.ire.admin.dto.LoginOutHistory;
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.service.UserService;
 import org.slf4j.Logger;
@@ -112,7 +111,7 @@ public class UserController {
 			User user=(User) checkResult.get("userInfo");
 			LoginInfo loginInfo=new LoginInfo(userId,user.getUserName());
 			session.setAttribute("S_MEMBER_INFO",loginInfo);
-
+			userService.updateLoginHistory(userId);
 			Cookie cookie=new Cookie("loginKeepId",userId);
 			cookie.setPath("/");
 			cookie.setMaxAge(60 * 60 * 24);
@@ -131,7 +130,7 @@ public class UserController {
 	}
 	@GetMapping("/loginHistory")
 	public String getLoginHistory(Model model){
-		List<LoginOutHistory> loginHistory=userService.getLoginHistory();
+		List<User> loginHistory=userService.getLoginHistory();
 		log.info("로그인 이력:{}",loginHistory);
 		model.addAttribute("pageTitle","로그인 이력");
 		model.addAttribute("loginHistory",loginHistory);
