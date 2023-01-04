@@ -103,7 +103,23 @@ public class CategoryService {
 		
 		return categoryMapper.modifyMediumCategory(categoryMedium);
 	}
-	 
 	
+	/**
+	 * 카테고리 중 삭제 처리
+	 * @param categoryMediumCode
+	 * @return
+	 */
+	public int deleteMediumCategory(String categoryMediumCode) {
+			
+		return categoryMapper.deleteMediumCategory(categoryMediumCode);
+	}
 	
+	public int deleteBigCateory(String categoryBigCode) {
+		
+		int result = 0;
+		result += categoryMapper.deleteCateBigCode(categoryBigCode);
+		result += categoryMapper.deleteBigCategory(categoryBigCode);
+		
+		return result;
+	}
 }

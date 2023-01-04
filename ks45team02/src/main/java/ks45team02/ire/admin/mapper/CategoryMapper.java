@@ -27,7 +27,6 @@ public interface CategoryMapper {
 	
 	/**
 	 * 카테고리 중 등록 처리
-	 * @param categoryMedium
 	 */
 	public int addCategoryMedium(CategoryMedium categoryMedium);
 	
@@ -50,4 +49,19 @@ public interface CategoryMapper {
 	 * 카테고리 중 수정 처리
 	 */
 	public int modifyMediumCategory(CategoryMedium categoryMedium);
+	
+	/**
+	 * 카테고리 중 삭제 처리
+	 */
+	public int deleteMediumCategory(String categoryMediumCode);
+	
+	/**
+	 * 카테고리 대 코드 중 삭제 처리
+	 */
+	public int deleteCateBigCode(String categoryBigCode);
+	
+	/**
+	 * 카테고리 대 삭제 처리
+	 */
+	public int deleteBigCategory(String categoryBigCode);
 }
