@@ -8,12 +8,12 @@ public class Basket {
 	private String userId;
 	private String goodsName;
 	private String categoryMediumCode;
+	private String categoryMediumName;
 	private int goodsPrice;
 	private int basketAmount;
 	private int eachPaymentAmount;
 	private String regDate;
 	private String basketState;
-	
 	public String getBasketCode() {
 		return basketCode;
 	}
@@ -50,6 +50,12 @@ public class Basket {
 	public void setCategoryMediumCode(String categoryMediumCode) {
 		this.categoryMediumCode = categoryMediumCode;
 	}
+	public String getCategoryMediumName() {
+		return categoryMediumName;
+	}
+	public void setCategoryMediumName(String categoryMediumName) {
+		this.categoryMediumName = categoryMediumName;
+	}
 	public int getGoodsPrice() {
 		return goodsPrice;
 	}
@@ -82,11 +88,35 @@ public class Basket {
 	}
 	@Override
 	public String toString() {
-		return "Basket [basketCode=" + basketCode + ", goodsCode=" + goodsCode + ", basketGroup=" + basketGroup
-				+ ", userId=" + userId + ", goodsName=" + goodsName + ", categoryMediumCode=" + categoryMediumCode
-				+ ", goodsPrice=" + goodsPrice + ", basketAmount=" + basketAmount + ", eachPaymentAmount="
-				+ eachPaymentAmount + ", regDate=" + regDate + ", basketState=" + basketState + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Basket [basketCode=");
+		builder.append(basketCode);
+		builder.append(", goodsCode=");
+		builder.append(goodsCode);
+		builder.append(", basketGroup=");
+		builder.append(basketGroup);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append(", goodsName=");
+		builder.append(goodsName);
+		builder.append(", categoryMediumCode=");
+		builder.append(categoryMediumCode);
+		builder.append(", categoryMediumName=");
+		builder.append(categoryMediumName);
+		builder.append(", goodsPrice=");
+		builder.append(goodsPrice);
+		builder.append(", basketAmount=");
+		builder.append(basketAmount);
+		builder.append(", eachPaymentAmount=");
+		builder.append(eachPaymentAmount);
+		builder.append(", regDate=");
+		builder.append(regDate);
+		builder.append(", basketState=");
+		builder.append(basketState);
+		builder.append("]");
+		return builder.toString();
 	}
+	
 	
 	
 }

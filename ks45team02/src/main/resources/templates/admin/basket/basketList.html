@@ -19,7 +19,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="card-box table-responsive">
-								<table id="listDonation" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+								<table id="listBasket" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th class="basketCode">결제전 장바구니코드</th>
@@ -27,7 +27,7 @@
 											<th class="userId">회원아이디</th>
 											<th class="goodsCode">상품코드</th>
 											<th class="goodsName">상품이름</th>
-											<th class="categoryMediumCode">카테고리 중 넘버</th>
+											<th class="categoryMediumName">카테고리(중)</th>
 											<th class="goodsPrice">상품 가격</th>
 											<th class="basketAmount">수량</th>
 											<th class="eachPaymentAmount">결제예정합계</th>
@@ -35,6 +35,7 @@
 											<th class="basketState">상태</th>
 											<th>수정</th>
 											<th>삭제</th>
+										</tr>
 									</thead>
 									<tbody>
 										<tr th:unless="${#lists.isEmpty(basketList)}" th:each="l : ${basketList}">
@@ -43,7 +44,7 @@
 											<td th:text="${l.userId}"></td>
 											<td th:text="${l.goodsCode}"></td>
 											<td th:text="${l.goodsName}"></td>
-											<td th:text="${l.categoryMediumCode}"></td>
+											<td th:text="${l.categoryMediumName}"></td>
 											<td th:text="${l.goodsPrice}"></td>
 											<td th:text="${l.basketAmount}"></td>
 											<td th:text="${l.eachPaymentAmount}"></td>
@@ -95,7 +96,7 @@
 				alert(msg);
 			}
 
-			$('#listDonation').DataTable();
+			$('#listBasket').DataTable();
 		</script>
 
 	</th:block>

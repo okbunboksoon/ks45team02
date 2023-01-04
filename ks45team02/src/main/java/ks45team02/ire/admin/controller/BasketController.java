@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ks45team02.ire.admin.dto.Basket;
+import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.mapper.BasketMapper;
 import ks45team02.ire.admin.service.BasketService;
 import ks45team02.ire.admin.service.DonationService;
@@ -27,6 +28,19 @@ public class BasketController {
 	public BasketController(BasketMapper basketMapper, BasketService basketService) {
 		this.basketMapper = basketMapper;
 		this.basketService = basketService;
+	}
+	
+	//상품 검색
+	@GetMapping("/goodsSearchForBasketadd")
+	public String goodsSearchForBasketadd(@RequestParam(value="searchKey", required = false) String searchKey
+										 ,@RequestParam(value="searchValue", required = false) String searchValue
+										 ,Model model) {
+		
+		List<Goods> goodsList = basketService.searchGoods(searchKey, searchValue);
+		model.addAttribute("title", "상품 검색");
+		model.addAttribute("goodsList", goodsList);
+		
+		return "admin/basket/goodsSearchForBasketadd";
 	}
 	
 	//장바구니 등록 페이지

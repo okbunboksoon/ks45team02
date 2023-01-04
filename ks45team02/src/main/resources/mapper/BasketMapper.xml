@@ -10,6 +10,7 @@
 		<result property="userId" 				column="user_id" />
 		<result property="goodsName" 			column="goods_name" />
 		<result property="categoryMediumCode"	column="category_medium_code" />
+		<result property="categoryMediumName"	column="category_medium_name" />
 		<result property="goodsPrice"			column="goods_price" />
 		<result property="basketAmount"			column="basket_amount" />
 		<result property="eachPaymentAmount"	column="each_payment_amount" />
@@ -20,19 +21,23 @@
 	<select id="getBasketList" resultMap="basketResultMap">
 		<!-- 장바구니 조회 -->
 		SELECT 
-			 basket_code
-			,goods_code
-			,basket_group
-			,user_id
-			,goods_name
-			,category_medium_code
-			,goods_price
-			,basket_amount
-			,each_payment_amount
-			,reg_date
-			,basket_state
+			b.basket_code
+			,b.goods_code
+			,b.basket_group
+			,b.user_id
+			,b.goods_name
+			,cm.category_medium_name
+			,b.goods_price
+			,b.basket_amount
+			,b.each_payment_amount
+			,b.reg_date
+			,b.basket_state
 		FROM 
-			basket;
+			basket AS b
+			INNER JOIN 
+			category_medium AS cm
+			ON 
+			b.category_medium_code = cm.category_medium_code;
 	</select>
 
 </mapper>
