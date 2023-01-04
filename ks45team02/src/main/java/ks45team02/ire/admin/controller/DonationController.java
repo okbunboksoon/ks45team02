@@ -41,7 +41,7 @@ public class DonationController {
 		if(result == 0) {
 			reAttr.addAttribute("msg", "기부 등록에 실패하였습니다.");
 			return "redirect:/admin/addDonation";
-		}else{
+		}else{                                                                                                                                                                                                                                                                                                                                                             
 			reAttr.addAttribute("msg", "기부 등록에 성공하였습니다.");
 		}
 		
@@ -77,6 +77,7 @@ public class DonationController {
 		
 		if(result == 0) {
 			reAttr.addAttribute("msg", "삭제에 실패하였습니다.");
+			reAttr.addAttribute("donationCode", donationCode);
 			return "redirect:/admin/deleteDonation";
 		}else {
 			reAttr.addAttribute("msg", result + "개의 데이터가 삭제되었습니다.");
@@ -128,6 +129,7 @@ public class DonationController {
 		
 		int result = donationService.modifyDonation(donation);
 		if(result == 0) {
+			reAttr.addAttribute("donationCode", donation.getDonationCode());
 			reAttr.addAttribute("msg", "기부 수정에 실패하였습니다.");
 			return "redirect:/admin/modifyDonation";
 		}else {
