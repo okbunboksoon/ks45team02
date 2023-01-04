@@ -60,7 +60,7 @@
     </insert>
     
     <!-- 공지사항 상세페이지 -->
-    <select id="detailsNotice" resultMap="BoardNoticeResultMap">
+    <select id="ContentsNotice" resultMap="BoardNoticeResultMap">
 	    SELECT
 			 notice.notice_code
 			,notice.user_id

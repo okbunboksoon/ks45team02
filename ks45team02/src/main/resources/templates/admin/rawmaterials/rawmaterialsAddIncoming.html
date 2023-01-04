@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-addIncomingRawmaterials
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content">
+				<br>
+				<form th:action="@{/admin/addIncomingRawmaterials}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="donationCode" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="donationCode" name="donationCode"
+								   class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsIncomingAmount" class="col-form-label col-md-3 col-sm-3 label-align">입고 수량</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="rawMaterialsIncomingAmount" name="rawMaterialsIncomingAmount" th:with="numArr=${#numbers.sequence(1, 50)}" class="form-control">
+								<th:block th:each="num : ${numArr}">
+									<option th:value="${num}" th:text="${num}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsIncomingDate" class="col-form-label col-md-3 col-sm-3 label-align">입고 날짜</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="rawMaterialsIncomingDate" name="rawMaterialsIncomingDate"
+								   class="form-control"/>
+							
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsStatus" class="col-form-label col-md-3 col-sm-3 label-align">상태</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="rawMaterialsStatus" name="rawMaterialsStatus" class="form-control">
+								<option value="정상">정상</option>
+								<option value="폐기">폐기</option>
+							</select>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="carbonDioxideEmissionLevel" class="col-form-label col-md-3 col-sm-3 label-align">이산화탄소 배출량</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="carbonDioxideEmissionLevel" name="carbonDioxideEmissionLevel" class="form-control">
+								<option value="5">상의 S : 5</option>
+								<option value="6">상의 M : 6</option>
+								<option value="7">상의 L : 7</option>
+								<option value="22.1">하의 S : 22.1</option>
+								<option value="23.1">하의 M : 23.1</option>
+								<option value="24.1">하의 L : 24.1</option>
+								<option value="25">아우터 S : 25</option>
+								<option value="26">아우터 M : 26</option>
+								<option value="27">아우터 L : 27</option>
+							</select>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-success" type="button" id="submitBtn">등록</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			console.log($inputEle);
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listIncomingRawmaterials';
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
+	
 </html>

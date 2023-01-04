@@ -11,39 +11,48 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
-
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				$('#listCategory').DataTable();
+				
+				$('#deleteHref').click(function(){
+					alert('확인')
+				});
+		});
+		</script>	
+	</th:block>
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12 ">
+				<button type="submit" class="btn btn-primary" style="float: right">
+						<a style ="color:white" th:href="@{/admin/addCategory}">등록</a></button>
 			<div class="x_panel">
 				<div class="x_content">
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="card-box table-responsive">
-								<table id="listDonation" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+								<table id="listCategory" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
 									<thead>
 										<tr>
-											<th class="donationCode">기부 신청 번호</th>
-											<th class="userId">기부 신청자 아이디</th>
-											<th class="goodsC02Code">상품별 co2배출 기준코드</th>
-											<th class="donationAmount">중고매입상품 개수</th>
-											<th class="donationDate">기부신청 날짜</th>
-											<th class="donationStatus">기부신청 상태</th>
+											<th class="categoryMediumCode">카테고리 중 넘버</th>
+											<th class="mediumCategoryBigCode">카테고리 대 넘버</th>
+											<th class="mediumCategoryBigCode">카테고리 대 이름</th>
+											<th class="categoryMediumName">카테고리 중 이름</th>
 											<th>수정</th>
 											<th>삭제</th>
+										</tr>
 									</thead>
 									<tbody>
-										<tr th:unless="${#lists.isEmpty(donationList)}" th:each="l : ${donationList}">
-											<td th:text="${l.donationCode}"></td>
-											<td th:text="${l.userId}"></td>
-											<td th:text="${l.goodsC02Code}"></td>
-											<td th:text="${l.donationAmount}"></td>
-											<td th:text="${l.donationDate}"></td>
-											<td th:text="${l.donationStatus}"></td>
-											<td><a th:href="@{/admin/modifyDonation(donationCode=${l.donationCode})}">수정</a></td>
-											<td><a th:href="@{/admin/deleteDonation(donationCode=${l.donationCode})}">삭제</a></td>
+										<tr th:if="${not #lists.isEmpty(listMediumCategory)}" th:each="lm : ${listMediumCategory}">
+											<td th:text="${lm.categoryMediumCode}" />
+											<td th:text="${lm.mediumCategoryBigCode}" />
+											<td th:text="${lm.categoryBig.categoryBigName}" />
+											<td th:text="${lm.categoryMediumName}" />
+											<td><a th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">편집</a></td>
+											<td><a th:href="@{/admin/deleteMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">삭제</a></td>
 										</tr>
-										<tr th:if="${#lists.isEmpty(donationList)}">
-											<td colspan="6">등록된 기부가 존재하지 않습니다.</td>
+										<tr th:unless="${not #lists.isEmpty(listMediumCategory)}">
+											<td colspan="6">등록된 카테고리가 없습니다.</td>
 										</tr>
 									</tbody>
 								</table>
@@ -54,7 +63,7 @@
 			</div>
 		</div>
 	</th:block>
-
+	
 		<!-- 사용자 지정 js 파일 -->
 	<th:block layout:fragment="customJs">
 		<!-- Datatables -->
@@ -74,20 +83,4 @@
 	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
 	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 	</th:block>
-	
-		<!-- 사용자 지정 js script -->
-	 
-	<th:block layout:fragment="customScript">
-		<script type="text/javascript" th:inline="javascript">
-
-			const msg = [[${msg}]];
-			if(msg != null){
-				alert(msg);
-			}
-
-			$('#listDonation').DataTable();
-		</script>
-
-	</th:block>
-
 </html>

@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,11 +34,37 @@ public class RawmaterialsController {
 		
 	}
 	
+	@PostMapping("/addIncomingRawmaterials")
+	public String addIncomingRawmaterials(RawMaterialsIncoming rawMaterialsIncoming, RedirectAttributes reAttr) {
+		
+		int result = rawmaterialsService.addIncomingRawmaterials(rawMaterialsIncoming);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "등록에 실패하였습니다.");
+			return "redirect:/admin/addIncomingRawmaterials";
+		}else {
+			reAttr.addAttribute("msg", result + "개의 데이터가 등록되었습니다.");
+		}
+		
+		return "redirect:/admin/listIncomingRawmaterials";
+	}
 	
 	@GetMapping("/addIncomingRawmaterials")
-	public String addIncomingRawMatrials(Model model) {
+	public String addIncomingRawMatrials(Model model
+										,@RequestParam(value="msg", required=false) String msg) {
 		
-		return "admin/rawmatrials/rawmaterialsAddIncoming";
+		List<String> donationCodeNotIncoming = rawmaterialsMapper.getDonationCodeNotIncoming();
+		
+		model.addAttribute("title", "원자재 입고 등록");
+		model.addAttribute("pageTitle", "원자재 입고 등록");
+		model.addAttribute("donationCodeNotIncoming", donationCodeNotIncoming);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		
+		
+		
+		return "admin/rawmaterials/rawmaterialsAddIncoming";
 	}
 	@GetMapping("/addoutgoingRawmaterials")
 	public String addoutgoingRawMatrials(Model model) {
@@ -53,8 +82,10 @@ public class RawmaterialsController {
 		
 		return "admin/rawmaterials/rawmaterialsDeleteOutgoing";
 	}
+	
 	@GetMapping("/listIncomingRawmaterials")
-	public String listIncomingRawMatrials(Model model) {
+	public String listIncomingRawMatrials(Model model
+										,@RequestParam(value="msg", required = false) String msg) {
 		
 		List<RawMaterialsIncoming> rawMaterialsIncomingList = rawmaterialsMapper.getRawMaterialsIncomingList();
 		
@@ -62,10 +93,14 @@ public class RawmaterialsController {
 		model.addAttribute("rawMaterialsIncomingList", rawMaterialsIncomingList);
 		model.addAttribute("subTitle", "원자재 입고 조회");
 		
-		//log.info("rawMaterialsIncomingList: {}", rawMaterialsIncomingList);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/rawmaterials/rawmaterialsListIncoming";
 	}
+	
+	
 	@GetMapping("/listNowRawmaterials")
 	public String listNow() {
 		

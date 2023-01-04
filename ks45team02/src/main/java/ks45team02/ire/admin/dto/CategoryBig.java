@@ -2,44 +2,29 @@ package ks45team02.ire.admin.dto;
 
 public class CategoryBig {
 
-	private String CategoryBigCode;
-	private String CategoryBigName;
+	private String categoryBigCode;
+	private String categoryBigName;
 	
-	private CategoryMedium categoryMedium;
-
 	public String getCategoryBigCode() {
-		return CategoryBigCode;
+		return categoryBigCode;
 	}
-
 	public void setCategoryBigCode(String categoryBigCode) {
-		CategoryBigCode = categoryBigCode;
+		this.categoryBigCode = categoryBigCode;
 	}
-
 	public String getCategoryBigName() {
-		return CategoryBigName;
+		return categoryBigName;
 	}
-
 	public void setCategoryBigName(String categoryBigName) {
-		CategoryBigName = categoryBigName;
+		this.categoryBigName = categoryBigName;
 	}
-
-	public CategoryMedium getCategoryMedium() {
-		return categoryMedium;
-	}
-
-	public void setCategoryMedium(CategoryMedium categoryMedium) {
-		this.categoryMedium = categoryMedium;
-	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("CategoryBig [CategoryBigCode=");
-		builder.append(CategoryBigCode);
-		builder.append(", CategoryBigName=");
-		builder.append(CategoryBigName);
-		builder.append(", categoryMedium=");
-		builder.append(categoryMedium);
+		builder.append("CategoryBig [categoryBigCode=");
+		builder.append(categoryBigCode);
+		builder.append(", categoryBigName=");
+		builder.append(categoryBigName);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -1,6 +1,7 @@
 package ks45team02.ire.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,7 @@ public class DonationController {
 							 ,@RequestParam(value="msg", required=false) String msg) {
 		
 		model.addAttribute("title", "기부 등록");
+		model.addAttribute("pageTitle", "기부 등록");
 		if(msg != null) {
 			model.addAttribute("msg", msg);
 		}
@@ -93,6 +95,7 @@ public class DonationController {
 		Donation donationInfo = donationMapper.getDonationInfo(donationCode);
 		
 		model.addAttribute("title", "기부 삭제");
+		model.addAttribute("pageTitle", "기부 삭제");
 		model.addAttribute("donationInfo", donationInfo); 
 		if(msg != null) {
 			model.addAttribute("msg", msg);
@@ -103,17 +106,15 @@ public class DonationController {
 	
 	//기부 조회
 	@GetMapping("/listDonation")
-	public String listDonation(@RequestParam(value="searchKey", required=false) String searchKey
-							  ,@RequestParam(value="searchValue", required=false) String searchValue
-							  ,@RequestParam(value="startDate", required=false) String startDate		
-							  ,@RequestParam(value="endDate", required=false) String endDate	
-							  ,@RequestParam(value="msg", required=false)String msg
+	public String listDonation(@RequestParam(value="msg", required=false)String msg
 							  ,Model model) {
 		
-		List<Donation> donationList = donationService.getDonationList(searchKey, searchValue, startDate, endDate);
+		List<Donation> donationList = donationService.getDonationList();
 		
 		model.addAttribute("title", "기부 조회");
+		model.addAttribute("pageTitle", "기부 조회");
 		model.addAttribute("donationList", donationList);
+		
 		if(msg != null) {
 			model.addAttribute("msg", msg);
 		}
@@ -146,6 +147,7 @@ public class DonationController {
 		Donation donationInfo = donationMapper.getDonationInfo(donationCode);
 		
 		model.addAttribute("title", "기부 수정");
+		model.addAttribute("pageTitle", "기부 수정");
 		model.addAttribute("donationInfo", donationInfo);
 		if(msg != null) {
 			model.addAttribute("msg", msg);

@@ -1,6 +1,8 @@
 package ks45team02.ire.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,37 +67,13 @@ public class DonationService {
 	
 	
 	/**
-	 * 기부 조회 및 검색
-	 * @param searchKey
-	 * @param searchValue
-	 * @param startDate
-	 * @param endDate
+	 * 기부 조회
 	 * @return List<Donation>
 	 */
-	public List<Donation> getDonationList(String searchKey, String searchValue, String startDate, String endDate) {
+	public List<Donation> getDonationList() {
 		
-		if(searchKey != null) {
-			switch(searchKey) {
-			case "donationCode" : 
-				searchKey = "donation_num"; 
-				break;
-			
-			case "userId" : 
-				searchKey = "user_id"; 
-				break;
-				
-			case "goodsC02Code" : 
-				searchKey = "goods_co2_code"; 
-				break;
-			case "donationStatus" : 
-				searchKey = "donation_status"; 
-				break;
-			}
-		}
-		
-		
-		List<Donation> donationList = donationMapper.getDonationList(searchKey, searchValue, startDate, endDate);
-		
+		List<Donation> donationList = donationMapper.getDonationList();
+	
 		return donationList;
 	}
 	
