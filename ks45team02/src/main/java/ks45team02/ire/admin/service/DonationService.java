@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ks45team02.ire.admin.dto.Donation;
 import ks45team02.ire.admin.mapper.DonationMapper;
+import ks45team02.ire.admin.mapper.UserMapper;
 
 @Service
 @Transactional
@@ -19,9 +20,11 @@ public class DonationService {
 	private static final Logger log = LoggerFactory.getLogger(DonationService.class);
 
 	private final DonationMapper donationMapper;
+	private final UserMapper userMapper;
 	
-	public DonationService(DonationMapper donationMapper) {
+	public DonationService(DonationMapper donationMapper, UserMapper userMapper) {
 		this.donationMapper = donationMapper;
+		this.userMapper = userMapper;
 	}
 	
 	/**
@@ -48,8 +51,14 @@ public class DonationService {
 	 */
 	public int modifyDonation(Donation donation) {
 		
-		int result = donationMapper.modifyDonation(donation);
-		
+		int result = 0;
+		log.info("donation: {}", donation);
+		String userId = donation.getUserId();
+		int idCheck = userMapper.idCheck(userId);
+				
+		if(idCheck == 1) {
+			result = donationMapper.modifyDonation(donation);
+		}		
 		return result;
 	}
 	
@@ -59,9 +68,14 @@ public class DonationService {
 	 * @return int
 	 */
 	public int addDonation(Donation donation) {
+	
+		int result = 0;
+		String userId = donation.getUserId();
+		int idCheck = userMapper.idCheck(userId);
 		
-		int result = donationMapper.addDonation(donation);
-		
+		if(idCheck == 1) {
+			result = donationMapper.addDonation(donation);
+		}		
 		return result;
 	}
 	
