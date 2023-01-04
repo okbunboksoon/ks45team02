@@ -46,6 +46,7 @@ public class BoardInquiryController {
 	}
 	@GetMapping("/listBoardInquiry")
 	public String listBoardInquiry(Model model) {
+		//1:1문의 조회
 		List<BoardInquiry>boardInquiryList= boardInquiryService.boardInquiryList();
 		model.addAttribute("pageTitle","1:1문의 조회");
 		model.addAttribute("boardInquiryList",boardInquiryList);
