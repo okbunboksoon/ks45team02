@@ -77,6 +77,7 @@ public class DonationController {
 		
 		if(result == 0) {
 			reAttr.addAttribute("msg", "삭제에 실패하였습니다.");
+			reAttr.addAttribute("donationCode", donationCode);
 			return "redirect:/admin/deleteDonation";
 		}else {
 			reAttr.addAttribute("msg", result + "개의 데이터가 삭제되었습니다.");
