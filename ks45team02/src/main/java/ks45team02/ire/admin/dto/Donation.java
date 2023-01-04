@@ -4,7 +4,7 @@ public class Donation {
 
 	private String donationCode;
 	private String userId;
-	private String rawMaterialsCo2Code;
+	private String goodsC02Code;
 	private String donationAmount;
 	private String donationDate;
 	private String donationStatus;
@@ -21,12 +21,11 @@ public class Donation {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	public String getRawMaterialsCo2Code() {
-		return rawMaterialsCo2Code;
+	public String getGoodsC02Code() {
+		return goodsC02Code;
 	}
-	public void setRawMaterialsCo2Code(String rawMaterialsCo2Code) {
-		this.rawMaterialsCo2Code = rawMaterialsCo2Code;
+	public void setGoodsC02Code(String goodsC02Code) {
+		this.goodsC02Code = goodsC02Code;
 	}
 	public String getDonationAmount() {
 		return donationAmount;
@@ -48,11 +47,10 @@ public class Donation {
 	}
 	@Override
 	public String toString() {
-		return "Donation [donationCode=" + donationCode + ", userId=" + userId + ", rawMaterialsCo2Code="
-				+ rawMaterialsCo2Code + ", donationAmount=" + donationAmount + ", donationDate=" + donationDate
-				+ ", donationStatus=" + donationStatus + "]";
+		return "Donation [donationCode=" + donationCode + ", userId=" + userId + ", goodsC02Code=" + goodsC02Code
+				+ ", donationAmount=" + donationAmount + ", donationDate=" + donationDate + ", donationStatus="
+				+ donationStatus + "]";
 	}
-
 	
 	
 }
