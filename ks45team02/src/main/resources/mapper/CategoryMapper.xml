@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.CategoryMapper">
+	<resultMap id="categoryResultMap" type="CategoryBig">
+        <id property="categoryBigCode"				column="category_big_code" />
+        <result property="categoryBigName"			column="category_big_name" />
+    </resultMap>
+    
+    <resultMap id="AllcategoryResultMap" type="CategoryMedium">
+ 		<id property="categoryMediumCode" 			column="category_medium_code" />
+        <result property="mediumCategoryBigCode" 	column="category_big_code"/>
+        <result property="categoryMediumName" 		column="category_medium_name"/>
+        <association property="categoryBig" javaType="CategoryBig">
+	        <id property="categoryBigCode"			column="category_big_code" />
+	        <result property="categoryBigName"		column="category_big_name" />
+        </association>
+    </resultMap>
+	
+	<!-- 카테고리 대 조회 -->
+	<select id="getListBigCategory" resultMap="categoryResultMap">
+		SELECT
+			cb.category_big_code
+			,cb.category_big_name
+		FROM
+			category_big AS cb
+	</select>
+	
+	<!-- 카테고리 중 조회 -->
+	<select id="getListMediumCategory" resultMap="AllcategoryResultMap">
+		SELECT
+			 cm.category_medium_code
+			,cm.category_big_code
+			,cm.category_medium_name
+			,cb.category_big_name
+			,cb.category_big_code
+		FROM
+			category_medium AS cm
+			INNER join
+			category_big AS cb
+			on
+			cm.category_big_code = cb.category_big_code
+	</select>
+	
+	<!-- 카테고리 대 등록 처리 -->
+	<insert id="addCategoryBig" parameterType="CategoryBig">
+	INSERT INTO category_big
+		(category_big_code, 
+		 category_big_name)
+	VALUES 
+		(sf_new_categoryBig_code(), #{categoryBigName});
+	</insert>
+	
+	<!-- 카테고리 중 등록 처리 -->
+	<insert id="addCategoryMedium" parameterType="CategoryMedium">
+		INSERT INTO category_medium
+			(category_medium_code, 
+			category_big_code, 
+			category_medium_name)
+		VALUES 
+		(sf_new_categoryMedium_code(), #{mediumCategoryBigCode}, #{categoryMediumName})
+	</insert>
+	
+	<!-- 카테고리 대 특정코드 조회 -->
+	<select id="getBigCategoryByCode" parameterType="String" resultMap="categoryResultMap">
+		SELECT
+			cb.category_big_code
+			,cb.category_big_name
+		FROM
+			category_big AS cb
+		WHERE
+			cb.category_big_code = #{categoryBigCode}
+	</select>
+
+	<!-- 카테고리 중 특정코드 조회 -->
+	<select id="getMediumCategoryByCode" parameterType="String" resultMap="AllcategoryResultMap">
+		SELECT
+			cm.category_medium_code
+			,cm.category_big_code
+			,cm.category_medium_name
+		FROM
+			category_medium AS cm
+		WHERE
+			cm.category_medium_code = #{categoryMediumCode}
+	</select>
+	
+	<!-- 카테고리 대 수정 처리 -->
+	<update id="modifyBigCategory" parameterType="CategoryBig">
+	UPDATE category_big
+	<trim prefix="SET" prefixOverrides=",">
+		<if test="categoryBigName != null and categoryBigName != '' ">
+			,category_big_name= #{categoryBigName}
+		</if>
+	</trim>		
+	WHERE 
+		category_big_code=#{categoryBigCode}
+	</update>
+	
+	<!-- 카테고리 중 수정 처리 -->
+	<update id="modifyMediumCategory" parameterType="CategoryMedium">
+		UPDATE category_medium
+	<trim prefix="SET" prefixOverrides=",">
+		<if test="categoryMediumCode != null and categoryMediumCode != '' ">
+			,category_big_code= #{mediumCategoryBigCode}
+		</if>
+		<if test="mediumCategoryBigCode != null and mediumCategoryBigCode != '' ">
+			,category_medium_name= #{categoryMediumName}
+		</if>
+	</trim>		
+	WHERE 
+		category_medium_code= #{categoryMediumCode}
+	</update>
+	
+</mapper>

@@ -4,53 +4,85 @@
 	  layout:decorate="~{admin/layout/adminDefault}">
 
 	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
-
+	
 	<th:block layout:fragment="customContents">
-		<h1>subtitle?</h1>
-		
-		<table class="table table-striped jambo_table">
-			<thead>
-				<tr>
-					<th>원자재 코드</th>
-					<th>기부신청 번호</th>
-					<th>원자재 입고 수량</th>
-					<th>입고 날짜</th>
-					<th>상태</th>
-					<th>일반 상품별 이산화탄소 배출량</th>
-					<th>일별 기부상품 입고 그룹</th>
-					<th>기부 후 포인트 적립 금액</th>
-					<th>시간별 기부 포인트 상세 그룹코드</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:unless="${#lists.isEmpty(rawMaterialsIncomingList)}" th:each="l : ${rawMaterialsIncomingList}">
-					<td th:text="${l.rawMaterialsCode}"></td>
-					<td th:text="${l.donationCode}"></td>
-					<td th:text="${l.rawMaterialsIncomingAmount}"></td>
-					<td th:text="${l.rawMaterialsIncomingDate}"></td>
-					<td th:text="${l.rawMaterialsStatus}"></td>
-					<td th:text="${l.carbonDioxideEmissionLevel}"></td>
-					<td th:text="${l.rawMaterialsDaygroup}"></td>
-					<td th:text="${l.donationPointSave}"></td>
-					<td th:text="${l.donationPointGroup}"></td>
-					<td><a th:href="@{/admin/modifyIncomingRawmaterials(rawMaterialsCode=${l.rawMaterialsCode})}">수정</a></td>
-					<td><a th:href="@{/admin/deleteIncomingRawmaterials(rawMaterialsCode=${l.rawMaterialsCode})}">삭제</a></td>
-				</tr>
-				<tr th:if="${#lists.isEmpty(rawMaterialsIncomingList)}">
-					<td colspan="6">등록된 원자재 입고가 존재하지 않습니다.</td>
-				</tr>
-			</tbody>
-		</table>
-		
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="listRawMaterialsIncoming" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="rawMaterialsCode">원자재 코드</th>
+											<th class="donationCode">기부신청 번호</th>
+											<th class="rawMaterialsIncomingAmount">입고 수량</th>
+											<th class="rawMaterialsIncomingDate">입고 날짜</th>
+											<th class="rawMaterialsStatus">상태</th>
+											<th class="carbonDioxideEmissionLevel">이산화탄소 배출량</th>
+											<th class="rawMaterialsDaygroup">일별 기부상품 입고 그룹</th>
+											<th class="donationPointSave">포인트 적립 금액</th>
+											<th class="donationPointGroup">포인트 그룹코드</th>
+											<th>수정</th>
+											<th>삭제</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:unless="${#lists.isEmpty(rawMaterialsIncomingList)}" th:each="l : ${rawMaterialsIncomingList}">
+											<td th:text="${l.rawMaterialsCode}"></td>
+											<td th:text="${l.donationCode}"></td>
+											<td th:text="${l.rawMaterialsIncomingAmount}"></td>
+											<td th:text="${l.rawMaterialsIncomingDate}"></td>
+											<td th:text="${l.rawMaterialsStatus}"></td>
+											<td th:text="${l.carbonDioxideEmissionLevel}"></td>
+											<td th:text="${l.rawMaterialsDaygroup}"></td>
+											<td th:text="${l.donationPointSave}"></td>
+											<td th:text="${l.donationPointGroup}"></td>
+											<td><a th:href="@{/admin/modifyIncomingRawmaterials(rawMaterialsCode=${l.rawMaterialsCode})}">수정</a></td>
+											<td><a th:href="@{/admin/deleteIncomingRawmaterials(rawMaterialsCode=${l.rawMaterialsCode})}">삭제</a></td>
+										</tr>
+										<tr th:if="${#lists.isEmpty(rawMaterialsIncomingList)}">
+											<td colspan="6">등록된 원자재 입고가 존재하지 않습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</th:block>
 	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
 	
-	
-	<!-- 사용자 지정 js script -->
+		<!-- 사용자 지정 js script -->
 	 
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
@@ -59,9 +91,9 @@
 			if(msg != null){
 				alert(msg);
 			}
-			
+
+			$('#listRawMaterialsIncoming').DataTable();
 		</script>
 
 	</th:block>
-
 </html>

@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.BoardNoticeMapper">
+
 	<resultMap id="BoardNoticeResultMap" type="BoardNotice">
         <id property="noticeCode"			column="notice_code" />
         <result property="userId"			column="user_id" />
@@ -59,7 +60,7 @@
     </insert>
     
     <!-- 공지사항 상세페이지 -->
-    <select id="detailsNotice" resultMap="BoardNoticeResultMap">
+    <select id="ContentsNotice" resultMap="BoardNoticeResultMap">
 	    SELECT
 			 notice.notice_code
 			,notice.user_id

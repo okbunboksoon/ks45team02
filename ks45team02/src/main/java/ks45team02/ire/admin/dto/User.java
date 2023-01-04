@@ -1,6 +1,9 @@
 package ks45team02.ire.admin.dto;
 
+import java.util.List;
+
 public class User {
+
 
 	 private String userId;
 	 private String userPw;
@@ -12,8 +15,44 @@ public class User {
 	 private String userBirth;
 	 private int pointState;
 	 private String userJoinDate;
-	 
-	 private User user;
+	 private String userDropState;
+	private List<LoginOutHistory> loginOutHistoryList;
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId='" + userId + '\'' +
+				", userPw='" + userPw + '\'' +
+				", userName='" + userName + '\'' +
+				", userNickName='" + userNickName + '\'' +
+				", userAddr='" + userAddr + '\'' +
+				", userPhone='" + userPhone + '\'' +
+				", userEmail='" + userEmail + '\'' +
+				", userBirth='" + userBirth + '\'' +
+				", pointState=" + pointState +
+				", userJoinDate='" + userJoinDate + '\'' +
+				", userDropState='" + userDropState + '\'' +
+				", loginOutHistoryList=" + loginOutHistoryList +
+				'}';
+	}
+
+	public String getUserDropState() {
+		return userDropState;
+	}
+
+	public void setUserDropState(String userDropState) {
+		this.userDropState = userDropState;
+	}
+
+	public List<LoginOutHistory> getLoginOutHistoryList() {
+		return loginOutHistoryList;
+	}
+
+	public void setLoginOutHistoryList(List<LoginOutHistory> loginOutHistoryList) {
+		this.loginOutHistoryList = loginOutHistoryList;
+	}
+
+
 	 
 	 
 	 
@@ -77,15 +116,6 @@ public class User {
 	public void setUserJoinDate(String userJoinDate) {
 		this.userJoinDate = userJoinDate;
 	}
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userNickName="
-				+ userNickName + ", userAddr=" + userAddr + ", userPhone=" + userPhone + ", userEmail=" + userEmail
-				+ ", userBirth=" + userBirth + ", pointState=" + pointState + ", userJoinDate=" + userJoinDate + "]";
-	}
-	 
 
-	
-	 
-	 
+
 }

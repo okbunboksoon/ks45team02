@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <!-- Datatables -->
+    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 </head>
-<body>
-listDormantUser
-</body>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+            // $('#deleteBtn').click(function(){
+            //     let deleteValue = $('#deleteBtn').val();
+            //     let deleteCheck = confirm("정말 삭제하시겠습니까?")
+            //     if(!deleteCheck){
+            //         return false;
+            //     }else{
+            //         location.href = '/admin/deleteBoardNotice?noticeCode='+deleteValue;
+            //     }
+            // });
+
+            $('#userList').DataTable();
+        });
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+                            <table id="userDorList" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>휴면회원아이디</th>
+                                    <th>휴면회원비밀번호</th>
+                                    <th>휴면회원이름</th>
+                                    <th>휴면닉네임</th>
+                                    <th>휴면회원주소</th>
+                                    <th>휴면회원전화번호</th>
+                                    <th>휴면회원이메일</th>
+                                    <th>휴면회원생년월일</th>
+                                    <th>휴면포인트상태</th>
+                                    <th>휴면변경날짜</th>
+                                    <th>휴면회원 탈퇴여부</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if ="${not #lists.isEmpty(userDorList)}"
+                                    th:each="u : ${userDorList}">
+                                    <td th:text ="${u.userDorId}"/></td>
+                                    <td th:text ="${u.userDorPw}"/></td>
+                                    <td th:text ="${u.userDorName}"/></td>
+                                    <td th:text ="${u.userDorNickName}"/></td>
+                                    <td th:text ="${u.userDorAddr}"/></td>
+                                    <td th:text ="${u.userDorPhone}"/></td>
+                                    <td th:text ="${u.userDorEmail}"/></td>
+                                    <td th:text ="${u.userDorBirth}"/></td>
+                                    <td th:text ="${u.pointState}"/></td>
+                                    <td th:text ="${u.userDorJoinDate}"/></td>
+                                    <td th:text ="${u.userDropState}"/></td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(userDorList)}">
+                                    <td colspan="9">등록한 회원이 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customJs">
+    <!-- Datatables -->
+    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+</th:block>
 </html>

@@ -26,6 +26,45 @@
 		<result property="donationPointGroup" 			column="donation_point_group" />
 	</resultMap>
 	   
+	<insert id="addIncomingRawmaterials" parameterType="RawMaterialsIncoming">
+		<!-- 원자재 등록 -->
+		INSERT INTO raw_materials_incoming (
+			 raw_materials_code
+			,donation_code
+			,raw_materials_incoming_amount
+			,raw_materials_incoming_date
+			,raw_materials_status
+			,carbon_dioxide_emission_level
+			,raw_materials_daygroup
+			,donation_point_save
+			,donation_point_group
+		)VALUES(
+			 sf_new_raw_materials_incoming_code()
+			,#{donationCode}
+			,1
+			,#{rawMaterialsIncomingDate}
+			,#{rawMaterialsStatus}
+			,#{carbonDioxideEmissionLevel}
+			,sf_raw_materials_incoming_daygroup()
+			,#{donationPointSave}
+			,sf_raw_materials_incoming_point_group(#{donationCode}));
+	</insert>
+	
+	
+	<select id="getDonationCodeNotIncoming" resultType="String">
+		<!-- 원자재 입고 등록되지 않은 기부 코드 조회 -->
+		SELECT 
+			  d.donation_code AS donationCode
+		FROM 
+			donation AS d
+			LEFT JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			d.donation_code = rmi.donation_code
+		WHERE 
+			rmi.raw_materials_code IS NULL;
+	</select>
+	   
 	<select id="getRawMaterialsIncomingList" resultMap="rawMaterialsIncomingResultMap">
 		<!-- 원자재 입고 조회 -->
 		SELECT 

@@ -7,11 +7,13 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ks45team02.ire.admin.dto.BoardNotice;
 import ks45team02.ire.admin.mapper.BoardNoticeMapper;
 
 @Service
+@Transactional
 public class BoardNoticeService {
 
 	
@@ -52,11 +54,11 @@ public class BoardNoticeService {
 	 * @param noticeCode
 	 * @return detailsNotice
 	 */
-	public List<BoardNotice> detailsNotice(String noticeCode){
+	public List<BoardNotice> ContentsNotice(String noticeCode){
 		
-		List<BoardNotice> detailsNotice = boardNoticeMapper.detailsNotice(noticeCode);
+		List<BoardNotice> contentsNotice = boardNoticeMapper.ContentsNotice(noticeCode);
 		
-		return detailsNotice;
+		return contentsNotice;
 	}
 	
 	/**
