@@ -1,6 +1,5 @@
 package ks45team02.ire.admin.mapper;
 
-import ks45team02.ire.admin.dto.LoginOutHistory;
 import ks45team02.ire.admin.dto.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,6 +18,8 @@ public interface UserMapper {
     // 회원 수정
     public int modifyUser(User user);
     //로그인 이력조회
-    public List<LoginOutHistory>getLoginHistory();
+    public List<User> getLoginHistory();
+    //로그인 이력 추가
+    public  int updateLoginHistory(String userId);
 
 }

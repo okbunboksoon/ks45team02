@@ -47,11 +47,12 @@
                                 <tbody>
                                 <tr th:if="${not #lists.isEmpty(loginHistory)}"
                                     th:each="l:${loginHistory}">
-                                    <th:block th:object="${l.user}">
-                                        <td th:text="*{userId}"></td>
-                                        <td th:text="*{userName}"></td>
-                                        <td th:text="${l.loginTime}"></td>
-                                        <td th:text="${l.logoutTime}"></td>
+                                    <th:block th:if="${not #lists.isEmpty(loginHistory)}"
+                                              th:each="ul:${l.loginOutHistoryList}">
+                                        <td th:text="${l.userId}"></td>
+                                        <td th:text="${l.userName}"></td>
+                                        <td th:text="${ul.loginTime}"></td>
+                                        <td th:text="${ul.logoutTime}"></td>
                                     </th:block>
 
                                 </tr>
