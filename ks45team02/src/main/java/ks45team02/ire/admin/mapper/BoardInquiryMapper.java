@@ -10,5 +10,6 @@ public interface BoardInquiryMapper {
     // 1:1문의 조회
     public List<BoardInquiry> listInquiryList();
 
+    //1:1문의 추가..
     public int addInquiry(BoardInquiry boardInquiry);
 }
