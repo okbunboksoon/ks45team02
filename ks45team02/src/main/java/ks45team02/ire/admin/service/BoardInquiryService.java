@@ -25,7 +25,7 @@ public class BoardInquiryService {
         return boardInquiryList;
     }
     public int addInquiry(BoardInquiry boardInquiry){
-        // 1:1문의 등록 하다멈춤...ㅎㅁㅎ
+        // 1:1문의 등록 하다멈춤.
         return boardInquiryMapper.addInquiry(boardInquiry);
     }
 

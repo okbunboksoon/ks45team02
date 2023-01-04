@@ -1,7 +1,6 @@
 package ks45team02.ire.admin.dto;
 
 public class BoardInquiry {
-    //아니 왜 안올라가니...
 
     private String inquiryCode;
     private String userId;
