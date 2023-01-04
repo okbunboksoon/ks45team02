@@ -4,25 +4,6 @@ public class LoginOutHistory {
     private String userId;
     private String loginTime;
     private String logoutTime;
-    private User user;
-
-    @Override
-    public String toString() {
-        return "LoginOutHistory{" +
-                "userId='" + userId + '\'' +
-                ", loginTime='" + loginTime + '\'' +
-                ", logoutTime='" + logoutTime + '\'' +
-                ", user=" + user +
-                '}';
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getUserId() {
         return userId;
@@ -46,5 +27,14 @@ public class LoginOutHistory {
 
     public void setLogoutTime(String logoutTime) {
         this.logoutTime = logoutTime;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginOutHistory{" +
+                "userId='" + userId + '\'' +
+                ", loginTime='" + loginTime + '\'' +
+                ", logoutTime='" + logoutTime + '\'' +
+                '}';
     }
 }
