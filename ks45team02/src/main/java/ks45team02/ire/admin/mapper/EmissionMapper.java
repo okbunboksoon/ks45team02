@@ -9,6 +9,13 @@ import ks45team02.ire.admin.dto.Emission;
 @Mapper
 public interface EmissionMapper {
 	
-	public List<Emission> EmissionList ();
+	/**
+	 * 기부받은 의류별 CO2 기준 리스트
+	 * 
+	 */
+	public List<Emission> RawMaterialsEmissionList ();
+	
+	
+	
 	
 }

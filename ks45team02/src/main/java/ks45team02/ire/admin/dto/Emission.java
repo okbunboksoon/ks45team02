@@ -2,27 +2,27 @@ package ks45team02.ire.admin.dto;
 
 public class Emission {
 
-	private String goods_co2_code;
-	private String goods_category;
-	private String goods_size;
+	private String raw_materials_co2_code;
+	private String raw_materials_category;
+	private String raw_materials_size;
 	private float carbon_dioxide_emission_level;
-	public String getGoods_co2_code() {
-		return goods_co2_code;
+	public String getRaw_materials_co2_code() {
+		return raw_materials_co2_code;
 	}
-	public void setGoods_co2_code(String goods_co2_code) {
-		this.goods_co2_code = goods_co2_code;
+	public void setRaw_materials_co2_code(String raw_materials_co2_code) {
+		this.raw_materials_co2_code = raw_materials_co2_code;
 	}
-	public String getGoods_category() {
-		return goods_category;
+	public String getRaw_materials_category() {
+		return raw_materials_category;
 	}
-	public void setGoods_category(String goods_category) {
-		this.goods_category = goods_category;
+	public void setRaw_materials_category(String raw_materials_category) {
+		this.raw_materials_category = raw_materials_category;
 	}
-	public String getGoods_size() {
-		return goods_size;
+	public String getRaw_materials_size() {
+		return raw_materials_size;
 	}
-	public void setGoods_size(String goods_size) {
-		this.goods_size = goods_size;
+	public void setRaw_materials_size(String raw_materials_size) {
+		this.raw_materials_size = raw_materials_size;
 	}
 	public float getCarbon_dioxide_emission_level() {
 		return carbon_dioxide_emission_level;
@@ -33,12 +33,12 @@ public class Emission {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Emission [goods_co2_code=");
-		builder.append(goods_co2_code);
-		builder.append(", goods_category=");
-		builder.append(goods_category);
-		builder.append(", goods_size=");
-		builder.append(goods_size);
+		builder.append("Emission [raw_materials_co2_code=");
+		builder.append(raw_materials_co2_code);
+		builder.append(", raw_materials_category=");
+		builder.append(raw_materials_category);
+		builder.append(", raw_materials_size=");
+		builder.append(raw_materials_size);
 		builder.append(", carbon_dioxide_emission_level=");
 		builder.append(carbon_dioxide_emission_level);
 		builder.append("]");
@@ -46,5 +46,6 @@ public class Emission {
 	}
 	
 	
+
 	
 }
