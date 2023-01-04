@@ -6,7 +6,7 @@
 	<resultMap type="Donation" 				id="donationResultMap">
 		<id property="donationCode" 		column="donation_code" />
 		<result property="userId" 			column="user_id" />
-		<result property="goodsC02Code" 	column="goods_co2_code" />
+		<result property="rawMaterialsCo2Code" 	column="raw_materials_co2_code" />
 		<result property="donationAmount" 	column="donation_amount" />
 		<result property="donationDate" 	column="donation_date" />
 		<result property="donationStatus"	column="donation_status" />
@@ -97,7 +97,7 @@
 			donation
 		SET 
 			 user_id = #{userId}
-			,goods_co2_code = #{goodsC02Code}
+			,raw_materials_co2_code = #{rawMaterialsCo2Code}
 			,donation_amount = #{donationAmount}
 			,donation_date = #{donationDate}
 			,donation_status = #{donationStatus}
@@ -110,7 +110,7 @@
 		SELECT 
 			 donation_code
 			,user_id
-			,goods_co2_code
+			,raw_materials_co2_code
 			,donation_amount
 			,donation_date
 			,donation_status
@@ -125,14 +125,14 @@
 		INSERT INTO donation (
 		 	 donation_code
 			,user_id
-			,goods_co2_code
+			,raw_materials_co2_code
 			,donation_amount
 			,donation_date
 			,donation_status
 		)VALUES(
 			 sf_new_donation_code()
 			,#{userId}
-			,#{goodsC02Code}
+			,#{rawMaterialsCo2Code}
 			,#{donationAmount}
 			,#{donationDate}
 			,#{donationStatus});
@@ -144,23 +144,11 @@
 		SELECT 
 			 donation_code
 			,user_id
-			,goods_co2_code
+			,raw_materials_co2_code
 			,donation_amount
 			,donation_date 
 			,donation_status
 		FROM 
 			donation
 	</select>
-
-
-
-
-
-
-
-
-
-
-
-
 </mapper>
