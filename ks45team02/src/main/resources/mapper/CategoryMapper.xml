@@ -112,4 +112,30 @@
 		category_medium_code= #{categoryMediumCode}
 	</update>
 	
+	<!-- 카테고리 중 삭제 처리 -->
+	<delete id="deleteMediumCategory" parameterType="String">
+		DELETE FROM 
+			category_medium 
+		WHERE 
+			category_medium_code=#{categoryMediumCode}
+	</delete>
+	
+	<!-- 카테고리 대 코드 중 삭제 처리 -->
+	<select id="deleteCateBigCode" parameterType="String">
+		DELETE
+		FROM
+			category_medium AS cm
+		WHERE
+			cm.category_big_code = #{categoryBigCode}
+	</select>
+	
+	<!-- 카테고리 대 삭제 처리 -->
+	<select id="deleteBigCategory" parameterType="String">
+		DELETE
+		FROM
+			category_big AS cb
+		WHERE
+			cb.category_big_code = #{categoryBigCode}
+	</select>
+		
 </mapper>

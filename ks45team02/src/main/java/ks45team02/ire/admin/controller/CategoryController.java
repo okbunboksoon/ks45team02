@@ -1,6 +1,7 @@
 package ks45team02.ire.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ks45team02.ire.admin.dto.CategoryBig;
@@ -139,23 +141,34 @@ public class CategoryController {
 		return "redirect:/admin/listMideumCategory";
 	}
 	
-	//@GetMapping("/deleteBigCategory")
-	public String deleteBigCategory(@RequestParam(value = "categoryBigCode")String categoryBigCode, Model model) {
+	/**
+	 * 카테고리 대 삭제 처리
+	 * @param param
+	 * @return redirect:/admin/listBigCategory
+	 */
+	@RequestMapping(value="deleteBigCategory", method = {RequestMethod.POST})
+	public String deleteBigCategory(@RequestParam Map<String, Object> param) {
 		
-		model.addAttribute("title", "카테고리 대 삭제");
-		model.addAttribute("pageTitle", "카테고리 대 삭제");
-		log.info("categoryMediumCode : {}", categoryBigCode);
+		String categoryBigCode = (String) param.get("categoryBigCode");
+		log.info(categoryBigCode);
 		
-		return "admin/category/categoryBigDelete";
+		categoryService.deleteBigCateory(categoryBigCode);
+		
+		return "redirect:/admin/listBigCategory";
 	}
 	
-	//@PostMapping("/deleteMediumCategory")
-	public String deleteMediumCategory(@RequestParam(value = "categoryMediumCode")String categoryMediumCode, Model model) {
+	/**
+	 * 카테고리 중 삭제 처리
+	 * @param param
+	 * @return return "redirect:/admin/listBigCategory";
+	 */
+	@RequestMapping(value="deleteMediumCategory", method = {RequestMethod.POST})
+	public String deleteMediumCategory(@RequestParam Map<String, Object> param) {
 		
-		model.addAttribute("title", "카테고리 중 삭제");
-		model.addAttribute("pageTitle", "카테고리 중 삭제");
-		log.info("categoryMediumCode : {}", categoryMediumCode);
-		return "admin/category/categoryMediumDelete";
+		String categoryMediumCode = (String) param.get("categoryMediumCode");
+		categoryService.deleteMediumCategory(categoryMediumCode);
+
+		return "redirect:/admin/listMideumCategory";
 	}
 	
 	/**
