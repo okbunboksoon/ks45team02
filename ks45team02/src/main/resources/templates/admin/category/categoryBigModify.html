@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style type="text/css">
+			.styleTitle {
+				text-align: center;
+				color: black;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#modifyCategoryBigForm input').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#modifyCategoryBigForm').submit();
+				});	
+			});
+		</script>
+	</th:block>
+
+	<th:block layout:fragment="customContents">
+		<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<br><br>
+							<th:block th:if="${not #lists.isEmpty(BigCategoryInfo)}" th:each="ci : ${BigCategoryInfo}">
+							<h5 class="styleTitle">카테고리 대 수정</h5>
+							<form id= "modifyCategoryBigForm" th:action="@{/admin/modifyBigCategory}" method="post">
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">수정 전 카테고리 대 이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="categoryBigName" name="categoryBigName"
+							  		       class="form-control" th:value="${ci.categoryBigName}" disabled/>
+									<input type="hidden" id="categoryBigCode" name="categoryBigCode"
+							  		       class="form-control" th:value="${ci.categoryBigCode}"/>
+								</div>
+							</div>
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">수정 후 카테고리 대 이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="categoryBigName" name="categoryBigName"
+							  		       class="form-control" th:value="${ci.categoryBigName}"/>
+								</div>
+							</div>
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">수정</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</form>
+							</th:block>
+               			</div>
+           			</div>
+       			</div>
+   			</div>
+	</th:block>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+	</th:block>
+</html>

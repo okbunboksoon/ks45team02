@@ -24,7 +24,7 @@ public interface BoardNoticeMapper {
 	/**
 	 * 공지사항 상세페이지
 	 */
-	public List<BoardNotice> detailsNotice(String noticeCode);
+	public List<BoardNotice> ContentsNotice(String noticeCode);
 	
 	/**
 	 * 공지사항 수정처리

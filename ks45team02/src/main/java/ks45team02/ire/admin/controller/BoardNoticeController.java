@@ -50,27 +50,12 @@ public class BoardNoticeController {
 	 */
 	@PostMapping("/addBoardNotice")
 	public String addBoardNotice(BoardNotice boardNotice) {
-		
-		log.info("공지사항등록 정보 :{}", boardNotice);
-		
+
 		boardNoticeService.addNotice(boardNotice);
 		
 		return "redirect:/admin/listBoardNotice";
 	}
-	
-	//@GetMapping("/deleteBoardNotice")
-	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
-		
-		log.info("deleteBoardNotice noticeCode : {}", noticeCode);
-		
-		List<BoardNotice> deleteNotice = boardNoticeService.detailsNotice(noticeCode);
-		model.addAttribute("deleteNotice", deleteNotice);
-		
-		log.info("deleteNotice : {}", deleteNotice);
-		
-		return "admin/board/boardDeleteNotice";
-	}
-	
+
 	/**
 	 * 삭제 처리
 	 * @param boardNotice
@@ -78,8 +63,6 @@ public class BoardNoticeController {
 	 */
 	@PostMapping("/deleteBoardNotice")
 	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode) {
-		
-		log.info("공지사항삭제 정보 :{}", noticeCode);
 		
 		boardNoticeService.deleteBoardNotice(noticeCode);
 		
@@ -98,7 +81,6 @@ public class BoardNoticeController {
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("title", "공지사항목록");
 		model.addAttribute("pageTitle", "공지사항목록");
-		log.info("noticeList : {}", noticeList);
 	
 		return "admin/board/boardListNotice";
 	}
@@ -111,12 +93,10 @@ public class BoardNoticeController {
 	@GetMapping("/ContentsNotice")
 	public String ContentsNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
 
-		log.info("noticeCode : {}", noticeCode);
-		List<BoardNotice> detailsNotice = boardNoticeService.detailsNotice(noticeCode);
+		List<BoardNotice> contentsNotice = boardNoticeService.ContentsNotice(noticeCode);
 		model.addAttribute("title", "공지사항 상세페이지");
-		model.addAttribute("detailsNotice", detailsNotice);
 		model.addAttribute("pageTitle", "상세페이지");
-		log.info("detailsNotice : {}", detailsNotice);
+		model.addAttribute("contentsNotice", contentsNotice);
 		
 		return "admin/board/boardContentsNotice";
 	}
@@ -129,11 +109,10 @@ public class BoardNoticeController {
 	@GetMapping("/modifyBoardNotice")
 	public String modifyBoardNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
 		
-		List<BoardNotice> modifyNotice = boardNoticeService.detailsNotice(noticeCode);
+		List<BoardNotice> modifyNotice = boardNoticeService.ContentsNotice(noticeCode);
 		
 		model.addAttribute("modifyNotice", modifyNotice);
 		model.addAttribute("pageTitle", "공지사항 수정");
-		log.info("modifyNotice : {}", modifyNotice);
 		
 		return "admin/board/boardModifyNotice";
 	}
@@ -145,8 +124,6 @@ public class BoardNoticeController {
 	 */
 	@PostMapping("/modifyBoardNotice")
 	public String modifyBoardNotice(BoardNotice boardNotice) {
-		
-		log.info("공지사항수정 정보 :{}", boardNotice);
 		
 		boardNoticeService.modifyBoardNotice(boardNotice);
 		
