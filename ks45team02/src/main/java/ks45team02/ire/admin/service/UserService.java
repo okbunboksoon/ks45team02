@@ -2,6 +2,7 @@ package ks45team02.ire.admin.service;
 
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.dto.UserDor;
+import ks45team02.ire.admin.dto.UserDrop;
 import ks45team02.ire.admin.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,5 +83,9 @@ public class UserService {
     public List<UserDor>userDorList(){
         //휴면 회원조회
         return userMapper.listUserDor();
+    }
+    public List<UserDrop>userDropList(){
+        //탈퇴 회원 조회
+        return userMapper.listUserDrop();
     }
 }

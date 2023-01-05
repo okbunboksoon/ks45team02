@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BusinessMapper">
+    <resultMap id="BusinessResultMap" type="Business">
+        <id property="businessCode" column="business_code"/>
+        <result property="businessName" column="business_name"/>
+        <result property="businessNum" column="business_num"/>
+        <result property="businessType" column="business_type"/>
+        <result property="sectors" column="sectors"/>
+        <result property="businessManagerName" column="business_manager_name"/>
+        <result property="businessPhone" column="business_phone"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <select id="listBusiness" resultMap="BusinessResultMap">
+        <!--거래처 조회-->
+        SELECT
+            business_code,
+            business_name,
+            business_num,
+            business_type,
+            sectors,
+            business_manager_name,
+            business_phone,
+            user_id
+        FROM
+            business
+    </select>
+    <select id="getInfoByBusiness" resultMap="BusinessResultMap">
+        <!--특정 거래처 조회-->
+        SELECT
+            business_code,
+            business_name,
+            business_num,
+            business_type,
+            sectors,
+            business_manager_name,
+            business_phone,
+            user_id
+        FROM
+            business
+        WHERE business_code=#{businessCode}
+    </select>
+    <update id="modifyBusiness" parameterType="Business">
+        <!--거래처 수정-->
+        UPDATE business
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="businessName != null and businessName !=''">
+                business_name=#{businessName}
+            </if>
+            <if test="businessNum != null and businessNum !=''">
+                ,business_num=#{businessNum}
+            </if>
+            <if test="businessType != null and businessType !=''">
+                ,business_type=#{businessType}
+            </if>
+            <if test="sectors != null and sectors !=''">
+                ,sectors=#{sectors}
+            </if>
+            <if test="businessManagerName != null and businessManagerName !=''">
+                ,business_manager_name=#{businessManagerName}
+            </if>
+            <if test="businessPhone != null and businessPhone !=''">
+                ,business_phone=#{businessPhone}
+            </if>
+            <if test="userId != null and userId !=''">
+                ,user_id=#{userId}
+            </if>
+        </trim>
+        WHERE business_code=#{businessCode}
+    </update>
+    <insert id="addBusiness" parameterType="Business">
+        <!--거래처 추가-->
+        INSERT INTO business
+        (
+            business_code,
+            business_name,
+            business_num,
+            business_type,
+            sectors,
+            business_manager_name,
+            business_phone,
+            user_id
+        )
+        VALUES
+        (
+            sf_new_business_code(),
+            #{businessName},
+            #{businessNum},
+            #{businessType},
+            #{sectors},
+            #{businessManagerName},
+            #{businessPhone},
+            #{userId}
+        )
+    </insert>
+</mapper>
