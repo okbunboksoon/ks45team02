@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ks45team02.ire.admin.dto.Basket;
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.mapper.BasketMapper;
+import ks45team02.ire.admin.mapper.CategoryMapper;
 import ks45team02.ire.admin.mapper.GoodsMapper;
+import ks45team02.ire.admin.mapper.UserMapper;
 
 @Service
 @Transactional
@@ -20,10 +22,32 @@ public class BasketService {
 	
 	private final BasketMapper basketMapper;
 	private final GoodsMapper goodsMapper;
+	private final CategoryMapper categoryMapper;
+	private final UserMapper userMapper;
 	
-	public BasketService(BasketMapper basketMapper, GoodsMapper goodsMapper) {
+	public BasketService(BasketMapper basketMapper, GoodsMapper goodsMapper, CategoryMapper categoryMapper, UserMapper userMapper) {
 		this.basketMapper = basketMapper;
 		this.goodsMapper = goodsMapper;
+		this.categoryMapper = categoryMapper;
+		this.userMapper = userMapper;
+	}
+	
+	public int addBasket(Basket basket) {
+		
+		int result = 0;
+		
+		int goodsCheck = goodsMapper.goodsCheck(basket.getGoodsCode());
+		int idCheck = userMapper.idCheck(basket.getUserId());
+		
+		if(goodsCheck == 0 || idCheck == 0) {
+			return result;
+		}
+		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
+		basket.setCategoryMediumCode(categoryMediumCode);
+		
+		result = basketMapper.addBasket(basket);
+		
+		return result;
 	}
 	
 	/**

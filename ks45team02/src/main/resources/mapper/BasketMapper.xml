@@ -18,6 +18,35 @@
 		<result property="basketState"			column="basket_state" />
 	</resultMap>
 	
+	<insert id="addBasket" parameterType="Basket">
+		<!-- 장바구니 등록 -->
+		INSERT INTO basket (
+			 basket_code
+			,goods_code
+			,basket_group
+			,user_id
+			,goods_name
+			,category_medium_code
+			,goods_price
+			,basket_amount
+			,each_payment_amount
+			,reg_date
+			,basket_state
+		)VALUES(
+			 sf_new_basket_code()
+			,#{goodsCode}
+			,#{basketGroup}
+			,#{userId}
+			,#{goodsName}
+			,#{categoryMediumCode}
+			,#{goodsPrice}
+			,#{basketAmount}
+			,#{eachPaymentAmount}
+			,#{regDate}
+			,#{basketState}
+		);
+	</insert>	
+	
 	<select id="getBasketList" resultMap="basketResultMap">
 		<!-- 장바구니 조회 -->
 		SELECT 

@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.Basket;
 import ks45team02.ire.admin.dto.Goods;
@@ -43,6 +45,20 @@ public class BasketController {
 		return "admin/basket/goodsSearchForBasketadd";
 	}
 	
+	//장바구니 등록 처리
+	@PostMapping("/addBasket")
+	public String addBasket(Basket basket, RedirectAttributes reAttr) {
+		
+		int result = basketService.addBasket(basket);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "장바구니 등록에 실패하였습니다.");
+			return "redirect:/admin/addBasket";
+		}else {
+			reAttr.addAttribute("msg", "장바구니 등록에 성공하였습니다.");
+		}
+		return "redirect:/admin/listBasket";
+	}
+	
 	//장바구니 등록 페이지
 	@GetMapping("/addBasket")
 	public String addBasket(Model model
@@ -65,14 +81,17 @@ public class BasketController {
 	
 	//장바구니 조회 페이지
 	@GetMapping("/listBasket")
-	public String listBasket(Model model) {
+	public String listBasket(Model model
+						   ,@RequestParam(value="msg", required = false) String msg) {
 		
 		List<Basket> basketList = basketService.getBasketList();
 		
 		model.addAttribute("title", "장바구니 조회");
 		model.addAttribute("pageTitle", "장바구니 조회");
 		model.addAttribute("basketList", basketList);
-		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/basket/basketList";
 	}

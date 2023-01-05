@@ -18,6 +18,17 @@
         </association>
     </resultMap>
 	
+	<select id="getCategoryMediumCodeByName" parameterType="String" resultType="String">
+		<!-- 카테고리 중 이름으로 카테고리 중 코드 조회 -->
+		SELECT 
+			cm.category_medium_code
+		FROM 
+			category_medium AS cm
+		WHERE 
+			cm.category_medium_name = #{categoryMediumName};
+	
+	</select>
+	
 	<!-- 카테고리 대 조회 -->
 	<select id="getListBigCategory" resultMap="categoryResultMap">
 		SELECT
