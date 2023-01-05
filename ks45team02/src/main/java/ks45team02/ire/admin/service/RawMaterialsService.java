@@ -4,7 +4,7 @@ import java.util.List;
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.DonationMapper;
-import ks45team02.ire.admin.mapper.PointSaveStandardMapper;
+import ks45team02.ire.admin.mapper.PointSaveMapper;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +16,13 @@ public class RawMaterialsService {
 
 	private final RawMaterialsMapper rawmaterialsMapper ;
 	private final DonationMapper donationMapper ;
-	private final PointSaveStandardMapper pointSaveStandardMapper ;
+	private final PointSaveMapper pointSaveMapper ;
 	
 	public int result;
-	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointSaveStandardMapper pointSaveStandardMapper) {
+	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointSaveMapper pointSaveMapper) {
 		this.rawmaterialsMapper = rawmaterialsMapper;
 		this.donationMapper = donationMapper;
-		this.pointSaveStandardMapper = pointSaveStandardMapper;
+		this.pointSaveMapper = pointSaveMapper;
 	}
 	
 	
@@ -60,11 +60,12 @@ public class RawMaterialsService {
 		
 		switch(rawMaterialsStatus) {
 		case "정상" 
-			: 	int pointSave = pointSaveStandardMapper.getPointSave("point_save_standard_004");
+			: 	int pointSave = pointSaveMapper.getPointSave("point_save_standard_004");
 				rawMaterialsIncoming.setDonationPointSave(pointSave);
 			break;
 		case "폐기" 
 			: rawMaterialsIncoming.setDonationPointSave(0);
+			  rawMaterialsIncoming.setDonationPointGroup(null);
 			break;
 		}
 		
@@ -92,7 +93,7 @@ public class RawMaterialsService {
 		
 		switch(rawMaterialsStatus) {
 		case "정상" 
-			: 	int pointSave = pointSaveStandardMapper.getPointSave("point_save_standard_004");
+			: 	int pointSave = pointSaveMapper.getPointSave("point_save_standard_004");
 				rawMaterialsIncoming.setDonationPointSave(pointSave);
 			break;
 		case "폐기" 
