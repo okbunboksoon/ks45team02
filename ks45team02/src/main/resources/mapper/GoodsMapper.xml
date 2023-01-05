@@ -7,6 +7,7 @@
 		<id property="goodsCode" 					column="goods_code" />
 		<result property="goodsName" 				column="goods_name"/>
 		<result property="categoryMediumNum"		column="category_medium_num"/>
+		<result property="categoryMediumName"		column="category_medium_name"/>
 		<result property="goodsPrice" 				column="goods_price"/>
 		<result property="goodsColor" 				column="goods_color"/>
 		<result property="goodsSize" 				column="goods_size"/>
@@ -17,6 +18,28 @@
 		<result property="rate" 					column="rate"/>
 		<result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
 	</resultMap>
+	
+	<select id="searchGoods" resultMap="GoodsResultMap" parameterType="String">
+		<!-- 상품 검색 -->
+		SELECT 
+			 g.goods_code
+			,g.goods_name
+			,cm.category_medium_name
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+		FROM 
+			goods AS g
+			INNER JOIN 
+			category_medium AS cm
+			ON  
+			g.category_medium_code = cm.category_medium_code
+		<where>
+			<if test="searchKey != null and searchKey != '' and searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</where>
+	</select>
 	
 	<select id="getListGoods" resultMap="GoodsResultMap">
 		SELECT
