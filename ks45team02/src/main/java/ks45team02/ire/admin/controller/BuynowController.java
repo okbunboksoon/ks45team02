@@ -19,8 +19,11 @@ public class BuynowController {
 		
 		return "admin/buynow/buynowDelete";
 	}
+	
+	//즉시결제 조회 페이지
 	@GetMapping("/listBuyNow")
 	public String listBuyNow(Model model) {
+		
 		
 		return "admin/buynow/buynowList";
 	}
