@@ -32,6 +32,17 @@ public class CategoryService {
 	}
 	
 	/**
+	 * 카테고리 중 전체 조회
+	 * @return listMedium
+	 */
+	public List<CategoryMedium> getMediumCategory(){
+		
+		List<CategoryMedium> listMedium = categoryMapper.getMediumCategory();
+		
+		return listMedium;
+	}
+	
+	/**
 	 * 카테고리 중 조회
 	 */
 	public List<CategoryBig> getListMediumCategory(){
@@ -125,7 +136,7 @@ public class CategoryService {
 		int result = 0;
 		result += categoryMapper.deleteBigCategoryByBuynow(categoryBigCode);
 		result += categoryMapper.deleteBigCategoryByBasket(categoryBigCode);
-		result += categoryMapper.deleteBigCategoryByBusinessOrder(categoryBigCode);
+		//result += categoryMapper.deleteBigCategoryByBusinessOrder(categoryBigCode);
 		result += categoryMapper.deleteBigCategoryByGoods(categoryBigCode);
 		result += categoryMapper.deleteCateBigCode(categoryBigCode);
 		result += categoryMapper.deleteBigCategory(categoryBigCode);

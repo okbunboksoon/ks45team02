@@ -16,6 +16,11 @@ public interface CategoryMapper {
 	public String getCategoryMediumCodeByName(String categoryMediumName);
 	
 	/**
+	 * 카테고리 중 전체 조회
+	 */
+	public List<CategoryMedium> getMediumCategory();
+	
+	/**
 	 * 카테고리 대 조회
 	 */
 	public List<CategoryBig> getListBigCategory();
