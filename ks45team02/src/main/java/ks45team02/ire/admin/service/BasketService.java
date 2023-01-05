@@ -33,6 +33,19 @@ public class BasketService {
 	}
 	
 	/**
+	 * 장바구니 삭제
+	 * @param basketCode
+	 * @return int
+	 */
+	public int deleteBasket(String basketCode) {
+		
+		int result = 0;
+		result = basketMapper.deleteBasket(basketCode);
+
+		return result;
+	}
+	
+	/**
 	 * 장바구니 수정
 	 * @param basket
 	 * @return int

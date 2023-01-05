@@ -18,6 +18,16 @@
 		<result property="basketState"			column="basket_state" />
 	</resultMap>
 	
+	<delete id="deleteBasket" parameterType="String">
+		<!-- 장바구니 삭제 -->
+		DELETE 
+			b
+		FROM 
+			basket AS b
+		WHERE 
+			b.basket_code = #{basketCode};
+	</delete>
+	
 	<update id="modifyBasket" parameterType="Basket">
 		<!-- 장바구니 수정 -->
 		UPDATE 
