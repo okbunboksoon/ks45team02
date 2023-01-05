@@ -1,10 +1,150 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-deleteBasket
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${basketInfo}">
+				<br>
+				<form th:action="@{/admin/deleteBasket}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="basketCode" class="col-form-label col-md-3 col-sm-3 label-align">결제전 장바구니 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="basketCode" name="basketCode" th:value="*{basketCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="basketGroup" class="col-form-label col-md-3 col-sm-3 label-align">장바구니 그룹</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="basketGroup" name="basketGroup" th:value="*{basketGroup}"
+							readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">회원아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+							readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="basketGroup" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="basketGroup" name="basketGroup" th:value="*{basketGroup}"
+							readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="goodsName" name="goodsName" th:value="*{goodsName}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="categoryMediumName" class="col-form-label col-md-3 col-sm-3 label-align">카테고리(중)</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="categoryMediumName" name="categoryMediumName" th:value="*{categoryMediumName}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">상품 가격</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="goodsPrice" name="goodsPrice" th:value="*{goodsPrice}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="basketAmount" class="col-form-label col-md-3 col-sm-3 label-align">수량</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="basketAmount" name="basketAmount" th:value="*{basketAmount}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="eachPaymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">결제예정합계</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="eachPaymentAmount" name="eachPaymentAmount" th:value="*{eachPaymentAmount}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="regDate" class="col-form-label col-md-3 col-sm-3 label-align">등록일자</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="regDate" name="regDate" th:value="*{regDate}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="basketState" class="col-form-label col-md-3 col-sm-3 label-align">상태</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="basketState" name="basketState" th:value="*{basketState}"
+							readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="deleteCheck" class="col-form-label col-md-3 col-sm-3 label-align">삭제하시려면 "삭제"를 입력해주세요.</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="deleteCheck" name="deleteCheck" placeholder="삭제"
+							 class="form-control"/>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-danger" type="button" id="deleteBtn">삭제</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $deleteBtn = document.getElementById('deleteBtn');
+			const $deleteCheck = document.getElementById('deleteCheck');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listDonation';
+			});
+			$deleteBtn.addEventListener('click', function(){
+				if($deleteCheck.value == '삭제'){
+					if(confirm('정말 삭제하시겠습니까?')){
+						$deleteBtn.setAttribute("type", "submit");
+					}
+					
+				}else{
+					alert('확인 문구가 일치하지 않습니다.');
+				}
+			});
+			
+
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>

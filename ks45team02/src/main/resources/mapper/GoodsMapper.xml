@@ -19,6 +19,16 @@
 		<result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
 	</resultMap>
 	
+	<select id="goodsCheck" parameterType="String" resultType="int">
+		<!-- 상품코드로 상품 존재여부 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			goods 
+		WHERE 
+			goods_code = #{goodsCode};
+	</select>
+	
 	<select id="searchGoods" resultMap="GoodsResultMap" parameterType="String">
 		<!-- 상품 검색 -->
 		SELECT 
