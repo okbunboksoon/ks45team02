@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ks45team02.ire.admin.dto.PointSaveAndMinus;
 import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.service.PointService;
@@ -146,8 +147,20 @@ public class PointController {
 		
 		return "admin/point/pointMinusAdd";
 	}
+	
+	//포인트 지급/차감 총 조회 페이지
 	@GetMapping("/listPoint")
-	public String listPoint() {
+	public String listPoint(Model model
+						   ,@RequestParam(value="msg", required = false) String msg) {
+		
+		List<PointSaveAndMinus> pointSaveAndMinusList = pointMapper.getPointSaveAndMinusList();
+		
+		model.addAttribute("title", "포인트 내역 조회");
+		model.addAttribute("pageTitle", "포인트 내역 조회");
+		model.addAttribute("pointSaveAndMinusList", pointSaveAndMinusList);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/point/pointList";
 	}
