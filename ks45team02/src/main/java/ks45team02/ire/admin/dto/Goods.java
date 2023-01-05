@@ -5,6 +5,7 @@ public class Goods {
 	private String goodsCode;
 	private String goodsName;
 	private String categoryMediumNum;
+	private String categoryMediumName;
 	private int goodsPrice;
 	private String goodsColor;
 	private String goodsSize;
@@ -14,6 +15,7 @@ public class Goods {
 	private String fabric;
 	private String rate;
 	private float upcyclingCarbonDioxideEmissionLevel;
+	
 	public String getGoodsCode() {
 		return goodsCode;
 	}
@@ -31,6 +33,12 @@ public class Goods {
 	}
 	public void setCategoryMediumNum(String categoryMediumNum) {
 		this.categoryMediumNum = categoryMediumNum;
+	}
+	public String getCategoryMediumName() {
+		return categoryMediumName;
+	}
+	public void setCategoryMediumName(String categoryMediumName) {
+		this.categoryMediumName = categoryMediumName;
 	}
 	public int getGoodsPrice() {
 		return goodsPrice;
@@ -95,6 +103,8 @@ public class Goods {
 		builder.append(goodsName);
 		builder.append(", categoryMediumNum=");
 		builder.append(categoryMediumNum);
+		builder.append(", categoryMediumName=");
+		builder.append(categoryMediumName);
 		builder.append(", goodsPrice=");
 		builder.append(goodsPrice);
 		builder.append(", goodsColor=");
@@ -116,6 +126,8 @@ public class Goods {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 	

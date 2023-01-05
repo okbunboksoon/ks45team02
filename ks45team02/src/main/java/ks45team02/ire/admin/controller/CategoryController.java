@@ -1,5 +1,6 @@
 package ks45team02.ire.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks45team02.ire.admin.dto.CategoryBig;
 import ks45team02.ire.admin.dto.CategoryMedium;
@@ -147,28 +149,49 @@ public class CategoryController {
 	 * @return redirect:/admin/listBigCategory
 	 */
 	@RequestMapping(value="deleteBigCategory", method = {RequestMethod.POST})
-	public String deleteBigCategory(@RequestParam Map<String, Object> param) {
+	public HashMap<String, String> deleteBigCategory(@RequestParam Map<String, Object> param) {
+		
+		HashMap<String, String> reResult = new HashMap<String, String>();
 		
 		String categoryBigCode = (String) param.get("categoryBigCode");
+		int result = categoryService.deleteBigCateory(categoryBigCode);
 		log.info(categoryBigCode);
 		
-		categoryService.deleteBigCateory(categoryBigCode);
+		if(result == 0) {
+			reResult.put("result", "실패");			
+			reResult.put("categoryMediumCode", categoryBigCode);	
+		}else {
+			reResult.put("result", "성공");			
+			reResult.put("categoryMediumCode", categoryBigCode);	
+			reResult.put("redirect", "/admin/categoryBigList");				
+		}
 		
-		return "redirect:/admin/listBigCategory";
+		return reResult;
 	}
 	
 	/**
 	 * 카테고리 중 삭제 처리
 	 * @param param
-	 * @return return "redirect:/admin/listBigCategory";
+	 * @return reResult;
 	 */
+	@ResponseBody
 	@RequestMapping(value="deleteMediumCategory", method = {RequestMethod.POST})
-	public String deleteMediumCategory(@RequestParam Map<String, Object> param) {
+	public HashMap<String, String> deleteMediumCategory(@RequestParam Map<String, Object> param) {
+		
+		HashMap<String, String> reResult = new HashMap<String, String>();
 		
 		String categoryMediumCode = (String) param.get("categoryMediumCode");
-		categoryService.deleteMediumCategory(categoryMediumCode);
+		int result = categoryService.deleteMediumCategory(categoryMediumCode);
 
-		return "redirect:/admin/listMideumCategory";
+		if(result == 0) {
+			reResult.put("result", "실패");			
+			reResult.put("categoryMediumCode", categoryMediumCode);	
+		}else {
+			reResult.put("result", "성공");			
+			reResult.put("categoryMediumCode", categoryMediumCode);	
+			reResult.put("redirect", "/admin/listMideumCategory");				
+		}
+		return reResult;
 	}
 	
 	/**
