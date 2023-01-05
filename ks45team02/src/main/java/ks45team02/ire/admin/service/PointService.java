@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks45team02.ire.admin.dto.PointSaveAndMinus;
 import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.mapper.PointMapper;
 
@@ -22,6 +23,22 @@ public class PointService {
 		this.pointMapper = pointMapper;
 	}
 	
+	/**
+	 * 포인트 지급/차감 총 조회
+	 * @return List<PointSaveAndMinus>
+	 */
+	public List<PointSaveAndMinus> getPointSaveAndMinusList(){
+		
+		List<PointSaveAndMinus> pointSaveAndMinusList = pointMapper.getPointSaveAndMinusList();
+		
+		return pointSaveAndMinusList;
+	}
+	
+	/**
+	 * 포인트 적립 기준 삭제
+	 * @param pointSaveStandard
+	 * @return int
+	 */
 	public int deletePointSaveStandard(String pointSaveStandard) {
 		
 		int result = 0;

@@ -10,6 +10,34 @@
 		<result property="pointSave" 				column="point_save" />
 	</resultMap>
 	
+	<select id="getPointSaveAndMinusList" resultType="PointSaveAndMinus">
+		<!-- 포인트 적립/차감 총 조회 -->
+		SELECT 
+			 point_minus_code AS pointCode
+			,user_id AS userId
+			,point_minus AS pointAmount
+			,point_state AS pointState
+			,point_minus_date AS pointDate
+			,point_minus_reason AS pointReason
+			,point_minus_group AS pointGroup
+			,'차감' AS pointSaveOrMinus
+		FROM 
+			point_minus AS pm
+		UNION 
+		SELECT 
+			point_save_code AS pointCode
+			,user_id AS userId
+			,point_save AS pointAmount
+			,point_state AS pointState
+			,point_save_date AS pointDate
+			,point_save_reason AS pointReason
+			,point_save_group AS pointGroup
+			,'지급' AS pointSaveOrMinus
+		FROM 
+			point_save AS ps
+		ORDER BY pointDate;
+	</select>
+	
 	<delete id="deletePointSaveStandard" parameterType="String">
 		<!-- 포인트 지급 기준 삭제 -->
 		DELETE 

@@ -16,6 +16,7 @@
 		<result property="eachPaymentAmount"	column="each_payment_amount" />
 		<result property="regDate"				column="reg_date" />
 		<result property="basketState"			column="basket_state" />
+		<result property="basketDeleteState"	column="basket_delete_state" />
 	</resultMap>
 	
 	<delete id="deleteBasket" parameterType="String">
@@ -43,6 +44,7 @@
 			,each_payment_amount = #{eachPaymentAmount}
 			,reg_date = #{regDate}
 			,basket_state = #{basketState}
+			,basket_delete_state = #{basketDeleteState}
 		WHERE 
 			basket_code = #{basketCode};
 	</update>
@@ -62,6 +64,7 @@
 			,b.each_payment_amount
 			,b.reg_date
 			,b.basket_state
+			,b.basket_delete_state
 		FROM 
 			basket AS b
 			INNER JOIN
@@ -86,6 +89,7 @@
 			,each_payment_amount
 			,reg_date
 			,basket_state
+			,basket_delete_state
 		)VALUES(
 			 sf_new_basket_code()
 			,#{goodsCode}
@@ -115,6 +119,7 @@
 			,b.each_payment_amount
 			,b.reg_date
 			,b.basket_state
+			,basket_delete_state
 		FROM 
 			basket AS b
 			INNER JOIN 

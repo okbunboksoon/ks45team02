@@ -14,6 +14,8 @@ public class Basket {
 	private int eachPaymentAmount;
 	private String regDate;
 	private String basketState;
+	private char basketDeleteState;
+	
 	public String getBasketCode() {
 		return basketCode;
 	}
@@ -86,6 +88,12 @@ public class Basket {
 	public void setBasketState(String basketState) {
 		this.basketState = basketState;
 	}
+	public char getBasketDeleteState() {
+		return basketDeleteState;
+	}
+	public void setBasketDeleteState(char basketDeleteState) {
+		this.basketDeleteState = basketDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -113,9 +121,12 @@ public class Basket {
 		builder.append(regDate);
 		builder.append(", basketState=");
 		builder.append(basketState);
+		builder.append(", basketDeleteState=");
+		builder.append(basketDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
+	
 	
 	
 	
