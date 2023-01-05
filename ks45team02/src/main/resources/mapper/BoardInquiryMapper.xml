@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardInquiryMapper">
+<resultMap id="BoardInquiryResultMap" type="BoardInquiry">
+    <id property="inquiryCode" column="inquiry_code"/>
+    <result property="userId" column="user_id"/>
+    <result property="inquiryCate" column="inquiry_cate"/>
+    <result property="inquiryTitle" column="inquiry_title"/>
+    <result property="inquiryContents" column="inquiry_contents"/>
+    <result property="inquiryFile" column="inquery_file"/>
+    <result property="inquiryRegDate" column="inquery_reg_date"/>
+    <result property="inquiryReRef" column="inquery_re_ref"/>
+    <result property="inquiryReLev" column="inquery_re_lev"/>
+</resultMap>
+    <insert id="addInquiry" parameterType="BoardInquiry">
+        INSERT INTO inquiry
+        (
+            inquiry_code,
+            user_id,
+            inquiry_cate,
+            inquiry_title,
+            inquiry_contents,
+            inquery_file,
+            inquery_reg_date,
+            inquery_re_ref,
+            inquery_re_lev
+        )
+        VALUES
+        (
+            sf_new_inquiry_code(),
+            #{userId},
+            #{inquiryCate},
+            #{inquiryTitle},
+            #{inquiryContents},
+            #{inquiryFile},
+            NOW(),
+            #{inquiryReRef},
+            #{inquiryReLev}
+        )
+    </insert>
+<select id="listInquiryList" resultMap="BoardInquiryResultMap">
+    <!--1:1문의 전체조회-->
+    SELECT
+        inquiry_code,
+        user_id,
+        inquiry_cate,
+        inquiry_title,
+        inquiry_contents,
+        inquery_file,
+        inquery_reg_date,
+        inquery_re_ref,
+        inquery_re_lev
+    FROM
+        inquiry
+</select>
+</mapper>

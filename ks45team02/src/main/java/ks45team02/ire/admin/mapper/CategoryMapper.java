@@ -11,6 +11,11 @@ import ks45team02.ire.admin.dto.CategoryMedium;
 public interface CategoryMapper {
 	
 	/**
+	 * 카테고리 중 이름으로 카테고리 중 코드 조회
+	 */
+	public String getCategoryMediumCodeByName(String categoryMediumName);
+	
+	/**
 	 * 카테고리 대 조회
 	 */
 	public List<CategoryBig> getListBigCategory();

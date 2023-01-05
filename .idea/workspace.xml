@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 등록,휴면 회원조회 로그인내역조회&#10;변경시간: 1월 4일 15시 21분" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="spring-beans.schema" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2JU7OYJ8Wtiy7rZPg9jCHDAhA32" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;아티팩트&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;da3c4ddd569f0853e8e84ca1845e1277&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ks45team02.src.main.java.ks45team02.ire" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Ks45team02Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="ire" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ks45team02.ire.Ks45team02Application" />
+      <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="" />
+      <created>1672120776667</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672120776667</updated>
+      <workItem from="1672120778859" duration="495000" />
+      <workItem from="1672121292831" duration="21000" />
+      <workItem from="1672121326878" duration="140000" />
+      <workItem from="1672121496243" duration="735000" />
+      <workItem from="1672122245424" duration="3710000" />
+      <workItem from="1672187515281" duration="12752000" />
+      <workItem from="1672272678678" duration="4309000" />
+      <workItem from="1672278857892" duration="13672000" />
+      <workItem from="1672302094696" duration="10000" />
+      <workItem from="1672362854610" duration="14049000" />
+      <workItem from="1672387570715" duration="377000" />
+      <workItem from="1672468324558" duration="755000" />
+      <workItem from="1672617800447" duration="2493000" />
+      <workItem from="1672704592016" duration="11392000" />
+      <workItem from="1672716349296" duration="16916000" />
+      <workItem from="1672791224709" duration="15374000" />
+      <workItem from="1672813722434" duration="96000" />
+    </task>
+    <task id="LOCAL-00001" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분">
+      <created>1672216122635</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672216122635</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 29일 09시 53분">
+      <created>1672275209283</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672275209283</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 29일 09시 53분">
+      <created>1672276122664</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672276122664</updated>
+    </task>
+    <task id="LOCAL-00004" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/controller와 html파일의 맵핑&#10;변경시간: 12월 29일 15시 00분">
+      <created>1672293632301</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1672293632301</updated>
+    </task>
+    <task id="LOCAL-00005" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: aside.html,asideFragment.html,navi.html,userAdd.html,userDelete.html,userFindId.html,userFindPw.html,userLogin.html,userModify.html&#10;변경시간: 12월 30일 15시 17분">
+      <created>1672381029564</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1672381029564</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: UserMapper.java,UserMapper.xml,UserController,UserServicer(회원가입)&#10;변경시간: 12월 30일 16시 29분">
+      <created>1672385355036</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1672385355036</updated>
+    </task>
+    <task id="LOCAL-00007" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: RawnaterialsController-totalRawMatrialsInOut수정&#10;변경시간: 12월 30일 17시 02분">
+      <created>1672387370250</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1672387370250</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 유저 회원가입내용(컨트롤러,맵퍼,서비스)&#10;변경시간: 12월 30일 17시 02분">
+      <created>1672468883236</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1672468883236</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 유저 회원 조회(컨트롤러,맵퍼,서비스)&#10;변경시간: 1월 2일 09시 43분">
+      <created>1672620230128</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1672620230128</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 로그인 내역,로그인,회원 수정(컨트롤러,맵퍼,서비스)&#10;변경시간: 1월 3일 15시 18분">
+      <created>1672726744033</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1672726744033</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 로그인 내역,로그인,회원 수정(컨트롤러,맵퍼,서비스) 다시 올림&#10;변경시간: 1월 3일 16시 17분">
+      <created>1672730287549</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1672730287549</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 조회, 회원 로그인내역조회&#10;변경시간: 1월 4일 11시 52분">
+      <created>1672800756102</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1672800756102</updated>
+    </task>
+    <task id="LOCAL-00013" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 조회, 회원 로그인내역조회&#10;변경시간: 1월 4일 12시 07분">
+      <created>1672801670459</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1672801670459</updated>
+    </task>
+    <task id="LOCAL-00014" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 등록,휴면 회원조회 로그인내역조회&#10;변경시간: 1월 4일 15시 21분">
+      <created>1672813325479</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1672813325479</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="128" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="99" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="99" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 29일 09시 53분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/controller와 html파일의 맵핑&#10;변경시간: 12월 29일 15시 00분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: aside.html,asideFragment.html,navi.html,userAdd.html,userDelete.html,userFindId.html,userFindPw.html,userLogin.html,userModify.html&#10;변경시간: 12월 30일 15시 17분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: UserMapper.java,UserMapper.xml,UserController,UserServicer(회원가입)&#10;변경시간: 12월 30일 16시 29분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: RawnaterialsController-totalRawMatrialsInOut수정&#10;변경시간: 12월 30일 17시 02분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 유저 회원가입내용(컨트롤러,맵퍼,서비스)&#10;변경시간: 12월 30일 17시 02분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 유저 회원 조회(컨트롤러,맵퍼,서비스)&#10;변경시간: 1월 2일 09시 43분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 로그인 내역,로그인,회원 수정(컨트롤러,맵퍼,서비스)&#10;변경시간: 1월 3일 15시 18분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 로그인 내역,로그인,회원 수정(컨트롤러,맵퍼,서비스) 다시 올림&#10;변경시간: 1월 3일 16시 17분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 조회, 회원 로그인내역조회&#10;변경시간: 1월 4일 11시 52분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 조회, 회원 로그인내역조회&#10;변경시간: 1월 4일 12시 07분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 등록,휴면 회원조회 로그인내역조회&#10;변경시간: 1월 4일 15시 21분" />
+    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 등록,휴면 회원조회 로그인내역조회&#10;변경시간: 1월 4일 15시 21분" />
+  </component>
+</project>

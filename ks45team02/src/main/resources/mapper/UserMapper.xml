@@ -14,7 +14,10 @@
         <result property="userBirth"    column="user_birth" />
         <result property="pointState"    column="point_state" />
         <result property="userJoinDate"    column="user_join_date" />
-        <collection property="loginOutHistoryList" resultMap="LoginResultMap">
+        <result property="userDropState"    column="user_drop_state" />
+        <collection property="loginOutHistoryList" ofType="LoginOutHistory" foreignColumn="user_id">
+            <result property="loginTime" column="login_time"/>
+            <result property="logoutTime" column="logout_time"/>
         </collection>
     </resultMap>
     <resultMap id="LoginResultMap" type="LoginOutHistory">
@@ -22,7 +25,36 @@
         <result property="loginTime" column="login_time"/>
         <result property="logoutTime" column="logout_time"/>
     </resultMap>
+    <resultMap id="UserDorResultMap" type="UserDor">
+        <id property="userDorId" column="user_dor_id"/>
+        <result property="userDorPw" column="user_dor_pw"/>
+        <result property="userDorName" column="user_dor_name"/>
+        <result property="userDorNickName" column="user_dor_nickname"/>
+        <result property="userDorAddr" column="user_dor_addr"/>
+        <result property="userDorPhone" column="user_dor_phone"/>
+        <result property="userDorEmail" column="user_dor_email"/>
+        <result property="userDorBirth" column="user_dor_birth"/>
+        <result property="pointState" column="point_state"/>
+        <result property="userDorJoinDate" column="user_dor_join_date"/>
+        <result property="userDorDate" column="user_dor_date"/>
+        <result property="userDropState" column="user_drop_state"/>
+    </resultMap>
+    <resultMap id="UserDropResultMap" type="UserDrop">
+        <id property="userDropId" column="user_drop_id"/>
+        <result property="userDropPw" column="user_drop_pw"/>
+        <result property="userDropName" column="user_drop_name"/>
+        <result property="userDropNickName" column="user_drop_nickname"/>
+        <result property="userDropAddr" column="user_drop_addr"/>
+        <result property="userDropPhone" column="user_drop_phone"/>
+        <result property="userDropEmail" column="user_drop_email"/>
+        <result property="userDropBirth" column="user_drop_birth"/>
+        <result property="pointState" column="point_state"/>
+        <result property="userDropJoinDate" column="user_drop_join_date"/>
+        <result property="userDropDate" column="user_drop_date"/>
+        <result property="userDropState" column="user_drop_state"/>
+    </resultMap>
     <insert id="updateLoginHistory" parameterType="String">
+        <!--로그인시 로그인 이력 추가-->
         INSERT INTO loginout_history
         (
         user_id,
@@ -92,7 +124,8 @@
             user_email,
             user_birth,
             point_state,
-            user_join_date
+            user_join_date,
+            user_drop_state
         FROM
             user
         WHERE
@@ -119,7 +152,8 @@
             user_email,
             user_birth,
             point_state,
-            user_join_date
+            user_join_date,
+            user_drop_date
         )
         VALUES
         (
@@ -132,9 +166,45 @@
             #{userEmail},
             #{userBirth},
             5000,
-            CURDATE()
+            CURDATE(),
+            'N'
         );
     </insert>
+    <select id="listUserDrop" resultMap="UserDropResultMap">
+        SELECT
+            user_drop_id,
+            user_drop_pw,
+            user_drop_name,
+            user_drop_nickname,
+            user_drop_addr,
+            user_drop_phone,
+            user_drop_email,
+            user_drop_birth,
+            point_state,
+            user_drop_join_date,
+            user_drop_date,
+            user_drop_state
+        FROM
+            user_drop
+    </select>
+    <select id="listUserDor" resultMap="UserDorResultMap">
+        <!--휴면 회원 조회-->
+        SELECT
+            user_dor_id,
+            user_dor_pw,
+            user_dor_name,
+            user_dor_nickname,
+            user_dor_addr,
+            user_dor_phone,
+            user_dor_email,
+            user_dor_birth,
+            point_state,
+            user_dor_join_date,
+            user_dor_date,
+            user_drop_state
+        FROM
+            user_dor
+    </select>
     <select id="listUser" resultMap="UserResultMap">
         <!--회원 조회-->
         select
@@ -147,7 +217,8 @@
             user_email,
             user_birth,
             point_state,
-            user_join_date
+            user_join_date,
+            user_drop_state
         FROM
             user
 

@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품 검색</label>
+						<label for="goodsSearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">상품 검색</label>
 						<div class="col-md-6 col-sm-6 ">
 							<button type="button" class="btn btn-secondary btn-sm" id="goodsSearchBtn">상품 검색</button>
 						</div>
@@ -51,10 +51,10 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="categoryMediumCode" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 중 넘버</label>
+						<label for="categoryMediumName" class="col-form-label col-md-3 col-sm-3 label-align">카테고리(중)</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" id="categoryMediumCode" name="categoryMediumCode"
-								   readonly="readonly" placeholder="카테고리 중 넘버" class="form-control"/>
+							<input type="text" id="categoryMediumName" name="categoryMediumName"
+								   readonly="readonly" placeholder="카테고리(중)" class="form-control"/>
 						</div>
 					</div>
 					<div class="item form-group">
@@ -126,8 +126,6 @@
 			const $basketAmount = document.getElementById('basketAmount');
 			const $eachPaymentAmount = document.getElementById('eachPaymentAmount');
 			const $inputEle = document.querySelectorAll('.item > div > input');
-			
-			console.log($inputEle);
 			
 			$cancelBtn.addEventListener('click', function(){
 				location.href = '/admin/listDonation';

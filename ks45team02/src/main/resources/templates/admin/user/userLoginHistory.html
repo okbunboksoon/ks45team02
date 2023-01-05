@@ -45,17 +45,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:if="${not #lists.isEmpty(loginHistory)}"
+                                <th:block th:if="${not #lists.isEmpty(loginHistory)}"
                                     th:each="l:${loginHistory}">
-                                    <th:block th:if="${not #lists.isEmpty(loginHistory)}"
+                                    <th:block th:if="${not #lists.isEmpty(l.loginOutHistoryList)}"
                                               th:each="ul:${l.loginOutHistoryList}">
-                                        <td th:text="${l.userId}"></td>
-                                        <td th:text="${l.userName}"></td>
-                                        <td th:text="${ul.loginTime}"></td>
-                                        <td th:text="${ul.logoutTime}"></td>
+                                        <tr>
+                                            <td th:text="${l.userId}"></td>
+                                            <td th:text="${l.userName}"></td>
+                                            <td th:text="${ul.loginTime}"></td>
+                                            <td th:text="${ul.logoutTime}"></td>
+                                        </tr>
                                     </th:block>
 
-                                </tr>
+                                </th:block>
                                 <tr th:unless="${not #lists.isEmpty(loginHistory)}">
                                     <td colspan="6"> 등록된 로그인 이력이 없습니다.</td>
 

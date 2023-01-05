@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.LoginInfo;
 import ks45team02.ire.admin.dto.User;
+import ks45team02.ire.admin.dto.UserDor;
+import ks45team02.ire.admin.dto.UserDrop;
 import ks45team02.ire.admin.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +42,7 @@ public class UserController {
 		log.info("회원가입 :{}",user);
 		userService.addUser(user);
 
-		return "redirect:/admin";
+		return "redirect:/admin/listUser";
 	}
 	// 회원 중복 아이디 체크
 	@GetMapping("/idCheck/{userId}")
@@ -82,17 +84,26 @@ public class UserController {
 		return "admin/user/userList";
 	}
 
+	// 휴면회원 조회
 	@GetMapping("/listDormantUser")
-	public String listDormant() {
+	public String listDormant(Model model) {
+		model.addAttribute("title","휴면회원 조회");
+		model.addAttribute("pageTitle","휴면회원 조회");
+		List<UserDor>userDorList=userService.userDorList();
+		model.addAttribute("userDorList",userDorList);
 		
 		return "admin/user/userListDormant";
 	}
+	//탈퇴 회원 조회
 	@GetMapping("/listDropUser")
-	public String listDrop() {
-		
+	public String listDrop(Model model) {
+		model.addAttribute("title","DropUser");
+		model.addAttribute("pageTitle","탈퇴회원 조회");
+		List<UserDrop>userDropList=userService.userDropList();
+		model.addAttribute("userDropList",userDropList);
 		return "admin/user/userListDrop";
 	}
-		// 로그인...
+	// 로그인...
 	@PostMapping("/loginUser")
 	public String login(@RequestParam(name = "userId")String userId,
 						@RequestParam(name = "userPw")String userPw,
