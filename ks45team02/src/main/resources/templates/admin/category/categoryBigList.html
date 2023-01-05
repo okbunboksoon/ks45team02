@@ -25,15 +25,15 @@
 					}else{
 						$.ajax({
 							type: "post",
-							url: '/admin/deleteMediumCategory',
-							data: {"categoryMediumCode": deleteValue},
+							url: '/admin/deleteBigCategory',
+							data: {"categoryBigCode": deleteValue},
 							dataType: "json",
 							success:function(data){
 								var result = data.result
-								var mediumCode = data.categoryMediumCode
-								var redirect = data.redirect
+								var BigCode = data.categoryBigCode
+								var redirect = data.redirect	
 								if(result == "성공"){
-									alert(`카테고리 코드 ${mediumCode} 삭제했습니다.`)	
+									alert(`카테고리 코드 ${BigCode} 삭제했습니다.`)	
 									location.href = redirect
 								}else{
 									alert("삭제에실패했습니다.")

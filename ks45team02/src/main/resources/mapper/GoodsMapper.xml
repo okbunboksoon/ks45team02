@@ -6,7 +6,7 @@
 	<resultMap id="GoodsResultMap" type="Goods">
 		<id property="goodsCode" 					column="goods_code" />
 		<result property="goodsName" 				column="goods_name"/>
-		<result property="categoryMediumNum"		column="category_medium_num"/>
+		<result property="categoryMediumCode"		column="category_medium_code"/>
 		<result property="categoryMediumName"		column="category_medium_name"/>
 		<result property="goodsPrice" 				column="goods_price"/>
 		<result property="goodsColor" 				column="goods_color"/>
@@ -55,7 +55,7 @@
 		SELECT
 			g.goods_code
 			,g.goods_name
-			,g.category_medium_num
+			,g.category_medium_code
 			,g.goods_price
 			,g.goods_color
 			,g.goods_size
