@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ks45team02.ire.admin.dto.Emission;
+import ks45team02.ire.admin.dto.RawMaterialsEmission;
 import ks45team02.ire.admin.service.EmissionService;
 
 
@@ -28,33 +29,59 @@ public class EmissionController {
 		
 	}
 	
-	@GetMapping("/addRawMaterials")
-	public String addRawMaterials() {
+	/**
+	 * 기부받은 의류 CO2 등록 화면
+	 * @param model
+	 * @return admin/emission/AddRawMaterialsEmission
+	 */
+	@GetMapping("/addRawMaterialsEmission")
+	public String addRawMaterialsEmission(Model model) {
+		
+		List<RawMaterialsEmission> listRawMaterialsEmission = emissionService.getRawMaterialsEmissionList();
+		log.info("기부받은 의류 CO2 기준 : {}" , listRawMaterialsEmission);
+		model.addAttribute("title", "기부받은 의류 CO2 기준 등록");
+		model.addAttribute("listRawMaterialsEmission" ,listRawMaterialsEmission);
 		
 		return "admin/emission/emissionAddRawMaterials";
 	}
 	
-	@GetMapping("/modifyRawMaterials")
-	public String modifyRawMaterials() {
+	
+	/**
+	 * 기부받은 의류 CO2 기준 등록 처리
+	 * @param RawMaterialsEmission
+	 * @return redirect:/admin/listRawMaterialsEmission
+	 */
+	@PostMapping("addRawMaterialsEmission")
+	public String addRawMaterialsEmission(RawMaterialsEmission rawMaterialsEmission) {
+		
+		log.info("기부받은 의류 CO2 기준 입력 정보: {]" , rawMaterialsEmission);
+		emissionService.addRawMaterialsEmission(rawMaterialsEmission);
+		
+		return "redirect:/admin/listRawMaterialsEmission";
+	}
+	
+	
+	@GetMapping("/modifyRawMaterialsEmission")
+	public String modifyRawMaterialsEmission() {
 		
 		return "admin/emission/emissionModifyRawMaterials";
 	}
 	
-	@GetMapping("/deleteRawMaterials")
-	public String deleteRawMaterials() {
+	@GetMapping("/deleteRawMaterialsEmission")
+	public String deleteRawMaterialsEmission() {
 		
 		return "admin/emission/emissionDeleteRawMaterials";
 	}
 	
 	/**
-	 * 
+	 * 기부받은 의류 CO2 기준 조회
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/listRawMaterialsEmission")
 	public String listRawMaterialsEmission(Model model) {
 		
-		List<Emission> rawMaterialsEmissionList = emissionService.getRawMaterialsEmissionList();
+		List<RawMaterialsEmission> rawMaterialsEmissionList = emissionService.getRawMaterialsEmissionList();
 
 		model.addAttribute("rawMaterialsEmissionList", rawMaterialsEmissionList);
 		model.addAttribute("title", "기부받은 의류 CO2 기준 리스트");

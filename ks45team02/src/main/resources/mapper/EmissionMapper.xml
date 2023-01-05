@@ -23,7 +23,20 @@
 		raw_materials_emission AS rme
     </select>
     
-    
-    
+    <!-- 기부받은 의류별 CO2 기준 등록 -->
+    <insert id="addRawMaterialsEmission" parameterType="RawMaterialsEmission">
+    INSERT INTO raw_materials_emission(
+	raw_materials_co2_code
+	,raw_materials_category
+	,raw_materials_size
+	,carbon_dioxide_emission_level
+	)VALUES (
+		sf_new_raw_materials_emission()
+		, #{raw_materials_category}
+		,#{raw_materials_size}
+		,#{carbon_dioxide_emission_level}
+	);
+
+    </insert>
     
 </mapper>
