@@ -73,7 +73,8 @@
 											<td th:text="${lm.mediumCategoryBigCode}" />
 											<td th:text="${lm.categoryBig.categoryBigName}" />
 											<td th:text="${lm.categoryMediumName}" />
-											<td><a th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">편집</a></td>
+											<td><button type="button" class="btn btn-primary btn-sm">
+												<a style ="color:white" th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">편집</a></button></td>
 											<td><button type="button" class="btn btn-danger btn-sm deleteBtn" 
 														th:value="${lm.categoryMediumCode}">삭제</button></td>
 										</tr>

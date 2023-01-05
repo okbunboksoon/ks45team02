@@ -159,12 +159,11 @@ public class CategoryController {
 		
 		if(result == 0) {
 			reResult.put("result", "실패");			
-			reResult.put("categoryMediumCode", categoryBigCode);	
 		}else {
-			reResult.put("result", "성공");			
-			reResult.put("categoryMediumCode", categoryBigCode);	
-			reResult.put("redirect", "/admin/categoryBigList");				
+			reResult.put("result", "성공");					
 		}
+			reResult.put("categoryBigCode", categoryBigCode);	
+			reResult.put("redirect", "/admin/listBigCategory");				
 		
 		return reResult;
 	}
@@ -185,12 +184,12 @@ public class CategoryController {
 
 		if(result == 0) {
 			reResult.put("result", "실패");			
-			reResult.put("categoryMediumCode", categoryMediumCode);	
 		}else {
 			reResult.put("result", "성공");			
-			reResult.put("categoryMediumCode", categoryMediumCode);	
-			reResult.put("redirect", "/admin/listMideumCategory");				
 		}
+			reResult.put("categoryMediumCode", categoryMediumCode);	
+			reResult.put("redirect", "/admin/listMideumCategory");			
+			
 		return reResult;
 	}
 	

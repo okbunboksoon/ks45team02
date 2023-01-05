@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class BusinessOrderController {
 
-	@GetMapping("/addBusiness")
-	public String addBusiness(Model model) {
+	@GetMapping("/addBusinessOrder")
+	public String addBusinessOrder(Model model) {
 		
 		return "admin/businessorder/businessOrderAdd";
 	}
 	
-	@GetMapping("/deleteBusiness")
-	public String deleteBusiness() {
+	@GetMapping("/deleteBusinessOrder")
+	public String deleteBusinessOrder() {
 		
 		return "admin/businessorder/businessOrderDelete";
 	}
 	
-	@GetMapping("/listBusiness")
-	public String listBusiness() {
+	@GetMapping("/listBusinessOrder")
+	public String listBusinessOrder() {
 		
 		return "admin/businessorder/businessOrderList";
 	}
 	
 	
-	@GetMapping("/modifyBusiness")
-	public String modifyBusiness() {
+	@GetMapping("/modifyBusinessOrder")
+	public String modifyBusinessOrder() {
 		
 		return "admin/businessorder/businessOrderModify";
 	}

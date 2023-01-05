@@ -5,62 +5,180 @@
 
 	<head>
 	</head>
-	
-	
 
-	
-		<!-- 사용자 지정 js 파일 -->
-	<th:block layout:fragment="customjs}">
-		
-	</th:block>
-	
 	<th:block layout:fragment="customScript">
-
+		<script>
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#addGoodsForm input,textarea').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#addGoodsForm').submit();
+				});
+			});
+		</script>
 	</th:block>
 	
 	
 	
 	<th:block layout:fragment="customContents">
-      
-		 <div class="">
-		     <div class="page-title">
-		         <div class="title_left">
-		             <h3>Form Validation</h3>
-		         </div>
-		     </div>
-		     <div class="clearfix"></div>
-		
-		     <div class="row">
-		         <div class="col-md-12 col-sm-12">
-		             <div class="x_panel">
-		                 <div class="x_content">
-		                     <form class="" action="" method="post" novalidate>
-		                         <span class="section">등록</span>
-		                         <div class="field item form-group">
-		                             <label class="col-form-label col-md-3 col-sm-3  label-align">이름<span class="required">*</span></label>
-		                             <div class="col-md-6 col-sm-6">
-		                                 <input class="form-control"  name="name" />
-		                             </div>
-		                         </div>
-		             
-		                
-		                         <div class="ln_solid">
-		                             <div class="form-group">
-		                                 <div class="col-md-6 offset-md-3">
-		                                     <button type='submit' class="btn btn-primary">Submit</button>
-		                                     <button type='reset' class="btn btn-success">Reset</button>
-		                                 </div>
-		                             </div>
-		                         </div>
-		                     </form>
-		                 </div>
-		             </div>
-		         </div>
-		     </div>
-		 </div>
-      
-            <!-- /page content -->
+	<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<br><br>
+							<form id= "addGoodsForm" th:action="@{/admin/addGoods}" method="post">
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsName" name="goodsName"
+							  		       placeholder="카테고리 이름을 입력해주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="mediumCategoryBigCode" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 중</label>
+								<div class="col-md-6 col-sm-6 ">
+									<select id="categoryMediumCode" name="categoryMediumCode" class="form-control">
+										<th:block th:if="${not #lists.isEmpty(listAllCategory)}" th:each="lc : ${listAllCategory}">										
+											<option th:text="${lc.categoryMediumName}" th:value="${lc.categoryMediumCode}" ></option>
+										</th:block>
+										<th:block th:unless="${not #lists.isEmpty(listAllCategory)}">										
+											<option>등록된 카테고리가 없습니다.</option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">매입가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="factoryGoodsPrice" name="unitPrice.factoryGoodsPrice"
+							  		       placeholder="매입가격를 입력해주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">상풍가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsPrice" name="goodsPrice"
+							  		       placeholder="판매가격를 입력해주세요." class="form-control"/>
+								</div>
+							</div>
+							              
+						     <div class="field item form-group">
+	                             <label class="col-form-label col-md-3 col-sm-3  label-align">상품 색상<span class="required"></span></label>
+	                             <div class="col-md-6 col-sm-6">
+	                                 <select id="goodsColor" name="goodsColor" class="form-control">
+	                                 	<option value="black">검정색</option>
+	                                 	<option value="gray">회색</option>
+	                                 	<option value="white">하얀색</option>
+	                                 	<option value="blue">파랑</option>
+	                                 	<option value="red">빨강</option>
+	                                 	<option value="pink">분홍</option>
+	                                 </select>
+	                             </div>
+	                         </div>
+							
+						      <div class="field item form-group">
+	                             <label class="col-form-label col-md-3 col-sm-3  label-align">상품 사이즈<span class="required"></span></label>
+	                             <div class="col-md-6 col-sm-6">
+	                             	<select id="goodsSize" name="goodsSize" class="form-control">
+	                             		<option value="230">230</option>
+	                             		<option value="240">240</option>
+	                             		<option value="250">250</option>
+	                             		<option value="260">260</option>
+	                             		<option value="270">270</option>
+	                             		<option value="280">280</option>
+	                             		<option value="S">S</option>
+	                             		<option value="M">M</option>
+	                             		<option value="L">L</option>
+	                             	</select>
+	                             </div>
+	                         </div>
+							
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">원단</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="fabric" name="fabric"
+							  		       placeholder="상품원단을 : 넣어주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">비율</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="rate" name="rate"
+							  		       placeholder="원단비율을 : 넣어주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsImage" name="goodsImage"
+							  		        class="form-control"/>
+								</div>
+							</div>
+							
+				           <div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">상품 상세 설명<span class="required"></span></label>
+		                            <div class="col-md-6 col-sm-6">
+		                            	<textarea class="form-control" rows="15" id="goodsSangse" name="goodsSangse" placeholder="내용을 입력해주세요"></textarea>  
+		                           </div>
+		                   </div>
+								
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</form>
+               			</div>
+           			</div>
+       			</div>
+   			</div>	     
 	</th:block>
 	
+		
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+	</th:block>
 
 </html>

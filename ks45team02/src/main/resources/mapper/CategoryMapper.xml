@@ -38,6 +38,16 @@
 			category_big AS cb
 	</select>
 	
+	<!-- 카테고리 중 전체 조회 -->
+	<select id="getMediumCategory" resultMap="AllcategoryResultMap">
+		SELECT
+			m.category_medium_code
+			,m.category_big_code
+			,m.category_medium_name
+		FROM
+			category_medium AS m
+	</select>
+	 
 	<!-- 카테고리 중 조회 -->
 	<select id="getListMediumCategory" resultMap="AllcategoryResultMap">
 		SELECT
