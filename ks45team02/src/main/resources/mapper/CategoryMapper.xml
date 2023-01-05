@@ -120,22 +120,122 @@
 			category_medium_code=#{categoryMediumCode}
 	</delete>
 	
+	<!-- 카테고리 대 코드 삭제 처리 -->
+	<select id="deleteBigCategory" parameterType="String">
+		DELETE
+		FROM
+			category_big
+		WHERE
+			category_big_code = #{categoryBigCode}
+	</select>
+	
 	<!-- 카테고리 대 코드 중 삭제 처리 -->
 	<select id="deleteCateBigCode" parameterType="String">
 		DELETE
 		FROM
-			category_medium AS cm
+			category_medium
 		WHERE
-			cm.category_big_code = #{categoryBigCode}
+			category_big_code = #{categoryBigCode}
 	</select>
 	
-	<!-- 카테고리 대 삭제 처리 -->
-	<select id="deleteBigCategory" parameterType="String">
+	<!-- 카테고리 중 코드 buynow 삭제 처리 -->
+	<delete id="deleteMediumCategoryByBuynow" parameterType="String">
 		DELETE
 		FROM
-			category_big AS cb
+			buynow
 		WHERE
-			cb.category_big_code = #{categoryBigCode}
-	</select>
-		
+			category_medium_code = #{categoryMediumCode}
+	</delete>
+	
+	<!-- 카테고리 중 코드 basket 삭제 처리 -->
+	<delete id="deleteMediumCategoryByBasket" parameterType="String">
+		DELETE
+		FROM
+			 basket
+		WHERE
+			category_medium_code = #{categoryMediumCode}
+	</delete>
+	
+	<!-- 카테고리 중 코드 goods 삭제 처리 -->
+	<delete id="deleteMediumCategoryByGoods" parameterType="String">
+		DELETE
+		FROM
+			 goods AS g
+		WHERE
+			g.category_medium_code = #{categoryMediumCode}
+	</delete>
+	
+	<!-- 카테고리 대 코드 basket 삭제 처리 -->
+	<delete id="deleteBigCategoryByBasket" parameterType="String">
+		DELETE 
+		FROM
+			bk
+			USING
+			category_big AS b
+			INNER JOIN
+			category_medium AS m
+			ON b.category_big_code = m.category_big_code
+			RIGHT JOIN
+			basket AS bk
+			ON m.category_medium_code = bk.category_medium_code
+		WHERE
+			b.category_big_code = #{categoryBigCode}
+	</delete>
+	
+	<!-- 카테고리 대 코드 buynow 삭제 처리 -->
+	<delete id="deleteBigCategoryByBuynow" parameterType="String">
+		DELETE
+		FROM 
+			bn
+			USING
+			category_big AS b
+			INNER JOIN
+			category_medium AS m
+			ON b.category_big_code = m.category_big_code
+			RIGHT JOIN
+			buynow AS bn
+			ON m.category_medium_code = bn.category_medium_code
+		WHERE
+			b.category_big_code = #{categoryBigCode}
+	</delete>
+	
+	<!-- 카테고리 대 코드 goods 삭제 처리 -->
+	<delete id="deleteBigCategoryByGoods" parameterType="String">
+		DELETE
+		FROM 
+			g
+			USING
+			category_big AS b
+			INNER JOIN
+			category_medium AS m
+			ON b.category_big_code = m.category_big_code
+			RIGHT JOIN
+			goods AS g
+			ON m.category_medium_code = g.category_medium_code
+		WHERE
+			b.category_big_code = #{categoryBigCode}
+	</delete>
+	
+	<!-- 카테고리 대 코드 businessOrder 삭제 처리 -->
+	<delete id="deleteBigCategoryByBusinessOrder" parameterType="String">
+		DELETE
+		FROM
+			bo
+			USING
+			category_big AS b
+			INNER JOIN
+			category_medium AS m
+			ON 
+			b.category_big_code = m.category_big_code
+			INNER JOIN
+			goods AS g
+			ON
+			m.category_medium_code = g.category_medium_code
+			RIGHT JOIN
+			business_order AS bo
+			ON 
+			g.goods_code = bo.goods_code
+		WHERE
+			b.category_big_code = #{categoryBigCode}
+	</delete>
 </mapper>

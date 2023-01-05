@@ -111,12 +111,22 @@ public class CategoryService {
 	 */
 	public int deleteMediumCategory(String categoryMediumCode) {
 			
-		return categoryMapper.deleteMediumCategory(categoryMediumCode);
+		int result = 0;
+		result += categoryMapper.deleteMediumCategoryByBuynow(categoryMediumCode);
+		result += categoryMapper.deleteMediumCategoryByBasket(categoryMediumCode);
+		result += categoryMapper.deleteMediumCategoryByGoods(categoryMediumCode);
+		result += categoryMapper.deleteMediumCategory(categoryMediumCode);
+		
+		return result;
 	}
 	
 	public int deleteBigCateory(String categoryBigCode) {
 		
 		int result = 0;
+		result += categoryMapper.deleteBigCategoryByBuynow(categoryBigCode);
+		result += categoryMapper.deleteBigCategoryByBasket(categoryBigCode);
+		result += categoryMapper.deleteBigCategoryByBusinessOrder(categoryBigCode);
+		result += categoryMapper.deleteBigCategoryByGoods(categoryBigCode);
 		result += categoryMapper.deleteCateBigCode(categoryBigCode);
 		result += categoryMapper.deleteBigCategory(categoryBigCode);
 		

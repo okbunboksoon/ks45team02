@@ -11,6 +11,7 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
+	
 	<th:block layout:fragment="customScript">
 		<script>
 			$(function(){
@@ -28,11 +29,20 @@
 							url: '/admin/deleteMediumCategory',
 							data: {"categoryMediumCode": deleteValue},
 							dataType: "json",
-							success: function(data){
-								alert("삭제됐습니다.")
+							success:function(data){
+								var result = data.result
+								var mediumCode = data.categoryMediumCode
+								var redirect = data.redirect
+								if(result == "성공"){
+									alert(`카테고리 코드 ${mediumCode} 삭제했습니다.`)	
+									location.href = redirect
+								}else{
+									alert("삭제에실패했습니다.")
+									location.href = redirect
+								};
 							}
-						})	
-					}
+						});	
+					};
 				});
 		});
 		</script>	
