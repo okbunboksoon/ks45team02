@@ -96,9 +96,35 @@ public class BasketController {
 		return "admin/basket/basketList";
 	}
 	
+	//장바구니 수정 처리
+	@PostMapping("/modifyBasket")
+	public String modifyBasket(Basket basket, RedirectAttributes reAttr) {
+		
+		int result = basketService.modifyBasket(basket);
+		if(result == 0) {
+			reAttr.addAttribute("basketCode", basket.getBasketCode());
+			reAttr.addAttribute("msg", "장바구니 수정에 실패하였습니다.");
+			return "redirect:/admin/modifyBasket";
+		}else {
+			reAttr.addAttribute("msg", "장바구니 수정에 성공하였습니다.");
+		}
+		return "redirect:/admin/listBasket";
+	}
 	
+	//장바구니 수정 페이지
 	@GetMapping("/modifyBasket")
-	public String modifyBasket() {
+	public String modifyBasket(Model model
+							 ,@RequestParam(value="basketCode") String basketCode
+							 ,@RequestParam(value="msg", required = false) String msg) {
+		
+		Basket basketInfo = basketMapper.getBasketInfo(basketCode);
+		
+		model.addAttribute("title", "장바구니 수정");
+		model.addAttribute("pageTitle", "장바구니 수정");
+		model.addAttribute("basketInfo", basketInfo);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/basket/basketModify";
 	}

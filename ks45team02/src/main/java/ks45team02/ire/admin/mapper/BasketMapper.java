@@ -9,6 +9,12 @@ import ks45team02.ire.admin.dto.Basket;
 @Mapper
 public interface BasketMapper {
 	
+	//장바구니 수정
+	public int modifyBasket(Basket basket);
+	
+	//장바구니 코드로 장바구니 조회
+	public Basket getBasketInfo(String basketCode);
+	
 	//장바구니 등록
 	public int addBasket(Basket basket);
 	

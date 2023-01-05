@@ -32,6 +32,34 @@ public class BasketService {
 		this.userMapper = userMapper;
 	}
 	
+	/**
+	 * 장바구니 수정
+	 * @param basket
+	 * @return int
+	 */
+	public int modifyBasket(Basket basket) {
+		
+		int result = 0;
+		
+		int goodsCheck = goodsMapper.goodsCheck(basket.getGoodsCode());
+		int idCheck = userMapper.idCheck(basket.getUserId());
+		
+		if(goodsCheck == 0 || idCheck == 0) {
+			return result;
+		}
+		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
+		basket.setCategoryMediumCode(categoryMediumCode);
+		
+		result = basketMapper.modifyBasket(basket);
+		
+		return result;
+	}
+	
+	/**
+	 * 장바구니 등록
+	 * @param basket
+	 * @return int
+	 */
 	public int addBasket(Basket basket) {
 		
 		int result = 0;
