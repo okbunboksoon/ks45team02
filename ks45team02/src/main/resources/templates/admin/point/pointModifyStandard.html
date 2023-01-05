@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-modifyStandardPoint
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${PointSaveStandardInfo}">
+				<br>
+				<form th:action="@{/admin/modifyStandardPoint}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="pointSaveStandardCode" class="col-form-label col-md-3 col-sm-3 label-align">포인트 기준코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointSaveStandardCode" name="pointSaveStandardCode" th:value="*{pointSaveStandardCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSaveStandardDetail" class="col-form-label col-md-3 col-sm-3 label-align">포인트 기준</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointSaveStandardDetail" name="pointSaveStandardDetail" th:value="*{pointSaveStandardDetail}"
+								   placeholder="포인트 기준" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSave" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급액</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="pointSave" name="pointSave" th:value="*{pointSave}"
+								   placeholder="포인트 지급액 - 숫자만 입력해주세요." class="form-control"/>
+						</div>
+					</div>
+					
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listDonation';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>
