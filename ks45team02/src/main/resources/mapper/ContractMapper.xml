@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.ContractMapper">
+    <resultMap id="ContractResultMap" type="Contract">
+        <id property="contractCode" column="contract_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="contractName" column="contract_name"/>
+        <result property="businessCode" column="business_code"/>
+        <result property="contractContent" column="contract_content"/>
+        <result property="contractDate" column="contract_date"/>
+        <result property="contractExpirationDate" column="contract_expiration_date"/>
+        <result property="contractRegDate" column="contract_reg_date"/>
+        <result property="contractState" column="contract_state"/>
+    </resultMap>
+    <update id="modifyContract" parameterType="Contract">
+        UPDATE contract
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="contractCode != null and contractCode !=''">
+                contract_code=#{contractCode}
+            </if>
+            <if test="userId != null and userId !=''">
+                ,user_id=#{userId}
+            </if>
+            <if test="contractName != null and contractName !=''">
+                ,contract_name=#{contractName}
+            </if>
+            <if test="businessCode != null and businessCode !=''">
+                ,business_code=#{businessCode}
+            </if>
+            <if test="contractContent != null and contractContent !=''">
+                ,contract_content=#{contractContent}
+            </if>
+            <if test="contractDate != null and contractDate !=''">
+                ,contract_date=#{contractDate}
+            </if>
+            <if test="contractExpirationDate != null and contractExpirationDate !=''">
+                ,contract_expiration_date=#{contractExpirationDate}
+            </if>
+            <if test="contractState != null and contractState !=''">
+                ,contract_state=#{contractState}
+            </if>
+        </trim>
+        WHERE contract_code=#{contractCode}
+    </update>
+    <select id="getInfoByContract" resultMap="ContractResultMap">
+        <!--특정 계약 조회-->
+        SELECT
+            contract_code,
+            user_id,
+            contract_name,
+            business_code,
+            contract_content,
+            contract_date,
+            contract_expiration_date,
+            contract_reg_date,
+            contract_state
+        FROM
+            contract
+        WHERE contract_code=#{contractCode};
+    </select>
+    <select id="listContract" resultMap="ContractResultMap">
+        <!--계약 조회-->
+        SELECT
+            contract_code,
+            user_id,
+            contract_name,
+            business_code,
+            contract_content,
+            contract_date,
+            contract_expiration_date,
+            contract_reg_date,
+            contract_state
+        FROM
+            contract
+    </select>
+    <insert id="addContract" parameterType="Contract">
+        <!--계약 추가-->
+        INSERT INTO contract
+        (
+            contract_code,
+            user_id,
+            contract_name,
+            business_code,
+            contract_content,
+            contract_date,
+            contract_expiration_date,
+            contract_reg_date,
+            contract_state
+        )
+        VALUES
+        (
+        sf_new_contract_code(),
+        #{userId},
+        #{contractName},
+        #{businessCode},
+        #{contractContent},
+        NOW(), #{contractExpirationDate}, NOW(), 'N')
+    </insert>
+</mapper>
