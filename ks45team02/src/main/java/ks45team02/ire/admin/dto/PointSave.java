@@ -10,6 +10,7 @@ public class PointSave {
 	private String pointSaveReason;
 	private String pointSaveGroup;
 	private String pointSaveReasonEtc;
+	private String pointSaveDeleteState;
 	
 	public String getPointSaveCode() {
 		return pointSaveCode;
@@ -59,6 +60,12 @@ public class PointSave {
 	public void setPointSaveReasonEtc(String pointSaveReasonEtc) {
 		this.pointSaveReasonEtc = pointSaveReasonEtc;
 	}
+	public String getPointSaveDeleteState() {
+		return pointSaveDeleteState;
+	}
+	public void setPointSaveDeleteState(String pointSaveDeleteState) {
+		this.pointSaveDeleteState = pointSaveDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -78,15 +85,12 @@ public class PointSave {
 		builder.append(pointSaveGroup);
 		builder.append(", pointSaveReasonEtc=");
 		builder.append(pointSaveReasonEtc);
-		builder.append(", pointSaveEtc=");
+		builder.append(", pointSaveDeleteState=");
+		builder.append(pointSaveDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
 	
-	
-	
-	
-	
-	
+
 	
 }

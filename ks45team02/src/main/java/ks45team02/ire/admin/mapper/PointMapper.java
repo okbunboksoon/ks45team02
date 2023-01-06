@@ -14,6 +14,12 @@ import ks45team02.ire.admin.dto.User;
 @Mapper
 public interface PointMapper {
 
+	//포인트 지급 수정
+	public int modifyPointSave(PointSave pointSave);
+	
+	//포인트 지급 코드로 포인트 지급 조회
+	public PointSave getPointSaveInfo(String pointSaveCode);
+	
 	//포인트 지급 금액 리스트 조회
 	public List<String> getPointStandardSaveAmountList();
 	

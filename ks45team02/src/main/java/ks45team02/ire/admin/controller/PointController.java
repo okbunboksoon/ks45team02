@@ -190,11 +190,42 @@ public class PointController {
 		
 		return "admin/point/pointList";
 	}
+	
+	//포인트 지급 수정 처리
+	@PostMapping("/modifySavePoint")
+	public String modifySavePoint(PointSave pointSave, RedirectAttributes reAttr) {
+		
+		int result = pointService.modifyPointSave(pointSave);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "포인트 지급 수정에 실패하였습니다.");
+			return "redirect:/admin/modifySavePoint";
+		}
+		reAttr.addAttribute("msg", "포인트 지급 수정에 성공하였습니다.");
+		
+		return "redirect:/admin/listPoint";
+	}
+	
+	//포인트 지급 수정 페이지
 	@GetMapping("/modifySavePoint")
-	public String modifySavePoint() {
+	public String modifySavePoint(Model model
+								,@RequestParam(value="msg", required = false) String msg
+								,@RequestParam(value="pointSaveCode") String pointSaveCode) {
+		
+		PointSave pointSaveInfo = pointMapper.getPointSaveInfo(pointSaveCode);
+		List<String> pointStandardSaveAmountList = pointMapper.getPointStandardSaveAmountList();
+		
+		model.addAttribute("title", "포인트 지급 수정");
+		model.addAttribute("pageTitle", "포인트 지급 수정");
+		model.addAttribute("pointSaveInfo", pointSaveInfo);
+		model.addAttribute("pointStandardSaveAmountList", pointStandardSaveAmountList);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/point/pointModifySave";
 	}
+	
 	@GetMapping("/modifyMinusPoint")
 	public String modifyMinusPoint() {
 		

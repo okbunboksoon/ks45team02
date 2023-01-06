@@ -41,7 +41,7 @@
 						<label for="pointSaveReasonEtc" class="col-form-label col-md-3 col-sm-3 label-align">기타 사유</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="text" id="pointSaveReasonEtc" name="pointSaveReasonEtc"
-								   class="form-control"/>
+								   value="0" class="form-control"/>
 						</div>
 					</div>
 					<div class="item form-group" style="display : none">
@@ -95,8 +95,6 @@
 			const $pointSave = document.getElementById('pointSave');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			let pointSaveAmountArr = [[${pointStandardSaveAmountList}]];
-			
-			console.log($inputEle);
 			
 			$cancelBtn.addEventListener('click', function(){
 				location.href = '/admin/listPoint';

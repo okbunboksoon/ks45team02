@@ -28,6 +28,28 @@ public class PointService {
 		this.userMapper = userMapper;
 	}
 	
+	/**
+	 * 포인트 지급 수정
+	 * @param pointSave
+	 * @return int
+	 */
+	public int modifyPointSave(PointSave pointSave) {
+		
+		int result = 0;
+		String userId = pointSave.getUserId();
+		int idCheck = userMapper.idCheck(userId);
+		
+		if(idCheck == 1) {
+			result = pointMapper.modifyPointSave(pointSave);
+		}
+		return result;
+	}
+	
+	/**
+	 * 포인트 지급 등록
+	 * @param pointSave
+	 * @return int 
+	 */
 	public int addPointSave(PointSave pointSave) {
 		
 		int result = 0;

@@ -9,6 +9,7 @@ public class PointMinus {
 	private String pointMinusDate;
 	private String pointMinusReason;
 	private String pointMinusGroup;
+	private String pointMinusDeleteState;
 	
 	public String getPointMinusCode() {
 		return pointMinusCode;
@@ -52,6 +53,12 @@ public class PointMinus {
 	public void setPointMinusGroup(String pointMinusGroup) {
 		this.pointMinusGroup = pointMinusGroup;
 	}
+	public String getPointMinusDeleteState() {
+		return pointMinusDeleteState;
+	}
+	public void setPointMinusDeleteState(String pointMinusDeleteState) {
+		this.pointMinusDeleteState = pointMinusDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -69,11 +76,11 @@ public class PointMinus {
 		builder.append(pointMinusReason);
 		builder.append(", pointMinusGroup=");
 		builder.append(pointMinusGroup);
+		builder.append(", pointMinusDeleteState=");
+		builder.append(pointMinusDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-	
+
 	
 }
