@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks45team02.ire.admin.dto.PointMinus;
 import ks45team02.ire.admin.dto.PointSave;
 import ks45team02.ire.admin.dto.PointSaveAndMinus;
 import ks45team02.ire.admin.dto.PointSaveStandard;
@@ -29,6 +30,71 @@ public class PointService {
 	}
 	
 	/**
+	 * 포인트 차감 수정
+	 * @param pointMinus
+	 * @return int
+	 */
+	public int modifyPointMinus(PointMinus pointMinus) {
+		
+		int result = 0;
+		String userId = pointMinus.getUserId();
+		int idCheck = userMapper.idCheck(userId);
+		
+		if(idCheck == 1) {
+			
+			String pointMinusReason = pointMinus.getPointMinusReason();
+			
+			if(pointMinusReason.equals("기타")) {
+				String pointMinusReasonEtc = pointMinus.getPointMinusReasonEtc();
+				pointMinusReason += " (사유: " + pointMinusReasonEtc + ")";
+				pointMinus.setPointMinusReason(pointMinusReason);
+			}
+			result = pointMapper.modifyPointMinus(pointMinus);
+		}
+		
+		
+		return result;
+	}
+	
+	/**
+	 * 포인트 차감 등록
+	 * @param pointMinus
+	 * @return int
+	 */
+	public int addPointMinus(PointMinus pointMinus) {
+		
+		int result = 0;
+		String userId = pointMinus.getUserId();
+		int idCheck = userMapper.idCheck(userId);
+		
+		if(idCheck == 1) {
+			
+			String pointMinusReason = pointMinus.getPointMinusReason();
+			
+			if(pointMinusReason.equals("기타")) {
+				String pointMinusReasonEtc = pointMinus.getPointMinusReasonEtc();
+				pointMinusReason += " (사유: " + pointMinusReasonEtc + ")";
+				pointMinus.setPointMinusReason(pointMinusReason);
+			}else if(pointMinusReason.equals("상품 구매 시 사용")){
+				pointMinus.setPointMinusGroup("point_use");
+			}
+			
+			//회원 포인트 적립금 수정
+			User userInfo = userMapper.getUserInfoById(userId);
+			int pointState = userInfo.getPointState();
+			pointState -= pointMinus.getPointMinus();
+			
+			pointMinus.setPointState(pointState);
+			userInfo.setPointState(pointState);
+			pointMapper.modifyUserPointState(userInfo);
+			
+			result = pointMapper.addPointMinus(pointMinus);
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 포인트 지급 수정
 	 * @param pointSave
 	 * @return int
@@ -40,6 +106,14 @@ public class PointService {
 		int idCheck = userMapper.idCheck(userId);
 		
 		if(idCheck == 1) {
+			String pointSaveReason = pointSave.getPointSaveReason();
+			
+			if(pointSaveReason.equals("기타")) {
+				String pointSaveReasonEtc = pointSave.getPointSaveReasonEtc();
+				pointSaveReason += " (사유: " + pointSaveReasonEtc + ")";
+				pointSave.setPointSaveReason(pointSaveReason);
+			}
+			
 			result = pointMapper.modifyPointSave(pointSave);
 		}
 		return result;
@@ -64,6 +138,7 @@ public class PointService {
 			if(pointSaveReason.equals("기타")) {
 				String pointSaveReasonEtc = pointSave.getPointSaveReasonEtc();
 				pointSaveReason += " (사유: " + pointSaveReasonEtc + ")";
+				pointSave.setPointSaveReason(pointSaveReason);
 			}else {
 				switch(pointSaveReason) {
 				case("텍스트 리뷰 등록")

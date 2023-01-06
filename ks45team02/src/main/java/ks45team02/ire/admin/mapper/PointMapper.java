@@ -15,6 +15,12 @@ import ks45team02.ire.admin.dto.User;
 @Mapper
 public interface PointMapper {
 
+	//포인트 차감 수정
+	public int modifyPointMinus(PointMinus pointMinus);
+	
+	//포인트 차감 코드로 포인트 차감 조회
+	public PointMinus getPointMinusInfo(String pointMinusCode);
+	
 	//포인트 차감 등록
 	public int addPointMinus(PointMinus pointMinus);
 	
