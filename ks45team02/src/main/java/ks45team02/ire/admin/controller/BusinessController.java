@@ -1,7 +1,9 @@
 package ks45team02.ire.admin.controller;
 
 import ks45team02.ire.admin.dto.Business;
+import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.service.BusinessService;
+import ks45team02.ire.admin.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -18,9 +20,11 @@ import java.util.List;
 public class BusinessController {
 	private static final Logger log= LoggerFactory.getLogger(UserController.class);
 	private final BusinessService businessService;
+	private final UserService userService;
 
-	public BusinessController(BusinessService businessService) {
+	public BusinessController(BusinessService businessService, UserService userService) {
 		this.businessService = businessService;
+		this.userService = userService;
 	}
 
 	//거래처추가
@@ -28,6 +32,9 @@ public class BusinessController {
 	public String addBusiness(Model model) {
 		model.addAttribute("title","addBusiness");
 		model.addAttribute("pageTitle","거래처추가");
+		List<User>userList=userService.listUser();
+		model.addAttribute("userList",userList);
+
 		return "admin/business/businessAdd";
 	}
 	@PostMapping("/addBusiness")

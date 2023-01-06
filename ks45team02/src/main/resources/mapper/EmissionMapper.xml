@@ -39,4 +39,36 @@
 
     </insert>
     
+    <!-- 기부받은 의류별 CO2 기준 수정 -->
+    <update id="modifyRawMaterialsEmission" parameterType="RawMaterialsEmission">
+    UPDATE raw_materials_emission
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="raw_materials_category != null and raw_materials_category != '' ">
+    		,raw_materials_category=#{raw_materials_category}
+    	</if>
+    	<if test="raw_materials_size != null and raw_materials_size != '' ">
+    		,raw_materials_size =#{raw_materials_size}
+    	</if>
+    	<if test="carbon_dioxide_emission_level != null and carbon_dioxide_emission_level != '' ">
+    		,carbon_dioxide_emission_level =#{carbon_dioxide_emission_level}
+    	</if>
+    </trim>
+    WHERE
+    	raw_materials_co2_code =#{raw_materials_co2_code}
+    </update>
+    
+	
+	<!-- 기부받은 의류별 CO2 코드로 기부받은 의류별 CO2 기준 조회 -->
+	<select id="getRawMaterialsCO2Code" parameterType="String" resultMap="RawMaterialsEmissionResultMap"> 
+		SELECT
+			rme.raw_materials_co2_code
+			,rme.raw_materials_category
+			,rme.raw_materials_size
+			,rme.carbon_dioxide_emission_level
+		FROM
+			raw_materials_emission AS rme
+		WHERE
+			rme.raw_materials_co2_code = #{raw_materials_co2_code};
+	</select>
+    
 </mapper>
