@@ -13,52 +13,83 @@
 	</head>
 	<th:block layout:fragment="customScript">
 		<script>
-			$(function(){				
-				$('#listGoods').DataTable();
-			})
+			$(function(){
+				$('#listNotice').DataTable();
+				
+				$('#deleteBtn').click(function(){
+					let deleteValue = $('#deleteBtn').val();
+					alert(deleteValue);
+					let deleteCheck = confirm("정말 삭제하시겠습니까?")
+					if(!deleteCheck){
+						return false;
+					}else{
+						$('#deleteNoticeForm').submit();					
+					}
+				});
+		});
 		</script>	
 	</th:block>
 	<th:block layout:fragment="customContents">
-		<table id="listGoods" class="table table-striped table-bordered" style="width:100%">
-			<thead>
-				<tr>
-					<th class="goodsCode">상품코드</th>
-					<th class="goodsName">상품명</th>
-					<th class="categoryMediumNum">카테고리(중)</th>
-					<th class="goodsPrice">판매단가</th>
-					<th class="goodsColor">색상</th>
-					<th class="goodsSize">사이즈</th>
-					<th class="goodsRegDate">등록날짜</th>
-					<th class="goodsSangse">상세설명</th>
-					<th class="goodsImage">이미지</th>
-					<th class="fabric">원단</th>
-					<th class="rate">비율</th>
-					<th class="upcyclingCarbonDioxideEmissionLevel">이산화탄소 배출량</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:if="${not #lists.isEmpty(listGoods)}" th:each="gl : ${listGoods}">
-					<td th:text="${gl.goodsCode}" />
-					<td th:text="${gl.goodsName}" />
-					<td th:text="${gl.categoryMediumNum}" />
-					<td th:text="${gl.goodsPrice}" />
-					<td th:text="${gl.goodsColor}" />
-					<td th:text="${gl.goodsSize}" />
-					<td th:text="${gl.goodsRegDate}" />
-					<td th:text="${gl.goodsSangse}" />
-					<td th:text="${gl.goodsImage}" />
-					<td th:text="${gl.fabric}" />
-					<td th:text="${gl.rate}" />
-					<td th:text="${gl.upcyclingCarbonDioxideEmissionLevel}" />	
-				</tr>
-				<tr th:unless="${not #lists.isEmpty(listGoods)}">
-					<td colspan="9">등록된 상품이 없습니다.</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="col-md-12 col-sm-12 ">
+				<button type="submit" class="btn btn-primary" style="float: right">
+						<a style ="color:white" th:href="@{/admin/addBoardNotice}">등록</a></button>
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="listNotice" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+								<thead>
+										<tr>
+											<th class="goodsCode">상품코드</th>
+											<th class="goodsName">상품명</th>
+											<th class="categoryMediumCode">카테고리(중)</th>
+											<th class="goodsPrice">판매단가</th>
+											<th class="goodsColor">색상</th>
+											<th class="goodsSize">사이즈</th>
+											<th class="goodsRegDate">등록날짜</th>
+											<th class="goodsSangse">상세설명</th>
+											<th class="goodsImage">이미지</th>
+											<th class="fabric">원단</th>
+											<th class="rate">비율</th>
+											<th class="upcyclingCarbonDioxideEmissionLevel">이산화탄소 배출량</th>
+											<th>수정</th>
+											<th>삭제</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(listGoods)}" th:each="gl : ${listGoods}">
+											<td th:text="${gl.goodsCode}" />
+											<td th:text="${gl.goodsName}" />
+											<td th:text="${gl.categoryMediumCode}" />
+											<td th:text="${gl.goodsPrice}" />
+											<td th:text="${gl.goodsColor}" />
+											<td th:text="${gl.goodsSize}" />
+											<td th:text="${gl.goodsRegDate}" />
+											<td th:text="${gl.goodsSangse}" />
+											<td th:text="${gl.goodsImage}" />
+											<td th:text="${gl.fabric}" />
+											<td th:text="${gl.rate}" />
+											<td th:text="${gl.upcyclingCarbonDioxideEmissionLevel}" />
+											<td><button type="button" class="btn btn-primary btn-sm">
+												<a style ="color:white" th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${gl.goodsCode})}">편집</a></button></td>
+											<td><button type="button" class="btn btn-danger btn-sm deleteBtn" 
+														th:value="${gl.goodsCode}">삭제</button></td>
+										</tr>
+										<tr th:unless="${not #lists.isEmpty(listGoods)}">
+											<td colspan="9">등록된 상품이 없습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</th:block>
 	
-	<!-- 사용자 지정 js 파일 -->
+		<!-- 사용자 지정 js 파일 -->
 	<th:block layout:fragment="customJs">
 		<!-- Datatables -->
 	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
@@ -77,5 +108,4 @@
 	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
 	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 	</th:block>
-	
 </html>

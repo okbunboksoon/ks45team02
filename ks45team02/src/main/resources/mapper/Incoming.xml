@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.IncomingMapper">
+    <resultMap id="IncomingResultMap" type="Incoming">
+        <id property="incomingCode" column="incoming_code"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="incomingAmount" column="incoming_amount"/>
+        <result property="incomingDate" column="incoming_date"/>
+        <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+        <result property="totalCo2" column="total_co2"/>
+    </resultMap>
+    <insert id="addIncoming" parameterType="Incoming">
+        INSERT INTO incoming
+        (incoming_code,
+        goods_code,
+        incoming_amount,
+        incoming_date,
+        upcycling_carbon_dioxide_emission_level,
+        total_co2)
+        VALUES
+        (
+        sf_new_incoming_code(),
+        #{goodsCode},
+        #{incomingAmount},
+        NOW(),
+        #{upcyclingCarbonDioxideEmissionLevel},
+        #{totalCo2}
+        )
+    </insert>
+    <select id="listIncoming" resultMap="IncomingResultMap">
+        <!--상품 입고 조회-->
+        SELECT
+            incoming_code,
+            goods_code,
+            incoming_amount,
+            incoming_date,
+            upcycling_carbon_dioxide_emission_level,
+            total_co2
+        FROM
+            incoming
+    </select>
+</mapper>

@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-modifyIncomingRawmaterials
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${rawMaterialsIncomingInfo}">
+				<br>
+				<form th:action="@{/admin/modifyIncomingRawmaterials}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="rawMaterialsCode" class="col-form-label col-md-3 col-sm-3 label-align">원자재 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="rawMaterialsCode" name="rawMaterialsCode" th:value="*{rawMaterialsCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="donationCode" name="donationCode" th:value="*{donationCode}"
+								   placeholder="기부신청 번호" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsIncomingDate" class="col-form-label col-md-3 col-sm-3 label-align">입고 날짜</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="rawMaterialsIncomingDate" name="rawMaterialsIncomingDate" th:value="*{rawMaterialsIncomingDate}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsStatus" class="col-form-label col-md-3 col-sm-3 label-align">상태</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="rawMaterialsStatus" name="rawMaterialsStatus" class="form-control" th:value="*{rawMaterialsStatus}">
+								<option value="정상" th:selected="*{rawMaterialsStatus} == '정상'">정상</option>
+								<option value="폐기" th:selected="*{rawMaterialsStatus} == '폐기'">폐기</option>
+							</select>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="carbonDioxideEmissionLevel" class="col-form-label col-md-3 col-sm-3 label-align">이산화탄소 배출량</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="carbonDioxideEmissionLevel" name="carbonDioxideEmissionLevel" class="form-control" th:value="*{carbonDioxideEmissionLevel}">
+								<option value="5" th:selected="*{carbonDioxideEmissionLevel} == 5">상의 S : 5</option>
+								<option value="6" th:selected="*{carbonDioxideEmissionLevel} == 6">상의 M : 6</option>
+								<option value="7" th:selected="*{carbonDioxideEmissionLevel} == 7">상의 L : 7</option>
+								<option value="22.1" th:selected="*{carbonDioxideEmissionLevel} == 22.1">하의 S : 22.1</option>
+								<option value="23.1" th:selected="*{carbonDioxideEmissionLevel} == 23.1">하의 M : 23.1</option>
+								<option value="24.1" th:selected="*{carbonDioxideEmissionLevel} == 24.1">하의 L : 24.1</option>
+								<option value="25" th:selected="*{carbonDioxideEmissionLevel} == 25">아우터 S : 25</option>
+								<option value="26" th:selected="*{carbonDioxideEmissionLevel} == 26">아우터 M : 26</option>
+								<option value="27" th:selected="*{carbonDioxideEmissionLevel} == 27">아우터 L : 27</option>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsDaygroup" class="col-form-label col-md-3 col-sm-3 label-align">일별 기부상품 입고 그룹</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="rawMaterialsDaygroup" name="rawMaterialsDaygroup" th:value="*{rawMaterialsDaygroup}"
+								   placeholder="일별 기부상품 입고 그룹" class="form-control"/>
+						</div>		
+					</div>
+					<div class="item form-group">
+						<label for="donationPointGroup" class="col-form-label col-md-3 col-sm-3 label-align">포인트 그룹 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="donationPointGroup" name="donationPointGroup" th:value="*{donationPointGroup}"
+								   placeholder="포인트 그룹 코드" class="form-control"/>
+						</div>		
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $InputRawMaterialsStatus = document.getElementById('rawMaterialsStatus');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listIncomingRawmaterials';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			$InputRawMaterialsStatus.addEventListener('change', function(){
+				const $InputdonationPointGroup = document.getElementById('donationPointGroup');
+				$InputdonationPointGroup.value = '자동으로 처리됩니다.';
+				$InputdonationPointGroup.readOnly = true; 
+			})
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>

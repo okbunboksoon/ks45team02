@@ -1,6 +1,8 @@
 package ks45team02.ire.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ks45team02.ire.admin.dto.CategoryBig;
 import ks45team02.ire.admin.dto.CategoryMedium;
@@ -139,23 +143,54 @@ public class CategoryController {
 		return "redirect:/admin/listMideumCategory";
 	}
 	
-	//@GetMapping("/deleteBigCategory")
-	public String deleteBigCategory(@RequestParam(value = "categoryBigCode")String categoryBigCode, Model model) {
+	/**
+	 * 카테고리 대 삭제 처리
+	 * @param param
+	 * @return redirect:/admin/listBigCategory
+	 */
+	@RequestMapping(value="deleteBigCategory", method = {RequestMethod.POST})
+	public HashMap<String, String> deleteBigCategory(@RequestParam Map<String, Object> param) {
 		
-		model.addAttribute("title", "카테고리 대 삭제");
-		model.addAttribute("pageTitle", "카테고리 대 삭제");
-		log.info("categoryMediumCode : {}", categoryBigCode);
+		HashMap<String, String> reResult = new HashMap<String, String>();
 		
-		return "admin/category/categoryBigDelete";
+		String categoryBigCode = (String) param.get("categoryBigCode");
+		int result = categoryService.deleteBigCateory(categoryBigCode);
+		log.info(categoryBigCode);
+		
+		if(result == 0) {
+			reResult.put("result", "실패");			
+		}else {
+			reResult.put("result", "성공");					
+		}
+			reResult.put("categoryBigCode", categoryBigCode);	
+			reResult.put("redirect", "/admin/listBigCategory");				
+		
+		return reResult;
 	}
 	
-	//@PostMapping("/deleteMediumCategory")
-	public String deleteMediumCategory(@RequestParam(value = "categoryMediumCode")String categoryMediumCode, Model model) {
+	/**
+	 * 카테고리 중 삭제 처리
+	 * @param param
+	 * @return reResult;
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteMediumCategory", method = {RequestMethod.POST})
+	public HashMap<String, String> deleteMediumCategory(@RequestParam Map<String, Object> param) {
 		
-		model.addAttribute("title", "카테고리 중 삭제");
-		model.addAttribute("pageTitle", "카테고리 중 삭제");
-		log.info("categoryMediumCode : {}", categoryMediumCode);
-		return "admin/category/categoryMediumDelete";
+		HashMap<String, String> reResult = new HashMap<String, String>();
+		
+		String categoryMediumCode = (String) param.get("categoryMediumCode");
+		int result = categoryService.deleteMediumCategory(categoryMediumCode);
+
+		if(result == 0) {
+			reResult.put("result", "실패");			
+		}else {
+			reResult.put("result", "성공");			
+		}
+			reResult.put("categoryMediumCode", categoryMediumCode);	
+			reResult.put("redirect", "/admin/listMideumCategory");			
+			
+		return reResult;
 	}
 	
 	/**

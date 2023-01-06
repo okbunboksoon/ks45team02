@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content">
+				<br>
+				<form th:action="@{/admin/modifyRawMaterialsEmission}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					<th:block th:if="${not #lists.isEmpty(modifyRawMaterialsEmission)}" th:each="rme : ${modifyRawMaterialsEmission}">
+					<div class="item form-group">
+						<label for="raw_materials_co2_code" class="col-form-label col-md-3 col-sm-3 label-align">기부의류 CO2 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="raw_materials_co2_code" name="raw_materials_co2_code" th:value="${rme.raw_materials_co2_code}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					
+					<div class="item form-group">
+						<label for="raw_materials_category" class="col-form-label col-md-3 col-sm-3 label-align">기부의류 종류</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="raw_materials_category" name="raw_materials_category" class="form-control">
+								<option value="상의">상의</option>
+								<option value="하의">하의</option>
+								<option value="아우터">아우터</option>
+							</select>
+						</div>
+					</div>
+					
+					
+					<div class="item form-group">
+						<label for="raw_materials_size" class="col-form-label col-md-3 col-sm-3 label-align">기부의류 사이즈</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="raw_materials_size" name="raw_materials_size" class="form-control">
+								<option value="S">S</option>
+								<option value="M">M</option>
+								<option value="L">L</option>
+							</select>
+						</div>
+					</div>
+					
+					
+					<div class="item form-group">
+						<label for="raw_materials_co2_code" class="col-form-label col-md-3 col-sm-3 label-align">기부의류별 이산화탄소 배출량(Kg)</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="carbon_dioxide_emission_level" name="carbon_dioxide_emission_level" th:value="${rme.carbon_dioxide_emission_level}" class="form-control"/>
+						</div>
+					</div>
+					
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+<!-- 							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button> -->
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+					
+					</th:block>
+				</form>
+			</div>
+		</div>
+		
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			console.log($inputEle);
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listDonation';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			
+		</script>
+
+	</th:block>
+	
+</html>

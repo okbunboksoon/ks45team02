@@ -11,6 +11,16 @@ import ks45team02.ire.admin.dto.CategoryMedium;
 public interface CategoryMapper {
 	
 	/**
+	 * 카테고리 중 이름으로 카테고리 중 코드 조회
+	 */
+	public String getCategoryMediumCodeByName(String categoryMediumName);
+	
+	/**
+	 * 카테고리 중 전체 조회
+	 */
+	public List<CategoryMedium> getMediumCategory();
+	
+	/**
 	 * 카테고리 대 조회
 	 */
 	public List<CategoryBig> getListBigCategory();
@@ -27,7 +37,6 @@ public interface CategoryMapper {
 	
 	/**
 	 * 카테고리 중 등록 처리
-	 * @param categoryMedium
 	 */
 	public int addCategoryMedium(CategoryMedium categoryMedium);
 	
@@ -50,4 +59,53 @@ public interface CategoryMapper {
 	 * 카테고리 중 수정 처리
 	 */
 	public int modifyMediumCategory(CategoryMedium categoryMedium);
-}
+	
+	/**
+	 * 카테고리 중 코드 buynow 삭제 처리
+	 */
+	public int deleteMediumCategoryByBuynow(String categoryMediumCode);
+	
+	/**
+	 * 카테고리 중 코드 basket 삭제 처리
+	 */
+	public int deleteMediumCategoryByBasket(String categoryMediumCode);
+	
+	/**
+	 * 카테고리 중 코드 goods 삭제 처리
+	 */
+	public int deleteMediumCategoryByGoods(String categoryMediumCode);
+	
+	/**
+	 * 카테고리 중 삭제 처리
+	 */
+	public int deleteMediumCategory(String categoryMediumCode);
+	
+	/**
+	 * 카테고리 대 코드 buynow 삭제 처리
+	 */
+	public int deleteBigCategoryByBuynow(String categoryBigCode);
+	
+	/**
+	 * 카테고리 대 코드 basket 삭제 처리
+	 */
+	public int deleteBigCategoryByBasket(String categoryBigCode);
+	
+	/**
+	 * 카테고리 대 코드 goods 삭제 처리
+	 */
+	public int deleteBigCategoryByGoods(String categoryBigCode);
+	
+	/**
+	 * 카테고리 대 코드 businessOrder 삭제 처리
+	 */
+	public int deleteBigCategoryByBusinessOrder(String categoryBigCode);
+	/**
+	 * 카테고리 대 코드 중 삭제 처리
+	 */
+	public int deleteCateBigCode(String categoryBigCode);
+	
+	/**
+	 * 카테고리 대 삭제 처리
+	 */
+	public int deleteBigCategory(String categoryBigCode);
+}	

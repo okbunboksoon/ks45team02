@@ -2,6 +2,7 @@ package ks45team02.ire.admin.mapper;
 
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.dto.UserDor;
+import ks45team02.ire.admin.dto.UserDrop;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface UserMapper {
     public  int updateLoginHistory(String userId);
     //휴면 회원 조회
     public List<UserDor>listUserDor();
+    //탈퇴 회원 조회
+    public List<UserDrop>listUserDrop();
 
 }

@@ -32,6 +32,17 @@ public class CategoryService {
 	}
 	
 	/**
+	 * 카테고리 중 전체 조회
+	 * @return listMedium
+	 */
+	public List<CategoryMedium> getMediumCategory(){
+		
+		List<CategoryMedium> listMedium = categoryMapper.getMediumCategory();
+		
+		return listMedium;
+	}
+	
+	/**
 	 * 카테고리 중 조회
 	 */
 	public List<CategoryBig> getListMediumCategory(){
@@ -64,7 +75,7 @@ public class CategoryService {
 	/**
 	 * 카테고리 대 특정코드 조회
 	 * @param categoryBigCode
-	 * @return BingCategoryInfo
+	 * @return BigCategoryInfo
 	 */
 	public List<CategoryBig> getBigCategoryByCode(String categoryBigCode){
 		
@@ -103,7 +114,33 @@ public class CategoryService {
 		
 		return categoryMapper.modifyMediumCategory(categoryMedium);
 	}
-	 
 	
+	/**
+	 * 카테고리 중 삭제 처리
+	 * @param categoryMediumCode
+	 * @return
+	 */
+	public int deleteMediumCategory(String categoryMediumCode) {
+			
+		int result = 0;
+		result += categoryMapper.deleteMediumCategoryByBuynow(categoryMediumCode);
+		result += categoryMapper.deleteMediumCategoryByBasket(categoryMediumCode);
+		result += categoryMapper.deleteMediumCategoryByGoods(categoryMediumCode);
+		result += categoryMapper.deleteMediumCategory(categoryMediumCode);
+		
+		return result;
+	}
 	
+	public int deleteBigCateory(String categoryBigCode) {
+		
+		int result = 0;
+		result += categoryMapper.deleteBigCategoryByBuynow(categoryBigCode);
+		result += categoryMapper.deleteBigCategoryByBasket(categoryBigCode);
+		//result += categoryMapper.deleteBigCategoryByBusinessOrder(categoryBigCode);
+		result += categoryMapper.deleteBigCategoryByGoods(categoryBigCode);
+		result += categoryMapper.deleteCateBigCode(categoryBigCode);
+		result += categoryMapper.deleteBigCategory(categoryBigCode);
+		
+		return result;
+	}
 }

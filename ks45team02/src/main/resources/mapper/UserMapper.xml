@@ -39,7 +39,22 @@
         <result property="userDorDate" column="user_dor_date"/>
         <result property="userDropState" column="user_drop_state"/>
     </resultMap>
+    <resultMap id="UserDropResultMap" type="UserDrop">
+        <id property="userDropId" column="user_drop_id"/>
+        <result property="userDropPw" column="user_drop_pw"/>
+        <result property="userDropName" column="user_drop_name"/>
+        <result property="userDropNickName" column="user_drop_nickname"/>
+        <result property="userDropAddr" column="user_drop_addr"/>
+        <result property="userDropPhone" column="user_drop_phone"/>
+        <result property="userDropEmail" column="user_drop_email"/>
+        <result property="userDropBirth" column="user_drop_birth"/>
+        <result property="pointState" column="point_state"/>
+        <result property="userDropJoinDate" column="user_drop_join_date"/>
+        <result property="userDropDate" column="user_drop_date"/>
+        <result property="userDropState" column="user_drop_state"/>
+    </resultMap>
     <insert id="updateLoginHistory" parameterType="String">
+        <!--로그인시 로그인 이력 추가-->
         INSERT INTO loginout_history
         (
         user_id,
@@ -155,6 +170,23 @@
             'N'
         );
     </insert>
+    <select id="listUserDrop" resultMap="UserDropResultMap">
+        SELECT
+            user_drop_id,
+            user_drop_pw,
+            user_drop_name,
+            user_drop_nickname,
+            user_drop_addr,
+            user_drop_phone,
+            user_drop_email,
+            user_drop_birth,
+            point_state,
+            user_drop_join_date,
+            user_drop_date,
+            user_drop_state
+        FROM
+            user_drop
+    </select>
     <select id="listUserDor" resultMap="UserDorResultMap">
         <!--휴면 회원 조회-->
         SELECT

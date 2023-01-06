@@ -11,13 +11,38 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
+	
 	<th:block layout:fragment="customScript">
 		<script>
 			$(function(){
 				$('#listCategory').DataTable();
 				
-				$('#deleteHref').click(function(){
-					alert('확인')
+				$('.deleteBtn').click(function(){
+					let deleteCheck = confirm("정말 삭제하시겠습니까?")
+					let deleteValue = $(this).val();
+					
+					if(!deleteCheck){
+						return false;
+					}else{
+						$.ajax({
+							type: "post",
+							url: '/admin/deleteMediumCategory',
+							data: {"categoryMediumCode": deleteValue},
+							dataType: "json",
+							success:function(data){
+								var result = data.result
+								var mediumCode = data.categoryMediumCode
+								var redirect = data.redirect
+								if(result == "성공"){
+									alert(`카테고리 코드 ${mediumCode} 삭제했습니다.`)	
+									location.href = redirect
+								}else{
+									alert("삭제에실패했습니다.")
+									location.href = redirect
+								};
+							}
+						});	
+					};
 				});
 		});
 		</script>	
@@ -48,8 +73,10 @@
 											<td th:text="${lm.mediumCategoryBigCode}" />
 											<td th:text="${lm.categoryBig.categoryBigName}" />
 											<td th:text="${lm.categoryMediumName}" />
-											<td><a th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">편집</a></td>
-											<td><a th:href="@{/admin/deleteMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">삭제</a></td>
+											<td><button type="button" class="btn btn-primary btn-sm">
+												<a style ="color:white" th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${lm.categoryMediumCode})}">편집</a></button></td>
+											<td><button type="button" class="btn btn-danger btn-sm deleteBtn" 
+														th:value="${lm.categoryMediumCode}">삭제</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(listMediumCategory)}">
 											<td colspan="6">등록된 카테고리가 없습니다.</td>

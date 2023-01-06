@@ -3,19 +3,88 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.EmissionMapper">
-	<resultMap id="EmissionResultMap" type="Emission">
-        <id property="goods_co2_code"			column="goods_co2_code" />
-        <result property="goods_category"			column="goods_category" />
-        <result property="goods_size"		column="goods_size" />
+
+	<resultMap id="RawMaterialsEmissionResultMap" type="RawMaterialsEmission">
+        <id property="raw_materials_co2_code"			column="raw_materials_co2_code" />
+        <result property="raw_materials_category"			column="raw_materials_category" />
+        <result property="raw_materials_size"		column="raw_materials_size" />
         <result property="carbon_dioxide_emission_level"		column="carbon_dioxide_emission_level" />
     </resultMap>
-    <select id="EmissionList" resultMap="EmissionResultMap">
-	   SELECT
-			emission.goods_co2_code
-			,emission.goods_category
-			,emission.goods_size
-			,emission.carbon_dioxide_emission_level
+    
+    <resultMap id="GoodsEmissionResultMap" type="GoodsEmission">
+        <id property="fabric"			column="fabric" />
+        <result property="carbon_dioxide_emission_level"			column="carbon_dioxide_emission_level" />
+        <result property="upcycling_carbon_dioxide_emission_level"		column="upcycling_carbon_dioxide_emission_level" />
+    </resultMap>
+    
+    <!-- 기부받은 의류별 CO2 기준 리스트 -->
+    <select id="RawMaterialsEmissionList" resultMap="RawMaterialsEmissionResultMap">
+	SELECT
+		rme.raw_materials_co2_code
+		,rme.raw_materials_category
+		,rme.raw_materials_size
+		,rme.carbon_dioxide_emission_level
+	FROM
+		raw_materials_emission AS rme
+    </select>
+    
+    <!-- 기부받은 의류별 CO2 기준 등록 -->
+    <insert id="addRawMaterialsEmission" parameterType="RawMaterialsEmission">
+    INSERT INTO raw_materials_emission(
+	raw_materials_co2_code
+	,raw_materials_category
+	,raw_materials_size
+	,carbon_dioxide_emission_level
+	)VALUES (
+		sf_new_raw_materials_emission()
+		, #{raw_materials_category}
+		,#{raw_materials_size}
+		,#{carbon_dioxide_emission_level}
+	);
+
+    </insert>
+    
+    <!-- 기부받은 의류별 CO2 기준 수정 -->
+    <update id="modifyRawMaterialsEmission" parameterType="RawMaterialsEmission">
+    UPDATE raw_materials_emission
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="raw_materials_category != null and raw_materials_category != '' ">
+    		,raw_materials_category=#{raw_materials_category}
+    	</if>
+    	<if test="raw_materials_size != null and raw_materials_size != '' ">
+    		,raw_materials_size =#{raw_materials_size}
+    	</if>
+    	<if test="carbon_dioxide_emission_level != null and carbon_dioxide_emission_level != '' ">
+    		,carbon_dioxide_emission_level =#{carbon_dioxide_emission_level}
+    	</if>
+    </trim>
+    WHERE
+    	raw_materials_co2_code =#{raw_materials_co2_code}
+    </update>
+    
+	
+	<!-- 기부받은 의류별 CO2 코드로 기부받은 의류별 CO2 기준 조회 -->
+	<select id="getRawMaterialsCO2Code" parameterType="String" resultMap="RawMaterialsEmissionResultMap"> 
+		SELECT
+			rme.raw_materials_co2_code
+			,rme.raw_materials_category
+			,rme.raw_materials_size
+			,rme.carbon_dioxide_emission_level
 		FROM
-			goods_emission AS emission
+			raw_materials_emission AS rme
+		WHERE
+			rme.raw_materials_co2_code = #{raw_materials_co2_code};
+	</select>
+
+    
+    <!-- 원단별 탄소 배출량 기준 리스트  -->
+    <select id="GoodsEmissionList" resultMap="GoodsEmissionResultMap">
+		SELECT
+			ge.fabric
+			,ge.carbon_dioxide_emission_level
+			,ge.upcycling_carbon_dioxide_emission_level
+		FROM
+			goods_emission AS ge
+    
     </select>
 </mapper>
