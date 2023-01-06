@@ -19,6 +19,49 @@
 		<result property="pointSaveGroup" 			column="point_save_group"/>
 		<result property="pointSaveDeleteState" 	column="point_save_delete_state"/>
 	</resultMap>
+	<resultMap type="PointMinus" id="pointMinusResultMap">
+		<id property="pointMinusCode" 				column="point_minus_code" />
+		<result property="userId" 					column="user_id"/>
+		<result property="pointMinus"				column="point_minus"/>
+		<result property="pointState" 				column="point_state"/>
+		<result property="pointMinusDate"			column="point_minus_date"/>
+		<result property="pointMinusReason" 		column="point_minus_reason"/>
+		<result property="pointMinusGroup" 			column="point_minus_group"/>
+		<result property="pointMinusDeleteState" 	column="point_minus_delete_state"/>
+	</resultMap>
+	
+	<update id="modifyPointMinus" parameterType="PointMinus">
+		<!-- 포인트 차감 수정 -->
+		UPDATE 
+			point_minus
+		SET 
+			 user_id = #{userId}
+			,point_minus = #{pointMinus}
+			,point_state = #{pointState}
+			,point_minus_date = #{pointMinusDate}
+			,point_minus_reason = #{pointMinusReason}
+			,point_minus_group = #{pointMinusGroup}
+			,point_minus_delete_state = #{pointMinusDeleteState}
+		WHERE 
+			point_minus_code = #{pointMinusCode};
+	</update>
+	
+	<select id="getPointMinusInfo" resultMap="pointMinusResultMap">
+		<!-- 포인트 차감 코드로 포인트 차감 조회 -->
+		SELECT 
+			 point_minus_code
+			,user_id
+			,point_minus
+			,point_state
+			,point_minus_date
+			,point_minus_reason
+			,point_minus_group
+			,point_minus_delete_state
+		FROM 
+			point_minus
+		WHERE 
+			point_minus_code = #{pointMinusCode};
+	</select>
 	
 	<insert id="addPointMinus" parameterType="PointMinus">
 		<!-- 포인트 차감 등록 -->
@@ -30,7 +73,6 @@
 			,point_minus_date
 			,point_minus_reason
 			,point_minus_group
-			,point_minus_delete_state
 		)VALUES(
 			 sf_new_point_minus_code()
 			,#{userId}
@@ -38,8 +80,12 @@
 			,#{pointState}
 			,#{pointMinusDate}
 			,#{pointMinusReason}
-			,sf_new_point_group_code(#{pointMinusGroup})
-			,#{pointMinusDeleteState}
+			<if test="pointMinusGroup != null">
+				,sf_new_point_group_code(#{pointMinusGroup})
+			</if>
+			<if test="pointMinusGroup == null">
+				,null
+			</if>
 		);
 	</insert>
 	
