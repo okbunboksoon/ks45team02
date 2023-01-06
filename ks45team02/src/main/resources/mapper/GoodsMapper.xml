@@ -18,6 +18,12 @@
 		<result property="rate" 					column="rate"/>
 		<result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
 	</resultMap>
+	<select id="getIncomingEmissionLevel" resultMap="GoodsResultMap">
+		<!--전체 업사이클링 상품별 이산화탄소 총배출량(kg) 교환-->
+		SELECT upcycling_carbon_dioxide_emission_level
+		FROM goods
+		WHERE goods_code=#{goodsCode};
+	</select>
 	
 	<select id="goodsCheck" parameterType="String" resultType="int">
 		<!-- 상품코드로 상품 존재여부 확인 -->
