@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import ks45team02.ire.admin.dto.GoodsEmission;
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
 import ks45team02.ire.admin.mapper.EmissionMapper;
 
@@ -66,9 +67,15 @@ public class EmissionService {
 	
 	
 	
-	
-	
-	
+	/**
+	 * 원단별 탄소 배출량 기준 리스트
+	 * @return
+	 */
+	public List<GoodsEmission> getGoodsEmissionList(){
+		
+		List<GoodsEmission> GoodsEmissionList = emissionMapper.GoodsEmissionList();
+		return GoodsEmissionList;
+	}
 	
 	
 	

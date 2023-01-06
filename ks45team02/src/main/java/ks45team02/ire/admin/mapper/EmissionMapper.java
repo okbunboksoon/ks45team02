@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ks45team02.ire.admin.dto.GoodsEmission;
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
 
 @Mapper
@@ -30,4 +31,10 @@ public interface EmissionMapper {
 	 * 기부받은 의류별 CO2 코드로 기부받은 의류별 CO2 기준 조회
 	 */
 	public List<RawMaterialsEmission> getRawMaterialsCO2Code(String raw_materials_category);
+	
+	
+	/**
+	 * 원단별 탄소배출량 기준 리스트
+	 */
+	public List<GoodsEmission> GoodsEmissionList();
 }

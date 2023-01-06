@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ks45team02.ire.admin.dto.GoodsEmission;
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
 import ks45team02.ire.admin.mapper.EmissionMapper;
 import ks45team02.ire.admin.service.EmissionService;
@@ -128,28 +129,38 @@ public class EmissionController {
  *
  */
 	
-	@GetMapping("/addEmission")
-	public String addEmission(Model model) {
+	@GetMapping("/addGoodsEmission")
+	public String addGoodsEmission(Model model) {
 		
-		return "admin/emission/emissionAdd";
+		return "admin/emission/emissionGoodsAdd";
 	}
 		
-	@GetMapping("/deleteEmission")
-	public String deleteEmission() {
+	@GetMapping("/deleteGoodsEmission")
+	public String deleteGoodsEmission() {
 		
-		return "admin/emission/emissionDelete";
-	}
-	
-	@GetMapping("/modifyEmission")
-	public String modifyEmission() {
-		
-		return "admin/emission/emissionModify";
+		return "admin/emission/emissionGoodsDelete";
 	}
 	
-	@GetMapping("/listEmission")
-	public String listEmission(Model model) {
+	@GetMapping("/modifyGoodsEmission")
+	public String modifyGoodsEmission() {
 		
-		return "admin/emission/emissionList";
+		return "admin/emission/emissionGoodsModify";
+	}
+	
+	
+	/**
+	 * 원단별 탄소 배출량 기준 조회
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/listGoodsEmission")
+	public String listGoodsEmission(Model model) {
+		
+		List<GoodsEmission> goodsEmissionList = emissionService.getGoodsEmissionList();
+		log.info("goodsEmissionList: {}", goodsEmissionList);
+		model.addAttribute("goodsEmissionList", goodsEmissionList);
+		model.addAttribute("title", "원단별 탄소 배출량 기준 리스트");
+		return "admin/emission/emissionGoodsList";
 	}
 		
 	@GetMapping("/listEmissionC02Total")
