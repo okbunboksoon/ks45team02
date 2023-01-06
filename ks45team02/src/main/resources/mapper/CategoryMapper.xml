@@ -17,9 +17,11 @@
 	        <result property="categoryBigName"		column="category_big_name" />
         </association>
     </resultMap>
-	
+    
+    
+	<!-- 카테고리 중 이름으로 카테고리 중 코드 조회 -->
 	<select id="getCategoryMediumCodeByName" parameterType="String" resultType="String">
-		<!-- 카테고리 중 이름으로 카테고리 중 코드 조회 -->
+		
 		SELECT 
 			cm.category_medium_code
 		FROM 

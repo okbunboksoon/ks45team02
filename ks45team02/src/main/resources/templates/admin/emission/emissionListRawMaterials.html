@@ -36,8 +36,8 @@
 											<td th:text="${rme.raw_materials_category}"></td>
 											<td th:text="${rme.raw_materials_size}"></td>
 											<td th:text="${rme.carbon_dioxide_emission_level}"></td>
-											<td><a th:href="@{/admin/modifyRawmaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">수정</a></td>
-											<td><a th:href="@{/admin/deleteRawmaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">삭제</a></td> 
+											<td><a th:href="@{/admin/modifyRawMaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">수정</a></td>
+											<td><a th:href="@{/admin/deleteRawMaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">삭제</a></td> 
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(rawMaterialsEmissionList)}">
 											<td colspan="6">등록된 기준이 존재하지 않습니다.</td>
