@@ -91,17 +91,7 @@ public class EmissionController {
 		
 		return "redirect:/admin/listRawMaterialsEmission";
 	}
-	
-	
-	
-	@GetMapping("/deleteRawMaterialsEmission")
-	public String deleteRawMaterialsEmission() {
-		
-		return "admin/emission/emissionDeleteRawMaterials";
-	}
-	
 
-	
 	
 	/**
 	 * 기부받은 의류 CO2 기준 조회
@@ -118,6 +108,13 @@ public class EmissionController {
 		return "admin/emission/emissionListRawMaterials";
 	}
 	
+
+	@GetMapping("/deleteRawMaterialsEmission")
+	public String deleteRawMaterialsEmission() {
+		
+		return "admin/emission/emissionDeleteRawMaterials";
+	}
+	
 	
 	@GetMapping("/listEmissionRawMaterialsGroupStatistics")
 	public String listEmissionRawMaterialsGroupStatistics() {
@@ -125,6 +122,11 @@ public class EmissionController {
 		return "admin/emission/emissionListRawMaterialsGroupStatistics";
 	}
 	
+/**
+ * 	
+ * 여기서부터 원단별 CO2 
+ *
+ */
 	
 	@GetMapping("/addEmission")
 	public String addEmission(Model model) {

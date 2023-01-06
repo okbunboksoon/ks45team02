@@ -10,7 +10,7 @@ public class PointSaveAndMinus {
 	private String pointReason;
 	private String pointGroup;
 	private String pointSaveOrMinus;
-	
+	private String pointDeleteState;
 	public String getPointCode() {
 		return pointCode;
 	}
@@ -59,6 +59,12 @@ public class PointSaveAndMinus {
 	public void setPointSaveOrMinus(String pointSaveOrMinus) {
 		this.pointSaveOrMinus = pointSaveOrMinus;
 	}
+	public String getPointDeleteState() {
+		return pointDeleteState;
+	}
+	public void setPointDeleteState(String pointDeleteState) {
+		this.pointDeleteState = pointDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -78,10 +84,12 @@ public class PointSaveAndMinus {
 		builder.append(pointGroup);
 		builder.append(", pointSaveOrMinus=");
 		builder.append(pointSaveOrMinus);
+		builder.append(", pointDeleteState=");
+		builder.append(pointDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
 	
-	
+
 	
 }

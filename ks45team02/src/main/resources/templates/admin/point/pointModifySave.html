@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${pointSaveInfo}">
+				<br>
+				<form th:action="@{/admin/modifySavePoint}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="pointSaveCode" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointSaveCode" name="pointSaveCode" th:value="*{pointSaveCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">회원 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   placeholder="기부 신청자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSave" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 금액</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="pointSave" name="pointSave" th:value="*{pointSave}"
+								   readonly="readonly" placeholder="포인트 지급 금액" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointState" class="col-form-label col-md-3 col-sm-3 label-align">포인트 적립금</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="pointState" name="pointState" th:value="*{pointState}"
+								   placeholder="기부 신청자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSaveDate" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 날짜</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="pointSaveDate" name="pointSaveDate" th:value="*{pointSaveDate}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="pointSaveReason" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 사유</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="pointSaveReason" name="pointSaveReason"class="form-control">
+								<option value="미선택">선택해주세요.</option>
+								<option value="회원가입 이벤트" th:selected="*{pointSaveReason} == '회원가입 이벤트'">회원가입 이벤트</option>
+								<option value="텍스트 리뷰 등록" th:selected="*{pointSaveReason} == '텍스트 리뷰 등록'">텍스트 리뷰 등록</option>
+								<option value="포토 리뷰 등록" th:selected="*{pointSaveReason} == '포토 리뷰 등록'">포토 리뷰 등록</option>
+								<option value="기부 등록" th:selected="*{pointSaveReason} == '기부 등록'">기부 등록</option>
+								<option value="구매 확정" th:selected="*{pointSaveReason} == '기부 등록'">구매 확정</option>
+								<option value="기타">기타</option>
+							</select>
+						</div>			
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="pointSaveReasonEtc" class="col-form-label col-md-3 col-sm-3 label-align">기타 사유</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointSaveReasonEtc" name="pointSaveReasonEtc"
+								   value="0" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">구매 금액</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="paymentAmount" name="paymentAmount"
+								   value="0" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSaveGroup" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 그룹코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointSaveGroup" name="pointSaveGroup" th:value="*{pointSaveGroup}"
+								   placeholder="공백 허용" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="pointSaveDeleteState" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 삭제 여부</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="pointSaveDeleteState" name="pointSaveDeleteState"class="form-control">
+								<option value="N" th:selected="*{pointSaveDeleteState} == 'N'">N</option>
+								<option value="Y" th:selected="*{pointSaveDeleteState} == 'Y'">Y</option>
+							</select>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $pointSaveReason = document.getElementById('pointSaveReason');
+			const $paymentAmount = document.getElementById('paymentAmount');
+			const $pointSaveReasonEtc = document.getElementById('pointSaveReasonEtc');
+			const $pointSave = document.getElementById('pointSave');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			let pointSaveAmountArr = [[${pointStandardSaveAmountList}]];
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listPoint';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						if(item.id != 'pointSaveGroup'){
+						checkFlag = false;
+						}
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			$pointSaveReason.addEventListener('change', function(){
+				$pointSave.value = '';
+				$pointSave.readOnly = true;
+				$paymentAmount.parentElement.parentElement.style.display = 'none';
+				$pointSaveReasonEtc.parentElement.parentElement.style.display = 'none';
+				$paymentAmount.value = 0;
+				$pointSaveReasonEtc.value = 0;
+				
+				if($pointSaveReason.value == '기타'){
+					$pointSaveReasonEtc.parentElement.parentElement.style.display = '';
+					$pointSaveReasonEtc.value = '';
+					$pointSave.value = '';
+					$pointSave.readOnly = false;
+				}else if($pointSaveReason.value == '구매 확정'){
+					$paymentAmount.parentElement.parentElement.style.display = '';
+					$paymentAmount.value = '';
+					$pointSave.value = '';
+					$pointSave.readOnly = true;
+				}else{
+					if($pointSaveReason.value == '회원가입 이벤트'){
+						console.log(pointSaveAmountArr[0]);
+						$pointSave.value = pointSaveAmountArr[0];
+					}else if($pointSaveReason.value == '텍스트 리뷰 등록'){
+						$pointSave.value = pointSaveAmountArr[1];
+					}else if($pointSaveReason.value == '포토 리뷰 등록'){
+						$pointSave.value = pointSaveAmountArr[2];
+					}else if($pointSaveReason.value == '기부 등록'){
+						$pointSave.value = pointSaveAmountArr[3];
+					}
+					
+				}
+			});
+			
+			$paymentAmount.addEventListener('change', function(){
+				let paymentPointSave = Math.floor($paymentAmount.value * 0.1);
+				$pointSave.value = paymentPointSave;
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
+</html>
