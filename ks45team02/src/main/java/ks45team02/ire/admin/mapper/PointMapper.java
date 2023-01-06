@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ks45team02.ire.admin.dto.PointMinus;
 import ks45team02.ire.admin.dto.PointSave;
 import ks45team02.ire.admin.dto.PointSaveAndMinus;
 import ks45team02.ire.admin.dto.PointSaveStandard;
@@ -14,6 +15,9 @@ import ks45team02.ire.admin.dto.User;
 @Mapper
 public interface PointMapper {
 
+	//포인트 차감 등록
+	public int addPointMinus(PointMinus pointMinus);
+	
 	//포인트 지급 수정
 	public int modifyPointSave(PointSave pointSave);
 	

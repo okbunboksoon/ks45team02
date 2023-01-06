@@ -20,6 +20,29 @@
 		<result property="pointSaveDeleteState" 	column="point_save_delete_state"/>
 	</resultMap>
 	
+	<insert id="addPointMinus" parameterType="PointMinus">
+		<!-- 포인트 차감 등록 -->
+		INSERT INTO point_minus(
+			 point_minus_code
+			,user_id
+			,point_minus
+			,point_state
+			,point_minus_date
+			,point_minus_reason
+			,point_minus_group
+			,point_minus_delete_state
+		)VALUES(
+			 sf_new_point_minus_code()
+			,#{userId}
+			,#{pointMinus}
+			,#{pointState}
+			,#{pointMinusDate}
+			,#{pointMinusReason}
+			,sf_new_point_group_code(#{pointMinusGroup})
+			,#{pointMinusDeleteState}
+		);
+	</insert>
+	
 	<update id="modifyPointSave" parameterType="PointSave">
 		<!-- 포인트 지급 수정 -->
 		UPDATE 
