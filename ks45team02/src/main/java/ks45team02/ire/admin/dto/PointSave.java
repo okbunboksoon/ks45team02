@@ -6,9 +6,10 @@ public class PointSave {
 	private String userId;
 	private int pointSave;
 	private int pointState;
-	private String pointPaymentDate;
+	private String pointSaveDate;
 	private String pointSaveReason;
 	private String pointSaveGroup;
+	private String pointSaveReasonEtc;
 	
 	public String getPointSaveCode() {
 		return pointSaveCode;
@@ -34,11 +35,11 @@ public class PointSave {
 	public void setPointState(int pointState) {
 		this.pointState = pointState;
 	}
-	public String getPointPaymentDate() {
-		return pointPaymentDate;
+	public String getPointSaveDate() {
+		return pointSaveDate;
 	}
-	public void setPointPaymentDate(String pointPaymentDate) {
-		this.pointPaymentDate = pointPaymentDate;
+	public void setPointSaveDate(String pointSaveDate) {
+		this.pointSaveDate = pointSaveDate;
 	}
 	public String getPointSaveReason() {
 		return pointSaveReason;
@@ -52,6 +53,12 @@ public class PointSave {
 	public void setPointSaveGroup(String pointSaveGroup) {
 		this.pointSaveGroup = pointSaveGroup;
 	}
+	public String getPointSaveReasonEtc() {
+		return pointSaveReasonEtc;
+	}
+	public void setPointSaveReasonEtc(String pointSaveReasonEtc) {
+		this.pointSaveReasonEtc = pointSaveReasonEtc;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -63,15 +70,23 @@ public class PointSave {
 		builder.append(pointSave);
 		builder.append(", pointState=");
 		builder.append(pointState);
-		builder.append(", pointPaymentDate=");
-		builder.append(pointPaymentDate);
+		builder.append(", pointSaveDate=");
+		builder.append(pointSaveDate);
 		builder.append(", pointSaveReason=");
 		builder.append(pointSaveReason);
 		builder.append(", pointSaveGroup=");
 		builder.append(pointSaveGroup);
+		builder.append(", pointSaveReasonEtc=");
+		builder.append(pointSaveReasonEtc);
+		builder.append(", pointSaveEtc=");
 		builder.append("]");
 		return builder.toString();
 	}
-		
+	
+	
+	
+	
+	
+	
 	
 }

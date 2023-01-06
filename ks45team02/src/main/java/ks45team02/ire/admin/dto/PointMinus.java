@@ -8,7 +8,7 @@ public class PointMinus {
 	private int pointState;
 	private String pointMinusDate;
 	private String pointMinusReason;
-	private String pointUseGroup;
+	private String pointMinusGroup;
 	
 	public String getPointMinusCode() {
 		return pointMinusCode;
@@ -46,11 +46,11 @@ public class PointMinus {
 	public void setPointMinusReason(String pointMinusReason) {
 		this.pointMinusReason = pointMinusReason;
 	}
-	public String getPointUseGroup() {
-		return pointUseGroup;
+	public String getPointMinusGroup() {
+		return pointMinusGroup;
 	}
-	public void setPointUseGroup(String pointUseGroup) {
-		this.pointUseGroup = pointUseGroup;
+	public void setPointMinusGroup(String pointMinusGroup) {
+		this.pointMinusGroup = pointMinusGroup;
 	}
 	@Override
 	public String toString() {
@@ -67,11 +67,13 @@ public class PointMinus {
 		builder.append(pointMinusDate);
 		builder.append(", pointMinusReason=");
 		builder.append(pointMinusReason);
-		builder.append(", pointUseGroup=");
-		builder.append(pointUseGroup);
+		builder.append(", pointMinusGroup=");
+		builder.append(pointMinusGroup);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ks45team02.ire.admin.dto.PointSave;
 import ks45team02.ire.admin.dto.PointSaveAndMinus;
 import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.mapper.PointMapper;
@@ -137,15 +138,40 @@ public class PointController {
 		return "admin/point/pointDeleteStandard";
 	}
 	
-	@GetMapping("/addSavePoint")
-	public String addSavePoint() {
+	//포인트 지급 등록 처리
+	@PostMapping("/addSavePoint")
+	public String addSavePoint(PointSave pointSave, RedirectAttributes reAttr) {
 		
-		return "admin/point/pointSaveAdd";
+		int result = pointService.addPointSave(pointSave);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "포인트 지급 등록에 실패하였습니다.");
+			return "redirect:/admin/addSavePoint";
+		}
+		reAttr.addAttribute("msg", "포인트 지급 등록에 성공하였습니다.");
+		
+		return "redirect:/admin/listPoint";
+	}
+	
+	//포인트 지급 등록 페이지
+	@GetMapping("/addSavePoint")
+	public String addSavePoint(Model model
+							  ,@RequestParam(value="msg", required = false) String msg) {
+		
+		List<String> pointStandardSaveAmountList = pointMapper.getPointStandardSaveAmountList();
+		
+		model.addAttribute("title", "포인트 지급 등록");
+		model.addAttribute("pageTitle", "포인트 지급 등록");
+		model.addAttribute("pointStandardSaveAmountList", pointStandardSaveAmountList);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		
+		return "admin/point/pointAddSave";
 	}
 	@GetMapping("/addMinusPoint")
 	public String addMinusPoint() {
 		
-		return "admin/point/pointMinusAdd";
+		return "admin/point/pointAddMinus";
 	}
 	
 	//포인트 지급/차감 총 조회 페이지
@@ -167,12 +193,12 @@ public class PointController {
 	@GetMapping("/modifySavePoint")
 	public String modifySavePoint() {
 		
-		return "admin/point/pointSaveModify";
+		return "admin/point/pointModifySave";
 	}
 	@GetMapping("/modifyMinusPoint")
 	public String modifyMinusPoint() {
 		
-		return "admin/point/pointMinusModify";
+		return "admin/point/pointModifyMinus";
 	}
 	@GetMapping("/deletePoint")
 	public String deletePoint() {

@@ -128,7 +128,7 @@
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			$cancelBtn.addEventListener('click', function(){
-				location.href = '/admin/listDonation';
+				location.href = '/admin/listBasket';
 			});
 			
 			$resetBtn.addEventListener('click', function(){
@@ -160,7 +160,6 @@
 			$basketAmount.addEventListener('input', function(){
 				let eachPaymentAmount = $goodsPrice.value * $basketAmount.value;
 				$eachPaymentAmount.value = eachPaymentAmount;
-				console.log('값 변경');
 			})
 			
 			
