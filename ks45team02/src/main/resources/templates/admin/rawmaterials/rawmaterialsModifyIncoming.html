@@ -40,8 +40,8 @@
 						<label for="rawMaterialsStatus" class="col-form-label col-md-3 col-sm-3 label-align">상태</label>
 						<div class="col-md-6 col-sm-6 ">
 							<select id="rawMaterialsStatus" name="rawMaterialsStatus" class="form-control" th:value="*{rawMaterialsStatus}">
-								<option value="정상">정상</option>
-								<option value="폐기">폐기</option>
+								<option value="정상" th:selected="*{rawMaterialsStatus} == '정상'">정상</option>
+								<option value="폐기" th:selected="*{rawMaterialsStatus} == '폐기'">폐기</option>
 							</select>
 						</div>			
 					</div>
@@ -99,6 +99,7 @@
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
 			const $submitBtn = document.getElementById('submitBtn');
+			const $InputRawMaterialsStatus = document.getElementById('rawMaterialsStatus');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			$cancelBtn.addEventListener('click', function(){
@@ -125,6 +126,11 @@
 					alert('값을 전부 입력해주세요.');
 				}
 			});
+			$InputRawMaterialsStatus.addEventListener('change', function(){
+				const $InputdonationPointGroup = document.getElementById('donationPointGroup');
+				$InputdonationPointGroup.value = '자동으로 처리됩니다.';
+				$InputdonationPointGroup.readOnly = true; 
+			})
 			
 			const msg = [[${msg}]];
 			if(msg != null){

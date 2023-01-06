@@ -33,8 +33,8 @@
 											<th class="eachPaymentAmount">결제예정합계</th>
 											<th class="regDate">등록일자</th>
 											<th class="basketState">상태</th>
+											<th class="basketDeleteState">장바구니 삭제 여부</th>
 											<th>수정</th>
-											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -50,8 +50,8 @@
 											<td th:text="${l.eachPaymentAmount}"></td>
 											<td th:text="${l.regDate}"></td>
 											<td th:text="${l.basketState}"></td>
+											<td th:text="${l.basketDeleteState}"></td>
 											<td><a th:href="@{/admin/modifyBasket(basketCode=${l.basketCode})}">수정</a></td>
-											<td><a th:href="@{/admin/deleteBasket(basketCode=${l.basketCode})}">삭제</a></td>
 										</tr>
 										<tr th:if="${#lists.isEmpty(basketList)}">
 											<td colspan="13">등록된 장바구니가 존재하지 않습니다.</td>

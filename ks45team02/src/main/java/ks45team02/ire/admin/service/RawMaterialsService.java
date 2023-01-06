@@ -1,10 +1,12 @@
 package ks45team02.ire.admin.service;
 
 import java.util.List;
+
+import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.DonationMapper;
-import ks45team02.ire.admin.mapper.PointSaveStandardMapper;
+import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +18,13 @@ public class RawMaterialsService {
 
 	private final RawMaterialsMapper rawmaterialsMapper ;
 	private final DonationMapper donationMapper ;
-	private final PointSaveStandardMapper pointSaveStandardMapper ;
+	private final PointMapper pointMapper ;
 	
 	public int result;
-	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointSaveStandardMapper pointSaveStandardMapper) {
+	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointMapper pointMapper) {
 		this.rawmaterialsMapper = rawmaterialsMapper;
 		this.donationMapper = donationMapper;
-		this.pointSaveStandardMapper = pointSaveStandardMapper;
+		this.pointMapper = pointMapper;
 	}
 	
 	
@@ -60,11 +62,13 @@ public class RawMaterialsService {
 		
 		switch(rawMaterialsStatus) {
 		case "정상" 
-			: 	int pointSave = pointSaveStandardMapper.getPointSave("point_save_standard_004");
+			: 	PointSaveStandard pointSaveStandardInfo = pointMapper.getPointSaveStandardInfo("point_save_standard_004");
+				int pointSave = pointSaveStandardInfo.getPointSave();
 				rawMaterialsIncoming.setDonationPointSave(pointSave);
 			break;
 		case "폐기" 
 			: rawMaterialsIncoming.setDonationPointSave(0);
+			  rawMaterialsIncoming.setDonationPointGroup(null);
 			break;
 		}
 		
@@ -92,7 +96,8 @@ public class RawMaterialsService {
 		
 		switch(rawMaterialsStatus) {
 		case "정상" 
-			: 	int pointSave = pointSaveStandardMapper.getPointSave("point_save_standard_004");
+			: 	PointSaveStandard pointSaveStandardInfo = pointMapper.getPointSaveStandardInfo("point_save_standard_004");
+				int pointSave = pointSaveStandardInfo.getPointSave();
 				rawMaterialsIncoming.setDonationPointSave(pointSave);
 			break;
 		case "폐기" 

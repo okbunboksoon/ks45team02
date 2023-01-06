@@ -103,6 +103,15 @@
 							</select>
 						</div>			
 					</div>
+					<div class="item form-group">
+						<label for="basketDeleteState" class="col-form-label col-md-3 col-sm-3 label-align">장바구니 삭제 여부</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="basketDeleteState" name="basketDeleteState"class="form-control" >
+								<option value="N" th:selected="*{basketDeleteState} == 'N'">N</option>
+								<option value="Y" th:selected="*{basketDeleteState} == 'Y'">Y</option>
+							</select>
+						</div>			
+					</div>
 					
 					<div class="item form-group">
 						<div class="col-md-6 col-sm-6 offset-md-3">
