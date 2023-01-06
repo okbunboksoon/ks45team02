@@ -82,7 +82,9 @@
                                 <label for="businessManagerName" class="col-form-label col-md-3 col-sm-3 label-align">거래처담당자</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" id="businessManagerName" name="businessManagerName"
-                                           placeholder="거래처담당자를 입력해주세요." class="form-control"/>
+                                           placeholder="거래처 담당자이름을 입력해주세요" class="form-control">
+
+                                    </input>
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -93,10 +95,17 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">작성자아이디</label>
+                                <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">담당자아이디</label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="userId" name="userId"
-                                           placeholder="작성자아이디를 입력해주세요." class="form-control"/>
+                                    <select id="userId" name="userId" class="form-control">
+                                        <th:block th:if="${not #lists.isEmpty(userList)}"
+                                                  th:each="u : ${userList}">
+                                            <option th:value="${u.userId}">[[${u.userId}]]</option>
+                                        </th:block>
+                                        <th:block th:unless="${not #lists.isEmpty(userList)}">
+                                            <option>등록된 담당자 아이디가 없습니다.</option>
+                                        </th:block>
+                                    </select>
                                 </div>
                             </div>
                             <div class="item form-group">
