@@ -30,6 +30,7 @@
 											<th class="pointDate">포인트 지급/차감 날짜</th>
 											<th class="pointReason">포인트 지급/차감 사유</th>
 											<th class="pointGroup">포인트 그룹코드</th>
+											<th class="pointDeleteState">포인트 삭제 여부</th>
 											<th>수정</th>
 										</tr>
 									</thead>
@@ -43,6 +44,7 @@
 											<td th:text="${l.pointDate}"></td>
 											<td th:text="${l.pointReason}"></td>
 											<td th:text="${l.pointGroup}"></td>
+											<td th:text="${l.pointDeleteState}"></td>
 											<td>
 												<a th:if="${l.pointSaveOrMinus} == '지급'"
 												   th:href="@{/admin/modifySavePoint(pointSaveCode=${l.pointCode})}">수정</a>

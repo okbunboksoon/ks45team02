@@ -9,6 +9,116 @@
 		<result property="pointSaveStandardDetail" 	column="point_save_standard_detail" />
 		<result property="pointSave" 				column="point_save" />
 	</resultMap>
+	<resultMap type="PointSave" id="pointSaveResultMap">
+		<id property="pointSaveCode" 				column="point_save_code" />
+		<result property="userId" 					column="user_id"/>
+		<result property="pointSave"				column="point_save"/>
+		<result property="pointState" 				column="point_state"/>
+		<result property="pointSaveDate"			column="point_save_date"/>
+		<result property="pointSaveReason" 			column="point_save_reason"/>
+		<result property="pointSaveGroup" 			column="point_save_group"/>
+		<result property="pointSaveDeleteState" 	column="point_save_delete_state"/>
+	</resultMap>
+	
+	<insert id="addPointMinus" parameterType="PointMinus">
+		<!-- 포인트 차감 등록 -->
+		INSERT INTO point_minus(
+			 point_minus_code
+			,user_id
+			,point_minus
+			,point_state
+			,point_minus_date
+			,point_minus_reason
+			,point_minus_group
+			,point_minus_delete_state
+		)VALUES(
+			 sf_new_point_minus_code()
+			,#{userId}
+			,#{pointMinus}
+			,#{pointState}
+			,#{pointMinusDate}
+			,#{pointMinusReason}
+			,sf_new_point_group_code(#{pointMinusGroup})
+			,#{pointMinusDeleteState}
+		);
+	</insert>
+	
+	<update id="modifyPointSave" parameterType="PointSave">
+		<!-- 포인트 지급 수정 -->
+		UPDATE 
+			point_save
+		SET 
+			 user_id = #{userId}
+			,point_save = #{pointSave}
+			,point_state = #{pointState}
+			,point_save_date = #{pointSaveDate}
+			,point_save_reason = #{pointSaveReason}
+			,point_save_group = #{pointSaveGroup}
+			,point_save_delete_state = #{pointSaveDeleteState}
+		WHERE 
+			point_save_code = #{pointSaveCode};
+	</update>
+	
+	<select id="getPointSaveInfo" parameterType="String" resultMap="pointSaveResultMap">
+		<!-- 포인트 지급 코드로 포인트 지급 조회 -->
+		SELECT 
+			 point_save_code
+			,user_id
+			,point_save
+			,point_state
+			,point_save_date
+			,point_save_reason
+			,point_save_group
+			,point_save_delete_state
+		FROM 
+			point_save
+		WHERE 
+			point_save_code = #{pointSaveCode};
+	</select>
+	
+	<update id="modifyUserPointState" parameterType="User">
+		<!-- 회원 포인트 금액 수정 -->
+		UPDATE 
+			user 
+		SET 
+			point_state = #{pointState}
+		WHERE 
+			user_id = #{userId};
+	</update>
+	
+	<select id="getPointStandardSaveAmountList" resultType="String">
+		<!-- 포인트 지급 기준 금액들 조회 -->
+		SELECT 
+			point_save
+		FROM 
+			point_save_standard;
+	</select>
+	
+	<insert id="addPointSave" parameterType="PointSave">
+		<!-- 포인트 지급 등록 -->
+		INSERT INTO point_save(
+			 point_save_code
+			,user_id
+			,point_save
+			,point_state
+			,point_save_date
+			,point_save_reason
+			,point_save_group
+		)VALUES(
+		 	 sf_new_point_save_code()
+			,#{userId}
+			,#{pointSave}
+			,#{pointState}
+			,#{pointSaveDate}
+			,#{pointSaveReason}
+			<if test="pointSaveGroup != null">
+				,sf_new_point_group_code(#{pointSaveGroup})
+			</if>
+			<if test="pointSaveGroup == null">
+				,null
+			</if>
+		);
+	</insert>
 	
 	<select id="getPointSaveAndMinusList" resultType="PointSaveAndMinus">
 		<!-- 포인트 적립/차감 총 조회 -->
@@ -21,6 +131,7 @@
 			,point_minus_reason AS pointReason
 			,point_minus_group AS pointGroup
 			,'차감' AS pointSaveOrMinus
+			,point_minus_delete_state AS pointDeleteState
 		FROM 
 			point_minus AS pm
 		UNION 
@@ -33,6 +144,7 @@
 			,point_save_reason AS pointReason
 			,point_save_group AS pointGroup
 			,'지급' AS pointSaveOrMinus
+			,point_save_delete_state AS pointDeleteState
 		FROM 
 			point_save AS ps
 		ORDER BY pointDate;
