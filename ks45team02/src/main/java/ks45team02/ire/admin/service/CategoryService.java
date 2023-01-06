@@ -75,7 +75,7 @@ public class CategoryService {
 	/**
 	 * 카테고리 대 특정코드 조회
 	 * @param categoryBigCode
-	 * @return BingCategoryInfo
+	 * @return BigCategoryInfo
 	 */
 	public List<CategoryBig> getBigCategoryByCode(String categoryBigCode){
 		

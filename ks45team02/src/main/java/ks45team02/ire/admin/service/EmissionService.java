@@ -43,4 +43,41 @@ public class EmissionService {
 		
 		return emissionMapper.addRawMaterialsEmission(rawMaterialsEmission);
 	}
+	
+	/**
+	 * 기부받은 의류 CO2 기준 수정
+	 * @param RawMaterialsEmission
+	 * @return emissionMapper.modifyRawMaterialsEmission(rawMaterialsEmission)
+	 */
+	public int modifyRawMaterialsEmission(RawMaterialsEmission rawMaterialsEmission) {
+		
+		return emissionMapper.modifyRawMaterialsEmission(rawMaterialsEmission);
+	}
+	
+	/**
+	 * 기부받은 의류 CO2 기준 
+	 * @param raw_materials_co2_code
+	 * @return RawMaterialsInfo
+	 */ 
+	public List<RawMaterialsEmission> getRawMaterialsCO2Code(String raw_materials_co2_code){
+		List<RawMaterialsEmission> RawMaterialsEmissionInfo = emissionMapper.getRawMaterialsCO2Code(raw_materials_co2_code);
+		return RawMaterialsEmissionInfo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

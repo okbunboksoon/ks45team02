@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
+import ks45team02.ire.admin.mapper.EmissionMapper;
 import ks45team02.ire.admin.service.EmissionService;
 
 
@@ -60,18 +62,46 @@ public class EmissionController {
 		return "redirect:/admin/listRawMaterialsEmission";
 	}
 	
-	
+	/**
+	 * 기부받은 의류 CO2 기준 수정화면
+	 * @param rawMaterialsEmission model
+	 * @return admin/rawMaterialsModify
+	 */
 	@GetMapping("/modifyRawMaterialsEmission")
-	public String modifyRawMaterialsEmission() {
+	public String modifyRawMaterialsEmission(@RequestParam(value= "raw_materials_co2_code") String raw_materials_co2_code, Model model) {
 		
+		
+		List<RawMaterialsEmission> modifyRawMaterialsEmission = emissionService.getRawMaterialsCO2Code(raw_materials_co2_code);
+		model.addAttribute("title", "기부받은 의류 CO2 기준 수정");
+		model.addAttribute("modifyRawMaterialsEmission", modifyRawMaterialsEmission);
+
+		log.info("modifyRawMaterialsEmission: {}" ,modifyRawMaterialsEmission);
 		return "admin/emission/emissionModifyRawMaterials";
 	}
+	
+	/**
+	 * 기부받은 의류 CO2 기준 수정 처리
+	 * @param rawMaterialsEmission
+	 * @return redirect:/admin/listRawMaterialsEmission
+	 */
+	@PostMapping("/modifyRawMaterialsEmission")
+	public String modifyRawMaterialsEmission(RawMaterialsEmission rawMaterialsEmission) {
+		
+		emissionService.modifyRawMaterialsEmission(rawMaterialsEmission);
+		
+		return "redirect:/admin/listRawMaterialsEmission";
+	}
+	
+	
 	
 	@GetMapping("/deleteRawMaterialsEmission")
 	public String deleteRawMaterialsEmission() {
 		
 		return "admin/emission/emissionDeleteRawMaterials";
 	}
+	
+
+	
 	
 	/**
 	 * 기부받은 의류 CO2 기준 조회
