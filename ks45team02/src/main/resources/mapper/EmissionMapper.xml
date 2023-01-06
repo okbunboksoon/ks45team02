@@ -4,17 +4,22 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.EmissionMapper">
 
-	<resultMap id="RawMaterialsEmissionResultMap" type="Emission">
+	<resultMap id="RawMaterialsEmissionResultMap" type="RawMaterialsEmission">
         <id property="raw_materials_co2_code"			column="raw_materials_co2_code" />
         <result property="raw_materials_category"			column="raw_materials_category" />
         <result property="raw_materials_size"		column="raw_materials_size" />
         <result property="carbon_dioxide_emission_level"		column="carbon_dioxide_emission_level" />
     </resultMap>
     
+    <resultMap id="GoodsEmissionResultMap" type="GoodsEmission">
+        <id property="fabric"			column="fabric" />
+        <result property="carbon_dioxide_emission_level"			column="carbon_dioxide_emission_level" />
+        <result property="upcycling_carbon_dioxide_emission_level"		column="upcycling_carbon_dioxide_emission_level" />
+    </resultMap>
     
     <!-- 기부받은 의류별 CO2 기준 리스트 -->
     <select id="RawMaterialsEmissionList" resultMap="RawMaterialsEmissionResultMap">
-		SELECT
+	SELECT
 		rme.raw_materials_co2_code
 		,rme.raw_materials_category
 		,rme.raw_materials_size
@@ -70,5 +75,16 @@
 		WHERE
 			rme.raw_materials_co2_code = #{raw_materials_co2_code};
 	</select>
+
     
+    <!-- 원단별 탄소 배출량 기준 리스트  -->
+    <select id="GoodsEmissionList" resultMap="GoodsEmissionResultMap">
+		SELECT
+			ge.fabric
+			,ge.carbon_dioxide_emission_level
+			,ge.upcycling_carbon_dioxide_emission_level
+		FROM
+			goods_emission AS ge
+    
+    </select>
 </mapper>
