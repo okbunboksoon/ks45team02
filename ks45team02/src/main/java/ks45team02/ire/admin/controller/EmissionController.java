@@ -1,5 +1,6 @@
 package ks45team02.ire.admin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ks45team02.ire.admin.dto.GoodsEmission;
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
-import ks45team02.ire.admin.mapper.EmissionMapper;
 import ks45team02.ire.admin.service.EmissionService;
 
 
@@ -145,7 +145,7 @@ public class EmissionController {
 	 * 원단별 탄소배출량 기준 등록 처리
 	 * @return
 	 */
-	@PostMapping("")
+//	@PostMapping("")
 	
 	
 	/**
@@ -168,9 +168,10 @@ public class EmissionController {
 	public String listGoodsEmission(Model model) {
 		
 		List<GoodsEmission> goodsEmissionList = emissionService.getGoodsEmissionList();
-		log.info("goodsEmissionList: {}", goodsEmissionList);
+		log.info("goodsEmissionList1111111111: {}", goodsEmissionList);
 		model.addAttribute("goodsEmissionList", goodsEmissionList);
 		model.addAttribute("title", "원단별 탄소 배출량 기준 리스트");
+		
 		return "admin/emission/emissionGoodsList";
 	}
 		
