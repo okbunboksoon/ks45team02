@@ -38,13 +38,11 @@ public interface EmissionMapper {
 	 */
 	public List<GoodsEmission> GoodsEmissionList();
 	
-	/**
-	 * 상품 원단 비율 firstFabric
-	 */
-	public double getFirstFabric(String resultFirstFabric);
 	
 	/**
-	 * 상품 원단 비율 LastFabric
+	 * 원단별 탄소배출량 기준 등록
 	 */
-	public double getLastFabric(String resultLastFabric);
+	public int addGoodsEmission(GoodsEmission goodsEmission);
+	
+	
 }

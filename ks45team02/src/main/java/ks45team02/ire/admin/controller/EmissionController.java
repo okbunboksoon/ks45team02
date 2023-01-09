@@ -125,22 +125,33 @@ public class EmissionController {
 	
 /**
  * 	
- * 여기서부터 원단별 CO2 
+ * ************************* 여기서부터 원단별 CO2 ***********************************************************
  *
  */
 	
+	
+	/**
+	 * 원단별 탄소 배출량 기준 등록 화면
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/addGoodsEmission")
 	public String addGoodsEmission(Model model) {
 		
 		return "admin/emission/emissionGoodsAdd";
 	}
-		
-	@GetMapping("/deleteGoodsEmission")
-	public String deleteGoodsEmission() {
-		
-		return "admin/emission/emissionGoodsDelete";
-	}
 	
+	/**
+	 * 원단별 탄소배출량 기준 등록 처리
+	 * @return
+	 */
+	@PostMapping("")
+	
+	
+	/**
+	 * 원단별 탄소배출량 기준 수정 
+	 * @return
+	 */
 	@GetMapping("/modifyGoodsEmission")
 	public String modifyGoodsEmission() {
 		
@@ -163,6 +174,14 @@ public class EmissionController {
 		return "admin/emission/emissionGoodsList";
 	}
 		
+	
+	@GetMapping("/deleteGoodsEmission")
+	public String deleteGoodsEmission() {
+		
+		return "admin/emission/emissionGoodsDelete";
+	}
+	
+	
 	@GetMapping("/listEmissionC02Total")
 	public String listEmissionC02Total() {
 		
