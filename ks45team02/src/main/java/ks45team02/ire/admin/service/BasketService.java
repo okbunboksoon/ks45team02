@@ -31,6 +31,31 @@ public class BasketService {
 	}
 	
 	/**
+	 * 결제 전인 장바구니 검색
+	 * @param searchKey
+	 * @param searchValue
+	 * @return List<Baskset>
+	 */
+	public List<Basket> getBasketListBeforePayment(String searchKey, String searchValue){
+	
+		switch(searchKey) {
+			case "basketCode"
+				: searchKey = "basket_code";
+				break;
+			case "basketGroup"
+				: searchKey = "basket_group";
+				break;
+			case "userId"
+				: searchKey = "user_id";
+				break;
+		}
+		
+		List<Basket> basketListBeforePayment = basketMapper.getBasketListBeforePayment(searchKey, searchValue);
+		
+		return basketListBeforePayment;
+	}
+	
+	/**
 	 * 장바구니 삭제
 	 * @param basketCode
 	 * @return int
@@ -53,8 +78,9 @@ public class BasketService {
 		int result = 0;
 		
 		int idCheck = userMapper.idCheck(basket.getUserId());
+		int basketGroupCheck = basketMapper.checkBasketGroup(basket.getBasketGroup());
 		
-		if(idCheck == 0) {
+		if(idCheck == 0 || basketGroupCheck > 0) {
 			return result;
 		}
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
@@ -74,8 +100,9 @@ public class BasketService {
 		
 		int result = 0;
 		int idCheck = userMapper.idCheck(basket.getUserId());
+		int basketGroupCheck = basketMapper.checkBasketGroup(basket.getBasketGroup());
 		
-		if(idCheck == 0) {
+		if(idCheck == 0 || basketGroupCheck > 0) {
 			return result;
 		}
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());

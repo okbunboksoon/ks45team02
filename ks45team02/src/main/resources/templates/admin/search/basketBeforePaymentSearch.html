@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" th:href="@{/admin/images/favicon.ico}" type="image/ico" />
+
+    <title th:text="${title}"></title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/admin/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/admin/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/admin/vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{/admin/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{/admin/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{/admin/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/admin/build/css/custom.min.css}" rel="stylesheet">
+    
+    <!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+ </head>
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div id="wrapper">
+				
+				<!-- search start -->
+					<div class="col-md-12 col-sm-12 ">
+						<div class="x_panel">
+							<form th:action="@{/admin/basketBeforePaymentSearch}" method="get">
+								<div class="title_right">
+									<div class="row">
+										<div class="input-group">
+											<select name="searchKey" class="form-control">
+												<option value="basketCode">장바구니 코드</option>
+												<option value=basketGroup>장바구니 그룹</option>
+												<option value="userId">회원 아이디</option>
+											</select>
+											<input type="text" class="form-control" name="searchValue">
+											<span class="input-group-btn">
+												<button type="submit" class="btn btn-secondary">검색</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</form>			
+							<div class="x_content">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="card-box table-responsive">
+											<table id="listGoods" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+												<thead>
+													<tr>
+														<th>장바구니 코드</th>
+														<th>장바구니 그룹</th>
+														<th>회원 아이디</th>
+														<th>상품 코드</th>
+														<th>상품 이름</th>
+														<th>카테고리(중)</th>
+														<th>상품 가격</th>
+														<th>수량</th>
+														<th>합계</th>
+														<th>장바구니 상태</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:unless="${#lists.isEmpty(basketBeforePaymentList)}" th:each="l: ${basketBeforePaymentList}">
+														<td th:text="${l.basketCode}"></td>
+														<td th:text="${l.basketGroup}"></td>
+														<td th:text="${l.userId}"></td>
+														<td th:text="${l.goodsCode}"></td>
+														<td th:text="${l.goodsName}"></td>
+														<td th:text="${l.categoryMediumName}"></td>
+														<td th:text="${l.goodsPrice}"></td>
+														<td th:text="${l.basketAmount}"></td>
+														<td th:text="${l.eachPaymentAmount}"></td>
+														<td th:text="${l.basketState}"></td>
+														<td>
+															<button type="button" class="btn btn-info btn-sm" id="selectBtn">선택</button>
+														</td>
+													</tr>
+													<tr th:if="${#lists.isEmpty(basketBeforePaymentList)}">
+														<td colspan="10">등록된 상품이 존재하지 않습니다.</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				<!-- search end -->
+				
+				
+				
+			</div>
+		</div>
+	</div>
+
+
+
+	
+	<!-- 사용자 지정 js script -->
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const $selectBtns = document.querySelectorAll('#selectBtn');
+			let basketAmount = 0;
+			for (const selectBtn of $selectBtns) {
+				selectBtn.addEventListener('click', function() {
+					let goodsInfoTdArr = selectBtn.parentElement.parentElement.children;
+					let goodsInfoArr = [];
+					for(item of goodsInfoTdArr){
+						goodsInfoArr.push(item.innerText);
+					}
+					console.log(goodsInfoArr);
+					opener.document.getElementById("goodsCode").value = goodsInfoArr[0];
+					opener.document.getElementById("goodsName").value = goodsInfoArr[1];
+					opener.document.getElementById("categoryMediumName").value = goodsInfoArr[2];
+					opener.document.getElementById("goodsPrice").value = goodsInfoArr[3];
+					
+					const amount = opener.document.getElementById("amount").value;
+					opener.document.getElementById("paymentAmount").value = goodsInfoArr[3] * amount;
+					
+					try{
+						const usePoint = opener.document.getElementById("usePoint").value;
+						opener.document.getElementById("finalPaymentAmount").value = goodsInfoArr[3] * amount - usePoint;
+					}catch(error){
+						window.close();
+					}finally{
+						window.close();
+					}
+				  })
+				}
+
+
+
+			
+		</script>
+
+	</th:block>
+</body>
+</html>

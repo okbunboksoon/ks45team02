@@ -1,5 +1,7 @@
 package ks45team02.ire.admin.dto;
 
+import java.util.List;
+
 public class Buybasket {
 	
 	private String basketGroup;
@@ -9,7 +11,7 @@ public class Buybasket {
 	private int finalPaymentAmount;
 	private String regDate;
 	
-	private Basket basketList;
+	private List<Basket> basketList;
 
 	public String getBasketGroup() {
 		return basketGroup;
@@ -59,11 +61,11 @@ public class Buybasket {
 		this.regDate = regDate;
 	}
 
-	public Basket getBasketList() {
+	public List<Basket> getBasketList() {
 		return basketList;
 	}
 
-	public void setBasketList(Basket basketList) {
+	public void setBasketList(List<Basket> basketList) {
 		this.basketList = basketList;
 	}
 
@@ -88,7 +90,6 @@ public class Buybasket {
 		return builder.toString();
 	}
 
-	
 	
 	
 	

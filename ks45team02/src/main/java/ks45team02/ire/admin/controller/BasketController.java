@@ -32,6 +32,20 @@ public class BasketController {
 		this.basketService = basketService;
 	}
 	
+	//결제 전인 장바구니 검색
+	@GetMapping("/basketBeforePaymentSearch")
+	public String basketBeforePaymentSearch(Model model
+										   ,@RequestParam(value="searchKey", required = false) String searchKey
+										   ,@RequestParam(value="searchValue", required = false) String searchValue) {
+		
+		List<Basket> basketBeforePaymentList = basketService.getBasketListBeforePayment(searchKey, searchValue);
+		
+		model.addAttribute("title", "결제 전인 장바구니 검색");
+		model.addAttribute("basketBeforePaymentList", basketBeforePaymentList);
+		
+		return "admin/search/basketBeforePaymentSearch";
+	}
+	
 	//장바구니 등록 처리
 	@PostMapping("/addBasket")
 	public String addBasket(Basket basket, RedirectAttributes reAttr) {

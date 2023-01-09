@@ -10,7 +10,7 @@
 		<result property="usePoint" 			column="use_point" />
 		<result property="finalPaymentAmount" 	column="final_payment_amount" />
 		<result property="regDate"				column="reg_date" />
-		<collection property="basketList" javaType="list" ofType="Basket">
+		<collection property="basketList" javaType="List" ofType="Basket">
 			<id property="basketCode" column="basket_code"/>
 			<result property="goodsCode" column="goods_code" />
 			<result property="goodsName" column="goods_name" />
@@ -19,7 +19,28 @@
 		</collection>
 	</resultMap>
 	
-	
+	<select id="getBuybasketList" resultMap="buybasketResultMap">
+		<!-- 장바구니 구매 조회 -->
+		SELECT 
+			 bb.basket_group
+			,b.basket_code
+			,bb.user_id
+			,b.goods_code
+			,b.goods_name
+			,b.basket_amount
+			,b.each_payment_amount
+			,bb.expected_amount
+			,bb.use_point
+			,bb.final_payment_amount
+			,bb.reg_date	
+		FROM 
+			buybasket AS bb
+			INNER JOIN 
+			basket AS b
+			ON 
+			bb.basket_group = b.basket_group
+		ORDER BY bb.basket_group;
+	</select>
 	
 	
 	
