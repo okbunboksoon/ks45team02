@@ -110,10 +110,21 @@
 			goods_emission AS ge
     
     </select>
+
     
- 
-    
-    
+    <!-- 원단별 탄소 배출량 기준 등록 -->
+    <insert id="addGoodsEmission" parameterType="GoodsEmission">
+    INSERT INTO
+	goods_emission(
+	fabric
+	,carbon_dioxide_emission_level
+	,upcycling_carbon_dioxide_emission_level
+	)VALUES (
+		#{fabric}
+		,#{carbon_dioxide_emission_level}
+		,#{upcycling_carbon_dioxide_emission_level}
+	);
+    </insert>
     
     
     

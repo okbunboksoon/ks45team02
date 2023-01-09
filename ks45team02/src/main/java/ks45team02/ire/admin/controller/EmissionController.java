@@ -54,7 +54,7 @@ public class EmissionController {
 	 * @param RawMaterialsEmission
 	 * @return redirect:/admin/listRawMaterialsEmission
 	 */
-	@PostMapping("addRawMaterialsEmission")
+	@PostMapping("/addRawMaterialsEmission")
 	public String addRawMaterialsEmission(RawMaterialsEmission rawMaterialsEmission) {
 		
 		log.info("기부받은 의류 CO2 기준 입력 정보: {]" , rawMaterialsEmission);
@@ -129,23 +129,36 @@ public class EmissionController {
  *
  */
 	
-	
 	/**
 	 * 원단별 탄소 배출량 기준 등록 화면
 	 * @param model
-	 * @return
+	 * @return admin/emission/AddGoodsEmission
 	 */
 	@GetMapping("/addGoodsEmission")
 	public String addGoodsEmission(Model model) {
 		
+		List<GoodsEmission> listGoodsEmission = emissionService.getGoodsEmissionList();
+		log.info("원단별 탄소 배출량 기준 : {}", listGoodsEmission);
+		model.addAttribute("title", "원단별 탄소 배출량 기준 등록");
+		model.addAttribute("listGoodsEmission" , listGoodsEmission);
+		
 		return "admin/emission/emissionGoodsAdd";
 	}
 	
+	
 	/**
 	 * 원단별 탄소배출량 기준 등록 처리
-	 * @return
+	 * @param GoodsEmission
+	 * @return redirect:/admin/listGoodsEmission
 	 */
-	@PostMapping("")
+	@PostMapping("/addGoodsEmission")
+	public String addGoodsEmission(GoodsEmission goodsEmission) {
+		
+		log.info("원단별 탄소배출량 기준 입력 정보 : {}", goodsEmission);
+		emissionService.addGoodsEmission(goodsEmission);
+		
+		return "redirect:/admin/listGoodsEmission";
+	}
 	
 	
 	/**
