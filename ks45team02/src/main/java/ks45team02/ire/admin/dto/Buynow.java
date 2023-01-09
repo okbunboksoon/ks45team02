@@ -13,6 +13,8 @@ public class Buynow {
 	private String usePoint;
 	private String finalPaymentAmount;
 	private String regDate;
+	private String buynowDeleteState;
+	
 	public String getBuynowCode() {
 		return buynowCode;
 	}
@@ -85,6 +87,12 @@ public class Buynow {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	public String getBuynowDeleteState() {
+		return buynowDeleteState;
+	}
+	public void setBuynowDeleteState(String buynowDeleteState) {
+		this.buynowDeleteState = buynowDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -112,8 +120,12 @@ public class Buynow {
 		builder.append(finalPaymentAmount);
 		builder.append(", regDate=");
 		builder.append(regDate);
+		builder.append(", buynowDeleteState=");
+		builder.append(buynowDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 }
 
