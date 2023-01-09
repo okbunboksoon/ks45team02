@@ -17,12 +17,12 @@
 </th:block>
 <th:block layout:fragment="customScript">
     <script>
-        $(function (){ //window.onload(요소가 다 렌더링이 되고 나서 실행)
+        $(function (){
             $('#submitBtn').click(function (){
                 let isSubmint =true;
                 $('#addIncoming input').each(function (idx,item){
                     let checkValue = $(item).val();
-                    let labelValue = $(item).parents('tr').find('label').text();
+                    let labelValue = $(item).parents('div').find('label').text();
                     if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
                         alert(`${labelValue}를 입력해 주세여`);
                         $(item).focus();

@@ -11,6 +11,20 @@
         <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
         <result property="totalCo2" column="total_co2"/>
     </resultMap>
+
+    <select id="getInfoByIncoming" resultMap="IncomingResultMap">
+        SELECT
+            incoming_code,
+            goods_code,
+            incoming_amount,
+            incoming_date,
+            upcycling_carbon_dioxide_emission_level,
+            total_co2
+        FROM
+            incoming
+        WHERE
+        incoming_code=#{incomingCode}
+    </select>
     <insert id="addIncoming" parameterType="Incoming">
         INSERT INTO incoming
         (incoming_code,
