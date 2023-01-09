@@ -37,4 +37,14 @@ public interface EmissionMapper {
 	 * 원단별 탄소배출량 기준 리스트
 	 */
 	public List<GoodsEmission> GoodsEmissionList();
+	
+	/**
+	 * 상품 원단 비율 firstFabric
+	 */
+	public double getFirstFabric(String resultFirstFabric);
+	
+	/**
+	 * 상품 원단 비율 LastFabric
+	 */
+	public double getLastFabric(String resultLastFabric);
 }

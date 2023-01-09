@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.CategoryBig;
 import ks45team02.ire.admin.dto.CategoryMedium;
@@ -39,13 +40,17 @@ public class CategoryController {
 	 * @return admin/category/categoryBigAdd
 	 */
 	@GetMapping("/addCategory")
-	public String addCategory(Model model) {
+	public String addCategory(Model model
+							 ,@RequestParam(value="msg", required=false) String msg) {
 		
 		List<CategoryBig> listAllCategory = categoryService.getListBigCategory();
-		log.info("카테고리 전체 조회 : {}", listAllCategory);
 		model.addAttribute("title", "카테고리 등록");
 		model.addAttribute("pageTitle", "카테고리 등록");
 		model.addAttribute("listAllCategory", listAllCategory);
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/category/categoryBigAdd";
 	}
@@ -56,10 +61,18 @@ public class CategoryController {
 	 * @return redirect:/admin/listCategory
 	 */
 	@PostMapping("/addCategoryBig")
-	public String addCategoryBig(CategoryBig categoryBig) {
+	public String addCategoryBig(CategoryBig categoryBig
+								,RedirectAttributes reAttr) {
 		
 		log.info("카테고리 대 입력 정보 : {}", categoryBig);
-		categoryService.addCategoryBig(categoryBig);
+		int result = categoryService.addCategoryBig(categoryBig);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "카테고리 등록에 실패하였습니다.");
+			return "redirect:/admin/addCategory";
+		}else{                                                                                                                                                                                                                                                                                                                                                             
+			reAttr.addAttribute("msg", "카테고리 등록에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listBigCategory";
 	}
@@ -70,10 +83,18 @@ public class CategoryController {
 	 * @return redirect:/admin/listCategory
 	 */
 	@PostMapping("/addCategoryMedium")
-	public String addCategoryMedium(CategoryMedium categoryMedium) {
+	public String addCategoryMedium(CategoryMedium categoryMedium
+									,RedirectAttributes reAttr) {
 		
 		log.info("카테고리 중 입력 정보 : {}", categoryMedium);
-		categoryService.addCategoryMedium(categoryMedium);
+		int result = categoryService.addCategoryMedium(categoryMedium);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "카테고리 등록에 실패하였습니다.");
+			return "redirect:/admin/addCategory";
+		}else{                                                                                                                                                                                                                                                                                                                                                             
+			reAttr.addAttribute("msg", "카테고리 등록에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listMideumCategory";
 	}
@@ -84,13 +105,18 @@ public class CategoryController {
 	 * @return admin/category/categoryBigModify
 	 */
 	@GetMapping("/modifyBigCategory")
-	public String modifyBigCategory(@RequestParam(value = "categoryBigCode")String categoryBigCode, Model model) {
+	public String modifyBigCategory(@RequestParam(value = "categoryBigCode")String categoryBigCode
+								   ,@RequestParam(value="msg", required=false) String msg, Model model) {
 		
 		List<CategoryBig> BigCategoryInfo = categoryService.getBigCategoryByCode(categoryBigCode);
 		model.addAttribute("title", "카테고리 대 수정");
 		model.addAttribute("pageTitle", "카테고리 대 수정");
 		model.addAttribute("BigCategoryInfo", BigCategoryInfo);
 		log.info("categoryMediumCode : {}", BigCategoryInfo);
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/category/categoryBigModify";
 	}
@@ -101,7 +127,8 @@ public class CategoryController {
 	 * @return admin/category/categoryBigModify
 	 */
 	@GetMapping("/modifyMediumCategory")
-	public String modifyMediumCategory(@RequestParam(value = "categoryMediumCode")String categoryMediumCode, Model model) {
+	public String modifyMediumCategory(@RequestParam(value = "categoryMediumCode")String categoryMediumCode
+									  ,@RequestParam(value="msg", required=false) String msg,Model model) {
 		
 		CategoryMedium mediumCategoryInfo = categoryService.getMediumCategoryByCode(categoryMediumCode);
 		List<CategoryBig> categoryBig =  categoryService.getListBigCategory();
@@ -112,6 +139,10 @@ public class CategoryController {
 		log.info("mediumCategoryInfo : {}", mediumCategoryInfo);
 		log.info("categoryBig : {}", categoryBig);
 		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		
 		return "admin/category/categoryMediumModify";
 	}
 	
@@ -121,10 +152,18 @@ public class CategoryController {
 	 * @return redirect:/admin/listBigCategory
 	 */
 	@PostMapping("/modifyBigCategory")
-	public String modifyBigCategory(CategoryBig categoryBig) {
+	public String modifyBigCategory(CategoryBig categoryBig
+									,RedirectAttributes reAttr) {
 		
-		categoryService.modifyBigCategory(categoryBig);
+		int result = categoryService.modifyBigCategory(categoryBig);
 		log.info("categoryBig : {}", categoryBig);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "카테고리 수정에 실패하였습니다.");
+			return "redirect:/admin/modifyBigCategory";
+		}else{                                                                                                                                                                                                                                                                                                                                                             
+			reAttr.addAttribute("msg", "카테고리 수정에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listBigCategory";
 	}
@@ -135,10 +174,18 @@ public class CategoryController {
 	 * @return redirect:/admin/listMideumCategory
 	 */
 	@PostMapping("/modifyMediumCategory")
-	public String modifyMediumCategory(CategoryMedium categoryMedium) {
+	public String modifyMediumCategory(CategoryMedium categoryMedium
+									   ,RedirectAttributes reAttr) {
 		
-		categoryService.modifyMediumCategory(categoryMedium);
+		int result = categoryService.modifyMediumCategory(categoryMedium);
 		log.info("categoryMedium : {}", categoryMedium);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "카테고리 수정에 실패하였습니다.");
+			return "redirect:/admin/modifyMediumCategory";
+		}else{                                                                                                                                                                                                                                                                                                                                                             
+			reAttr.addAttribute("msg", "카테고리 수정에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listMideumCategory";
 	}
@@ -148,15 +195,15 @@ public class CategoryController {
 	 * @param param
 	 * @return redirect:/admin/listBigCategory
 	 */
+	@ResponseBody
 	@RequestMapping(value="deleteBigCategory", method = {RequestMethod.POST})
-	public HashMap<String, String> deleteBigCategory(@RequestParam Map<String, Object> param) {
+	public HashMap<String, String> deleteBigCategory(@RequestParam Map<String, Object> param
+													 ,RedirectAttributes reAttr) {
 		
 		HashMap<String, String> reResult = new HashMap<String, String>();
 		
 		String categoryBigCode = (String) param.get("categoryBigCode");
 		int result = categoryService.deleteBigCateory(categoryBigCode);
-		log.info(categoryBigCode);
-		
 		if(result == 0) {
 			reResult.put("result", "실패");			
 		}else {
@@ -175,7 +222,8 @@ public class CategoryController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="deleteMediumCategory", method = {RequestMethod.POST})
-	public HashMap<String, String> deleteMediumCategory(@RequestParam Map<String, Object> param) {
+	public HashMap<String, String> deleteMediumCategory(@RequestParam Map<String, Object> param
+													    ,RedirectAttributes reAttr) {
 		
 		HashMap<String, String> reResult = new HashMap<String, String>();
 		
@@ -199,12 +247,17 @@ public class CategoryController {
 	 * @return admin/category/categoryList
 	 */
 	@GetMapping("/listBigCategory")
-	public String listCategory(Model model) {
+	public String listCategory(Model model
+							  ,@RequestParam(value="msg", required=false) String msg) {
 		
 		List<CategoryBig> listAllCategory = categoryService.getListBigCategory();
 		model.addAttribute("title", "카테고리 대 목록");
 		model.addAttribute("pageTitle", "카테고리 대 목록");
 		model.addAttribute("listAllCategory", listAllCategory);
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/category/categoryBigList";
 	}
@@ -215,14 +268,18 @@ public class CategoryController {
 	 * @return admin/category/categoryMediumList
 	 */
 	@GetMapping("/listMideumCategory")
-	public String listCategor(Model model) {
+	public String listCategor(Model model
+							 ,@RequestParam(value="msg", required=false) String msg) {
 		
 		List<CategoryBig> listMediumCategory = categoryService.getListMediumCategory();
 		model.addAttribute("title", "카테고리 중 목록");
 		model.addAttribute("pageTitle", "카테고리 중 목록");
 		model.addAttribute("listMediumCategory", listMediumCategory);
-		
 		log.info("카테고리 중 목록 : {}", listMediumCategory);
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/category/categoryMediumList";
 	}

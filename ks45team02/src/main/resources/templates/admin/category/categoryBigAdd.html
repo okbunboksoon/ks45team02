@@ -14,8 +14,14 @@
 	</head>
 	
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
 				function validateValue(checkValue) {
 					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
 						return true;

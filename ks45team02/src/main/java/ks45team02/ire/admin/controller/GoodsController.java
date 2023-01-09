@@ -48,9 +48,15 @@ public class GoodsController {
 		return "admin/goods/goodsAdd";
 	}
 	
+	/**
+	 * 상품 등록 처리
+	 * @param goods
+	 * @return
+	 */
 	@PostMapping("/addGoods")
 	public String addGoods(Goods goods) {
 		
+		goodsService.addGoods(goods);
 		
 		log.info("goods : {}", goods);
 		

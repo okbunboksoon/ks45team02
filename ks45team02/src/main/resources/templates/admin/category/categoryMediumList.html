@@ -13,9 +13,14 @@
 	</head>
 	
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
 				$('#listCategory').DataTable();
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
 				
 				$('.deleteBtn').click(function(){
 					let deleteCheck = confirm("정말 삭제하시겠습니까?")
