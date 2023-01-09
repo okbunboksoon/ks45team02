@@ -4,6 +4,7 @@ import ks45team02.ire.admin.dto.Incoming;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IncomingMapper {
@@ -14,6 +15,6 @@ public interface IncomingMapper {
 
     public Incoming getInfoByIncoming(String incomingCode);
 
-    public List<Incoming>getIncomingAmount();
+    public List<Map<String,Object>> getStockAmount();
 
 }

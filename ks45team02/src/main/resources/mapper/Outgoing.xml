@@ -7,27 +7,17 @@
         <id property="outgoingCode" column="outgoing_code"/>
         <result property="goodsCode" column="goods_code"/>
         <result property="outgoingAmount" column="outgoing_amount"/>
-        <result property="stockAmount" column="stock_amount"/>
         <result property="outgoingDate" column="outgoing_date"/>
         <result property="paymentCompleteCode" column="payment_complete_code"/>
         <result property="deliveryCode" column="delivery_code"/>
     </resultMap>
-    <select id="getOutgoingAmount" resultMap="OutgoingResultMap">
-        <!--상품출고 재고 조회/수정 필요-->
-        SELECT
-            o.goods_code,
-            o.outgoing_amount
-        FROM
-            outgoing AS o
 
-    </select>
     <insert id="addOutgoing" parameterType="Outgoing">
         <!--상품 출고 등록-->
         INSERT INTO outgoing
         (outgoing_code,
         goods_code,
         outgoing_amount,
-        stock_amount,
         outgoing_date,
         payment_complete_code,
         delivery_code)
@@ -35,7 +25,6 @@
         (sf_new_outgoing_code(),
         #{goodsCode},
         #{outgoingAmount},
-        #{stockAmount},
         #{outgoingDate},
         #{paymentCompleteCode},
         #{deliveryCode})
@@ -46,7 +35,6 @@
             outgoing_code,
             goods_code,
             outgoing_amount,
-            stock_amount,
             outgoing_date,
             payment_complete_code,
             delivery_code
