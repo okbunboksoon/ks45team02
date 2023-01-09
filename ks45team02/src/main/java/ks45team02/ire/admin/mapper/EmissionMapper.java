@@ -44,6 +44,17 @@ public interface EmissionMapper {
 	 */
 	public int addGoodsEmission(GoodsEmission goodsEmission);
 	
+	
+	/**
+	 * 원단별 탄소배출량 기준 수정 
+	 */
+	public int modifyGoodsEmission (GoodsEmission goodsEmission);
+	
+	/**
+	 * 원단 이름으로 원단별 탄소배출량 기준 조회
+	 */
+	public List<GoodsEmission> getGoodsEmissionFabric(String carbon_dioxide_emission_level);
+	
 	/**
 	 * 상품 원단 비율 firstFabric
 	 */
