@@ -24,7 +24,7 @@
             //     }
             // });
 
-            $('#contractList').DataTable();
+            $('#listIncomingStock').DataTable();
         });
     </script>
 </th:block>
@@ -36,19 +36,35 @@
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
 
-                            <table id="contractList" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <table id="listIncomingStock" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
-                                    <th>계약코드</th>
-                                    <th>작성자아이디</th>
+                                    <th>상품코드</th>
+                                    <th>상품출고수량</th>
+                                    <th>상품코드</th>
+                                    <th>상품입고수량</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:if ="${not #lists.isEmpty(contractList)}"
-                                    th:each="c : ${contractList}">
-                                    <td th:text ="${c.contractCode}"/></td>
+
+                                <tr th:if ="${not #lists.isEmpty(getOutgoingAmount)}"
+                                    th:each="o : ${getOutgoingAmount}">
+
+                                    <td th:text ="${o.goodsCode}"/></td>
+                                    <td th:text ="${o.outgoing_amount}"/></td>
                                 </tr>
-                                <tr th:if="${#lists.isEmpty(contractList)}">
+
+                                <tr th:if="${#lists.isEmpty(getOutgoingAmount)}">
+                                    <td colspan="9">등록한 회원이 없습니다.</td>
+                                </tr>
+                                <tr th:if ="${not #lists.isEmpty(getIncomingAmount)}"
+                                    th:each="i : ${getIncomingAmount}">
+
+                                    <td th:text ="${i.goodsCode}"/></td>
+                                    <td th:text ="${i.incomingAmount}"/></td>
+                                </tr>
+
+                                <tr th:if="${#lists.isEmpty(getIncomingAmount)}">
                                     <td colspan="9">등록한 회원이 없습니다.</td>
                                 </tr>
                                 </tbody>
