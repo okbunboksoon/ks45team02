@@ -32,19 +32,6 @@ public class BasketController {
 		this.basketService = basketService;
 	}
 	
-	//상품 검색
-	@GetMapping("/goodsSearchForBasketadd")
-	public String goodsSearchForBasketadd(@RequestParam(value="searchKey", required = false) String searchKey
-										 ,@RequestParam(value="searchValue", required = false) String searchValue
-										 ,Model model) {
-		
-		List<Goods> goodsList = basketService.searchGoods(searchKey, searchValue);
-		model.addAttribute("title", "상품 검색");
-		model.addAttribute("goodsList", goodsList);
-		
-		return "admin/basket/goodsSearchForBasketadd";
-	}
-	
 	//장바구니 등록 처리
 	@PostMapping("/addBasket")
 	public String addBasket(Basket basket, RedirectAttributes reAttr) {

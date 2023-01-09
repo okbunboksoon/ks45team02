@@ -71,9 +71,9 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="basketAmount" class="col-form-label col-md-3 col-sm-3 label-align">수량</label>
+						<label for="amount" class="col-form-label col-md-3 col-sm-3 label-align">수량</label>
 						<div class="col-md-6 col-sm-6 ">
-							<select id="basketAmount" name="basketAmount" th:with="numArr=${#numbers.sequence(1, 100)}" class="form-control">
+							<select id="amount" name="basketAmount" th:with="numArr=${#numbers.sequence(1, 100)}" class="form-control">
 								<th:block th:each="num : ${numArr}">
 									<option th:value="${num}" th:text="${num}" th:selected="*{basketAmount} == ${num}"></option>
 								</th:block>
@@ -81,9 +81,9 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="eachPaymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">결제예정합계</label>
+						<label for="paymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">결제예정합계</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" id="eachPaymentAmount" name="eachPaymentAmount" th:value="*{eachPaymentAmount}"
+							<input type="text" id="paymentAmount" name="eachPaymentAmount" th:value="*{eachPaymentAmount}"
 								   readonly="readonly" class="form-control"/>
 						</div>
 					</div>
@@ -136,10 +136,12 @@
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
 			const $submitBtn = document.getElementById('submitBtn');
+			
 			const $goodsSearchBtn = document.getElementById('goodsSearchBtn');
+			
 			const $goodsPrice = document.getElementById('goodsPrice');
-			const $basketAmount = document.getElementById('basketAmount');
-			const $eachPaymentAmount = document.getElementById('eachPaymentAmount');
+			const $amount = document.getElementById('amount');
+			const $paymentAmount = document.getElementById('paymentAmount');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			$cancelBtn.addEventListener('click', function(){
@@ -169,13 +171,12 @@
 			
 			$goodsSearchBtn.addEventListener('click', function(){
 				window.name = "basketAdd";
-				let openWin = window.open('/admin/goodsSearchForBasketadd', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
+				let openWin = window.open('/admin/goodsSearch', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
 			})
 
-			$basketAmount.addEventListener('input', function(){
-				let eachPaymentAmount = $goodsPrice.value * $basketAmount.value;
-				$eachPaymentAmount.value = eachPaymentAmount;
-				console.log('값 변경');
+			$amount.addEventListener('input', function(){
+				let paymentAmount = $goodsPrice.value * $amount.value;
+				$paymentAmount.value = paymentAmount;
 			})
 			
 			const msg = [[${msg}]];

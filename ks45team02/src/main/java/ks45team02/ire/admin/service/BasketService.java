@@ -21,13 +21,11 @@ public class BasketService {
 	private static final Logger log = LoggerFactory.getLogger(DonationService.class);
 	
 	private final BasketMapper basketMapper;
-	private final GoodsMapper goodsMapper;
 	private final CategoryMapper categoryMapper;
 	private final UserMapper userMapper;
 	
-	public BasketService(BasketMapper basketMapper, GoodsMapper goodsMapper, CategoryMapper categoryMapper, UserMapper userMapper) {
+	public BasketService(BasketMapper basketMapper, CategoryMapper categoryMapper, UserMapper userMapper) {
 		this.basketMapper = basketMapper;
-		this.goodsMapper = goodsMapper;
 		this.categoryMapper = categoryMapper;
 		this.userMapper = userMapper;
 	}
@@ -54,10 +52,9 @@ public class BasketService {
 		
 		int result = 0;
 		
-		int goodsCheck = goodsMapper.goodsCheck(basket.getGoodsCode());
 		int idCheck = userMapper.idCheck(basket.getUserId());
 		
-		if(goodsCheck == 0 || idCheck == 0) {
+		if(idCheck == 0) {
 			return result;
 		}
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
@@ -76,11 +73,9 @@ public class BasketService {
 	public int addBasket(Basket basket) {
 		
 		int result = 0;
-		
-		int goodsCheck = goodsMapper.goodsCheck(basket.getGoodsCode());
 		int idCheck = userMapper.idCheck(basket.getUserId());
 		
-		if(goodsCheck == 0 || idCheck == 0) {
+		if(idCheck == 0) {
 			return result;
 		}
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
@@ -91,29 +86,6 @@ public class BasketService {
 		return result;
 	}
 	
-	/**
-	 * 상품 검색
-	 * @param searchKey
-	 * @param searchValue
-	 * @return List<Goods>
-	 */
-	public List<Goods> searchGoods(String searchKey, String searchValue){
-		
-		if(searchKey != null && searchValue != null) {
-			switch(searchKey) {
-			case "goodsCode"
-			: searchKey = "goods_code";
-			break;
-			case "goodsName"
-			: searchKey = "goods_name";
-			break;
-			}
-		}
-		
-		List<Goods> goodsList = goodsMapper.searchGoods(searchKey, searchValue);
-		
-		return goodsList;
-	}
 	
 	/**
 	 * 장바구니 조회

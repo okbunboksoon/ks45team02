@@ -102,6 +102,7 @@
 			,#{eachPaymentAmount}
 			,#{regDate}
 			,#{basketState}
+			,'N'
 		);
 	</insert>	
 	

@@ -24,7 +24,7 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">회원아이디</label>
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">회원 아이디</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="text" id="userId" name="userId"
 								   placeholder="회원아이디" class="form-control"/>
@@ -37,14 +37,14 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+						<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품 코드</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="text" id="goodsCode" name="goodsCode"
 								   readonly="readonly" placeholder="상품코드" class="form-control"/>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="goodsName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
+						<label for="goodsName" class="col-form-label col-md-3 col-sm-3 label-align">상품 이름</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="text" id="goodsName" name="goodsName"
 								   readonly="readonly" placeholder="상품이름" class="form-control"/>
@@ -58,16 +58,16 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">상품가격</label>
+						<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">상품 가격</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="text" id="goodsPrice" name="goodsPrice"
 								   readonly="readonly" placeholder="상품가격" class="form-control" />
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="basketAmount" class="col-form-label col-md-3 col-sm-3 label-align">수량</label>
+						<label for="amount" class="col-form-label col-md-3 col-sm-3 label-align">수량</label>
 						<div class="col-md-6 col-sm-6 ">
-							<select id="basketAmount" name="basketAmount" th:with="numArr=${#numbers.sequence(1, 100)}" class="form-control">
+							<select id="amount" name="basketAmount" th:with="numArr=${#numbers.sequence(1, 100)}" class="form-control">
 								<th:block th:each="num : ${numArr}">
 									<option th:value="${num}" th:text="${num}"></option>
 								</th:block>
@@ -75,14 +75,14 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="eachPaymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">결제예정합계</label>
+						<label for="paymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">결제예정 합계</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" id="eachPaymentAmount" name="eachPaymentAmount"
+							<input type="text" id="paymentAmount" name="eachPaymentAmount"
 								   readonly="readonly" class="form-control"/>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="regDate" class="col-form-label col-md-3 col-sm-3 label-align">등록일자</label>
+						<label for="regDate" class="col-form-label col-md-3 col-sm-3 label-align">등록 일자</label>
 						<div class="col-md-6 col-sm-6 ">
 							<input type="date" id="regDate" name="regDate"
 								   class="form-control"/>
@@ -121,10 +121,12 @@
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
 			const $submitBtn = document.getElementById('submitBtn');
+			
 			const $goodsSearchBtn = document.getElementById('goodsSearchBtn');
+			
 			const $goodsPrice = document.getElementById('goodsPrice');
-			const $basketAmount = document.getElementById('basketAmount');
-			const $eachPaymentAmount = document.getElementById('eachPaymentAmount');
+			const $amount = document.getElementById('amount');
+			const $paymentAmount = document.getElementById('paymentAmount');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			$cancelBtn.addEventListener('click', function(){
@@ -154,12 +156,12 @@
 			
 			$goodsSearchBtn.addEventListener('click', function(){
 				window.name = "basketAdd";
-				let openWin = window.open('/admin/goodsSearchForBasketadd', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
+				let openWin = window.open('/admin/goodsSearch', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
 			})
 
-			$basketAmount.addEventListener('input', function(){
-				let eachPaymentAmount = $goodsPrice.value * $basketAmount.value;
-				$eachPaymentAmount.value = eachPaymentAmount;
+			$amount.addEventListener('input', function(){
+				let paymentAmount = $goodsPrice.value * $amount.value;
+				$paymentAmount.value = paymentAmount;
 			})
 			
 			

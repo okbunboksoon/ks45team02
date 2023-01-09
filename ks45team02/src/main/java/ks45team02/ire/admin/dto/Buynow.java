@@ -7,13 +7,13 @@ public class Buynow {
 	private String goodsName;
 	private String categoryMediumCode;
 	private String categoryMediumName;
-	private String goodsPrice;
-	private String buynowAmount;
-	private String expectedAmount;
-	private String usePoint;
-	private String finalPaymentAmount;
+	private int goodsPrice;
+	private int buynowAmount;
+	private int expectedAmount;
+	private int usePoint;
+	private int finalPaymentAmount;
 	private String regDate;
-	private String buynowDeleteState;
+	private char buynowDeleteState;
 	
 	public String getBuynowCode() {
 		return buynowCode;
@@ -51,34 +51,34 @@ public class Buynow {
 	public void setCategoryMediumName(String categoryMediumName) {
 		this.categoryMediumName = categoryMediumName;
 	}
-	public String getGoodsPrice() {
+	public int getGoodsPrice() {
 		return goodsPrice;
 	}
-	public void setGoodsPrice(String goodsPrice) {
+	public void setGoodsPrice(int goodsPrice) {
 		this.goodsPrice = goodsPrice;
 	}
-	public String getBuynowAmount() {
+	public int getBuynowAmount() {
 		return buynowAmount;
 	}
-	public void setBuynowAmount(String buynowAmount) {
+	public void setBuynowAmount(int buynowAmount) {
 		this.buynowAmount = buynowAmount;
 	}
-	public String getExpectedAmount() {
+	public int getExpectedAmount() {
 		return expectedAmount;
 	}
-	public void setExpectedAmount(String expectedAmount) {
+	public void setExpectedAmount(int expectedAmount) {
 		this.expectedAmount = expectedAmount;
 	}
-	public String getUsePoint() {
+	public int getUsePoint() {
 		return usePoint;
 	}
-	public void setUsePoint(String usePoint) {
+	public void setUsePoint(int usePoint) {
 		this.usePoint = usePoint;
 	}
-	public String getFinalPaymentAmount() {
+	public int getFinalPaymentAmount() {
 		return finalPaymentAmount;
 	}
-	public void setFinalPaymentAmount(String finalPaymentAmount) {
+	public void setFinalPaymentAmount(int finalPaymentAmount) {
 		this.finalPaymentAmount = finalPaymentAmount;
 	}
 	public String getRegDate() {
@@ -87,10 +87,10 @@ public class Buynow {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	public String getBuynowDeleteState() {
+	public char getBuynowDeleteState() {
 		return buynowDeleteState;
 	}
-	public void setBuynowDeleteState(String buynowDeleteState) {
+	public void setBuynowDeleteState(char buynowDeleteState) {
 		this.buynowDeleteState = buynowDeleteState;
 	}
 	@Override
