@@ -79,6 +79,7 @@
 														<th>수량</th>
 														<th>합계</th>
 														<th>장바구니 상태</th>
+														<th>선택</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -125,31 +126,51 @@
 		<script type="text/javascript" th:inline="javascript">
 
 			const $selectBtns = document.querySelectorAll('#selectBtn');
-			let basketAmount = 0;
+			let basketCodeCheck = true;
+
 			for (const selectBtn of $selectBtns) {
 				selectBtn.addEventListener('click', function() {
-					let goodsInfoTdArr = selectBtn.parentElement.parentElement.children;
-					let goodsInfoArr = [];
-					for(item of goodsInfoTdArr){
-						goodsInfoArr.push(item.innerText);
+					let basketInfoTdArr = selectBtn.parentElement.parentElement.children;
+					let basketInfoArr = [];
+					let parentBasketGroup = opener.document.getElementById("basketGroup").value
+					let basketCodeArr = opener.document.querySelectorAll('#basketCode');
+					for(item of basketInfoTdArr){
+						basketInfoArr.push(item.innerText);
 					}
-					console.log(goodsInfoArr);
-					opener.document.getElementById("goodsCode").value = goodsInfoArr[0];
-					opener.document.getElementById("goodsName").value = goodsInfoArr[1];
-					opener.document.getElementById("categoryMediumName").value = goodsInfoArr[2];
-					opener.document.getElementById("goodsPrice").value = goodsInfoArr[3];
-					
-					const amount = opener.document.getElementById("amount").value;
-					opener.document.getElementById("paymentAmount").value = goodsInfoArr[3] * amount;
-					
-					try{
-						const usePoint = opener.document.getElementById("usePoint").value;
-						opener.document.getElementById("finalPaymentAmount").value = goodsInfoArr[3] * amount - usePoint;
-					}catch(error){
+					if(opener.selectCount() == 0){
+						opener.document.getElementById("basketGroup").value = basketInfoArr[1];
+						opener.document.getElementById("userId").value = basketInfoArr[2];
+						opener.document.getElementById("basketCode").value = basketInfoArr[0];
+						opener.document.getElementById("expectedAmount").value = basketInfoArr[8];
+						
+						let usePoint = opener.document.getElementById("usePoint").value;
+						opener.document.getElementById("finalPaymentAmount").value = basketInfoArr[8] - usePoint;
+						
 						window.close();
-					}finally{
-						window.close();
+						
+					}else if(parentBasketGroup == basketInfoArr[1]){
+						for(basketCode of basketCodeArr){
+							if(basketCode.value == basketInfoArr[0]){
+								basketCodeCheck = false;
+							}
+						}
+						if(basketCodeCheck){
+							let parentExpectedAmount = opener.document.getElementById("expectedAmount").value;
+							opener.newBasketCodeFn(basketInfoArr[0]);
+							opener.document.getElementById("expectedAmount").value = Number(parentExpectedAmount) + Number(basketInfoArr[8]);
+								
+							let usePoint = opener.document.getElementById("usePoint").value;
+							opener.document.getElementById("finalPaymentAmount").value = Number(parentExpectedAmount) + Number(basketInfoArr[8]) - usePoint;
+							
+							window.close();
+						}else{
+							alert('이미 추가된 장바구니 코드입니다.');
+						}
+						
+					}else if(parentBasketGroup != basketInfoArr[1]){
+						alert('장바구니 그룹이 일치하지 않습니다.');
 					}
+					
 				  })
 				}
 
