@@ -54,7 +54,7 @@ public class EmissionController {
 	 * @param RawMaterialsEmission
 	 * @return redirect:/admin/listRawMaterialsEmission
 	 */
-	@PostMapping("addRawMaterialsEmission")
+	@PostMapping("/addRawMaterialsEmission")
 	public String addRawMaterialsEmission(RawMaterialsEmission rawMaterialsEmission) {
 		
 		log.info("기부받은 의류 CO2 기준 입력 정보: {]" , rawMaterialsEmission);
@@ -125,28 +125,70 @@ public class EmissionController {
 	
 /**
  * 	
- * 여기서부터 원단별 CO2 
+ * ************************* 여기서부터 원단별 CO2 ***********************************************************
  *
  */
 	
+	/**
+	 * 원단별 탄소 배출량 기준 등록 화면
+	 * @param model
+	 * @return admin/emission/AddGoodsEmission
+	 */
 	@GetMapping("/addGoodsEmission")
 	public String addGoodsEmission(Model model) {
 		
+		List<GoodsEmission> listGoodsEmission = emissionService.getGoodsEmissionList();
+		log.info("원단별 탄소 배출량 기준 : {}", listGoodsEmission);
+		model.addAttribute("title", "원단별 탄소 배출량 기준 등록");
+		model.addAttribute("listGoodsEmission" , listGoodsEmission);
+		
 		return "admin/emission/emissionGoodsAdd";
 	}
+	
+	
+	/**
+	 * 원단별 탄소배출량 기준 등록 처리
+	 * @param GoodsEmission
+	 * @return redirect:/admin/listGoodsEmission
+	 */
+	@PostMapping("/addGoodsEmission")
+	public String addGoodsEmission(GoodsEmission goodsEmission) {
 		
-	@GetMapping("/deleteGoodsEmission")
-	public String deleteGoodsEmission() {
+		log.info("원단별 탄소배출량 기준 입력 정보 : {}", goodsEmission);
+		emissionService.addGoodsEmission(goodsEmission);
 		
-		return "admin/emission/emissionGoodsDelete";
+		return "redirect:/admin/listGoodsEmission";
 	}
 	
+	
+	/**
+	 * 원단별 탄소배출량 기준 수정 화면
+	 * @param goodsEmission model
+	 * @return admin/goodsEmissionModify
+	 */
 	@GetMapping("/modifyGoodsEmission")
-	public String modifyGoodsEmission() {
+	public String modifyGoodsEmission(@RequestParam(value="fabric") String fabric, Model model) {
 		
+		List<GoodsEmission> modifyGoodsEmission = emissionService.getGoodsEmissionFabric(fabric);
+		model.addAttribute("title", "원단별 탄소배출량 기준 수정");
+		model.addAttribute("modifyGoodsEmission", modifyGoodsEmission);
+		
+		log.info("modifyGoodsEmission: {}", modifyGoodsEmission);
 		return "admin/emission/emissionGoodsModify";
 	}
 	
+	/**
+	 * 원단별 탄소배출량 기준 수정 처리
+	 * @param goodsEmission
+	 * @return redirect:/admin/listGoodsEmission
+	 */
+	@PostMapping("/modifyGoodsEmisison")
+	public String modifyGoodsEmission(GoodsEmission goodsEmission) {
+		
+		emissionService.modifyGoodsEmission(goodsEmission);
+		
+		return "redirect:/admin/listGoodsEmission";
+	}
 	
 	/**
 	 * 원단별 탄소 배출량 기준 조회
@@ -163,6 +205,14 @@ public class EmissionController {
 		return "admin/emission/emissionGoodsList";
 	}
 		
+	
+	@GetMapping("/deleteGoodsEmission")
+	public String deleteGoodsEmission() {
+		
+		return "admin/emission/emissionGoodsDelete";
+	}
+	
+	
 	@GetMapping("/listEmissionC02Total")
 	public String listEmissionC02Total() {
 		

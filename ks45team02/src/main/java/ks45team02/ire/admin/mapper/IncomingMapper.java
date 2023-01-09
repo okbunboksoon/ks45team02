@@ -11,4 +11,9 @@ public interface IncomingMapper {
     public List<Incoming>listIncoming();
     //상품 입고 등록
     public int addIncoming(Incoming incoming);
+
+    public Incoming getInfoByIncoming(String incomingCode);
+
+    public List<Incoming>getIncomingAmount();
+
 }

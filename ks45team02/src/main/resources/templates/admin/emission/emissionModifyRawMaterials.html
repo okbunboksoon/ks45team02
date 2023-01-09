@@ -77,22 +77,22 @@
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
 			const $cancelBtn = document.getElementById('cancelBtn');
-			const $resetBtn = document.getElementById('resetBtn');
+			/* const $resetBtn = document.getElementById('resetBtn'); */
 			const $submitBtn = document.getElementById('submitBtn');
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			
 			console.log($inputEle);
 			
 			$cancelBtn.addEventListener('click', function(){
-				location.href = '/admin/listDonation';
+				location.href = '/admin/listRawMaterialsEmission';
 			});
 			
-			$resetBtn.addEventListener('click', function(){
+			/* $resetBtn.addEventListener('click', function(){
 				$inputEle.forEach(function(item){
 					item.value = '';
 				})
 
-			});
+			}); */
 			
 			$submitBtn.addEventListener('click', function(){
 				let checkFlag = true;
@@ -101,6 +101,7 @@
 						checkFlag = false;
 					}
 				})
+				
 				if(checkFlag){
 					$submitBtn.setAttribute("type", "submit")
 				}else{
