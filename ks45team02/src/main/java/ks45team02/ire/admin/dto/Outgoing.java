@@ -3,19 +3,20 @@ package ks45team02.ire.admin.dto;
 public class Outgoing {
     private String outgoingCode;
     private String goodsCode;
-    private String outgoingAmount;
-    private String stockAmount;
+    private int outgoingAmount;
+    private int stockAmount;
     private String outgoingDate;
     private String paymentCompleteCode;
     private String deliveryCode;
+
 
     @Override
     public String toString() {
         return "Outgoing{" +
                 "outgoingCode='" + outgoingCode + '\'' +
                 ", goodsCode='" + goodsCode + '\'' +
-                ", outgoingAmount='" + outgoingAmount + '\'' +
-                ", stockAmount='" + stockAmount + '\'' +
+                ", outgoingAmount=" + outgoingAmount +
+                ", stockAmount=" + stockAmount +
                 ", outgoingDate='" + outgoingDate + '\'' +
                 ", paymentCompleteCode='" + paymentCompleteCode + '\'' +
                 ", deliveryCode='" + deliveryCode + '\'' +
@@ -38,19 +39,19 @@ public class Outgoing {
         this.goodsCode = goodsCode;
     }
 
-    public String getOutgoingAmount() {
+    public int getOutgoingAmount() {
         return outgoingAmount;
     }
 
-    public void setOutgoingAmount(String outgoingAmount) {
+    public void setOutgoingAmount(int outgoingAmount) {
         this.outgoingAmount = outgoingAmount;
     }
 
-    public String getStockAmount() {
+    public int getStockAmount() {
         return stockAmount;
     }
 
-    public void setStockAmount(String stockAmount) {
+    public void setStockAmount(int stockAmount) {
         this.stockAmount = stockAmount;
     }
 

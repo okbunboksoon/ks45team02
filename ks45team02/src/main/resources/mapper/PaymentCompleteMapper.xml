@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.PaymentCompleteMapper">
+    <resultMap id="PaymentCompleteResultMap" type="PaymentComplete">
+        <id property="paymentCompleteCode" column="payment_complete_code"/>
+        <result property="buynowBasketTotalCode" column="buynow_basket_total_code"/>
+        <result property="buynowBasket" column="buynow_basket"/>
+        <result property="userId" column="user_id"/>
+        <result property="finalPaymentAmount" column="final_payment_amount"/>
+        <result property="deliCode" column="deli_code"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="paymentTypeCode" column="payment_type_code"/>
+        <result property="paymentDate" column="payment_date"/>
+        <result property="pointUseGroup" column="point_use_group"/>
+        <result property="productOrderState" column="product_order_state"/>
+        <result property="pointSave" column="point_save"/>
+        <result property="productOrderPointGroup" column="product_order_point_group"/>
+    </resultMap>
+    <select id="listPaymentComplete" resultMap="PaymentCompleteResultMap">
+        SELECT
+            payment_complete_code,
+            buynow_basket_total_code,
+            buynow_basket,
+            user_id,
+            final_payment_amount,
+            deli_code, order_date,
+            payment_type_code,
+            payment_date,
+            point_use_group,
+            product_order_state,
+            point_save,
+            product_order_point_group
+        FROM
+            payment_complete
+    </select>
+
+</mapper>

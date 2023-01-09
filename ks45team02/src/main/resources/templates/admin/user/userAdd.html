@@ -22,7 +22,7 @@
                 let isSubmint =true;
                 $('#addUser input').each(function (idx,item){
                     let checkValue = $(item).val();
-                    let labelValue = $(item).parents('tr').find('label').text();
+                    let labelValue = $(item).parents('div').find('label').text();
                     if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
                         alert(`${labelValue}를 입력해 주세여`);
                         $(item).focus();
@@ -55,7 +55,6 @@
             }
             $('#checkBtn').click(function(){
                 const $id = $('#userId').val();
-                console.log($id,"은나와라 1111");
                 if(validateValue($id))
                 {
                     alert('회원 아이디 입력해주세요');
@@ -73,8 +72,6 @@
                 fetch(idCheckApi)
                         .then(response => response.json())
                         .then(data => {
-                            console.log(data,"금나와라");
-                            console.log($id,"은나와라");
 
                             if(data !== 0){
                                 alert(`${$id} 아이디 가 있습니다`);

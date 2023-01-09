@@ -11,6 +11,15 @@
         <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
         <result property="totalCo2" column="total_co2"/>
     </resultMap>
+    <select id="getIncomingAmount" resultMap="IncomingResultMap">
+        <!--수정 필요-->
+        SELECT
+        i.goods_code,
+        i.incoming_amount
+        FROM
+        incoming AS i
+
+    </select>
 
     <select id="getInfoByIncoming" resultMap="IncomingResultMap">
         SELECT

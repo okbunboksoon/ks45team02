@@ -14,4 +14,6 @@ public interface IncomingMapper {
 
     public Incoming getInfoByIncoming(String incomingCode);
 
+    public List<Incoming>getIncomingAmount();
+
 }
