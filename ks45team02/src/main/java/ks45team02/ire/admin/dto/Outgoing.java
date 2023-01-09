@@ -4,7 +4,6 @@ public class Outgoing {
     private String outgoingCode;
     private String goodsCode;
     private int outgoingAmount;
-    private int stockAmount;
     private String outgoingDate;
     private String paymentCompleteCode;
     private String deliveryCode;
@@ -16,7 +15,6 @@ public class Outgoing {
                 "outgoingCode='" + outgoingCode + '\'' +
                 ", goodsCode='" + goodsCode + '\'' +
                 ", outgoingAmount=" + outgoingAmount +
-                ", stockAmount=" + stockAmount +
                 ", outgoingDate='" + outgoingDate + '\'' +
                 ", paymentCompleteCode='" + paymentCompleteCode + '\'' +
                 ", deliveryCode='" + deliveryCode + '\'' +
@@ -47,13 +45,6 @@ public class Outgoing {
         this.outgoingAmount = outgoingAmount;
     }
 
-    public int getStockAmount() {
-        return stockAmount;
-    }
-
-    public void setStockAmount(int stockAmount) {
-        this.stockAmount = stockAmount;
-    }
 
     public String getOutgoingDate() {
         return outgoingDate;

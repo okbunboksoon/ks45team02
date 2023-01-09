@@ -2,7 +2,6 @@ package ks45team02.ire.admin.controller;
 
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.dto.Incoming;
-import ks45team02.ire.admin.dto.Outgoing;
 import ks45team02.ire.admin.mapper.IncomingMapper;
 import ks45team02.ire.admin.mapper.OutgoingMapper;
 import ks45team02.ire.admin.service.GoodsService;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -61,6 +61,7 @@ public class IncomingController {
 		model.addAttribute("title","listIncoming");
 		model.addAttribute("pageTitle","상품입고 조회");
 		List<Incoming>incomingList=incomingService.incomingList();
+
 		model.addAttribute("incomingList",incomingList);
 		return "admin/incoming/incomingList";
 	}
@@ -71,11 +72,9 @@ public class IncomingController {
 		//수정이 너무너무 너무 필요하다
 		model.addAttribute("title","listStock");
 		model.addAttribute("pageTitle","재고조회");
-		List<Incoming>getIncomingAmount=incomingMapper.getIncomingAmount();
-		List<Outgoing>getOutgoingAmount=outgoingMapper.getOutgoingAmount();
-		model.addAttribute("getOutgoingAmount",getOutgoingAmount);
-		model.addAttribute("getIncomingAmount",getIncomingAmount);
-
+		List<Map<String,Object>>getStockAmount=incomingMapper.getStockAmount();
+		log.info("뭐라도나와주세요:{}",getStockAmount);
+		model.addAttribute("getStockAmount",getStockAmount);
 		return "admin/incoming/incomingListStock";
 	}
 	@GetMapping("/modifyIncoming")
