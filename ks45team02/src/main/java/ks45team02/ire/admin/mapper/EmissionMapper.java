@@ -44,5 +44,14 @@ public interface EmissionMapper {
 	 */
 	public int addGoodsEmission(GoodsEmission goodsEmission);
 	
+	/**
+	 * 상품 원단 비율 firstFabric
+	 */
+	public double getFirstFabric(String resultFirstFabric);
+	
+	/**
+	 * 상품 원단 비율 LastFabric
+	 */
+	public double getLastFabric(String resultLastFabric);
 	
 }

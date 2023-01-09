@@ -17,6 +17,26 @@
         <result property="upcycling_carbon_dioxide_emission_level"		column="upcycling_carbon_dioxide_emission_level" />
     </resultMap>
     
+    <!-- 상품 원단 비율 firstFabric -->
+    <select id="getFirstFabric" resultType="double">
+    	SELECT
+			ge.upcycling_carbon_dioxide_emission_level
+		FROM
+			goods_emission AS ge
+		WHERE
+			fabric = #{resultFirstFabric}
+    </select>
+    
+    <!-- 상품 원단 비율 LastFabric -->
+    <select id="getLastFabric" resultType="double">
+    	SELECT
+			ge.upcycling_carbon_dioxide_emission_level
+		FROM
+			goods_emission AS ge
+		WHERE
+			fabric = #{resultFirstFabric}
+    </select>
+    
     <!-- 기부받은 의류별 CO2 기준 리스트 -->
     <select id="RawMaterialsEmissionList" resultMap="RawMaterialsEmissionResultMap">
 	SELECT
@@ -91,19 +111,7 @@
     
     </select>
     
-    <!-- 원단별 탄소 배출량 기준 등록 -->
-    <insert id="" parameterType="">
-    INSERT INTO
-		goods_emission(
-		fabric
-		,carbon_dioxide_emission_level
-		,upcycling_carbon_dioxide_emission_level
-	)VALUES (
-		#{fabric}
-		,#{carbon_dioxide_emission_level}
-		,#{upcycling_carbon_dioxide_emission_level}
-	);
-    </insert>
+ 
     
     
     
