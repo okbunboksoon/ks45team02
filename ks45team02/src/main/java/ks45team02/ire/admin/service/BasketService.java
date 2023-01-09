@@ -38,16 +38,18 @@ public class BasketService {
 	 */
 	public List<Basket> getBasketListBeforePayment(String searchKey, String searchValue){
 	
-		switch(searchKey) {
+		if(searchKey != null) {
+			switch(searchKey) {
 			case "basketCode"
-				: searchKey = "basket_code";
-				break;
+			: searchKey = "basket_code";
+			break;
 			case "basketGroup"
-				: searchKey = "basket_group";
-				break;
+			: searchKey = "basket_group";
+			break;
 			case "userId"
-				: searchKey = "user_id";
-				break;
+			: searchKey = "user_id";
+			break;
+			}
 		}
 		
 		List<Basket> basketListBeforePayment = basketMapper.getBasketListBeforePayment(searchKey, searchValue);
