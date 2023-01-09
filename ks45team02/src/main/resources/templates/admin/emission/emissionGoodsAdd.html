@@ -14,57 +14,33 @@
 			
 			<div class="x_content">
 				<br>
-				<form th:action="@{/admin/addIncomingRawmaterials}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
-					
+				<form th:action="@{/admin/addGoodsEmission}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+
 					<div class="item form-group">
-						<label for="donationCode" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 번호</label>
+						<label for="fabric" class="col-form-label col-md-3 col-sm-3 label-align">원단</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" id="donationCode" name="donationCode"
-								   class="form-control"/>
-						</div>
-					</div>
-					<div class="item form-group">
-						<label for="rawMaterialsIncomingAmount" class="col-form-label col-md-3 col-sm-3 label-align">입고 수량</label>
-						<div class="col-md-6 col-sm-6 ">
-							<select id="rawMaterialsIncomingAmount" name="rawMaterialsIncomingAmount" th:with="numArr=${#numbers.sequence(1, 50)}" class="form-control">
-								<th:block th:each="num : ${numArr}">
-									<option th:value="${num}" th:text="${num}"></option>
-								</th:block>
-							</select>
-						</div>
-					</div>
-					<div class="item form-group">
-						<label for="rawMaterialsIncomingDate" class="col-form-label col-md-3 col-sm-3 label-align">입고 날짜</label>
-						<div class="col-md-6 col-sm-6 ">
-							<input type="date" id="rawMaterialsIncomingDate" name="rawMaterialsIncomingDate"
+							<input type="text" id="fabric" name="fabric"
 								   class="form-control"/>
 							
 						</div>
 					</div>
+					
 					<div class="item form-group">
-						<label for="rawMaterialsStatus" class="col-form-label col-md-3 col-sm-3 label-align">상태</label>
+						<label for="carbon_dioxide_emission_level" class="col-form-label col-md-3 col-sm-3 label-align">일반 원단별 이산화탄소 배출량(Kg)</label>
 						<div class="col-md-6 col-sm-6 ">
-							<select id="rawMaterialsStatus" name="rawMaterialsStatus" class="form-control">
-								<option value="정상">정상</option>
-								<option value="폐기">폐기</option>
-							</select>
-						</div>			
+							<input type="text" id="carbon_dioxide_emission_level" name="carbon_dioxide_emission_level"
+								   class="form-control"/>
+							
+						</div>
 					</div>
+					
 					<div class="item form-group">
-						<label for="carbonDioxideEmissionLevel" class="col-form-label col-md-3 col-sm-3 label-align">이산화탄소 배출량</label>
+						<label for="upcycling_carbon_dioxide_emission_level" class="col-form-label col-md-3 col-sm-3 label-align">업사이클링 원단별 이산화탄소 배출량(Kg)</label>
 						<div class="col-md-6 col-sm-6 ">
-							<select id="carbonDioxideEmissionLevel" name="carbonDioxideEmissionLevel" class="form-control">
-								<option value="5">상의 S : 5</option>
-								<option value="6">상의 M : 6</option>
-								<option value="7">상의 L : 7</option>
-								<option value="22.1">하의 S : 22.1</option>
-								<option value="23.1">하의 M : 23.1</option>
-								<option value="24.1">하의 L : 24.1</option>
-								<option value="25">아우터 S : 25</option>
-								<option value="26">아우터 M : 26</option>
-								<option value="27">아우터 L : 27</option>
-							</select>
-						</div>			
+							<input type="text" id="upcycling_carbon_dioxide_emission_level" name="upcycling_carbon_dioxide_emission_level"
+								   class="form-control"/>
+							
+						</div>
 					</div>
 					
 					<div class="item form-group">
@@ -110,11 +86,6 @@
 					alert('값을 전부 입력해주세요.');
 				}
 			});
-			
-			const msg = [[${msg}]];
-			if(msg != null){
-				alert(msg);
-			}
 			
 		</script>
 

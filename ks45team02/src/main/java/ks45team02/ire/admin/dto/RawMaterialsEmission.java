@@ -6,6 +6,7 @@ public class RawMaterialsEmission {
 	private String raw_materials_category;
 	private String raw_materials_size;
 	private String carbon_dioxide_emission_level;
+	
 	public String getRaw_materials_co2_code() {
 		return raw_materials_co2_code;
 	}
