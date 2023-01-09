@@ -35,7 +35,6 @@ public class IncomingController {
 		model.addAttribute("title","addIncoming");
 		model.addAttribute("pageTitle","상품 입고 추가");
 		List<Goods>goodsList=goodsService.getListGoods();
-		Goods getIncomingEmissionLevel= goodsMapper.getIncomingEmissionLevel(goodsList.toString());
 		model.addAttribute("goodsList",goodsList);
 		model.addAttribute("getIncomingEmissionLevel",getIncomingEmissionLevel);
 		return "admin/incoming/incomingAdd";

@@ -33,7 +33,7 @@
 	</th:block>
 	
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 		$(function(){
 			function validateValue(checkValue) {
 				if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
@@ -60,6 +60,12 @@
 			
 				if(isSubmit) $('#modifyNoticeForm').submit();
 			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
 		});
 		</script>
 	</th:block>

@@ -1,7 +1,6 @@
 package ks45team02.ire.admin.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.BoardNotice;
 import ks45team02.ire.admin.service.BoardNoticeService;
@@ -31,17 +31,6 @@ public class BoardNoticeController {
 		
 	}
 	
-	/**
-	 * 공지사항 등록 화면
-	 * @return admin/board/boardAddNotice
-	 */
-	@GetMapping("/addBoardNotice")
-	public String addBoardNotice(Model model) {
-		
-		model.addAttribute("title", "공지사항 등록");
-		model.addAttribute("pageTitle", "공지사항 등록");
-		return "admin/board/boardAddNotice";
-	}
 	
 	/**
 	 * 공지사항 등록
@@ -49,11 +38,36 @@ public class BoardNoticeController {
 	 * @return
 	 */
 	@PostMapping("/addBoardNotice")
-	public String addBoardNotice(BoardNotice boardNotice) {
+	public String addBoardNotice(BoardNotice boardNotice, RedirectAttributes reAttr) {
 
-		boardNoticeService.addNotice(boardNotice);
+		int result = boardNoticeService.addNotice(boardNotice);
+		log.info("result : {}", result);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "공지사항이 등록에 실패하였습니다.");
+			return "redirect:/admin/addBoardNotice";
+		}else {
+			reAttr.addAttribute("msg", "공지사항이 등록에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listBoardNotice";
+	}
+	
+	/**
+	 * 공지사항 등록 화면
+	 * @return admin/board/boardAddNotice
+	 */
+	@GetMapping("/addBoardNotice")
+	public String addBoardNotice(Model model
+			,@RequestParam(value="msg", required=false) String msg) {
+		
+		model.addAttribute("title", "공지사항 등록");
+		model.addAttribute("pageTitle", "공지사항 등록");
+		log.info("result1111111111 : {}", msg);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		
+		return "admin/board/boardAddNotice";
 	}
 
 	/**
@@ -62,9 +76,17 @@ public class BoardNoticeController {
 	 * @return
 	 */
 	@PostMapping("/deleteBoardNotice")
-	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode) {
+	public String deleteBoardNotice(@RequestParam(value = "noticeCode") String noticeCode
+									,RedirectAttributes reAttr) {
 		
-		boardNoticeService.deleteBoardNotice(noticeCode);
+		int result = boardNoticeService.deleteBoardNotice(noticeCode);
+		log.info("result : {}", result);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "공지사항이 삭제에 실패하였습니다.");
+			return "redirect:/admin/addBoardNotice";
+		}else {
+			reAttr.addAttribute("msg", "공지사항이 삭제에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listBoardNotice";
 	}
@@ -74,14 +96,19 @@ public class BoardNoticeController {
 	 * @param model
 	 */
 	@GetMapping("/listBoardNotice")
-	public String listBoardNotice(Model model) {
+	public String listBoardNotice(Model model
+								  ,@RequestParam(value="msg", required=false) String msg) {
 		
 		List<BoardNotice> noticeList = boardNoticeService.getNoticeList();
 		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("title", "공지사항목록");
 		model.addAttribute("pageTitle", "공지사항목록");
-	
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		
 		return "admin/board/boardListNotice";
 	}
 	
@@ -107,7 +134,8 @@ public class BoardNoticeController {
 	 * @return admin/board/boardModifyNotice
 	 */
 	@GetMapping("/modifyBoardNotice")
-	public String modifyBoardNotice(@RequestParam(value = "noticeCode") String noticeCode, Model model) {
+	public String modifyBoardNotice(@RequestParam(value = "noticeCode") String noticeCode
+									,Model model) {
 		
 		List<BoardNotice> modifyNotice = boardNoticeService.ContentsNotice(noticeCode);
 		
@@ -123,9 +151,17 @@ public class BoardNoticeController {
 	 * @return redirect:/admin/listBoardNotice
 	 */
 	@PostMapping("/modifyBoardNotice")
-	public String modifyBoardNotice(BoardNotice boardNotice) {
+	public String modifyBoardNotice(BoardNotice boardNotice, RedirectAttributes reAttr) {
 		
-		boardNoticeService.modifyBoardNotice(boardNotice);
+		int result = boardNoticeService.modifyBoardNotice(boardNotice);
+
+		log.info("result : {}", result);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "공지사항이 수정에 실패하였습니다.");
+			return "redirect:/admin/addBoardNotice";
+		}else {
+			reAttr.addAttribute("msg", "공지사항이 수정에 성공하였습니다.");
+		}
 		
 		return "redirect:/admin/listBoardNotice";
 	}

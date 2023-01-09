@@ -20,4 +20,11 @@
 			goods_unit_price_info AS u
 		ORDER BY u.goods_code
 	</select>
+	
+	<!-- 상품 판매단가 및 상품가격 등록 -->
+	<insert id="addUnitPrice" parameterType="Goods">
+		INSERT INTO goods_unit_price_info
+		(goods_code, factory_goods_price, goods_price)
+		VALUES (sf_select_goods_code() ,#{unitPrice.factoryGoodsPrice} , #{goodsPrice})
+	</insert>
 </mapper>

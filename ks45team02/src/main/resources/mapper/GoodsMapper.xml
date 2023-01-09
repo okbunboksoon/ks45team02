@@ -12,18 +12,17 @@
 		<result property="goodsColor" 				column="goods_color"/>
 		<result property="goodsSize" 				column="goods_size"/>
 		<result property="goodsRegDate" 			column="goods_reg_date"/>
-		<result property="goodsSangse" 			column="goods_sangse"/>
+		<result property="goodsSangse" 				column="goods_sangse"/>
 		<result property="goodsImage" 				column="goods_image"/>
 		<result property="fabric" 					column="fabric"/>
 		<result property="rate" 					column="rate"/>
 		<result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+			<association property="unitPrice" javaType="UnitPrice">
+			<id property="goodsCode" 				column="goods_code" />
+			<result property="factoryGoodsPrice" 	column="factory_goods_price"/>
+			<result property="goodsPrice"			column="goods_price"/>
+			</association>
 	</resultMap>
-	<select id="getIncomingEmissionLevel" resultMap="GoodsResultMap">
-		<!--전체 업사이클링 상품별 이산화탄소 총배출량(kg) 교환-->
-		SELECT upcycling_carbon_dioxide_emission_level
-		FROM goods
-		WHERE goods_code=#{goodsCode};
-	</select>
 	
 	<select id="goodsCheck" parameterType="String" resultType="int">
 		<!-- 상품코드로 상품 존재여부 확인 -->
@@ -57,6 +56,31 @@
 		</where>
 	</select>
 	
+	<!-- 상품 및 단가 검색 -->
+	<select id="searchGoodsUnitprice" resultMap="GoodsResultMap" parameterType="String">
+		SELECT 
+			 g.goods_code
+			,g.goods_name
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,u.goods_code
+			,u.factory_goods_price
+			,u.goods_price
+		FROM 
+			goods AS g
+			INNER JOIN 
+			goods_unit_price_info AS u
+			ON  
+			g.goods_code = u.goods_code
+		<where>
+			<if test="searchKey != null and searchKey != '' and searchValue != null and searchValue != ''">
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 상품 전체 조회 -->
 	<select id="getListGoods" resultMap="GoodsResultMap">
 		SELECT
 			g.goods_code
@@ -74,4 +98,65 @@
 		FROM
 			goods AS g
 	</select>
+	
+	<!-- 상품 등록  -->
+	<insert id="addGoods">
+		INSERT INTO goods
+			(goods_code, goods_name, category_medium_code, goods_price, 
+		 	goods_color, goods_size, goods_reg_date, goods_sangse, 
+			goods_image, fabric, rate, upcycling_carbon_dioxide_emission_level)
+		VALUES 
+			(sf_new_goods_code(), #{goodsName}, #{categoryMediumCode}, #{goodsPrice}, #{goodsColor}, 
+			 #{goodsSize}, NOW(), #{goodsSangse}, #{goodsImage}, #{fabric}, #{rate}, 0)
+	</insert>
+	
+	<!-- FirstFabric가져오기 -->
+	<select id="getFirstFabic" parameterType="Goods" resultType="String">
+		SELECT
+			SUBSTRING_INDEX(g.fabric, ':', 1)
+		FROM
+			goods AS g
+		WHERE
+		 g.goods_code = sf_select_goods_code()
+	</select>
+	
+	
+	<!-- LastFabric가져오기 -->
+	<select id="getLastFabic" parameterType="Goods" resultType="String">
+		SELECT
+			SUBSTRING_INDEX(g.fabric, ':', -1)
+		FROM
+			goods AS g
+		WHERE
+		 g.goods_code = sf_select_goods_code()
+	</select>
+	
+	<!-- FirstRate가져오기 -->
+	<select id="getFirstRate" parameterType="Goods" resultType="int">
+		SELECT
+			SUBSTRING_INDEX(g.rate, ':', 1)
+			FROM
+			goods AS g
+		WHERE
+		 g.goods_code = sf_select_goods_code()
+	</select>
+	
+	<!-- LastRate가져오기 -->
+	<select id="getLastRate" parameterType="Goods" resultType="int">
+		SELECT
+			SUBSTRING_INDEX(g.rate, ':', -1)
+			FROM
+			goods AS g
+		WHERE
+		 g.goods_code = sf_select_goods_code()
+	</select>
+	
+	<!-- upcycling_carbon_dioxide_emission_level 업데이트 -->
+	<update id="updateEmissionLevel" parameterType="double">
+		UPDATE goods AS g
+		SET
+			upcycling_carbon_dioxide_emission_level= ${emissionLevel}
+		WHERE 
+			g.goods_code = sf_select_goods_code()
+	</update>
 </mapper>

@@ -9,82 +9,104 @@ public class Business {
     private String businessManagerName;
     private String businessPhone;
     private String userId;
+    
+    private Contract contract;
 
-    @Override
-    public String toString() {
-        return "Business{" +
-                "businessCode='" + businessCode + '\'' +
-                ", businessName='" + businessName + '\'' +
-                ", businessNum='" + businessNum + '\'' +
-                ", businessType='" + businessType + '\'' +
-                ", sectors='" + sectors + '\'' +
-                ", businessManagerName='" + businessManagerName + '\'' +
-                ", businessPhone='" + businessPhone + '\'' +
-                ", userId='" + userId + '\'' +
-                '}';
-    }
+	public String getBusinessCode() {
+		return businessCode;
+	}
 
-    public String getBusinessCode() {
-        return businessCode;
-    }
+	public void setBusinessCode(String businessCode) {
+		this.businessCode = businessCode;
+	}
 
-    public void setBusinessCode(String businessCode) {
-        this.businessCode = businessCode;
-    }
+	public String getBusinessName() {
+		return businessName;
+	}
 
-    public String getBusinessName() {
-        return businessName;
-    }
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
 
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-    }
+	public String getBusinessNum() {
+		return businessNum;
+	}
 
-    public String getBusinessNum() {
-        return businessNum;
-    }
+	public void setBusinessNum(String businessNum) {
+		this.businessNum = businessNum;
+	}
 
-    public void setBusinessNum(String businessNum) {
-        this.businessNum = businessNum;
-    }
+	public String getBusinessType() {
+		return businessType;
+	}
 
-    public String getBusinessType() {
-        return businessType;
-    }
+	public void setBusinessType(String businessType) {
+		this.businessType = businessType;
+	}
 
-    public void setBusinessType(String businessType) {
-        this.businessType = businessType;
-    }
+	public String getSectors() {
+		return sectors;
+	}
 
-    public String getSectors() {
-        return sectors;
-    }
+	public void setSectors(String sectors) {
+		this.sectors = sectors;
+	}
 
-    public void setSectors(String sectors) {
-        this.sectors = sectors;
-    }
+	public String getBusinessManagerName() {
+		return businessManagerName;
+	}
 
-    public String getBusinessManagerName() {
-        return businessManagerName;
-    }
+	public void setBusinessManagerName(String businessManagerName) {
+		this.businessManagerName = businessManagerName;
+	}
 
-    public void setBusinessManagerName(String businessManagerName) {
-        this.businessManagerName = businessManagerName;
-    }
+	public String getBusinessPhone() {
+		return businessPhone;
+	}
 
-    public String getBusinessPhone() {
-        return businessPhone;
-    }
+	public void setBusinessPhone(String businessPhone) {
+		this.businessPhone = businessPhone;
+	}
 
-    public void setBusinessPhone(String businessPhone) {
-        this.businessPhone = businessPhone;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public Contract getContract() {
+		return contract;
+	}
+
+	public void setContract(Contract contract) {
+		this.contract = contract;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Business [businessCode=");
+		builder.append(businessCode);
+		builder.append(", businessName=");
+		builder.append(businessName);
+		builder.append(", businessNum=");
+		builder.append(businessNum);
+		builder.append(", businessType=");
+		builder.append(businessType);
+		builder.append(", sectors=");
+		builder.append(sectors);
+		builder.append(", businessManagerName=");
+		builder.append(businessManagerName);
+		builder.append(", businessPhone=");
+		builder.append(businessPhone);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append(", contract=");
+		builder.append(contract);
+		builder.append("]");
+		return builder.toString();
+	}
+    
 }

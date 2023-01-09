@@ -12,7 +12,53 @@
         <result property="businessManagerName" column="business_manager_name"/>
         <result property="businessPhone" column="business_phone"/>
         <result property="userId" column="user_id"/>
+        	<association property="contract" javaType="Contract">
+			<id property="contractCode" 		column="contract_code"/>
+	        <result property="userId" 					column="user_id"/>
+	        <result property="contractName" 			column="contract_name"/>
+	        <result property="businessCode" 			column="business_code"/>
+	        <result property="contractContent" 			column="contract_content"/>
+	        <result property="contractDate" 			column="contract_date"/>
+	        <result property="contractExpirationDate" 	column="contract_expiration_date"/>
+	        <result property="contractRegDate" 			column="contract_reg_date"/>
+	        <result property="contractState" 			column="contract_state"/>
+			</association>
     </resultMap>
+    
+    <!-- 거래처 검색 -->
+	<select id="searchBusinessContract" resultMap="BusinessResultMap" parameterType="String">
+		SELECT
+			 b.business_code
+			,b.business_name
+			,b.business_num
+			,b.business_type
+			,b.sectors
+			,b.business_manager_name
+			,b.business_phone
+			,b.user_id
+			,c.contract_code
+			,c.user_id
+			,c.contract_name
+			,c.business_code
+			,c.contract_content
+			,c.contract_date
+			,c.contract_expiration_date
+			,c.contract_reg_date
+			,c.contract_state
+		FROM
+			business AS b
+			INNER JOIN
+			contract AS c
+			on
+			b.business_code = c.business_code
+		<where>
+			b.business_type = '매입거래처'
+			<if test="searchKey != null and searchKey != '' and searchValue != null and searchValue != ''">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+		</where>
+	</select>
+    
     <select id="listBusiness" resultMap="BusinessResultMap">
         <!--거래처 조회-->
         SELECT
