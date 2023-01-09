@@ -14,8 +14,14 @@
 	</head>
 	
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
 				function validateValue(checkValue) {
 					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
 						return true;
@@ -56,15 +62,23 @@
 							<th:block th:if="${not #lists.isEmpty(BigCategoryInfo)}" th:each="ci : ${BigCategoryInfo}">
 							<h5 class="styleTitle">카테고리 대 수정</h5>
 							<form id= "modifyCategoryBigForm" th:action="@{/admin/modifyBigCategory}" method="post">
+							
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">수정 할 카테고리 대 코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="categoryBigCode" name="categoryBigCode"
+							  		       class="form-control" th:value="${ci.categoryBigCode}" readonly="readonly"/>
+								</div>
+							</div>
+							
 							<div class="item form-group">
 								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">수정 전 카테고리 대 이름</label>
 								<div class="col-md-6 col-sm-6 ">
 									<input type="text" id="categoryBigName" name="categoryBigName"
 							  		       class="form-control" th:value="${ci.categoryBigName}" disabled/>
-									<input type="hidden" id="categoryBigCode" name="categoryBigCode"
-							  		       class="form-control" th:value="${ci.categoryBigCode}"/>
 								</div>
 							</div>
+							
 							<div class="item form-group">
 								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">수정 후 카테고리 대 이름</label>
 								<div class="col-md-6 col-sm-6 ">
@@ -72,6 +86,7 @@
 							  		       class="form-control" th:value="${ci.categoryBigName}"/>
 								</div>
 							</div>
+							
 							<div class="item form-group">
 								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
 									<button class="btn btn-primary" type="button" id="submitBtn">수정</button>

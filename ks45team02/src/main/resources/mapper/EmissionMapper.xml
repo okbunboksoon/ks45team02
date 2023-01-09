@@ -87,4 +87,24 @@
 			goods_emission AS ge
     
     </select>
+    
+        <!-- 상품 원단 비율 firstFabric -->
+    <select id="getFirstFabric" resultType="double">
+    	SELECT
+			ge.upcycling_carbon_dioxide_emission_level
+		FROM
+			goods_emission AS ge
+		WHERE
+			fabric = #{resultFirstFabric}
+    </select>
+    
+    <!-- 상품 원단 비율 LastFabric -->
+    <select id="getLastFabric" resultType="double">
+    	SELECT
+			ge.upcycling_carbon_dioxide_emission_level
+		FROM
+			goods_emission AS ge
+		WHERE
+			fabric = #{resultFirstFabric}
+    </select>
 </mapper>

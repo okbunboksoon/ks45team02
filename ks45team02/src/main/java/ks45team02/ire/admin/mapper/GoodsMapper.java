@@ -1,9 +1,10 @@
 package ks45team02.ire.admin.mapper;
 
-import ks45team02.ire.admin.dto.Goods;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
+import ks45team02.ire.admin.dto.Goods;
 
 @Mapper
 public interface GoodsMapper {
@@ -14,8 +15,28 @@ public interface GoodsMapper {
 	//상품 검색
 	public List<Goods> searchGoods(String searchKey, String searchValue);
 	
+	// 상품 판매단가 및 전체 검색
+	public List<Goods> searchGoodsUnitprice(String searchKey, String searchValue);
+	
+	// 상품 전체 조회
 	public List<Goods> getListGoods();
-	//전체 업사이클링 상품별 이산화탄소 총배출량(kg)계산용
-	public Goods getIncomingEmissionLevel(String goodsCode);
+	
+	// 상품 등록 처리
+	public int addGoods(Goods goods);
+	
+	// FirstFabric 가져오기
+	public String getFirstFabic(Goods goods);
+	
+	// LastFabric 가져오기
+	public String getLastFabic(Goods goods);
+	
+	// FirstRate 가져오기
+	public int getFirstRate(Goods goods);
+	
+	// LastRate 가져오기
+	public int getLastRate(Goods goods);
+	
+	// 레벨 등록
+	public int updateEmissionLevel(double emissionLevel);
 
 }

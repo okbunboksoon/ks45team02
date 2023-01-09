@@ -12,7 +12,7 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
 				$('#listNotice').DataTable();
 				
@@ -26,6 +26,11 @@
 						$('#deleteNoticeForm').submit();					
 					}
 				});
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
 		});
 		</script>	
 	</th:block>

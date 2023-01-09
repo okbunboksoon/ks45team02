@@ -1,6 +1,7 @@
 package ks45team02.ire.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +78,21 @@ public class EmissionService {
 		return GoodsEmissionList;
 	}
 	
+	/**
+	 * 상품 등록 시 이산화탄소 배출량 조회
+	 */
+	public Map<String, Object> getGoodsEmissionLevel(Map<String, Object> paramMap){
+		
+		String resultFirstFabric = (String) paramMap.get("firstFabric");
+		String resultLastFabric = (String) paramMap.get("lastFabric");
+		double FirstFabric = emissionMapper.getFirstFabric(resultFirstFabric);
+		double LastFabric = emissionMapper.getLastFabric(resultLastFabric);
+		paramMap.clear();
+		paramMap.put("FirstFabric", FirstFabric);
+		paramMap.put("LastFabric", LastFabric);
 	
+		return paramMap;
+	}
 	
 	
 	

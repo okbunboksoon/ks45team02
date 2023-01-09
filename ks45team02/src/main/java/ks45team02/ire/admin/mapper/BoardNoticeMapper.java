@@ -15,7 +15,6 @@ public interface BoardNoticeMapper {
 	 */
 	public List<BoardNotice> getNoticeList(); 
 
-	
 	/**
 	 * 공지사항 등록
 	 */

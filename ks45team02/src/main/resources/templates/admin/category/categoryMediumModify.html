@@ -14,8 +14,14 @@
 	</head>
 	
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
 				function validateValue(checkValue) {
 					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
 						return true;
@@ -75,8 +81,14 @@
 							<h5 class="styleTitle">카테고리 중 수정</h5>
 							<form id= "modifyCategoryMediumForm" th:action="@{/admin/modifyMediumCategory}" method="post">
 							<th:block th:if="${not #lists.isEmpty(mediumCategoryInfo)}" th:each="mi : ${mediumCategoryInfo}">										
-								<input type="hidden" id="categoryMediumCode" name="categoryMediumCode"
-							  		   th:value="${mi.categoryMediumCode}"class="form-control"/>
+							<div class="item form-group">
+								<label for="categoryMediumName" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 중 이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="categoryMediumCode" name="categoryMediumCode"
+							  		       th:value="${mi.categoryMediumCode}"class="form-control"/>
+								</div>
+							</div>
+							
 							<div class="item form-group">
 								<label for="mediumCategoryBigCode" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 대 이름</label>
 								<div class="col-md-6 col-sm-6 ">
@@ -90,6 +102,7 @@
 										</select>
 									</div>
 								</div>
+							
 							<div class="item form-group">
 								<label for="categoryMediumName" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 중 이름</label>
 								<div class="col-md-6 col-sm-6 ">
@@ -97,6 +110,7 @@
 							  		       th:value="${mi.categoryMediumName}"class="form-control"/>
 								</div>
 							</div>
+							
 							<div class="item form-group">
 								<div class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
 									<button class="btn btn-primary" type="button" id="submitMediBtn">수정</button>

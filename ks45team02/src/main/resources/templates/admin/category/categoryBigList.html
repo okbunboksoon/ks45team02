@@ -12,13 +12,18 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 			$(function(){
 				$('#listCategory').DataTable();
 				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
 				$('.deleteBtn').click(function(){
 					let deleteCheck = confirm("정말 삭제하시겠습니까?")
-					let deleteValue = $('.deleteBtn').val();
+					let deleteValue = $(this).val();
 					
 					if(!deleteCheck){
 						return false;

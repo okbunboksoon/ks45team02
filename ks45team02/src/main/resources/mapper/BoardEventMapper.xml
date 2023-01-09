@@ -4,7 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.admin.mapper.BoardEventMapper">
     <resultMap id="BoardEventResultMap" type="BoardEvent">
-        <id property="eventNum"         column="event_num" />
+        <id property="eventCode"         column="event_code" />
         <result property="eventTitle"    column="event_title" />
         <result property="eventContents"    column="event_contents" />
         <result property="eventImage"    column="event_image" />
@@ -14,7 +14,7 @@
     </resultMap>
         <select id="getBoardEventList" resultMap="BoardEventResultMap">
             SELECT
-            e.event_num
+            e.event_code
             , e.event_title
             , e.event_reg_date
             FROM
@@ -22,9 +22,9 @@
         </select>
     <insert id = "addBoardEvent" parameterType="BoardEvent">
         INSERT INTO event
-        (event_num, event_title, event_contents, event_image, event_start, event_finish, event_reg_date)
+        (event_code, event_title, event_contents, event_image, event_start, event_finish, event_reg_date)
         VALUES
-        (sf_new_Event_Num(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
+        (sf_new_Event_code(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
     </insert>
     <select id = "getBoardEventTitleList" resultType="BoardEvent">
         SELECT
@@ -34,7 +34,7 @@
     </select>
     <select id="viewBoardEvent" resultType="String"  resultMap="BoardEventResultMap">
         SELECT
-         e.event_num, e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
+         e.event_code, e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
         FROM
         event AS e
         WHERE
@@ -63,6 +63,6 @@
                 </if>
             </trim>
             WHERE
-                event_num = #{eventNum}
+                event_code = #{eventCode}
     </update>
 </mapper>
