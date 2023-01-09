@@ -24,17 +24,17 @@
 									<thead>
 										<tr>
 											<th class="fabric">원단</th>
-											<th class="carbon_dioxide_emission_level">일반 원단별 11111111이산화탄소 배출량(Kg)</th>
+											<th class="carbon_dioxide_emission_level">일반 원단별 이산화탄소 배출량(Kg)</th>
 											<th class="upcycling_carbon_dioxide_emission_level">업사이클링 원단별 이산화탄소 배출량(Kg)</th>
 											<th>수정</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:if="${not #lists.isEmpty(goodsEmissionList)}" th:each="ge : ${goodsEmissionList}">
-											<td th:text="${ge.fabric}"></td>
-											<td th:text="${ge.carbon_dioxide_emission_level}"></td>
-											<td th:text="${ge.upcycling_carbon_dioxide_emission_level}"></td>
-											<td><a th:href="@{/admin/modifyGoodsEmission(fabric=${ge.fabric})}">수정</a></td> 
+										<tr th:if="${not #lists.isEmpty(goodsEmissionList)}" th:each="g: ${goodsEmissionList}">
+											<td th:text="${g.fabric}"></td>
+											<td th:text="${g.carbon_dioxide_emission_level}"></td>
+											<td th:text="${g.upcycling_carbon_dioxide_emission_level}"></td>
+											<td><a th:href="@{/admin/modifyGoodsEmission(fabric=${g.fabric})}">수정</a></td> 
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(goodsEmissionList)}">
 											<td colspan="4">등록된 기준이 존재하지 않습니다.</td>

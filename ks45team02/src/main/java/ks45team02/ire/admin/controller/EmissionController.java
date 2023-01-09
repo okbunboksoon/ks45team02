@@ -162,15 +162,33 @@ public class EmissionController {
 	
 	
 	/**
-	 * 원단별 탄소배출량 기준 수정 
-	 * @return
+	 * 원단별 탄소배출량 기준 수정 화면
+	 * @param goodsEmission model
+	 * @return admin/goodsEmissionModify
 	 */
 	@GetMapping("/modifyGoodsEmission")
-	public String modifyGoodsEmission() {
+	public String modifyGoodsEmission(@RequestParam(value="fabric") String fabric, Model model) {
 		
+		List<GoodsEmission> modifyGoodsEmission = emissionService.getGoodsEmissionFabric(fabric);
+		model.addAttribute("title", "원단별 탄소배출량 기준 수정");
+		model.addAttribute("modifyGoodsEmission", modifyGoodsEmission);
+		
+		log.info("modifyGoodsEmission: {}", modifyGoodsEmission);
 		return "admin/emission/emissionGoodsModify";
 	}
 	
+	/**
+	 * 원단별 탄소배출량 기준 수정 처리
+	 * @param goodsEmission
+	 * @return redirect:/admin/listGoodsEmission
+	 */
+	@PostMapping("/modifyGoodsEmisison")
+	public String modifyGoodsEmission(GoodsEmission goodsEmission) {
+		
+		emissionService.modifyGoodsEmission(goodsEmission);
+		
+		return "redirect:/admin/listGoodsEmission";
+	}
 	
 	/**
 	 * 원단별 탄소 배출량 기준 조회

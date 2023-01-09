@@ -92,6 +92,28 @@ public class EmissionService {
 		return emissionMapper.addGoodsEmission(goodsEmission);
 	}
 	
+
+	/**
+	 * 원단별 탄소 배출량 기준 수정
+	 * @param GoodsEmission
+	 * @return emissionMapper.modifyGoodsEmisison(goodsEmission)
+	 */
+	public int modifyGoodsEmission(GoodsEmission goodsEmission) {
+		return emissionMapper.modifyGoodsEmission(goodsEmission);
+	}
+	
+
+	
+	/**
+	 * 원단별 탄소 배출량 기준
+	 * @param fabric
+	 * @return GoodsEmissionInfo
+	 */
+	public List<GoodsEmission> getGoodsEmissionFabric (String fabric){
+		List<GoodsEmission> GoodsEmissionInfo = emissionMapper.getGoodsEmissionFabric(fabric);
+		return GoodsEmissionInfo;
+	}
+	
 	/**
 	 * 상품 등록 시 이산화탄소 배출량 조회
 	 */
