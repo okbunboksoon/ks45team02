@@ -10,16 +10,58 @@
         <result property="incomingDate" column="incoming_date"/>
         <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
         <result property="totalCo2" column="total_co2"/>
+        <!--<association property="goodsCode" javaType="Goods">
+            <id property="goodsCode" 					column="goods_code" />
+            <result property="goodsName" 				column="goods_name"/>
+            <result property="categoryMediumCode"		column="category_medium_code"/>
+            <result property="categoryMediumName"		column="category_medium_name"/>
+            <result property="goodsPrice" 				column="goods_price"/>
+            <result property="goodsColor" 				column="goods_color"/>
+            <result property="goodsSize" 				column="goods_size"/>
+            <result property="goodsRegDate" 			column="goods_reg_date"/>
+            <result property="goodsSangse" 			column="goods_sangse"/>
+            <result property="goodsImage" 				column="goods_image"/>
+            <result property="fabric" 					column="fabric"/>
+            <result property="rate" 					column="rate"/>
+            <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+            <association property="goodsCode" javaType="Outgoing">
+                <id property="outgoingCode" column="outgoing_code"/>
+                <result property="goodsCode" column="goods_code"/>
+                <result property="outgoingAmount" column="outgoing_amount"/>
+                <result property="stockAmount" column="stock_amount"/>
+                <result property="outgoingDate" column="outgoing_date"/>
+                <result property="paymentCompleteCode" column="payment_complete_code"/>
+                <result property="deliveryCode" column="delivery_code"/>
+            </association>
+        </association>-->
     </resultMap>
-    <select id="getIncomingAmount" resultMap="IncomingResultMap">
-        <!--수정 필요-->
+    <select id="getStockAmount" resultType="map">
         SELECT
-        i.goods_code,
-        i.incoming_amount
+        sub_g.goods_code AS goodsCode
+        ,sub_g.incomingAmount
+        ,sub_o.outgoingAmount
+        ,(sub_g.incomingAmount-sub_o.outgoingAmount) AS currentAmount
         FROM
+        (SELECT
+        g.goods_code
+        ,sum(i.incoming_amount) AS incomingAmount
+        FROM
+        goods AS g
+        INNER JOIN
         incoming AS i
+        ON g.goods_code = i.goods_code
+        GROUP BY g.goods_code) AS sub_g
+        INNER JOIN
+        (SELECT
+        o.goods_code
+        ,SUM(o.outgoing_amount) AS outgoingAmount
+        FROM
+        outgoing AS o
+        GROUP BY o.goods_code) sub_o
+        ON sub_g.goods_code = sub_o.goods_code
 
     </select>
+
 
     <select id="getInfoByIncoming" resultMap="IncomingResultMap">
         SELECT

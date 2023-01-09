@@ -40,31 +40,24 @@
                                 <thead>
                                 <tr>
                                     <th>상품코드</th>
-                                    <th>상품출고수량</th>
-                                    <th>상품코드</th>
                                     <th>상품입고수량</th>
+                                    <th>상품출고수량</th>
+                                    <th>현재재고현황</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr th:if ="${not #lists.isEmpty(getOutgoingAmount)}"
-                                    th:each="o : ${getOutgoingAmount}">
 
-                                    <td th:text ="${o.goodsCode}"/></td>
-                                    <td th:text ="${o.outgoing_amount}"/></td>
+                                <tr th:if ="${not #lists.isEmpty(getStockAmount)}"
+                                    th:each="s : ${getStockAmount}">
+
+                                    <td th:text ="${s.goodsCode}"/></td>
+                                    <td th:text ="${s.incomingAmount}"/></td>
+                                    <td th:text ="${s.outgoingAmount}"/></td>
+                                    <td th:text ="${s.currentAmount}"/></td>
                                 </tr>
 
-                                <tr th:if="${#lists.isEmpty(getOutgoingAmount)}">
-                                    <td colspan="9">등록한 회원이 없습니다.</td>
-                                </tr>
-                                <tr th:if ="${not #lists.isEmpty(getIncomingAmount)}"
-                                    th:each="i : ${getIncomingAmount}">
-
-                                    <td th:text ="${i.goodsCode}"/></td>
-                                    <td th:text ="${i.incomingAmount}"/></td>
-                                </tr>
-
-                                <tr th:if="${#lists.isEmpty(getIncomingAmount)}">
+                                <tr th:if="${#lists.isEmpty(getStockAmount)}">
                                     <td colspan="9">등록한 회원이 없습니다.</td>
                                 </tr>
                                 </tbody>

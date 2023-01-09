@@ -7,7 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface OutgoingMapper {
-    public List<Outgoing>getOutgoingAmount();
     //상품출고 조회
     public List<Outgoing>listOutgoing();
     //상품출고 등록
