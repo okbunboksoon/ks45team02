@@ -1,10 +1,209 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-buynowModify
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${buynowInfo}">
+				<br>
+				<form th:action="@{/admin/modifyBuyNow}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="buynowCode" class="col-form-label col-md-3 col-sm-3 label-align">즉시구매 합계계산 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="buynowCode" name="buynowCode" th:value="*{buynowCode}"
+							 	   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   placeholder="구매자아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsSearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">상품 검색</label>
+						<div class="col-md-6 col-sm-6 ">
+							<button type="button" class="btn btn-secondary btn-sm" id="goodsSearchBtn">상품 검색</button>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="goodsCode" name="goodsCode" th:value="*{goodsCode}"
+							 	   placeholder="상품코드" readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="goodsName" name="goodsName" th:value="*{goodsName}"
+							 	   placeholder="상품이름" readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="categoryMediumName" class="col-form-label col-md-3 col-sm-3 label-align">카테고리(중)</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="categoryMediumName" name="categoryMediumName" th:value="*{categoryMediumName}"
+							 	   placeholder="카테고리(중)" readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">가격</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="goodsPrice" name="goodsPrice" th:value="*{goodsPrice}"
+							 	   placeholder="가격" readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="amount" class="col-form-label col-md-3 col-sm-3 label-align">수량</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="amount" name="buynowAmount" th:with="numArr=${#numbers.sequence(1, 100)}" class="form-control">
+								<th:block th:each="num : ${numArr}">
+									<option th:value="${num}" th:text="${num}" th:selected="*{buynowAmount} == ${num}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="paymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">결제예정합계</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="paymentAmount" name="expectedAmount" th:value="*{expectedAmount}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="usePoint" class="col-form-label col-md-3 col-sm-3 label-align">포인트사용</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="usePoint" name="usePoint" th:value="*{usePoint}"
+								   class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="finalPaymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">최종결제합계</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="finalPaymentAmount" name="finalPaymentAmount" th:value="*{finalPaymentAmount}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="regDate" class="col-form-label col-md-3 col-sm-3 label-align">등록일자</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="regDate" name="regDate" th:value="*{regDate}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="buynowDeleteState" class="col-form-label col-md-3 col-sm-3 label-align">삭제여부</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="buynowDeleteState" name="buynowDeleteState"class="form-control" >
+								<option value="N" th:selected="*{buynowDeleteState} == 'N'">N</option>
+								<option value="Y" th:selected="*{buynowDeleteState} == 'Y'">Y</option>
+							</select>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			
+			const $goodsSearchBtn = document.getElementById('goodsSearchBtn');
+			
+			const $goodsPrice = document.getElementById('goodsPrice');
+			const $amount = document.getElementById('amount');
+			const $paymentAmount = document.getElementById('paymentAmount');
+			const $usePoint = document.getElementById('usePoint');
+			const $finalPaymentAmount = document.getElementById('finalPaymentAmount');
+			
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listBuynow';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				
+				if($finalPaymentAmount.value < 0){
+					alert('최종결제합계를 다시 확인해주세요.');
+					return false;
+				}
+				
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			$goodsSearchBtn.addEventListener('click', function(){
+				window.name = "buynowAdd";
+				let openWin = window.open('/admin/goodsSearch', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
+			})
+
+			$amount.addEventListener('input', function(){
+				let paymentAmount = $goodsPrice.value * $amount.value;
+				$paymentAmount.value = paymentAmount;
+				let finalPaymentAmount = $paymentAmount.value - $usePoint.value;
+				$finalPaymentAmount.value = finalPaymentAmount;
+			})
+			
+			$usePoint.addEventListener('input', function(){
+				if($usePoint.value < 0){
+					alert('0 이상의 숫자만 입력 가능합니다.');
+					$usePoint.value = 0;
+				}
+				let finalPaymentAmount = $paymentAmount.value - $usePoint.value;
+				$finalPaymentAmount.value = finalPaymentAmount;
+			})
+			
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>
