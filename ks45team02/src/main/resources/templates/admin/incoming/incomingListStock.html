@@ -41,35 +41,12 @@
                                 <tr>
                                     <th>계약코드</th>
                                     <th>작성자아이디</th>
-                                    <th>계약명</th>
-                                    <th>거래처코드</th>
-                                    <th>계약내용</th>
-                                    <th>계약날짜</th>
-                                    <th>계약만료일</th>
-                                    <th>등록날짜</th>
-                                    <th>계약삭제여부</th>
-                                    <th>수정</th>
-                                    <th>삭제</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:if ="${not #lists.isEmpty(contractList)}"
                                     th:each="c : ${contractList}">
                                     <td th:text ="${c.contractCode}"/></td>
-                                    <td th:text ="${c.userId}"/></td>
-                                    <td th:text ="${c.contractName}"/></td>
-                                    <td th:text ="${c.businessCode}"/></td>
-                                    <td th:text ="${c.contractContent}"/></td>
-                                    <td th:text ="${c.contractDate}"/></td>
-                                    <td th:text ="${c.contractExpirationDate}"/></td>
-                                    <td th:text ="${c.contractRegDate}"/></td>
-                                    <td th:text ="${c.contractState}"/></td>
-                                    <td>
-                                        <a th:href="@{/admin/modifyContract(contractCode=${c.contractCode})}">수정</a>
-                                    </td>
-                                    <td>
-                                        <a th:href ="@{/admin/modifyContract/{contractCode}(contractCode=${c.contractCode})}">삭제</a>
-                                    </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(contractList)}">
                                     <td colspan="9">등록한 회원이 없습니다.</td>
