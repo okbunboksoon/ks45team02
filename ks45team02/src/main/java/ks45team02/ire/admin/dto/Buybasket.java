@@ -6,10 +6,12 @@ public class Buybasket {
 	
 	private String basketGroup;
 	private String userId;
+	private String basketCode;
 	private int expectedAmount;
 	private int usePoint;
 	private int finalPaymentAmount;
 	private String regDate;
+	private char buybasketDeleteState;
 	
 	private List<Basket> basketList;
 
@@ -27,6 +29,14 @@ public class Buybasket {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getBasketCode() {
+		return basketCode;
+	}
+
+	public void setBasketCode(String basketCode) {
+		this.basketCode = basketCode;
 	}
 
 	public int getExpectedAmount() {
@@ -61,6 +71,14 @@ public class Buybasket {
 		this.regDate = regDate;
 	}
 
+	public char getBuybasketDeleteState() {
+		return buybasketDeleteState;
+	}
+
+	public void setBuybasketDeleteState(char buybasketDeleteState) {
+		this.buybasketDeleteState = buybasketDeleteState;
+	}
+
 	public List<Basket> getBasketList() {
 		return basketList;
 	}
@@ -76,6 +94,8 @@ public class Buybasket {
 		builder.append(basketGroup);
 		builder.append(", userId=");
 		builder.append(userId);
+		builder.append(", basketCode=");
+		builder.append(basketCode);
 		builder.append(", expectedAmount=");
 		builder.append(expectedAmount);
 		builder.append(", usePoint=");
@@ -84,11 +104,16 @@ public class Buybasket {
 		builder.append(finalPaymentAmount);
 		builder.append(", regDate=");
 		builder.append(regDate);
+		builder.append(", buybasketDeleteState=");
+		builder.append(buybasketDeleteState);
 		builder.append(", basketList=");
 		builder.append(basketList);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
+	
 
 	
 	

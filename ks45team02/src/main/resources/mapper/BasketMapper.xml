@@ -19,6 +19,32 @@
 		<result property="basketDeleteState"	column="basket_delete_state" />
 	</resultMap>
 	
+	<select id="checkSameUserIdWithBasketGroup" resultType="int" parameterType="String">
+		<!-- 회원 아이디가 같을 때 같은 장바구니 그룹을 선택했는지 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			basket 
+		WHERE 
+			basket_group != #{basketGroup}
+			AND 
+			user_id = #{userId}
+			AND 
+			basket_state = '주문 전';
+	</select>
+	
+	<select id="checkSameBasketGroupWithUserId" resultType="int" parameterType="String">
+		<!-- 장바구니 그룹이 같을 때 회원 아이디가 같은지 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			basket 
+		WHERE 
+			basket_group = #{basketGroup}
+			AND 
+			user_id != #{userId};
+	</select>
+	
 	<select id="getBasketListBeforePayment" resultMap="basketResultMap" parameterType="String">
 		<!-- 결제 전인 장바구니 검색 -->
 		SELECT 
@@ -49,7 +75,7 @@
 			</if>
 	</select>
 	
-	<select id="checkBasketGroup" parameterType="String" resultType="int">
+	<select id="checkCompleteBasketGroup" parameterType="String" resultType="int">
 		<!-- 결제 완료된 장바구니 그룹인지 확인 -->
 		SELECT 
 			COUNT(1)

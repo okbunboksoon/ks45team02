@@ -15,25 +15,6 @@ public class PaymentComplete {
     private int pointSave;
     private String productOrderPointGroup;
 
-    @Override
-    public String toString() {
-        return "PaymentComplete{" +
-                "paymentCompleteCode='" + paymentCompleteCode + '\'' +
-                ", buynowBasketTotalCode='" + buynowBasketTotalCode + '\'' +
-                ", buynowBasket='" + buynowBasket + '\'' +
-                ", userId='" + userId + '\'' +
-                ", finalPaymentAmount=" + finalPaymentAmount +
-                ", deliCode='" + deliCode + '\'' +
-                ", orderDate='" + orderDate + '\'' +
-                ", paymentTypeCode='" + paymentTypeCode + '\'' +
-                ", paymentDate='" + paymentDate + '\'' +
-                ", pointUseGroup='" + pointUseGroup + '\'' +
-                ", productOrderState='" + productOrderState + '\'' +
-                ", pointSave=" + pointSave +
-                ", productOrderPointGroup='" + productOrderPointGroup + '\'' +
-                '}';
-    }
-
     public String getPaymentCompleteCode() {
         return paymentCompleteCode;
     }
@@ -137,4 +118,39 @@ public class PaymentComplete {
     public void setProductOrderPointGroup(String productOrderPointGroup) {
         this.productOrderPointGroup = productOrderPointGroup;
     }
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("PaymentComplete [paymentCompleteCode=");
+		builder.append(paymentCompleteCode);
+		builder.append(", buynowBasketTotalCode=");
+		builder.append(buynowBasketTotalCode);
+		builder.append(", buynowBasket=");
+		builder.append(buynowBasket);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append(", finalPaymentAmount=");
+		builder.append(finalPaymentAmount);
+		builder.append(", deliCode=");
+		builder.append(deliCode);
+		builder.append(", orderDate=");
+		builder.append(orderDate);
+		builder.append(", paymentTypeCode=");
+		builder.append(paymentTypeCode);
+		builder.append(", paymentDate=");
+		builder.append(paymentDate);
+		builder.append(", pointUseGroup=");
+		builder.append(pointUseGroup);
+		builder.append(", productOrderState=");
+		builder.append(productOrderState);
+		builder.append(", pointSave=");
+		builder.append(pointSave);
+		builder.append(", productOrderPointGroup=");
+		builder.append(productOrderPointGroup);
+		builder.append("]");
+		return builder.toString();
+	}
+    
+    
 }
