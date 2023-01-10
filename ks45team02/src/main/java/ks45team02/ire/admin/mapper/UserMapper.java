@@ -27,5 +27,7 @@ public interface UserMapper {
     public List<UserDor>listUserDor();
     //탈퇴 회원 조회
     public List<UserDrop>listUserDrop();
+    //회원 탈퇴처리
+    public int deleteUser(User user);
 
 }
