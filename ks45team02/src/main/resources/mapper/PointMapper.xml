@@ -80,12 +80,7 @@
 			,#{pointState}
 			,#{pointMinusDate}
 			,#{pointMinusReason}
-			<if test="pointMinusGroup != null">
-				,sf_new_point_group_code(#{pointMinusGroup})
-			</if>
-			<if test="pointMinusGroup == null">
-				,null
-			</if>
+			,#{pointMinusGroup}
 		);
 	</insert>
 	
@@ -157,12 +152,7 @@
 			,#{pointState}
 			,#{pointSaveDate}
 			,#{pointSaveReason}
-			<if test="pointSaveGroup != null">
-				,sf_new_point_group_code(#{pointSaveGroup})
-			</if>
-			<if test="pointSaveGroup == null">
-				,null
-			</if>
+			,#{pointSaveGroup}
 		);
 	</insert>
 	

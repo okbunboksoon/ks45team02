@@ -75,8 +75,6 @@ public class PointService {
 				String pointMinusReasonEtc = pointMinus.getPointMinusReasonEtc();
 				pointMinusReason += " (사유: " + pointMinusReasonEtc + ")";
 				pointMinus.setPointMinusReason(pointMinusReason);
-			}else if(pointMinusReason.equals("상품 구매 시 사용")){
-				pointMinus.setPointMinusGroup("point_use");
 			}
 			
 			//회원 포인트 적립금 수정
@@ -139,21 +137,6 @@ public class PointService {
 				String pointSaveReasonEtc = pointSave.getPointSaveReasonEtc();
 				pointSaveReason += " (사유: " + pointSaveReasonEtc + ")";
 				pointSave.setPointSaveReason(pointSaveReason);
-			}else {
-				switch(pointSaveReason) {
-				case("텍스트 리뷰 등록")
-					: pointSave.setPointSaveGroup("text_review");
-					  break;
-				case("포토 리뷰 등록")
-					: pointSave.setPointSaveGroup("photo_review");
-					break;
-				case("기부 등록")
-					: pointSave.setPointSaveGroup("donation");
-					break;
-				case("구매 확정")
-					: pointSave.setPointSaveGroup("product_order");
-					  break;
-				}
 			}
 			
 			//회원 포인트 적립금 수정
