@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="ks45team02.ire.admin.mapper.QualityMapper">
+	<resultMap type="Quality" id="qualityResultMap">
+		<id property="generalQualityLevel"               column="general_quality_level" />
+		<result property="durabilityTest"    column="durability_test" />
+		<result property="functionalTest"   column="functional_test" />
+		<result property="dyeabilityTest"         column="dyeability_test" />
+		<result property="hazadousQualityLevel"         column="hazadous_quality_level" />
+		<result property="formaldehydeTest"         column="formaldehyde_test" />
+		<result property="phenolChlorideTest"         column="phenol_chloride_test" />
+		<result property="haramfulElementsTest"         column="harmful_elements_test" />
+		<result property="qualityCode"         column="quality_code" />
+		<result property="checkDate"         column="check_date" />
+		<result property="incomingCode"         column="incoming_code" />
+		<result property="goodsCode"         column="goods_code" />
+		<result property="qualityResult"         column="quality_result" />
+	</resultMap>
+	<select id="getQualityGeneralLevelList" resultMap="qualityResultMap">
+		SELECT
+			gql.general_quality_level, gql.durability_test, gql.functional_test, gql.dyeability_test
+		FROM
+			general_quality_level AS gql
+	</select>
+	<insert id="addQualityGeneralLevel" parameterType="Quality">
+		INSERT INTO general_quality_level
+		(general_quality_level, durability_test, functional_test, dyeability_test)
+		VALUES(
+		#{generalQualityLevel}, #{durabilityTest}, #{functionalTest}, #{dyeabilityTest}
+		)
+	</insert>
+	<select id="getQualityHazadousSubstanceLevelList" resultMap="qualityResultMap">
+		SELECT
+			hsl.hazadous_quality_level, hsl.formaldehyde_test, hsl.phenol_chloride_test, hsl.harmful_elements_test
+		FROM
+			hazadous_substance_level AS hsl
+	</select>
+	<select id="getQualityInspectionStandardList" resultMap="qualityResultMap">
+		SELECT
+			q.quality_code, q.check_date, q.incoming_code, q.goods_code, q.general_quality_level, q.hazadous_quality_level, q.quality_result
+		FROM
+			quality AS q
+		INNER JOIN
+			incoming AS i
+		ON
+			q.incoming_code = i.incoming_code
+		INNER JOIN
+			goods AS g
+		ON
+			i.goods_code = g.goods_code
+	</select>
+	<insert id="addQualityHazadousSubstanceLevel" parameterType="Quality">
+		INSERT INTO hazadous_substance_level
+			(hazadous_quality_level, formaldehyde_test, phenol_chloride_test, harmful_elements_test)
+		VALUES
+			(#{hazadousQualityLevel}, #{formaldehydeTest}, #{phenolChlorideTest}, #{haramfulElementsTest})
+	</insert>
+	<select id="qualityGeneralLevelInfo" resultMap="qualityResultMap">
+		SELECT
+			gql.general_quality_level, gql.durability_test, gql.functional_test, gql.dyeability_test
+		FROM
+			general_quality_level AS gql
+		WHERE
+			gql.general_quality_level = #{generalQualityLevel}
+	</select>
+	<update id ="modifyQualityGeneralLevel" parameterType="Quality">
+		UPDATE general_quality_level
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="durabilityTest != null and durabilityTest != '' ">
+				durability_test= #{durabilityTest}
+			</if>
+			<if test="functionalTest != null and functionalTest != '' ">
+				,functional_test= #{functionalTest}
+			</if>
+			<if test="dyeabilityTest != null and dyeabilityTest != '' ">
+				,dyeability_test= #{dyeabilityTest}
+			</if>
+		</trim>
+		WHERE
+			general_quality_level = #{generalQualityLevel}
+	</update>
+	<select id="qualityHazadousSubstanceLevelInfo" resultMap="qualityResultMap">
+		SELECT
+			hsl.hazadous_quality_level, hsl.formaldehyde_test, hsl.phenol_chloride_test, hsl.harmful_elements_test
+		FROM
+			hazadous_substance_level AS hsl
+		WHERE
+			hsl.hazadous_quality_level = #{hazadousQualityLevel}
+	</select>
+	<update id ="modifyQualityHazadousSubstanceLevel" parameterType="Quality">
+		UPDATE hazadous_substance_level
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="formaldehydeTest != null and formaldehydeTest != '' ">
+				formaldehyde_test= #{formaldehydeTest}
+			</if>
+			<if test="phenolChlorideTest != null and phenolChlorideTest != '' ">
+				,phenol_chloride_test= #{phenolChlorideTest}
+			</if>
+			<if test="haramfulElementsTest != null and haramfulElementsTest != '' ">
+				,harmful_elements_test= #{haramfulElementsTest}
+			</if>
+		</trim>
+		WHERE
+		hazadous_quality_level = #{hazadousQualityLevel}
+	</update>
+</mapper>

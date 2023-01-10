@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        .styleTitle {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-modifyQualityHazadousSubstanceLevel
-</body>
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){
+            $('resetBtn').click(function (){
+                location.href='/admin/listQualityGeneralLevel';
+            })
+        })
+        $(function (){
+            $('#submitBtn').click(function (){
+                let isSubmint =true;
+                $('#modifyQualityHazadousSubstanceLevel input').each(function (idx,item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).parents('tr').find('label').text();
+                    if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
+                        alert(`${labelValue}를 입력해 주세여`);
+                        $(item).focus();
+                        isSubmint=false;
+                        return false;
+                    }
+                });
+                if(isSubmint) $('#modifyQualityHazadousSubstanceLevel').submit();
+            });
+        });
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <h1>일반품질검사 기준 수정</h1>
+    <form id="modifyQualityHazadousSubstanceLevel" th:action="@{/admin/modifyQualityHazadousSubstanceLevel}" method="post">
+        <table th:object="${qualityHazadousSubstanceLevelInfo}">
+            <tbody>
+            <tr>
+                <td>
+                    <label for="hazadousQualityLevel">유해물질검사기준</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="hazadousQualityLevel"
+                           name="hazadousQualityLevel"
+                           th:value="*{hazadousQualityLevel}"
+                           readonly = "readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="formaldehydeTest">폼알데하이드</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="formaldehydeTest"
+                           name="formaldehydeTest"
+                           th:value="*{formaldehydeTest}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="phenolChlorideTest">염소화페놀류</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="phenolChlorideTest"
+                           name="phenolChlorideTest"
+                           th:value="*{phenolChlorideTest}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="haramfulElementsTest">유해원소</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="haramfulElementsTest"
+                           name="haramfulElementsTest"
+                           th:value="*{haramfulElementsTest}">
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">
+                    <button type="button" id="submitBtn">수정</button>
+                    <button type="reset" id="resetBtn">취소</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customjs">
+    <!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>

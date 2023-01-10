@@ -129,9 +129,23 @@ public class QualityController {
 		return "redirect:/admin/listQualityGeneralLevel";
 	}
 	@GetMapping("/modifyQualityHazadousSubstanceLevel")
-	public String modifyQualityHazadousSubstanceLevel() {
+	public String modifyQualityHazadousSubstanceLevel(@RequestParam(value = "hazadousQualityLevel", required = false)
+													  String hazadousQualityLevel, Model model) {
+
+		Quality qualityHazadousSubstanceLevelInfo = qualityService.qualityHazadousSubstanceLevelInfo(hazadousQualityLevel);
+
+		model.addAttribute("title", "modifyQualityHazadousSubstanceLEvel");
+		model.addAttribute("pageTitle", "유해물질검사기준 수정");
+		model.addAttribute("qualityHazadousSubstanceLevelInfo", qualityHazadousSubstanceLevelInfo);
+
 		
 		return "admin/quality/qualityModifyHazadousSubstanceLevel";
+	}
+	@PostMapping("/modifyQualityHazadousSubstanceLevel")
+	public String modifyQualityHazadousSubstanceLevel(Quality quality){
+		log.info("수정할 유해물질검사기준: {}", quality);
+		qualityService.modifyQualityHazadousSubstanceLevel(quality);
+		return "redirect:/admin/listQualityHazadousSubstanceLevel";
 	}
 	
 	@GetMapping("/requestQualityInspection")
