@@ -3,49 +3,50 @@ package ks45team02.ire.admin.dto;
 public class GoodsBuying {
 
 	private String goods_buying_code;
-	private String business_code;
-	private String business_name;
-	private String goods_code;
-	private int buy_count;
-	private int goods_price;
+	private String businessCode;
+	private String businessName;
+	private String goodsCode;
+	private int goodsOrderAmount;
+	private int factoryGoodsPrice;
 	private int buy_price;
 	private int buy_vat;
 	private int buy_total;
+	private BusinessOrder businessOrder;
 	public String getGoods_buying_code() {
 		return goods_buying_code;
 	}
 	public void setGoods_buying_code(String goods_buying_code) {
 		this.goods_buying_code = goods_buying_code;
 	}
-	public String getBusiness_code() {
-		return business_code;
+	public String getBusinessCode() {
+		return businessCode;
 	}
-	public void setBusiness_code(String business_code) {
-		this.business_code = business_code;
+	public void setBusinessCode(String businessCode) {
+		this.businessCode = businessCode;
 	}
-	public String getBusiness_name() {
-		return business_name;
+	public String getBusinessName() {
+		return businessName;
 	}
-	public void setBusiness_name(String business_name) {
-		this.business_name = business_name;
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
 	}
-	public String getGoods_code() {
-		return goods_code;
+	public String getGoodsCode() {
+		return goodsCode;
 	}
-	public void setGoods_code(String goods_code) {
-		this.goods_code = goods_code;
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
 	}
-	public int getBuy_count() {
-		return buy_count;
+	public int getGoodsOrderAmount() {
+		return goodsOrderAmount;
 	}
-	public void setBuy_count(int buy_count) {
-		this.buy_count = buy_count;
+	public void setGoodsOrderAmount(int goodsOrderAmount) {
+		this.goodsOrderAmount = goodsOrderAmount;
 	}
-	public int getGoods_price() {
-		return goods_price;
+	public int getFactoryGoodsPrice() {
+		return factoryGoodsPrice;
 	}
-	public void setGoods_price(int goods_price) {
-		this.goods_price = goods_price;
+	public void setFactoryGoodsPrice(int factoryGoodsPrice) {
+		this.factoryGoodsPrice = factoryGoodsPrice;
 	}
 	public int getBuy_price() {
 		return buy_price;
@@ -65,27 +66,35 @@ public class GoodsBuying {
 	public void setBuy_total(int buy_total) {
 		this.buy_total = buy_total;
 	}
+	public BusinessOrder getBusinessOrder() {
+		return businessOrder;
+	}
+	public void setBusinessOrder(BusinessOrder businessOrder) {
+		this.businessOrder = businessOrder;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Sales_Buying [goods_buying_code=");
+		builder.append("GoodsBuying [goods_buying_code=");
 		builder.append(goods_buying_code);
-		builder.append(", business_code=");
-		builder.append(business_code);
-		builder.append(", business_name=");
-		builder.append(business_name);
-		builder.append(", goods_code=");
-		builder.append(goods_code);
-		builder.append(", buy_count=");
-		builder.append(buy_count);
-		builder.append(", goods_price=");
-		builder.append(goods_price);
+		builder.append(", businessCode=");
+		builder.append(businessCode);
+		builder.append(", businessName=");
+		builder.append(businessName);
+		builder.append(", goodsCode=");
+		builder.append(goodsCode);
+		builder.append(", goodsOrderAmount=");
+		builder.append(goodsOrderAmount);
+		builder.append(", factoryGoodsPrice=");
+		builder.append(factoryGoodsPrice);
 		builder.append(", buy_price=");
 		builder.append(buy_price);
 		builder.append(", buy_vat=");
 		builder.append(buy_vat);
 		builder.append(", buy_total=");
 		builder.append(buy_total);
+		builder.append(", businessOrder=");
+		builder.append(businessOrder);
 		builder.append("]");
 		return builder.toString();
 	}

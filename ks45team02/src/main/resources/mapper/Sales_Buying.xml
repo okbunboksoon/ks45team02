@@ -6,14 +6,29 @@
 
 	<resultMap id="GoodsBuyingResultMap" type="GoodsBuying">
         <id property="goods_buying_code"				column="goods_buying_code" />
-        <result property="business_code"			column="business_code" />
-        <result property="business_name"			column="business_name" />
-        <result property="goods_code"			column="goods_code" />
-        <result property="buy_count"			column="buy_count" />
-        <result property="goods_price"			column="goods_price" />
+        <result property="businessCode"			column="business_code" />
+        <result property="businessName"			column="business_name" />
+        <result property="goodsCode"			column="goods_code" />
+        <result property="goodsOrderAmount"			column="buy_count" />
+        <result property="factoryGoodsPrice"			column="goods_price" />
         <result property="buy_price"			column="buy_price" />
         <result property="buy_vat"			column="buy_vat" />
         <result property="buy_total"			column="buy_total" /> 
+        	<association property="businessOrder" javaType="BusinessOrder">
+				<id 	property="businessOrderCode"  			column="business_order_code"/>
+				<result property="userId" 						column="user_id" />
+				<result property="contractCode" 				column="contract_code" />
+				<result property="businessCode"		 			column="business_code" />
+				<result property="businessOrderAmount" 			column="business_order_amount" />
+				<result property="businessOrderDate" 			column="business_order_date" />
+				<result property="businessOrderResult"			column="business_order_result" />
+				<result property="businessManagerName"			column="business_manager_name" />
+				<result property="goodsCode"					column="goods_code" />
+				<result property="goodsOrderAmount"				column="goods_order_amount" />
+				<result property="factoryGoodsPrice"			column="factory_goods_price" />
+				<result property="businessConfirmOrderDate"		column="business_confirm_order_date" />
+				<result property="expectDate"					column="expect_date" />
+    		</association>
     </resultMap>
     
 	<!-- 상품 매입 리스트  -->
@@ -32,6 +47,43 @@
 	FROM 
 		goods_buy_search AS gb
 	</select>
+	
+	<!-- 상품 매입 등록 처리 -->
+	<insert id="addGoodsBuying" parameterType="GoodsBuying">
+	INSERT INTO goods_buy_search
+	(goods_buying_code, business_code, business_name, goods_code, buy_count, goods_price, buy_price, buy_vat, buy_total)
+	VALUES (sf_new_goods_buying_code(), #{businessCode}, #{businessName}, #{goodsCode}, #{goodsOrderAmount}, #{factoryGoodsPrice}, 0, 0, 0)
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     </mapper>

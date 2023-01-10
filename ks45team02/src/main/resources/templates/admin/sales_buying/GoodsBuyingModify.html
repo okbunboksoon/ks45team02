@@ -1,10 +1,180 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-modifyGoodsBuyingSales_Buying
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style type="text/css">
+			.styleTitle {
+				text-align: center;
+				color: black;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#modifyGoodsBuyingForm input').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#modifyGoodsBuyingForm').submit();
+				});
+				
+				$('#cancelBtn').click(function(){
+					location.href = '/admin/listGoodsBuying';
+				})
+				
+				
+				$('#businessOrderBtn').click(function(){
+					window.name = "GoodsBuyingAdd";
+					let openWin = window.open('/admin/businessOrderForGoodsBuyingAdd', '발주검색'
+											  ,'width=1000, height=600, top=100, left=100 scrollbar = yes');
+				});
+			});
+		</script>
+	</th:block>
+
+	<th:block layout:fragment="customContents">
+		<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<form id= "modifyGoodsBuyingForm" th:action="@{/admin/modifyGoodsBuying}" method="post">
+							
+							<th:block th:if="${not #lists.isEmpty(goodsBuyinginfo)}" th:each="gb : ${goodsBuyinginfo}">
+							
+						<div class="item form-group">
+								<label for="businessOrderBtn" class="col-form-label col-md-3 col-sm-3 label-align">거래처 검색</label>
+								<div class="col-md-6 col-sm-6 ">
+									<button type="button" class="btn btn-secondary btn-sm" id="businessOrderBtn">거래처 검색</button>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="businessOrderBtn" class="col-form-label col-md-3 col-sm-3 label-align">거래처 코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="businessCode" name="businessCode"
+							  		        placeholder="거래처 코드를 입력해주세요."class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="businessOrderBtn" class="col-form-label col-md-3 col-sm-3 label-align">거래처 이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="businessName" name="businessName"
+							  		       placeholder="거래처 이름을 입력해주세요." class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="businessOrderBtn" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsCode" name="goodsCode"
+							  		       placeholder="상품코드를 입력해주세요." class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="businessOrderBtn" class="col-form-label col-md-3 col-sm-3 label-align">매입수량</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsOrderAmount" name="goodsOrderAmount"
+							  		       placeholder="매입수량을 입력해주세요." class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="businessOrderBtn" class="col-form-label col-md-3 col-sm-3 label-align">상품단가</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="factoryGoodsPrice" name="factoryGoodsPrice"
+							  		       placeholder="상품단가를 입력해주세요." class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goodsBuying" class="col-form-label col-md-3 col-sm-3 label-align">매입금액</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="buy_price" name="buy_price"
+							  		       placeholder="매입금액을 입력해주세요." class="form-control" />
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goodsBuying" class="col-form-label col-md-3 col-sm-3 label-align">매입 부가세액</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="buy_vat" name="buy_vat"
+							  		       placeholder="매입부가세액을 입력해주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							
+							<div class="item form-group">
+								<label for="goodsBuying" class="col-form-label col-md-3 col-sm-3 label-align">매입합계</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="buy_total" name="buy_total"
+							  		       placeholder="매입합계액을 입력해주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</th:block>
+							</form>
+               			</div>
+           			</div>
+       			</div>
+   			</div>
+	</th:block>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+	</th:block>
 </html>

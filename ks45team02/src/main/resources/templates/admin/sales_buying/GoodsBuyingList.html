@@ -75,11 +75,11 @@
 									<thead>
 										<tr>
 											<th class="goods_buying_code">상품매입코드</th>
-											<th class="business_code">거래처 코드</th>
-											<th class="business_name">거래처 이름</th>
-											<th class="goods_code">상품코드</th>
-											<th class="buy_count">매입수량</th>
-											<th class="goods_price">상품단가</th>
+											<th class="businessCode">거래처 코드</th>
+											<th class="businessName">거래처 이름</th>
+											<th class="goodsCode">상품코드</th>
+											<th class="goodsOrderAmount">매입수량</th>
+											<th class="factoryGoodsPrice">상품단가</th>
 											<th class="buy_price">매입금액</th>
 											<th class="buy_vat">매입 부가세액</th>
 											<th class="buy_total">매입 합계</th>
@@ -89,13 +89,13 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:if="${not #lists.isEmpty(GoodsBuyingList)}" th:each="gbs : ${GoodsBuyingList}">
+										<tr th:if="${not #lists.isEmpty(goodsBuyingList)}" th:each="gbs : ${goodsBuyingList}">
 											<td th:text="${gbs.goods_buying_code}" />
-											<td th:text="${gbs.business_code}" />
-											<td th:text="${gbs.business_name}" />
-											<td th:text="${gbs.goods_code}" />
-											<td th:text="${gbs.buy_count}" />
-											<td th:text="${gbs.goods_price}" />
+											<td th:text="${gbs.businessCode}" />
+											<td th:text="${gbs.businessName}" />
+											<td th:text="${gbs.goodsCode}" />
+											<td th:text="${gbs.goodsOrderAmount}" />
+											<td th:text="${gbs.factoryGoodsPrice}" />
 											<td th:text="${gbs.buy_price}" />
 											<td th:text="${gbs.buy_vat}" />
 											<td th:text="${gbs.buy_total}" />"  
@@ -107,8 +107,8 @@
 											<td><button type="button" class="btn btn-danger btn-sm deleteBtn" 
 														th:value="${gbs.goods_buying_code}">삭제</button></td>
 										</tr>
-										<tr th:unless="${not #lists.isEmpty(GoodsBuyingList)}">
-											<td colspan="4">등록된 카테고리가 없습니다람쥐</td>
+										<tr th:unless="${not #lists.isEmpty(goodsBuyingList)}">
+											<td colspan="4">등록된 카테고리가 없습니다.</td>
 										</tr>
 									</tbody>
 								</table>
