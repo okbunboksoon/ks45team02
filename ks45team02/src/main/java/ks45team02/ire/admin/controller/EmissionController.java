@@ -1,6 +1,8 @@
 package ks45team02.ire.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.GoodsEmission;
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
@@ -109,11 +114,30 @@ public class EmissionController {
 		return "admin/emission/emissionListRawMaterials";
 	}
 	
-
-	@GetMapping("/deleteRawMaterialsEmission")
-	public String deleteRawMaterialsEmission() {
+	
+	/**
+	 * 기부받은 의류 CO2 기준 삭제
+	 * @param param
+	 * @return redirect:/admin/listRawMaterialsEmission
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deleteRawMaterialsEmission", method = {RequestMethod.POST})
+	public HashMap<String, String> deleteRawMaterialsEmission(@RequestParam Map<String, Object> param, RedirectAttributes reAttr) {
 		
-		return "admin/emission/emissionDeleteRawMaterials";
+		HashMap<String, String> reResult = new HashMap<String, String>();
+		
+		String raw_materials_co2_code = (String) param.get("raw_materials_co2_code");
+		
+		int result = emissionService.deleteRawMaterialsEmission(raw_materials_co2_code);
+		if(result == 0) {
+			reResult.put("result", "실패");
+		}else {
+			reResult.put("result", "성공");
+		}
+			reResult.put("raw_materials_co2_code", raw_materials_co2_code);
+			reResult.put("redirect", "/admin/listRawMaterialsEmission");
+			
+		return reResult;
 	}
 	
 	
@@ -204,12 +228,31 @@ public class EmissionController {
 		model.addAttribute("title", "원단별 탄소 배출량 기준 리스트");
 		return "admin/emission/emissionGoodsList";
 	}
-		
 	
-	@GetMapping("/deleteGoodsEmission")
-	public String deleteGoodsEmission() {
+	
+	/**
+	 * 원단별 탄소 배출량 기준 삭제
+	 * @param param
+	 * @return redirect:/admin/listGoodsEmission
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteGoodsEmission", method= {RequestMethod.POST})
+	public HashMap<String, String> deleteGoodsEmission(@RequestParam Map<String, Object> param, RedirectAttributes reAttr){
 		
-		return "admin/emission/emissionGoodsDelete";
+		HashMap<String, String> reResult = new HashMap<String, String>();
+		
+		String fabric = (String) param.get("fabric");
+		
+		int result = emissionService.deleteGoodsEmission(fabric);
+		if(result == 0) {
+			reResult.put("result", "실패");
+		}else {
+			reResult.put("result", "성공");
+		}
+			reResult.put("fabric", fabric);
+			reResult.put("redirect", "/admin/listGoodsEmission");
+			
+		return reResult;
 	}
 	
 	
