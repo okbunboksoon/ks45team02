@@ -29,6 +29,11 @@ public class BuynowService {
 		this.categoryMapper = categoryMapper;
 	}
 	
+	/**
+	 * 즉시구매 수정
+	 * @param buynow
+	 * @return
+	 */
 	public int modifyBuynow(Buynow buynow) {
 		
 		int result = 0;

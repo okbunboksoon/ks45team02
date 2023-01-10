@@ -1,10 +1,112 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-paymentList
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="listPaymentComplete" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="paymentCompleteCode">결제완료코드</th>
+											<th class="buynowBasketTotalCode">즉시구매/장바구니그룹 코드</th>
+											<th class="buynowBasket">즉시/장바구니</th>
+											<th class="userId">구매자아이디</th>
+											<th class="finalPaymentAmount">최종결제합계</th>
+											<th class="deliCode">배송 코드</th>
+											<th class="orderDate">주문일자</th>
+											<th class="paymentTypeCode">결제종류 코드</th>
+											<th class="paymentDate">결제일자</th>
+											<th class="pointUseGroup">시간별 포인트 사용 그룹코드</th>
+											<th class="productOrderState">결제완료 후 상황</th>
+											<th class="pointSave">결제 완료 후 적립 포인트</th>
+											<th class="productOrderPointGroup">구매확정그룹코드</th>
+											<th>수정</th>
+											<th>취소</th>
+											<th>교환</th>
+											<th>환불</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:unless="${#lists.isEmpty(PaymentCompleteList)}" th:each="l : ${PaymentCompleteList}">
+											<td th:text="${l.paymentCompleteCode}"></td>
+											<td th:text="${l.buynowBasketTotalCode}"></td>
+											<td th:text="${l.buynowBasket}"></td>
+											<td th:text="${l.userId}"></td>
+											<td th:text="${l.finalPaymentAmount}"></td>
+											<td th:text="${l.deliCode}"></td>
+											<td th:text="${l.orderDate}"></td>
+											<td th:text="${l.paymentTypeCode}"></td>
+											<td th:text="${l.paymentDate}"></td>
+											<td th:text="${l.pointUseGroup}"></td>
+											<td th:text="${l.productOrderState}"></td>
+											<td th:text="${l.pointSave}"></td>
+											<td th:text="${l.productOrderPointGroup}"></td>
+											<td><a th:href="@{/admin/modifyPayment(paymentCompleteCode=${l.paymentCompleteCode})}">수정</a></td>
+											<td><a th:href="@{/admin/cancelPayment(paymentCompleteCode=${l.paymentCompleteCode})}">취소</a></td>
+											<td><a th:href="@{/admin}">교환(링크X)</a></td>
+											<td><a th:href="@{/admin}">환불(링크X)</a></td>
+										</tr>
+										<tr th:if="${#lists.isEmpty(PaymentCompleteList)}">
+											<td colspan="17">등록된 결제완료가 존재하지 않습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
+	
+		<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+
+			$('#listPaymentComplete').DataTable();
+		</script>
+
+	</th:block>
+
 </html>

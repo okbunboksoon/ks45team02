@@ -7,5 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface PaymentCompleteMapper {
-    public List<PaymentComplete>listPaymentComplete();
+	
+	//결제완료 조회
+    public List<PaymentComplete> listPaymentComplete();
 }
