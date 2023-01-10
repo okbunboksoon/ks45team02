@@ -109,24 +109,50 @@
 				
 				$cashReceiptCode.readOnly=false;
 				$paymentTypeCode.readOnly=false;
+				$cashReceiptCode.value='';
+				$paymentTypeCode.value='';
 				
 				if($cashReceiptType.value == '미선택'){
 					$cashReceiptCode.readOnly=true;
 					$paymentTypeCode.readOnly=true;
-					
-					$cashReceiptCode.value='';
-					$paymentTypeCode.value='';
-				}else if($cashReceiptType.value == '개인'){
-					const hypenTel = ($cashReceiptCode) => {
-						$cashReceiptCode.value = $cashReceiptCode.value
-						   .replace(/[^0-9]/g, '')
-						   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-						}
-				}else if($cashReceiptType.value == '사업자'){
-					
 				}
 			});
 			
+			$cashReceiptCode.addEventListener('input', function(){
+				 let val = $cashReceiptCode.value.replace(/\D/g, '');
+				 let leng = val.length;
+				 
+				 let result = '';
+				 if($cashReceiptType.value == '개인'){
+					 if(leng < 4) result = val;
+					 else if(leng < 7){
+					 	result += val.substring(0,3);
+					    result += "-";
+					    result += val.substring(3);
+					}else{
+						result += val.substring(0, 3);
+						result += "-";
+						result += val.substring(3, 7);
+						result += "-";
+						result += val.substring(7);
+				  }
+					 
+				 }else if($cashReceiptType.value == '사업자'){
+					 if(leng < 4) result = val;
+					 else if(leng < 7){
+					 	result += val.substring(0,3);
+					    result += "-";
+					    result += val.substring(3);
+					}else{
+						result += val.substring(0, 3);
+						result += "-";
+						result += val.substring(3, 5);
+						result += "-";
+						result += val.substring(5);
+					}
+				}
+				  $cashReceiptCode.value = result;
+			})
 			const msg = [[${msg}]];
 			if(msg != null){
 				alert(msg);
