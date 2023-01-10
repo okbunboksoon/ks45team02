@@ -79,13 +79,25 @@ public class BasketService {
 	public int modifyBasket(Basket basket) {
 		
 		int result = 0;
-		
 		int idCheck = userMapper.idCheck(basket.getUserId());
-		int basketGroupCheck = basketMapper.checkBasketGroup(basket.getBasketGroup());
+		int basketGroupCheck = basketMapper.checkCompleteBasketGroup(basket.getBasketGroup());
 		
 		if(idCheck == 0 || basketGroupCheck > 0) {
 			return result;
 		}
+		
+		//장바구니 그룹이 같을 때 회원 아이디가 같은지 확인
+		int checkSameBasketGroupWithUserId = basketMapper.checkSameBasketGroupWithUserId(basket.getBasketGroup(), basket.getUserId());
+		//회원 아이디가 같을 때 같은 장바구니 그룹을 선택했는지 확인
+		int checkSameUserIdWithBasketGroup = basketMapper.checkSameUserIdWithBasketGroup(basket.getBasketGroup(), basket.getUserId());
+			
+		if(checkSameBasketGroupWithUserId > 0) {
+			return 51;
+		}
+		if(checkSameUserIdWithBasketGroup > 0) {
+			return 52;
+		}
+		
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
 		basket.setCategoryMediumCode(categoryMediumCode);
 		
@@ -103,11 +115,24 @@ public class BasketService {
 		
 		int result = 0;
 		int idCheck = userMapper.idCheck(basket.getUserId());
-		int basketGroupCheck = basketMapper.checkBasketGroup(basket.getBasketGroup());
+		int basketGroupCheck = basketMapper.checkCompleteBasketGroup(basket.getBasketGroup());
 		
 		if(idCheck == 0 || basketGroupCheck > 0) {
 			return result;
 		}
+	
+		//장바구니 그룹이 같을 때 회원 아이디가 같은지 확인
+		int checkSameBasketGroupWithUserId = basketMapper.checkSameBasketGroupWithUserId(basket.getBasketGroup(), basket.getUserId());
+		//회원 아이디가 같을 때 같은 장바구니 그룹을 선택했는지 확인
+		int checkSameUserIdWithBasketGroup = basketMapper.checkSameUserIdWithBasketGroup(basket.getBasketGroup(), basket.getUserId());
+		
+		if(checkSameBasketGroupWithUserId > 0) {
+			return 51;
+		}
+		if(checkSameUserIdWithBasketGroup > 0) {
+			return 52;
+		}
+		
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
 		basket.setCategoryMediumCode(categoryMediumCode);
 		

@@ -9,6 +9,12 @@ import ks45team02.ire.admin.dto.Buybasket;
 @Mapper
 public interface BuybasketMapper {
 	
+	//장바구니 그룹으로 장바구니 구매 조회
+	public Buybasket getBuybasketInfo(String basketGroup);
+	
+	//장바구니 구매 수정
+	public int modifyBuybasket(Buybasket buybasket);
+	
 	//새로운 장바구니 그룹 조회
 	public String getNewBasketGroup();
 	

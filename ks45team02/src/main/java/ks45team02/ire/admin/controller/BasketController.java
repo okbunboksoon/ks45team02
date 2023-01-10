@@ -54,6 +54,12 @@ public class BasketController {
 		if(result == 0) {
 			reAttr.addAttribute("msg", "장바구니 등록에 실패하였습니다.");
 			return "redirect:/admin/addBasket";
+		}else if(result == 51) {
+			reAttr.addAttribute("msg", "다른 회원의 장바구니 그룹입니다.");
+			return "redirect:/admin/addBasket";
+		}else if(result == 52) {
+			reAttr.addAttribute("msg", "해당 회원의 미주문 장바구니가 이미 존재합니다.");
+			return "redirect:/admin/addBasket";
 		}else {
 			reAttr.addAttribute("msg", "장바구니 등록에 성공하였습니다.");
 		}
@@ -133,6 +139,14 @@ public class BasketController {
 		if(result == 0) {
 			reAttr.addAttribute("basketCode", basket.getBasketCode());
 			reAttr.addAttribute("msg", "장바구니 수정에 실패하였습니다.");
+			return "redirect:/admin/modifyBasket";
+		}else if(result == 51) {
+			reAttr.addAttribute("basketCode", basket.getBasketCode());
+			reAttr.addAttribute("msg", "다른 회원의 장바구니 그룹입니다.");
+			return "redirect:/admin/modifyBasket";
+		}else if(result == 52) {
+			reAttr.addAttribute("basketCode", basket.getBasketCode());
+			reAttr.addAttribute("msg", "해당 회원의 미주문 장바구니가 이미 존재합니다.");
 			return "redirect:/admin/modifyBasket";
 		}else {
 			reAttr.addAttribute("msg", "장바구니 수정에 성공하였습니다.");

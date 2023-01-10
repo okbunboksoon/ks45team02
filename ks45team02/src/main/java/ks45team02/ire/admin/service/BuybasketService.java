@@ -34,6 +34,44 @@ public class BuybasketService {
 		this.pointService = pointService;
 	}
 	
+	/**
+	 * 장바구니 구매 수정
+	 * @param buybasket
+	 * @return int
+	 */
+	public int modifyBuybasket(Buybasket buybasket) {
+		
+		int result = 0;
+		
+		User userInfo = userMapper.getUserInfoById(buybasket.getUserId());
+		int userPointState = userInfo.getPointState();
+		int usePoint = buybasket.getUsePoint();
+		
+		
+		if(userPointState < usePoint) {
+			return result;
+		}
+		
+		result = buybasketMapper.modifyBuybasket(buybasket);
+		
+		String[] basketCodeArr = buybasket.getBasketCode().split(",");
+		for(String basketCode : basketCodeArr) {
+			//주문 완료로 변경
+			buybasketMapper.modifyBasketOrderComplete(basketCode);
+		}
+		String newBasketGroup = buybasketMapper.getNewBasketGroup();
+		
+		//주문 안 한 장바구니에게 새로운 장바구니 그룹 부여
+		buybasketMapper.newBasketGroupNotBuy(buybasket.getBasketGroup(), newBasketGroup);
+			
+		return result;
+	}
+	
+	/**
+	 * 장바구니 구매 등록
+	 * @param buybasket
+	 * @return int 
+	 */
 	public int addBuybasket(Buybasket buybasket) {
 		
 		int result = 0;
@@ -58,6 +96,7 @@ public class BuybasketService {
 		
 		//주문 안 한 장바구니에게 새로운 장바구니 그룹 부여
 		buybasketMapper.newBasketGroupNotBuy(buybasket.getBasketGroup(), newBasketGroup);
+		
 		if(usePoint > 0) {
 			userPointState -= buybasket.getUsePoint();
 			userInfo.setPointState(userPointState);

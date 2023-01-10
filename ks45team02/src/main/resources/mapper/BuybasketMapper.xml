@@ -20,6 +20,41 @@
 		</collection>
 	</resultMap>
 	
+	<select id="getBuybasketInfo" resultMap="buybasketResultMap" parameterType="String">
+		<!-- 장바구니 그룹으로 장바구니 구매 조회 -->
+		SELECT 
+			 bb.basket_group
+			,bb.user_id
+			,b.basket_code
+			,bb.expected_amount
+			,bb.use_point
+			,bb.final_payment_amount
+			,bb.reg_date
+			,bb.buybasket_delete_state
+		FROM 
+			buybasket AS bb
+			INNER JOIN 
+			basket AS b
+			ON 
+			bb.basket_group = b.basket_group
+		WHERE 
+			bb.basket_group = #{basketGroup};
+	</select>
+	
+	<update id="modifyBuybasket" parameterType="Buybasket">
+		<!-- 장바구니 구매 수정 -->
+		UPDATE buybasket 
+		SET
+			 user_id = #{userId}
+			,expected_amount = #{expectedAmount}
+			,use_point = #{usePoint}
+			,final_payment_amount = #{finalPaymentAmount}
+			,reg_date = #{regDate}
+			,buybasket_delete_state = #{buybasketDeleteState}
+		WHERE
+			basket_group = #{basketGroup};
+	</update>
+	
 	<select id="getNewBasketGroup" resultType="String">	
 		<!-- 새로운 장바구니 그룹 조회 -->
 		SELECT sf_new_basket_group();
@@ -63,7 +98,7 @@
 				,#{usePoint}
 				,#{finalPaymentAmount}
 				,#{regDate}
-				,#{buybasketDeleteState});
+				,'N';
 	</insert>
 	
 	<select id="getBuybasketList" resultMap="buybasketResultMap">
