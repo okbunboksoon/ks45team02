@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        .styleTitle {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-addExchangeStandard
-</body>
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){ //window.onload(요소가 다 렌더링이 되고 나서 실행)
+            $('#submitBtn').click(function (){
+                let isSubmint =true;
+                $('#addExchangeStandard input').each(function (idx,item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).parents('tr').find('label').text();
+                    if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
+                        alert(`${labelValue}를 입력해 주세여`);
+                        $(item).focus();
+                        isSubmint=false;
+                        return false;
+                    }
+                });
+                if(isSubmint) $('#addExchangeStandard').submit();
+            });
+        });
+
+
+
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <div class="">
+        <div class="page-title"></div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <br><br>
+                        <h5 class="styleTitle">교환기준 추가</h5>
+                        <form id="addExchangeStandard" th:action="@{/admin/addExchangeStandard}" method="post">
+
+
+
+                            <div class="item form-group">
+                                <label for="goodsExchangeCondition" class="col-form-label col-md-3 col-sm-3 label-align">교환물건 상태</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" id="goodsExchangeCondition" name="goodsExchangeCondition"
+                                           placeholder="교환물건상태를 입력해주세요." class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label for="exchangeInfo" class="col-form-label col-md-3 col-sm-3 label-align">교환처리</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" id="exchangeInfo" name="exchangeInfo"
+                                           placeholder="교환처리를 입력해주세요." class="form-control"/>
+                                </div>
+                            </div>
+
+
+
+                            <div class="item form-group">
+                                <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+                                    <button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+                                    <button class="btn btn-danger" type="button" id="resetBtn">취소</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customjs">
+    <!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>

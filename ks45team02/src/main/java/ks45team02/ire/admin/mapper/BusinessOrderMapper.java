@@ -29,5 +29,7 @@ public interface BusinessOrderMapper {
 	 */
 	public List<BusinessOrder> getListBusinessOrderByCode(String businessOrderCode);
 	
+	public List<BusinessOrder> getListBusinessOrderRe();
+	
 	public int modifyBusinessOrder(BusinessOrder businessOrder);
 }

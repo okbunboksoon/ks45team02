@@ -36,9 +36,17 @@ public class BusinessOrderService {
 		
 		List<BusinessOrder> businessOrderList = businessOrderMapper.getListBusinessOrder();
 		
+		
 		return businessOrderList;
 	}
 	
+	public List<BusinessOrder> getListBusinessOrderRe(){
+		
+		List<BusinessOrder> businessOrderList = businessOrderMapper.getListBusinessOrderRe();
+		
+		
+		return businessOrderList;
+	}
 	/**
 	 * 상품 검색
 	 * @param searchKey

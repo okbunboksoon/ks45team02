@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.RefundStandardMapper">
+    <resultMap id="RefundStandardResultMapper" type="RefundStandard">
+        <id property="refundStandardCode" column="refund_standard_code"/>
+        <result property="goodsRefundCondition" column="goods_refund_condition"/>
+        <result property="refundStandard" column="refund_standard"/>
+    </resultMap>
+    <select id="listRefundStandard" resultMap="RefundStandardResultMapper">
+        SELECT
+            refund_standard_code,
+            goods_refund_condition,
+            refund_standard
+        FROM
+            refund_standard
+    </select>
+</mapper>
