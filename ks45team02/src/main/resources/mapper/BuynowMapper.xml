@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BuynowMapper">
+	<resultMap type="Buynow" 					id="buynowResultMap">
+		<id property="buynowCode" 				column="buynow_code" />
+		<result property="userId" 				column="user_id" />
+		<result property="goodsCode" 			column="goods_code" />
+		<result property="goodsName" 			column="goods_name" />
+		<result property="categoryMediumCode" 	column="category_medium_code" />
+		<result property="categoryMediumName"	column="category_medium_name" />
+		<result property="goodsPrice"			column="goods_price" />
+		<result property="buynowAmount"			column="buynow_amount" />
+		<result property="expectedAmount"		column="expected_amount" />
+		<result property="usePoint"				column="use_point" />
+		<result property="finalPaymentAmount"	column="final_payment_amount" />
+		<result property="regDate"				column="reg_date" />
+		<result property="buynowDeleteState"	column="buynow_delete_state" />
+	</resultMap>
+	
+	<update id="modifyBuynow" parameterType="Buynow">
+		<!-- 즉시구매 수정 -->
+		UPDATE buynow 
+		SET 
+			 user_id = #{userId}
+			,goods_code = #{goodsCode}
+			,goods_name = #{goodsName}
+			,category_medium_code = #{categoryMediumCode}
+			,goods_price = #{goodsPrice}
+			,buynow_amount = #{buynowAmount}
+			,expected_amount = #{expectedAmount}
+			,use_point = #{usePoint}
+			,final_payment_amount = #{finalPaymentAmount}
+			,reg_date = #{regDate}
+			,buynow_delete_state = #{buynowDeleteState}
+		WHERE 
+			buynow_code = #{buynowCode};
+	</update>
+	
+	<select id="getBuynowInfo" parameterType="String" resultMap="buynowResultMap">
+		<!-- 즉시구매 코드로 즉시구매 조회 -->
+		SELECT 
+			 b.buynow_code
+			,b.goods_code
+			,b.user_id
+			,b.goods_name
+			,b.category_medium_code
+			,cm.category_medium_name
+			,b.goods_price
+			,b.buynow_amount
+			,b.expected_amount
+			,b.use_point
+			,b.final_payment_amount
+			,b.reg_date
+			,b.buynow_delete_state
+		FROM 
+			buynow AS b
+			INNER JOIN 
+			category_medium AS cm
+			ON 
+			b.category_medium_code = cm.category_medium_code
+		WHERE 
+			buynow_code = #{buynowCode};
+		
+	</select>
+	
+	<insert id="addBuynow" parameterType="Buynow">
+		<!-- 즉시구매 등록 -->
+		INSERT INTO buynow(
+			 buynow_code
+			,user_id
+			,goods_code
+			,goods_name
+			,category_medium_code
+			,goods_price
+			,buynow_amount
+			,expected_amount
+			,use_point
+			,final_payment_amount
+			,reg_date
+			,buynow_delete_state
+		)VALUES(
+			 sf_new_buynow_code()
+			,#{userId}
+			,#{goodsCode}
+			,#{goodsName}
+			,#{categoryMediumCode}
+			,#{goodsPrice}
+			,#{buynowAmount}
+			,#{expectedAmount}
+			,#{usePoint}
+			,#{finalPaymentAmount}
+			,#{regDate}
+			,'N'
+		);
+	</insert>
+	
+	<select id="getBuynowList" resultMap="buynowResultMap">
+		<!-- 즉시구매 리스트 조회 -->
+		SELECT 
+			 b.buynow_code
+			,b.goods_code
+			,b.user_id
+			,b.goods_name
+			,b.category_medium_code
+			,cm.category_medium_name
+			,b.goods_price
+			,b.buynow_amount
+			,b.expected_amount
+			,b.use_point
+			,b.final_payment_amount
+			,b.reg_date
+			,b.buynow_delete_state
+		FROM 
+			buynow AS b
+			INNER JOIN 
+			category_medium AS cm
+			ON 
+			b.category_medium_code = cm.category_medium_code
+			;
+	</select>
+</mapper>

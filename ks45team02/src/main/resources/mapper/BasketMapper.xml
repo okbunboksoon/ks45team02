@@ -19,6 +19,48 @@
 		<result property="basketDeleteState"	column="basket_delete_state" />
 	</resultMap>
 	
+	<select id="getBasketListBeforePayment" resultMap="basketResultMap" parameterType="String">
+		<!-- 결제 전인 장바구니 검색 -->
+		SELECT 
+			 b.basket_code
+			,b.goods_code
+			,b.basket_group
+			,b.user_id
+			,b.goods_name
+			,cm.category_medium_code
+			,cm.category_medium_name
+			,b.goods_price
+			,b.basket_amount
+			,b.each_payment_amount
+			,b.basket_state
+		FROM 
+			basket AS b
+			INNER JOIN
+			category_medium AS cm
+			ON 
+			b.category_medium_code = cm.category_medium_code
+		WHERE 
+			b.basket_state = '주문 전'
+			AND 
+			b.basket_delete_state = 'N'
+			<if test="searchKey != null and searchKey != '' and searchValue != null and searchValue != ''">
+				AND 
+				${searchKey} LIKE CONCAT('%', #{searchValue} , '%')
+			</if>
+	</select>
+	
+	<select id="checkBasketGroup" parameterType="String" resultType="int">
+		<!-- 결제 완료된 장바구니 그룹인지 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			basket 
+		WHERE 
+			basket_group = #{basketGroup}
+			AND 
+			basket_state = '주문 완료';
+	</select>
+	
 	<delete id="deleteBasket" parameterType="String">
 		<!-- 장바구니 삭제 -->
 		DELETE 
@@ -102,6 +144,7 @@
 			,#{eachPaymentAmount}
 			,#{regDate}
 			,#{basketState}
+			,'N'
 		);
 	</insert>	
 	

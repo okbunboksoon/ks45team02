@@ -125,15 +125,22 @@
 					for(item of goodsInfoTdArr){
 						goodsInfoArr.push(item.innerText);
 					}
-					console.log(goodsInfoArr);
 					opener.document.getElementById("goodsCode").value = goodsInfoArr[0];
 					opener.document.getElementById("goodsName").value = goodsInfoArr[1];
 					opener.document.getElementById("categoryMediumName").value = goodsInfoArr[2];
 					opener.document.getElementById("goodsPrice").value = goodsInfoArr[3];
-					const basketAmount = opener.document.getElementById("basketAmount").value;
-					opener.document.getElementById("eachPaymentAmount").value = goodsInfoArr[3] * basketAmount;
 					
-					window.close();
+					const amount = opener.document.getElementById("amount").value;
+					opener.document.getElementById("paymentAmount").value = goodsInfoArr[3] * amount;
+					
+					try{
+						const usePoint = opener.document.getElementById("usePoint").value;
+						opener.document.getElementById("finalPaymentAmount").value = goodsInfoArr[3] * amount - usePoint;
+					}catch(error){
+						window.close();
+					}finally{
+						window.close();
+					}
 				  })
 				}
 

@@ -39,33 +39,29 @@
                             <table id="incomingList" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
-                                    <th>입고코드</th>
+                                    <th>출고코드</th>
                                     <th>상품코드</th>
-                                    <th>입고수량</th>
-                                    <th>입고날짜</th>
-                                    <th>전체 업사이클링 상품별 이산화탄소 총배출량(kg) </th>
-                                    <th>총 탄소 배출량</th>
+                                    <th>출고수량</th>
+                                    <th>출고날짜</th>
+                                    <th>결재완료 코드 </th>
+                                    <th>배송코드</th>
                                     <th>수정</th>
-                                    <th>삭제</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:if ="${not #lists.isEmpty(incomingList)}"
-                                    th:each="i : ${incomingList}">
-                                    <td th:text ="${i.incomingCode}"/></td>
-                                    <td th:text ="${i.goodsCode}"/></td>
-                                    <td th:text ="${i.incomingAmount}"/></td>
-                                    <td th:text ="${i.incomingDate}"/></td>
-                                    <td th:text ="${i.upcyclingCarbonDioxideEmissionLevel}"/></td>
-                                    <td th:text ="${i.totalCo2}"/></td>
+                                <tr th:if ="${not #lists.isEmpty(outgoingList)}"
+                                    th:each="o : ${outgoingList}">
+                                    <td th:text ="${o.outgoingCode}"/></td>
+                                    <td th:text ="${o.goodsCode}"/></td>
+                                    <td th:text ="${o.outgoingAmount}"/></td>
+                                    <td th:text ="${o.outgoingDate}"/></td>
+                                    <td th:text ="${o.paymentCompleteCode}"/></td>
+                                    <td th:text ="${o.deliveryCode}"/></td>
                                     <td>
-                                        <a th:href="@{/admin/modifyIncoming(incomingCode=${i.incomingCode})}">수정</a>
-                                    </td>
-                                    <td>
-                                        <a th:href ="@{/admin/modifyIncoming/{incomingCode}(incomingCode=${i.incomingCode})}">삭제</a>
+                                        <a th:href="@{/admin/modifyOutgoing(outgoingCode=${o.outgoingCode})}">수정</a>
                                     </td>
                                 </tr>
-                                <tr th:if="${#lists.isEmpty(incomingList)}">
+                                <tr th:if="${#lists.isEmpty(outgoingList)}">
                                     <td colspan="9">등록한 회원이 없습니다.</td>
                                 </tr>
                                 </tbody>

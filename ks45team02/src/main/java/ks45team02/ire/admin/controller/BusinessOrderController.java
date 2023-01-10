@@ -202,13 +202,38 @@ public class BusinessOrderController {
 			return "redirect:/admin/listBusinessOrder";
 	   }
 	
+	/**
+	 * 발주 업데이트 화면
+	 * @param businessOrderCode, model
+	 * @return businessOrderList
+	 */
 	@GetMapping("/businessOrderUpdate")
-	public String businessOrderUpdate(Model model) {
+	public String businessOrderUpdate(@RequestParam(value="code")String businessOrderCode,Model model) {
 		
+		log.info("businessOrderCode :{}", businessOrderCode);
+		List<BusinessOrder> businessOrderList =  businessOrderService.getListBusinessOrderByCode(businessOrderCode);
 		model.addAttribute("title", "거래처 수신");
-		log.info("1111111111111111111111111111 :{}", "111111111111111");
+		model.addAttribute("businessOrderList", businessOrderList);
+		log.info("businessOrderList :{}", businessOrderList);
+		
 		return "admin/businessorder/businessOrderUpdate";
 	}
 	
+	@PostMapping("/updateBusinessOrder")
+	public String businessOrderUpdate(BusinessOrder businessOrder
+									  ,RedirectAttributes reAttr) {
+		
+		log.info("businessOrderCode :{}", businessOrder);
+		int result = businessOrderService.modifyBusinessOrder(businessOrder);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "발주 수정에 실패하였습니다.");
+			return "redirect:/admin/modifyBusinessOrder";
+		}else {
+			reAttr.addAttribute("msg", "발주 수정에 성공하였습니다.");
+		}
+		
+		return "redirect:/admin/listBusinessOrder";
+	}
 }
 

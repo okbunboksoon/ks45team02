@@ -48,11 +48,15 @@
 						});	
 					};
 				});
-					$('.updateBtn').click(function(){
-						window.name = "listBusinessOrder";
-						let openWin = window.open('/admin/businessOrderUpdate', '거래처검색'
-												  ,'width=1000, height=600, top=100, left=100 scrollbar = yes');
-					});
+				
+				
+				$('.updateBtn').click(function(){
+					let updateValue = $(this).val();
+					console.log(updateValue);
+					window.name = "listBusinessOrder";
+					let openWin = window.open('/admin/businessOrderUpdate?code='+updateValue, '거래처검색'
+											  ,'width=1000, height=285, top=100, left=100 scrollbar = yes');
+				});
 		});
 		</script>	
 	</th:block>
@@ -79,7 +83,7 @@
 											<th class="contractCode">계약 NO</th>
 											<th class="businessCode">거래처 코드</th>
 											<th class="businessOrderAmount">발주 수량</th>
-											<th class="businessOrderDate">발주 신청일</th>
+											<th class="businessOrderDate">발주신청일</th>
 											<th class="businessOrderResult">신청 결과</th>
 											<th class="businessManagerName">거래처 담당자</th>
 											<th class="goodsCode">상품 코드</th>

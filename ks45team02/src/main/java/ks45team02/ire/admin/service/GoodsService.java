@@ -30,6 +30,30 @@ public class GoodsService {
 	}
 	
 	/**
+	 * 상품 검색
+	 * @param searchKey
+	 * @param searchValue
+	 * @return List<Goods>
+	 */
+	public List<Goods> searchGoods(String searchKey, String searchValue){
+		
+		if(searchKey != null && searchValue != null) {
+			switch(searchKey) {
+			case "goodsCode"
+			: searchKey = "goods_code";
+			break;
+			case "goodsName"
+			: searchKey = "goods_name";
+			break;
+			}
+		}
+		
+		List<Goods> goodsList = goodsMapper.searchGoods(searchKey, searchValue);
+		
+		return goodsList;
+	}
+	
+	/**
 	 * 상품 전체 조회
 	 * @return listGoods
 	 */
