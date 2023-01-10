@@ -2,8 +2,8 @@ package ks45team02.ire.admin.controller;
 
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.dto.Incoming;
-import ks45team02.ire.admin.mapper.GoodsMapper;
 import ks45team02.ire.admin.mapper.IncomingMapper;
+import ks45team02.ire.admin.mapper.OutgoingMapper;
 import ks45team02.ire.admin.service.GoodsService;
 import ks45team02.ire.admin.service.IncomingService;
 import ks45team02.ire.admin.service.UserService;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,13 +26,14 @@ public class IncomingController {
 	private final IncomingService incomingService;
 	private final IncomingMapper incomingMapper;
 	private final GoodsService goodsService;
-	private final GoodsMapper goodsMapper;
+	private final OutgoingMapper outgoingMapper;
 
-	public IncomingController(IncomingService incomingService, IncomingMapper incomingMapper, GoodsService goodsService, GoodsMapper goodsMapper) {
+
+	public IncomingController(IncomingService incomingService, IncomingMapper incomingMapper, GoodsService goodsService, OutgoingMapper outgoingMapper) {
 		this.incomingService = incomingService;
 		this.incomingMapper = incomingMapper;
 		this.goodsService = goodsService;
-		this.goodsMapper = goodsMapper;
+		this.outgoingMapper = outgoingMapper;
 	}
 
 	@GetMapping("/addIncoming")
@@ -59,14 +61,20 @@ public class IncomingController {
 		model.addAttribute("title","listIncoming");
 		model.addAttribute("pageTitle","상품입고 조회");
 		List<Incoming>incomingList=incomingService.incomingList();
+
 		model.addAttribute("incomingList",incomingList);
 		return "admin/incoming/incomingList";
 	}
 	
 	
 	@GetMapping("/listIncomingStock")
-	public String listIncomingStock() {
-		
+	public String listIncomingStock(Model model) {
+		//수정이 너무너무 너무 필요하다
+		model.addAttribute("title","listStock");
+		model.addAttribute("pageTitle","재고조회");
+		List<Map<String,Object>>getStockAmount=incomingMapper.getStockAmount();
+		log.info("뭐라도나와주세요:{}",getStockAmount);
+		model.addAttribute("getStockAmount",getStockAmount);
 		return "admin/incoming/incomingListStock";
 	}
 	@GetMapping("/modifyIncoming")

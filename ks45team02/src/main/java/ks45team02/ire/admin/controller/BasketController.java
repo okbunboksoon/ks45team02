@@ -32,17 +32,18 @@ public class BasketController {
 		this.basketService = basketService;
 	}
 	
-	//상품 검색
-	@GetMapping("/goodsSearchForBasketadd")
-	public String goodsSearchForBasketadd(@RequestParam(value="searchKey", required = false) String searchKey
-										 ,@RequestParam(value="searchValue", required = false) String searchValue
-										 ,Model model) {
+	//결제 전인 장바구니 검색
+	@GetMapping("/basketBeforePaymentSearch")
+	public String basketBeforePaymentSearch(Model model
+										   ,@RequestParam(value="searchKey", required = false) String searchKey
+										   ,@RequestParam(value="searchValue", required = false) String searchValue) {
 		
-		List<Goods> goodsList = basketService.searchGoods(searchKey, searchValue);
-		model.addAttribute("title", "상품 검색");
-		model.addAttribute("goodsList", goodsList);
+		List<Basket> basketBeforePaymentList = basketService.getBasketListBeforePayment(searchKey, searchValue);
 		
-		return "admin/basket/goodsSearchForBasketadd";
+		model.addAttribute("title", "결제 전인 장바구니 검색");
+		model.addAttribute("basketBeforePaymentList", basketBeforePaymentList);
+		
+		return "admin/search/basketBeforePaymentSearch";
 	}
 	
 	//장바구니 등록 처리

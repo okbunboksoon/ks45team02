@@ -103,29 +103,59 @@
     <!-- 원단별 탄소 배출량 기준 리스트  -->
     <select id="GoodsEmissionList" resultMap="GoodsEmissionResultMap">
 		SELECT
-			ge.fabric
-			,ge.carbon_dioxide_emission_level
-			,ge.upcycling_carbon_dioxide_emission_level
+			g.fabric
+			,g.carbon_dioxide_emission_level
+			,g.upcycling_carbon_dioxide_emission_level
 		FROM
-			goods_emission AS ge
+			goods_emission AS g
     
     </select>
+
     
- 
+    <!-- 원단별 탄소 배출량 기준 등록 -->
+    <insert id="addGoodsEmission" parameterType="GoodsEmission">
+    INSERT INTO
+	goods_emission(
+	fabric
+	,carbon_dioxide_emission_level
+	,upcycling_carbon_dioxide_emission_level
+	)VALUES (
+		#{fabric}
+		,#{carbon_dioxide_emission_level}
+		,#{upcycling_carbon_dioxide_emission_level}
+	);
+    </insert>
     
     
     
+    <!-- 원단별 탄소 배출량 기준 수정 -->
+    <update id="modifyGoodsEmission" parameterType="GoodsEmission">
+    UPDATE goods_emission 
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="carbon_dioxide_emission_level != null and carbon_dioxide_emission_level != ''">
+    		,carbon_dioxide_emission_level = #{carbon_dioxide_emission_level}
+    	</if>
+    	<if test="upcycling_carbon_dioxide_emission_level != null and upcycling_carbon_dioxide_emission_level !=''">
+    		,upcycling_carbon_dioxide_emission_level = #{upcycling_carbon_dioxide_emission_level}
+    	</if>
+    </trim>
+    WHERE
+    	fabric = #{fabric}
+    </update>
+
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <!-- 원단별 탄소 배출량 원단으로 원단별 탄소 배출량 CO2 기준 조회 -->
+    <select id="getGoodsEmissionFabric" parameterType="String" resultMap="GoodsEmissionResultMap">
+    	SELECT
+    		g.fabric
+    		,g.carbon_dioxide_emission_level
+    		,g.upcycling_carbon_dioxide_emission_level
+    	FROM
+    		goods_emission AS g
+    	WHERE	
+    		fabric = #{fabric}
+    </select>
     
     
     
