@@ -1,9 +1,7 @@
 package ks45team02.ire.admin.dto;
 
-import java.util.List;
-
 public class BoardEvent {
-    private String eventNum;
+    private String eventCode;
     private String eventTitle;
     private String eventContents;
     private String eventImage;
@@ -14,7 +12,7 @@ public class BoardEvent {
     @Override
     public String toString() {
         return "BoardEvent{" +
-                "eventNum='" + eventNum + '\'' +
+                "eventCode='" + eventCode + '\'' +
                 ", eventTitle='" + eventTitle + '\'' +
                 ", eventContents='" + eventContents + '\'' +
                 ", eventImage='" + eventImage + '\'' +
@@ -24,12 +22,12 @@ public class BoardEvent {
                 '}';
     }
 
-    public String getEventNum() {
-        return eventNum;
+    public String getEventCode() {
+        return eventCode;
     }
 
-    public void setEventNum(String eventNum) {
-        this.eventNum = eventNum;
+    public void setEventCode(String eventCode) {
+        this.eventCode = eventCode;
     }
 
     public String getEventTitle() {
