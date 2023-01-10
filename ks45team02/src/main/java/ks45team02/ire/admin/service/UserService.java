@@ -88,4 +88,9 @@ public class UserService {
         //탈퇴 회원 조회
         return userMapper.listUserDrop();
     }
+    public int deleteUser(User user){
+        //회원탈퇴=변경
+        return userMapper.deleteUser(user);
+    }
+
 }

@@ -61,7 +61,6 @@ public class IncomingController {
 		model.addAttribute("title","listIncoming");
 		model.addAttribute("pageTitle","상품입고 조회");
 		List<Incoming>incomingList=incomingService.incomingList();
-
 		model.addAttribute("incomingList",incomingList);
 		return "admin/incoming/incomingList";
 	}
@@ -73,7 +72,6 @@ public class IncomingController {
 		model.addAttribute("title","listStock");
 		model.addAttribute("pageTitle","재고조회");
 		List<Map<String,Object>>getStockAmount=incomingMapper.getStockAmount();
-		log.info("뭐라도나와주세요:{}",getStockAmount);
 		model.addAttribute("getStockAmount",getStockAmount);
 		return "admin/incoming/incomingListStock";
 	}
@@ -86,7 +84,6 @@ public class IncomingController {
 		model.addAttribute("getInfoByIncoming",getInfoByIncoming);
 		List<Goods>goodsList=goodsService.getListGoods();
 		model.addAttribute("goodsList",goodsList);
-		log.info("상품입고수정:{}",getInfoByIncoming);
 		return "admin/incoming/incomingModify";
 	}
 
