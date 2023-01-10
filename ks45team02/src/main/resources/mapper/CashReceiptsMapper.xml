@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.CashReceiptsMapper">
+	<resultMap type="CashReceipts" 			id="cashReceiptsResultMap">
+		<id property="cashCode" 			column="cash_code" />
+		<result property="userId" 			column="user_id" />
+		<result property="cashReceiptType" 	column="cash_receipt_type" />
+		<result property="cashReceiptCode" 	column="cash_receipt_code" />
+		<result property="paymentTypeCode" 	column="payment_type_code" />
+	</resultMap>
+
+	<select id="getCashReceiptsList" resultMap="cashReceiptsResultMap">
+		<!-- 현금영수증 조회 -->
+		SELECT
+			 cash_code
+			,user_id
+			,cash_receipt_type
+			,cash_receipt_code
+			,payment_type_code
+		FROM 
+			cash_receipts;
+	</select>
+</mapper>

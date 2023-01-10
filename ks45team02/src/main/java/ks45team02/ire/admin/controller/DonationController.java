@@ -62,11 +62,6 @@ public class DonationController {
 		return "admin/donation/donationAdd";
 	}
 	
-	@GetMapping("/addDonationPointSave")
-	public String addDonationPointSave() {
-		
-		return "admin/donation/donationAddPointSave";
-	}
 	
 	//기부 삭제 처리
 	@PostMapping("/deleteDonation")
