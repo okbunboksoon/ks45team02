@@ -84,7 +84,6 @@
 			,bo.goods_order_amount
 			,bo.factory_goods_price
 			,bo.business_confirm_order_date
-			,bo.business_confirm_order_date
 			,bo.expect_date
 			,b.business_name
 		FROM
@@ -127,6 +126,15 @@
 		</if>
 		<if test="factoryGoodsPrice != null and factoryGoodsPrice != '' ">
 			,factory_goods_price= #{factoryGoodsPrice}
+		</if>
+		<if test="goodsOrderAmount != null and goodsOrderAmount != '' ">
+			,goods_order_amount= #{goodsOrderAmount}
+		</if>
+		<if test="businessConfirmOrderDate != null and businessConfirmOrderDate != '' ">
+			,business_confirm_order_date= #{businessConfirmOrderDate}
+		</if>
+		<if test="expectDate != null and expectDate != '' ">
+			,expect_date= #{expectDate}
 		</if>
 	</trim>		
 	WHERE 
