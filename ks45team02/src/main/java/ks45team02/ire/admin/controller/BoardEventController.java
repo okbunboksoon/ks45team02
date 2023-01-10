@@ -79,7 +79,7 @@ public class BoardEventController {
 
 		model.addAttribute("title", "이벤트 내용");
 		model.addAttribute("boardEventContents", boardEventContents);
-		return "admin/board/boardViewEvent";
+		return "admin/board/boardContentsEvent";
 	}
 	
 	@GetMapping("/modifyBoardEvent")
