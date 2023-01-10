@@ -11,7 +11,8 @@
 	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 	</head>
-	
+		
+	</th:block>
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12 ">
 			<div class="x_panel">
@@ -36,8 +37,8 @@
 											<td th:text="${rme.raw_materials_category}"></td>
 											<td th:text="${rme.raw_materials_size}"></td>
 											<td th:text="${rme.carbon_dioxide_emission_level}"></td>
-											<td><a th:href="@{/admin/modifyRawMaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">수정</a></td>
-											<td><a th:href="@{/admin/deleteRawMaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">삭제</a></td> 
+											<td><button><a th:href="@{/admin/modifyRawMaterialsEmission(raw_materials_co2_code=${rme.raw_materials_co2_code})}">수정</a></button></td>
+											<td><button class="deleteBtn" type="button" th:value="${rme.raw_materials_co2_code}">삭제</button></td> 
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(rawMaterialsEmissionList)}">
 											<td colspan="6">등록된 기준이 존재하지 않습니다.</td>
@@ -76,9 +77,42 @@
 	 
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
-                  
-
+		$(function(){
 			$('#listRawMaterialsEmission').DataTable();
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+			$(document).on('click','.deleteBtn',function(){				
+				let deleteCheck = confirm("정말 삭제하시겠습니까?")
+				let deleteValue = $(this).val();
+				
+				if(!deleteCheck){
+					return false;
+				}else{
+					$.ajax({
+						type: "post",
+						url: '/admin/deleteRawMaterialsEmission',
+						data: {"raw_materials_co2_code": deleteValue},
+						dataType: "json",
+						success:function(data){
+							var result = data.result
+							var raw_materials_co2_code = data.raw_materials_co2_code
+							var redirect = data.redirect	
+							if(result == "성공"){
+								alert(`${raw_materials_co2_code} 삭제했습니다.`)	
+								location.href = redirect
+							}else{
+								alert("삭제에실패했습니다.")
+								location.href = redirect
+							};
+						}
+					});	
+				};
+			});
+	});
 		</script>
 
 	</th:block>

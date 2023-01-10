@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.Sales_BuyingMapper">
+
+	<resultMap id="GoodsBuyingResultMap" type="GoodsBuying">
+        <id property="goods_buying_code"				column="goods_buying_code" />
+        <result property="business_code"			column="business_code" />
+        <result property="business_name"			column="business_name" />
+        <result property="goods_code"			column="goods_code" />
+        <result property="buy_count"			column="buy_count" />
+        <result property="goods_price"			column="goods_price" />
+        <result property="buy_price"			column="buy_price" />
+        <result property="buy_vat"			column="buy_vat" />
+        <result property="buy_total"			column="buy_total" /> 
+    </resultMap>
+    
+	<!-- 상품 매입 리스트  -->
+	<select id="getListGoodsBuying" resultMap="GoodsBuyingResultMap">
+	SELECT 
+		gb.goods_buying_code
+		, gb.business_code
+		, gb.business_name
+		, gb.goods_code
+		, gb.buy_count
+		, gb.goods_price
+		, gb.buy_price
+		, gb.buy_vat
+		, gb.buy_total
+
+	FROM 
+		goods_buy_search AS gb
+	</select>
+
+
+    </mapper>

@@ -27,6 +27,7 @@
 											<th class="carbon_dioxide_emission_level">일반 원단별 이산화탄소 배출량(Kg)</th>
 											<th class="upcycling_carbon_dioxide_emission_level">업사이클링 원단별 이산화탄소 배출량(Kg)</th>
 											<th>수정</th>
+											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -44,7 +45,8 @@
 											<td th:text="${g.fabric}"></td>
 											<td th:text="${g.carbon_dioxide_emission_level}"></td>
 											<td th:text="${g.upcycling_carbon_dioxide_emission_level}"></td>
-											<td><a th:href="@{/admin/modifyGoodsEmission(fabric=${g.fabric})}">수정</a></td> 
+											<td><button><a th:href="@{/admin/modifyGoodsEmission(fabric=${g.fabric})}">수정</a></button></td> 
+											<td><button class="deleteBtn" type="button" th:value="${g.fabric}">삭제</button></td>  
 										</tr>
 >>>>>>> refs/heads/develop
 										<tr th:unless="${not #lists.isEmpty(goodsEmissionList)}">
@@ -84,7 +86,42 @@
 	 
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
+		$(function(){
 			$('#listGoodsEmission').DataTable();
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+			$(document).on('click','.deleteBtn',function(){				
+				let deleteCheck = confirm("정말 삭제하시겠습니까?")
+				let deleteValue = $(this).val();
+				
+				if(!deleteCheck){
+					return false;
+				}else{
+					$.ajax({
+						type: "post",
+						url: '/admin/deleteGoodsEmission',
+						data: {"fabric": deleteValue},
+						dataType: "json",
+						success:function(data){
+							var result = data.result
+							var fabric = data.fabric
+							var redirect = data.redirect	
+							if(result == "성공"){
+								alert(`${fabric} 삭제했습니다.`)	
+								location.href = redirect
+							}else{
+								alert("삭제에실패했습니다.")
+								location.href = redirect
+							};
+						}
+					});	
+				};
+			});
+	});
 		</script>
 
 	</th:block>
