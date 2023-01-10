@@ -13,7 +13,7 @@
 	        <result property="goodsSize"                 column="goods_size"/>
 	        <result property="goodsRegDate"             column="goods_reg_date"/>
 	        <result property="goodsSangse"                 column="goods_sangse"/>
-	        <result property="goodsImage"                 column="goods_image"/>
+	        <result property="fileIdx"                 column="file_idx"/>
 	        <result property="fabric"                     column="fabric"/>
 	        <result property="rate"                     column="rate"/>
 	        <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
@@ -23,7 +23,7 @@
 	            <result property="goodsPrice"            column="goods_price"/>
 	            </association>
 	    </resultMap>
-
+	
 	<select id="goodsCheck" parameterType="String" resultType="int">
 		<!-- 상품코드로 상품 존재여부 확인 -->
 		SELECT 
@@ -66,7 +66,6 @@
 			,g.goods_size
 			,g.goods_reg_date
 			,g.goods_sangse
-			,g.goods_image
 			,g.fabric
 			,g.rate
 			,g.upcycling_carbon_dioxide_emission_level	
@@ -103,10 +102,10 @@
         INSERT INTO goods
             (goods_code, goods_name, category_medium_code, goods_price, 
              goods_color, goods_size, goods_reg_date, goods_sangse, 
-            goods_image, fabric, rate, upcycling_carbon_dioxide_emission_level)
+             fabric, rate, upcycling_carbon_dioxide_emission_level, file_idx)
         VALUES 
             (sf_new_goods_code(), #{goodsName}, #{categoryMediumCode}, #{goodsPrice}, #{goodsColor}, 
-             #{goodsSize}, NOW(), #{goodsSangse}, #{goodsImage}, #{fabric}, #{rate}, 0)
+             #{goodsSize}, NOW(), #{goodsSangse}, #{fabric}, #{rate}, 0, 'file_20230110599519722136800')
     </insert>
 
     <!-- FirstFabric가져오기 -->

@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ks45team02.ire.admin.dto.CategoryMedium;
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.service.CategoryService;
+import ks45team02.ire.admin.service.FileService;
 import ks45team02.ire.admin.service.GoodsService;
 
 @Controller
@@ -24,11 +27,14 @@ public class GoodsController {
 	
 	private final GoodsService goodsService;
 	private final CategoryService categoryService;
+	private FileService fileService;
 	
 	public GoodsController(GoodsService goodsService, 
-						   CategoryService categoryService) {
+						   CategoryService categoryService,
+						   FileService fileService) {
 		this.categoryService = categoryService;
 		this.goodsService = goodsService;
+		this.fileService = fileService;
 		
 		
 	}
@@ -68,11 +74,23 @@ public class GoodsController {
 	 * @return
 	 */
 	@PostMapping("/addGoods")
-	public String addGoods(Goods goods) {
+	public String addGoods(Goods goods,@RequestParam MultipartFile[] uploadfile
+						  ,Model model, HttpServletRequest request) {
 		
 		goodsService.addGoods(goods);
 		
 		log.info("goods : {}", goods);
+		log.info("uploadfile : {}", uploadfile);
+		
+		String serverName = request.getServerName();
+		String fileRealPath = "";
+		if("localhost".equals(serverName)) {				
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}else {
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
+		fileService.fileUpload(uploadfile, fileRealPath);
 		
 		return "redirect:/admin/listGoods";
 	}
