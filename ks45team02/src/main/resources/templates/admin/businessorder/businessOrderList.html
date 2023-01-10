@@ -48,11 +48,15 @@
 						});	
 					};
 				});
-					$('.updateBtn').click(function(){
-						window.name = "listBusinessOrder";
-						let openWin = window.open('/admin/businessOrderUpdate', '거래처검색'
-												  ,'width=1000, height=600, top=100, left=100 scrollbar = yes');
-					});
+				
+				
+				$('.updateBtn').click(function(){
+					let updateValue = $(this).val();
+					console.log(updateValue);
+					window.name = "listBusinessOrder";
+					let openWin = window.open('/admin/businessOrderUpdate?code='+updateValue, '거래처검색'
+											  ,'width=1000, height=285, top=100, left=100 scrollbar = yes');
+				});
 		});
 		</script>	
 	</th:block>
