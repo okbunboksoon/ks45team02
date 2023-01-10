@@ -45,6 +45,19 @@ public class EmissionService {
 
 		return emissionMapper.addRawMaterialsEmission(rawMaterialsEmission);
 	}
+	
+	/**
+	 * 기부받은 의류 CO2 기준 삭제처리
+	 * @param raw_materials_co2_code
+	 * @return result
+	 */
+	public int deleteRawMaterialsEmission (String raw_materials_co2_code) {
+		
+		int result = 0;
+		result += emissionMapper.deleteRawMaterialsEmission(raw_materials_co2_code);
+		
+		return result;
+	}
 
 	/**
 	 * 기부받은 의류 CO2 기준 수정
@@ -92,6 +105,16 @@ public class EmissionService {
 		return emissionMapper.addGoodsEmission(goodsEmission);
 	}
 	
+	/**
+	 * 원단별 탄소 배출량 기준 삭제
+	 */
+	public int deleteGoodsEmission (String fabric) {
+		int result = 0;
+		
+		result += emissionMapper.deleteGoodsEmission(fabric);
+		
+		return result;
+	}
 
 	/**
 	 * 원단별 탄소 배출량 기준 수정

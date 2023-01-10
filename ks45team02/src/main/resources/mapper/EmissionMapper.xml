@@ -61,8 +61,15 @@
 		,#{raw_materials_size}
 		,#{carbon_dioxide_emission_level}
 	);
-
     </insert>
+    
+    <!-- 기부받은 의류 CO2 기준 삭제-->
+    <delete id="deleteRawMaterialsEmission" parameterType="String">
+    	DELETE FROM
+    		raw_materials_emission 	
+    	WHERE
+    		raw_materials_co2_code =#{raw_materials_co2_code}
+    </delete>
     
     <!-- 기부받은 의류별 CO2 기준 수정 -->
     <update id="modifyRawMaterialsEmission" parameterType="RawMaterialsEmission">
@@ -126,7 +133,13 @@
 	);
     </insert>
     
-    
+     <!-- 원단별 탄소 배출량 기준 삭제 -->
+    <delete id="deleteGoodsEmission" parameterType="String">
+    	DELETE FROM
+    		goods_emission 	
+    	WHERE
+    		fabric =#{fabric}
+    </delete>
     
     <!-- 원단별 탄소 배출량 기준 수정 -->
     <update id="modifyGoodsEmission" parameterType="GoodsEmission">
