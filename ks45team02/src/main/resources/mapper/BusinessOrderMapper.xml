@@ -73,6 +73,7 @@
 	<select id="getListBusinessOrderByCode" parameterType="String" resultMap="businessOrderResultMap">
 		SELECT
 			bo.business_order_code
+			,b.business_name
 			,bo.user_id
 			,bo.contract_code
 			,bo.business_code
@@ -95,6 +96,32 @@
 		WHERE
 			bo.business_order_code =  #{businessOrderCode}
 	</select>
+	
+	<!--  발주 목록  -->
+	<select id="getListBusinessOrderRe" parameterType="String" resultMap="businessOrderResultMap">
+		SELECT
+			bo.business_order_code
+			,b.business_name
+			,bo.user_id
+			,bo.contract_code
+			,bo.business_code
+			,bo.business_order_amount
+			,bo.business_order_date
+			,bo.business_order_result
+			,bo.business_manager_name
+			,bo.goods_code
+			,bo.goods_order_amount
+			,bo.factory_goods_price
+			,bo.business_confirm_order_date
+			,bo.expect_date
+			,b.business_name
+		FROM
+			business_order AS bo
+			INNER JOIN
+			business AS b
+			on
+			bo.business_code = b.business_code
+		</select>
 	
 	<!-- 발주 수정 처리 -->
 	<update id="modifyBusinessOrder" parameterType="BusinessOrder">

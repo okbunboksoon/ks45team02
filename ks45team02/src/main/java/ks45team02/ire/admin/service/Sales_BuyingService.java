@@ -30,5 +30,17 @@ public class Sales_BuyingService {
 	}
 	
 	
+	/**
+	 * 상품 매입 등록 처리
+	 * @param goodsBuying
+	 * @return result
+	 */
+	public int addGoodsBuying(GoodsBuying goodsBuying) {
+		
+		int result = 0;
+		result = sales_BuyingMapper.addGoodsBuying(goodsBuying);
+		
+		return result;
+	}
 	
 }
