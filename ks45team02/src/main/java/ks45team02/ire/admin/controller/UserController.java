@@ -144,9 +144,10 @@ public class UserController {
 		log.info("userId:{},userPw:{}",userId,userPw);
 		Map<String,Object>checkResult=userService.checkPwByMemberId(userId,userPw);
 		boolean isChecked= (boolean) checkResult.get("result");
+
 		String redirectURI="redirect:/admin";
 		if(!isChecked){
-			redirectURI= "redirect:/member/login";
+			redirectURI= "redirect:/admin/loginUser";
 			reAttr.addAttribute("msg","입력하신 회원의 정보가 일치하지 않습니다.");
 		}else {
 			User user=(User) checkResult.get("userInfo");
