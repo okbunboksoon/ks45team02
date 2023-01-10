@@ -59,7 +59,7 @@
 					<div class="x_panel">
 						<div class="x_content">
 							<br><br>
-							<form id= "addGoodsForm" th:action="@{/admin/addGoods}" method="post">
+							<form id= "addGoodsForm" th:action="@{/admin/addGoods}" method="post" enctype="multipart/form-data">
 							<div class="item form-group">
 								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
 								<div class="col-md-6 col-sm-6 ">
@@ -155,7 +155,7 @@
 							<div class="item form-group">
 								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="file" class="form-control-file" id="goodsImage" name="goodsImage">
+									<input type="file" class="form-control-file" id="uploadfile" name="uploadfile" multiple="multiple">
 									<div class="select_img" style="margin: 20px"><img src="" /></div>
 								</div>
 							</div>
