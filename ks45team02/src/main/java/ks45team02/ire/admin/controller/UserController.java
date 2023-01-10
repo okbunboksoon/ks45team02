@@ -48,13 +48,42 @@ public class UserController {
 	@GetMapping("/idCheck/{userId}")
 	@ResponseBody
 	public int idCheck(@PathVariable(value = "userId")String userId){
+
 		return userService.idCheck(userId);
 	}
-	@GetMapping("/deleteUser")
-	public String deleteUser() {
-		
+
+	// 회원탈퇴
+	@GetMapping("/deleteUser/{userId}")
+	public String deleteUser(@PathVariable (value = "userId")String userId,
+							 @RequestParam(value = "msg",required = false)String msg,
+							 Model model) {
+		if(msg!=null)model.addAttribute("msg",msg);
+		model.addAttribute("userId",userId);
+		model.addAttribute("title","deleteUser");
+		model.addAttribute("pageTitle","회원 탈퇴");
+
+
 		return "admin/user/userDelete";
 	}
+	@PostMapping("/deleteUser")
+	public String deleteUser(@RequestParam(value = "userId")String userId,
+							 @RequestParam(value = "userPw")String userPw,
+							 RedirectAttributes reAttr){
+		log.info("userId:{},userPw:{}",userId,userPw);
+		Map<String,Object>checkResult=userService.checkPwByMemberId(userId,userPw);
+		boolean isChecked= (boolean) checkResult.get("result");
+		String redirectURI="redirect:/admin/listUser";
+		if(!isChecked){
+			redirectURI= "redirect:/admin/deleteUser/"+userId;
+			reAttr.addAttribute("msg","입력하신 회원의 정보가 일치하지 않습니다.");
+		}else {
+			User user=(User) checkResult.get("userInfo");
+
+			userService.deleteUser(user);
+		}
+		return  redirectURI;
+	}
+
 	
 	
 	@GetMapping("/deliveryUser")
@@ -81,6 +110,7 @@ public class UserController {
 		List<User>listUser=userService.listUser();
 		model.addAttribute("pageTitle","회원 조회");
 		model.addAttribute("listUser",listUser);
+
 		return "admin/user/userList";
 	}
 

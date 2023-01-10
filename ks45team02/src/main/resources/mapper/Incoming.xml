@@ -10,7 +10,7 @@
         <result property="incomingDate" column="incoming_date"/>
         <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
         <result property="totalCo2" column="total_co2"/>
-        <!--<association property="goodsCode" javaType="Goods">
+        <association property="goodsCode" javaType="Goods" foreignColumn="Goods">
             <id property="goodsCode" 					column="goods_code" />
             <result property="goodsName" 				column="goods_name"/>
             <result property="categoryMediumCode"		column="category_medium_code"/>
@@ -33,7 +33,7 @@
                 <result property="paymentCompleteCode" column="payment_complete_code"/>
                 <result property="deliveryCode" column="delivery_code"/>
             </association>
-        </association>-->
+        </association>
     </resultMap>
     <select id="getStockAmount" resultType="map">
         SELECT

@@ -112,6 +112,13 @@
         </trim>
         WHERE user_id=#{userId}
     </update>
+    <update id="deleteUser" parameterType="User">
+        <!--회원 탈퇴처리-->
+        UPDATE user
+        set
+        user_drop_state='Y'
+        WHERE user_id=#{userId}
+    </update>
     <select id="getUserInfoById" resultMap="UserResultMap" parameterType="String">
         <!--특정 회원 조회-->
         select
