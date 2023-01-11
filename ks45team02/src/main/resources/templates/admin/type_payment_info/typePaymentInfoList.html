@@ -30,6 +30,7 @@
 											<th class="paymentAccountCode">계좌이체, 무통장 계좌번호</th>
 											<th class="paymentPhoneTelco">결제 통신사</th>
 											<th class="paymentPhoneNum">결제 휴대폰 번호</th>
+											<th class="paymentTypeDeleteState">결제 종류 삭제여부</th>
 											<th>수정</th>
 									</thead>
 									<tbody>
@@ -42,6 +43,7 @@
 											<td th:text="${l.paymentAccountCode}"></td>
 											<td th:text="${l.paymentPhoneTelco}"></td>
 											<td th:text="${l.paymentPhoneNum}"></td>
+											<td th:text="${l.paymentTypeDeleteState}"></td>
 											<td><a th:href="@{/admin/modifyTypePaymentInfo(paymentTypeCode=${l.paymentTypeCode})}">수정</a></td>
 										</tr>
 										<tr th:if="${#lists.isEmpty(typePaymentInfoList)}">
