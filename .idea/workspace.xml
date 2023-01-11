@@ -4,29 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 탈퇴 처리&#10;변경시간: 1월 10일 10시 33분">
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/dto/ExchangeStandard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/dto/GoodsExchange.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/dto/RefundStandard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/ExchangeStandardMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/GoodsExchangeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/RefundStandardMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/ExchangeStandardService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/ExchangeStandardMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/GoodsExchangeMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/RefundStandardMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022-12-28__3_04__________.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/2022-12-28__3_04__________.xml" afterDir="false" />
+    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 처리등록&#10;변경시간: 1월 11일 13시 45분">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/Exchange_RefundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/Exchange_RefundController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/Incoming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/Incoming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeAddStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeAddStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeListStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeListStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundListStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundListStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ok_team02.eml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ok_team02.userlibraries" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/GoodsExchangeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/GoodsExchangeMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/GoodsExchangeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/GoodsExchangeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/GoodsExchangeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/GoodsExchangeMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/contract/contractModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/contract/contractModify.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeList.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeModify.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeRequest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchange_refundApproval.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeApproval.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchange_refundSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundApproval.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/fragment/asideFragment.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/fragment/asideFragment.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,9 +30,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AnnotationType" />
-        <option value="HTML File" />
         <option value="spring-beans.schema" />
         <option value="Interface" />
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -75,37 +65,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/mapper&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;아티팩트&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;da3c4ddd569f0853e8e84ca1845e1277&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/templates/admin/exchange_refund",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "아티팩트",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "File.Encoding",
+    "spring.configuration.checksum": "da3c4ddd569f0853e8e84ca1845e1277"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ks45team02.src.main.java.ks45team02.ire" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\templates\admin\exchange_refund" />
       <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\mapper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -149,7 +140,10 @@
       <workItem from="1672716349296" duration="16916000" />
       <workItem from="1672791224709" duration="15374000" />
       <workItem from="1672813722434" duration="96000" />
-      <workItem from="1673326403545" duration="3940000" />
+      <workItem from="1673326403545" duration="16729000" />
+      <workItem from="1673405785786" duration="907000" />
+      <workItem from="1673407630613" duration="1057000" />
+      <workItem from="1673412265126" duration="7530000" />
     </task>
     <task id="LOCAL-00001" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분">
       <created>1672216122635</created>
@@ -263,7 +257,42 @@
       <option name="project" value="LOCAL" />
       <updated>1673316773644</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:교환,환불 기준 조회 등록&#10;변경시간: 1월 10일 15시 24분">
+      <created>1673331877835</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1673331877835</updated>
+    </task>
+    <task id="LOCAL-00018" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:교환,환불 기준 조회 등록&#10;변경시간: 1월 10일 15시 24분">
+      <created>1673331939500</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1673331939500</updated>
+    </task>
+    <task id="LOCAL-00019" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:test&#10;변경시간: 1월 10일 15시 24분">
+      <created>1673332096740</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1673332096740</updated>
+    </task>
+    <task id="LOCAL-00020" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:test&#10;변경시간: 1월 10일 15시 24분">
+      <created>1673332113185</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1673332113185</updated>
+    </task>
+    <task id="LOCAL-00021" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 처리등록&#10;변경시간: 1월 11일 13시 45분">
+      <created>1673412367012</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1673412367012</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,9 +306,9 @@
             <State>
               <option name="COLUMN_ID_WIDTH">
                 <map>
-                  <entry key="Table.Default.Author.ColumnIdWidth" value="128" />
-                  <entry key="Table.Default.Date.ColumnIdWidth" value="99" />
-                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="99" />
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="51" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="42" />
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="41" />
                 </map>
               </option>
             </State>
@@ -302,6 +331,9 @@
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 조회, 회원 로그인내역조회&#10;변경시간: 1월 4일 11시 52분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 조회, 회원 로그인내역조회&#10;변경시간: 1월 4일 12시 07분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 등록,휴면 회원조회 로그인내역조회&#10;변경시간: 1월 4일 15시 21분" />
-    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항: 1:1문의 등록,휴면 회원조회 로그인내역조회&#10;변경시간: 1월 4일 15시 21분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:교환,환불 기준 조회 등록&#10;변경시간: 1월 10일 15시 24분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:test&#10;변경시간: 1월 10일 15시 24분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 처리등록&#10;변경시간: 1월 11일 13시 45분" />
+    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 처리등록&#10;변경시간: 1월 11일 13시 45분" />
   </component>
 </project>
