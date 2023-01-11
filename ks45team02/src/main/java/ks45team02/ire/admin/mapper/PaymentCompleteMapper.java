@@ -10,4 +10,5 @@ public interface PaymentCompleteMapper {
 	
 	//결제완료 조회
     public List<PaymentComplete> listPaymentComplete();
+    public PaymentComplete getPaymentCompleteInfo(String paymentCompleteCode);
 }

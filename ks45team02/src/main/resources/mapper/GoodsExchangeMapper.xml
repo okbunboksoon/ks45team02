@@ -19,5 +19,45 @@
         <result property="exchangeReject" column="exchangeReject"/>
         <result property="exchangeApproval" column="exchangeApproval"/>
     </resultMap>
+    <select id="listGoodsExchange" resultMap="GoodsExchangeResultMap">
+        SELECT
+            goods_exchange_code,
+            exchange_standard_code,
+            payment_complete_code,
+            user_id,
+            goods_code,
+            goods_exchange_count,
+            goods_exchange_price,
+            goods_exchange_date,
+            goods_exchange_content,
+            exchange_process_state,
+            manager_id,
+            exchange_date,
+            exchange_reject,
+            exchange_approval
+        FROM
+            goods_exchange
 
+
+    </select>
+    <insert id="addGoodsExchange" parameterType="GoodsExchange">
+        INSERT INTO goods_exchange
+            (goods_exchange_code,
+            exchange_standard_code,
+            payment_complete_code,
+            user_id, goods_code,
+            goods_exchange_count,
+            goods_exchange_price,
+            goods_exchange_date,
+            goods_exchange_content,
+            exchange_process_state,
+            manager_id,
+            exchange_date,
+            exchange_reject,
+            exchange_approval)
+        VALUES
+        (sf_new_goods_exchange(),
+        #{exchangeStandardCode}, #{paymentCompleteCode}, #{userId},#{goodsCode},#{goodsExchangeCount},#{goodsExchangePrice},
+        NOW(), #{goodsExchangeContent},#{exchangeProcessState}, #{managerId},#{exchangeDate},#{exchangeReject},#{exchangeApproval})
+    </insert>
 </mapper>
