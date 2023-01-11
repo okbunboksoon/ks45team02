@@ -1,10 +1,137 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-typePaymentInfoDelete
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${typePaymentInfo}">
+				<br>
+				<form th:action="@{/admin/modifyTypePaymentInfo}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="paymentTypeCode" class="col-form-label col-md-3 col-sm-3 label-align">결제종류 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentTypeCode" name="paymentTypeCode" th:value="*{paymentTypeCode}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="paymentType" class="col-form-label col-md-3 col-sm-3 label-align">결제 종류</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentType" name="paymentType" th:value="*{paymentType}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentBank" class="col-form-label col-md-3 col-sm-3 label-align">결제 은행 종류</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentBank" name="paymentBank" th:value="*{paymentBank}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentCardNumber" class="col-form-label col-md-3 col-sm-3 label-align">결제 카드번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentCardNumber" name="paymentCardNumber" maxlength="19" th:value="*{paymentCardNumber}"
+								   readonly="readonly" class="form-control "/>
+						</div>			
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentAccountCode" class="col-form-label col-md-3 col-sm-3 label-align">계좌이체, 무통장 계좌번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="paymentAccountCode" name="paymentAccountCode" th:value="*{paymentAccountCode}"
+								   readonly="readonly" class="form-control"/>
+						</div>		
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentPhoneTelco" class="col-form-label col-md-3 col-sm-3 label-align">결제 통신사</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentPhoneTelco" name="paymentPhoneTelco" th:value="*{paymentPhoneTelco}"
+								   readonly="readonly" class="form-control "/>
+						</div>			
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentPhoneNum" class="col-form-label col-md-3 col-sm-3 label-align">결제 휴대폰 번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentPhoneNum" name="paymentPhoneNum" maxlength="13" th:value="*{paymentPhoneNum}"
+								   readonly="readonly" class="form-control"/>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-danger" type="button" id="deleteBtn">삭제</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $deleteBtn = document.getElementById('deleteBtn');
+			const $deleteCheck = document.getElementById('deleteCheck');
+			
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			const $selectEle = document.querySelectorAll('.item > div > select');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listTypePaymentInfo';
+			});
+			
+			$deleteBtn.addEventListener('click', function(){
+				if($deleteCheck.value == '삭제'){
+					if(confirm('정말 삭제하시겠습니까?')){
+						$deleteBtn.setAttribute("type", "submit");
+					}
+					
+				}else{
+					alert('확인 문구가 일치하지 않습니다.');
+				}
+			});
+		
+			$inputEle.forEach(function(item){
+				if(item.value != null && item.value != ''){
+					item.parentElement.parentElement.style.display = '';
+				}
+			});
+			$selectEle.forEach(function(item){
+				if(item.value != null && item.value != '미선택'){
+					item.parentElement.parentElement.style.display = '';
+				}else{
+					item.value = null;
+				}
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>

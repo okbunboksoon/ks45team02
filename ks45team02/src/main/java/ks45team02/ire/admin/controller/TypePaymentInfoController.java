@@ -60,8 +60,20 @@ public class TypePaymentInfoController {
 		return "admin/type_payment_info/typePaymentInfoAdd";
 	}
 	
+	//구매자별 결제 종류 삭제 페이지
 	@GetMapping("/deleteTypePaymentInfo")
-	public String deleteTypePaymentInfo(Model model) {
+	public String deleteTypePaymentInfo(Model model
+									   ,@RequestParam(value="paymentTypeCode") String paymentTypeCode
+									   ,@RequestParam(value="msg", required = false) String msg) {
+		
+		TypePaymentInfo typePaymentInfo = typePaymentInfoMapper.getTypePaymentInfoByPaymentTypeCode(paymentTypeCode);
+		
+		model.addAttribute("title", "구매자별 결제 종류 삭제");
+		model.addAttribute("pageTitle", "구매자별 결제 종류 삭제");
+		model.addAttribute("typePaymentInfo", typePaymentInfo);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/type_payment_info/typePaymentInfoDelete";
 	}

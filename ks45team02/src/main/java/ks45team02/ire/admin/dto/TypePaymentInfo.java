@@ -10,6 +10,7 @@ public class TypePaymentInfo {
 	private String paymentAccountCode;
 	private String paymentPhoneTelco;
 	private String paymentPhoneNum;
+	private char paymentTypeDeleteState;
 	
 	public String getPaymentTypeCode() {
 		return paymentTypeCode;
@@ -59,6 +60,12 @@ public class TypePaymentInfo {
 	public void setPaymentPhoneNum(String paymentPhoneNum) {
 		this.paymentPhoneNum = paymentPhoneNum;
 	}
+	public char getPaymentTypeDeleteState() {
+		return paymentTypeDeleteState;
+	}
+	public void setPaymentTypeDeleteState(char paymentTypeDeleteState) {
+		this.paymentTypeDeleteState = paymentTypeDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -78,9 +85,13 @@ public class TypePaymentInfo {
 		builder.append(paymentPhoneTelco);
 		builder.append(", paymentPhoneNum=");
 		builder.append(paymentPhoneNum);
+		builder.append(", paymentTypeDeleteState=");
+		builder.append(paymentTypeDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }
