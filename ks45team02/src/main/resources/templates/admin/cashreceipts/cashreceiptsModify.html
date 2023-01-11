@@ -1,10 +1,169 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-cashreceiptsModify
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${cashReceiptsInfo}">
+				<br>
+				<form th:action="@{/admin/modifyCashReceipts}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="cashCode" class="col-form-label col-md-3 col-sm-3 label-align">현금영수증 신청 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="cashCode" name="cashCode" th:value="*{cashCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   placeholder="기부 신청자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="cashReceiptType" class="col-form-label col-md-3 col-sm-3 label-align">현금영수증 용도</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="cashReceiptType" name="cashReceiptType" class="form-control">
+								<option value="미선택">선택해주세요.</option>
+								<option value="개인" th:selected="*{cashReceiptType} == '개인'">개인</option>
+								<option value="사업자" th:selected="*{cashReceiptType} == '사업자'">사업자</option>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="cashReceiptCode" class="col-form-label col-md-3 col-sm-3 label-align">현금영수증 번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="cashReceiptCode" name="cashReceiptCode" th:value="*{cashReceiptCode}"
+								   placeholder="현금영수증 번호" class="form-control" maxlength="15"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="paymentTypeCode" class="col-form-label col-md-3 col-sm-3 label-align">결제종류 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentTypeCode" name="paymentTypeCode" th:value="*{paymentTypeCode}"
+								   placeholder="결제종류 코드" class="form-control"/>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			
+			const $cashReceiptType = document.getElementById('cashReceiptType');
+			const $cashReceiptCode = document.getElementById('cashReceiptCode');
+			const $paymentTypeCode = document.getElementById('paymentTypeCode');
+			
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listCashReceipts';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null || $cashReceiptType.value == '미선택'){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			$cashReceiptType.addEventListener('change', function(){
+				
+				$cashReceiptCode.readOnly=false;
+				$paymentTypeCode.readOnly=false;
+				$cashReceiptCode.value='';
+				$paymentTypeCode.value='';
+				
+				if($cashReceiptType.value == '미선택'){
+					$cashReceiptCode.readOnly=true;
+					$paymentTypeCode.readOnly=true;
+				}
+			});
+			
+			$cashReceiptCode.addEventListener('input', function(){
+				 let val = $cashReceiptCode.value.replace(/\D/g, '');
+				 let leng = val.length;
+				 
+				 let result = '';
+				 if($cashReceiptType.value == '개인'){
+					 if(leng < 4) result = val;
+					 else if(leng < 7){
+					 	result += val.substring(0,3);
+					    result += "-";
+					    result += val.substring(3);
+					}else{
+						result += val.substring(0, 3);
+						result += "-";
+						result += val.substring(3, 7);
+						result += "-";
+						result += val.substring(7);
+				  }
+					 
+				 }else if($cashReceiptType.value == '사업자'){
+					 if(leng < 4) result = val;
+					 else if(leng < 7){
+					 	result += val.substring(0,3);
+					    result += "-";
+					    result += val.substring(3);
+					}else{
+						result += val.substring(0, 3);
+						result += "-";
+						result += val.substring(3, 5);
+						result += "-";
+						result += val.substring(5);
+					}
+				}
+				  $cashReceiptCode.value = result;
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>
