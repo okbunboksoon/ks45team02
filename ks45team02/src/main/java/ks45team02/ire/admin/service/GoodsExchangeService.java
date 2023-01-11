@@ -17,4 +17,7 @@ public class GoodsExchangeService {
     public int addGoodsExchange(GoodsExchange goodsExchange){
         return goodsExchangeMapper.addGoodsExchange(goodsExchange);
     }
+    public int modifyGoodsExchange(GoodsExchange goodsExchange){
+        return goodsExchangeMapper.modifyGoodsExchange(goodsExchange);
+    }
 }
