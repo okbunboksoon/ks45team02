@@ -13,8 +13,78 @@
 		<result property="paymentPhoneTelco" 	column="payment_phone_telco" />
 		<result property="paymentPhoneNum" 		column="payment_phone_num" />
 	</resultMap>
+	
+	<update id="modifyTypePaymentInfo" parameterType="TypePaymentInfo">
+		<!-- 구매자별 결제 종류 수정 -->
+		UPDATE type_payment_info
+		SET 
+			 user_id = #{userId}
+			,payment_type = #{paymentType}
+			,payment_bank = #{paymentBank}
+			,payment_card_number = NULLIF(#{paymentCardNumber}, '') 
+			,payment_account_code = NULLIF(#{paymentAccountCode}, '')
+			,payment_phone_telco = #{paymentPhoneTelco}
+			,payment_phone_num = NULLIF(#{paymentPhoneNum}, '')
+		WHERE 
+			payment_type_code = #{paymentTypeCode};
+	</update>
+	
+	<select id="getTypePaymentInfoByPaymentTypeCode" parameterType="String" resultMap="typePaymentInfoResultMap">
+		<!-- 결제 종류 코드로 구매자별 결제 종류 조회 -->
+		SELECT 
+			 payment_type_code
+			,user_id
+			,payment_type
+			,payment_bank
+			,payment_card_number
+			,payment_account_code
+			,payment_phone_telco
+			,payment_phone_num
+		FROM	
+			type_payment_info 
+		WHERE 
+			payment_type_code = #{paymentTypeCode};
+	</select>
+	
+	<insert id="addTypePaymentInfo" parameterType="TypePaymentInfo">
+		<!-- 구매자별 결제 종류 등록 -->
+		INSERT INTO type_payment_info(
+			 payment_type_code
+			,user_id
+		 	,payment_type
+			,payment_bank
+			,payment_card_number
+			,payment_account_code
+			,payment_phone_telco
+			,payment_phone_num	
+		)VALUES(
+			 sf_new_type_payment_info_code()
+			,#{userId}
+			,#{paymentType}
+			,NULLIF(#{paymentBank}, '미선택')  
+			,NULLIF(#{paymentCardNumber}, '') 
+			,NULLIF(#{paymentAccountCode}, '')
+			,NULLIF(#{paymentPhoneTelco}, '미선택')  
+			,NULLIF(#{paymentPhoneNum}, '')
+		);
+	</insert>
+	
+	<select id="getTypePaymentInfoList" resultMap="typePaymentInfoResultMap">
+		<!-- 구매자별 결제 종류 조회 -->
+		SELECT 
+			 payment_type_code
+			,user_id
+			,payment_type
+			,payment_bank
+			,payment_card_number
+			,payment_account_code
+			,payment_phone_telco
+			,payment_phone_num
+		FROM	
+			type_payment_info;
+	</select>
 
-	 <select id="checkIdWithPaymentType" parameterType="String" resultType="int">
+	<select id="checkIdWithPaymentType" parameterType="String" resultType="int">
 		<!-- 회원 아이디와 결제종류가 일치하는지 확인 -->
     	SELECT 
 			COUNT(1)
@@ -24,6 +94,6 @@
 			user_id = #{userId}
 			AND 
 			payment_type_code = #{paymentTypeCode};
-    </select>
+   </select>
 
 </mapper>

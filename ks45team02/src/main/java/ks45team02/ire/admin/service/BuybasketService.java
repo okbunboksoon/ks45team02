@@ -110,7 +110,7 @@ public class BuybasketService {
 			pointMinus.setPointMinus(buybasket.getUsePoint());
 			pointMinus.setPointState(userPointState);
 			pointMinus.setPointMinusDate(buybasket.getRegDate());
-			pointMinus.setPointMinusReason("상품 구매 시 사용");
+			pointMinus.setPointMinusReason("상품 주문(결제 전)");
 			pointService.addPointMinus(pointMinus);
 		}
 		

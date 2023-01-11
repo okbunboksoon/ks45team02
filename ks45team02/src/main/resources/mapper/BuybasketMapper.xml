@@ -98,7 +98,7 @@
 				,#{usePoint}
 				,#{finalPaymentAmount}
 				,#{regDate}
-				,'N';
+				,'N');
 	</insert>
 	
 	<select id="getBuybasketList" resultMap="buybasketResultMap">

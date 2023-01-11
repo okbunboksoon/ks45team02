@@ -125,7 +125,7 @@
 				 let result = '';
 				 if($cashReceiptType.value == '개인'){
 					 if(leng < 4) result = val;
-					 else if(leng < 7){
+					 else if(leng < 8){
 					 	result += val.substring(0,3);
 					    result += "-";
 					    result += val.substring(3);
@@ -139,7 +139,7 @@
 					 
 				 }else if($cashReceiptType.value == '사업자'){
 					 if(leng < 4) result = val;
-					 else if(leng < 7){
+					 else if(leng < 8){
 					 	result += val.substring(0,3);
 					    result += "-";
 					    result += val.substring(3);
