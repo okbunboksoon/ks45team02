@@ -23,14 +23,15 @@ public class FileService {
 		this.fileMapper = fileMapper;
 	}
 
-	public void fileUpload(MultipartFile[] uploadfile, String fileRealPath) {
+	public int fileUpload(MultipartFile[] uploadfile, String fileRealPath) {
 		
 		List<FileDto> fileList= fileUtil.parseFileInfo(uploadfile, fileRealPath);
 		
 		System.out.println(fileList);
-		
-		if(fileList != null) fileMapper.addFile(fileList);
-		
+		int result = 0;
+		if(fileList != null) result = fileMapper.addFile(fileList);
+		System.out.println(result);
+		return result;
 	}
 	
 	public List<FileDto> getFileList(){

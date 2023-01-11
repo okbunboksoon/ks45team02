@@ -68,7 +68,8 @@
 			,g.goods_sangse
 			,g.fabric
 			,g.rate
-			,g.upcycling_carbon_dioxide_emission_level	
+			,g.upcycling_carbon_dioxide_emission_level
+			,g.file_idx	
 		FROM
 			goods AS g
 	</select>
@@ -105,7 +106,7 @@
              fabric, rate, upcycling_carbon_dioxide_emission_level, file_idx)
         VALUES 
             (sf_new_goods_code(), #{goodsName}, #{categoryMediumCode}, #{goodsPrice}, #{goodsColor}, 
-             #{goodsSize}, NOW(), #{goodsSangse}, #{fabric}, #{rate}, 0, 'file_20230110599519722136800')
+             #{goodsSize}, NOW(), #{goodsSangse}, #{fabric}, #{rate}, 0, sf_new_file_code())
     </insert>
 
     <!-- FirstFabric가져오기 -->

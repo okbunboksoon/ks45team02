@@ -15,6 +15,7 @@
 		<script>
 			$(function(){
 				$('#listNotice').DataTable();
+				const $deleteBtn = document.querySelectorAll('#deleteBtn');
 				
 				$('#deleteBtn').click(function(){
 					let deleteValue = $('#deleteBtn').val();
@@ -49,9 +50,9 @@
 											<th class="goodsSize">사이즈</th>
 											<th class="goodsRegDate">등록날짜</th>
 											<th class="goodsSangse">상세설명</th>
-											<th class="goodsImage">이미지</th>
 											<th class="fabric">원단</th>
 											<th class="rate">비율</th>
+											<th class="rate">이미지</th>
 											<th class="upcyclingCarbonDioxideEmissionLevel">이산화탄소 배출량</th>
 											<th>수정</th>
 											<th>삭제</th>
@@ -67,9 +68,9 @@
 											<td th:text="${gl.goodsSize}" />
 											<td th:text="${gl.goodsRegDate}" />
 											<td th:text="${gl.goodsSangse}" />
-											<td th:text="${gl.goodsImage}" />
 											<td th:text="${gl.fabric}" />
 											<td th:text="${gl.rate}" />
+											<td th:text="${gl.fileIdx}" />
 											<td th:text="${gl.upcyclingCarbonDioxideEmissionLevel}" />
 											<td><button type="button" class="btn btn-primary btn-sm">
 												<a style ="color:white" th:href="@{/admin/modifyMediumCategory(categoryMediumCode=${gl.goodsCode})}">편집</a></button></td>

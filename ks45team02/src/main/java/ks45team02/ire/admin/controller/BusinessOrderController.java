@@ -208,7 +208,7 @@ public class BusinessOrderController {
 	 * @return businessOrderList
 	 */
 	@GetMapping("/businessOrderUpdate")
-	public String businessOrderUpdate(@RequestParam(value="code")String businessOrderCode,Model model) {
+	public String businessOrderUpdate(@RequestParam(value="businessOrderCode")String businessOrderCode,Model model) {
 		
 		log.info("businessOrderCode :{}", businessOrderCode);
 		List<BusinessOrder> businessOrderList =  businessOrderService.getListBusinessOrderByCode(businessOrderCode);
@@ -225,13 +225,7 @@ public class BusinessOrderController {
 		
 		log.info("businessOrderCode :{}", businessOrder);
 		int result = businessOrderService.modifyBusinessOrder(businessOrder);
-		
-		if(result == 0) {
-			reAttr.addAttribute("msg", "발주 수정에 실패하였습니다.");
-			return "redirect:/admin/modifyBusinessOrder";
-		}else {
-			reAttr.addAttribute("msg", "발주 수정에 성공하였습니다.");
-		}
+	
 		
 		return "redirect:/admin/listBusinessOrder";
 	}

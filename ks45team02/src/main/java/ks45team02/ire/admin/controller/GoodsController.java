@@ -77,8 +77,6 @@ public class GoodsController {
 	public String addGoods(Goods goods,@RequestParam MultipartFile[] uploadfile
 						  ,Model model, HttpServletRequest request) {
 		
-		goodsService.addGoods(goods);
-		
 		log.info("goods : {}", goods);
 		log.info("uploadfile : {}", uploadfile);
 		
@@ -86,11 +84,13 @@ public class GoodsController {
 		String fileRealPath = "";
 		if("localhost".equals(serverName)) {				
 			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
-			//fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}else {
 			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
 		}
-		fileService.fileUpload(uploadfile, fileRealPath);
+		int addfile = fileService.fileUpload(uploadfile, fileRealPath);
+		log.info("addfile : {}", addfile);
+		if(addfile == 1)goodsService.addGoods(goods);
+		
 		
 		return "redirect:/admin/listGoods";
 	}
