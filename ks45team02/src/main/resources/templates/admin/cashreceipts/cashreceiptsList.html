@@ -28,6 +28,7 @@
 											<th class="cashReceiptCode">현금영수증 번호</th>
 											<th class="paymentTypeCode">결제종류 코드</th>
 											<th>수정</th>
+											<th>삭제</th>
 									</thead>
 									<tbody>
 										<tr th:unless="${#lists.isEmpty(cashReceiptsList)}" th:each="l : ${cashReceiptsList}">
@@ -37,6 +38,7 @@
 											<td th:text="${l.cashReceiptCode}"></td>
 											<td th:text="${l.paymentTypeCode}"></td>
 											<td><a th:href="@{/admin/modifyCashReceipts(cashCode=${l.cashCode})}">수정</a></td>
+											<td><a th:href="@{/admin/deleteCashReceipts(cashCode=${l.cashCode})}">삭제</a></td>
 										</tr>
 										<tr th:if="${#lists.isEmpty(cashReceiptsList)}">
 											<td colspan="6">등록된 현금영수증 신청이 존재하지 않습니다.</td>

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ks45team02.ire.admin.dto.Buynow;
+import ks45team02.ire.admin.dto.PointMinus;
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.mapper.BuynowMapper;
 import ks45team02.ire.admin.mapper.CategoryMapper;
+import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.mapper.UserMapper;
 
 @Service
@@ -22,11 +24,15 @@ public class BuynowService {
 	private final BuynowMapper buynowMapper;
 	private final UserMapper userMapper;
 	private final CategoryMapper categoryMapper;
+	private final PointMapper pointMapper;
+	private final PointService pointService;
 	
-	public BuynowService(BuynowMapper buynowMapper, UserMapper userMapper, CategoryMapper categoryMapper) {
+	public BuynowService(BuynowMapper buynowMapper, UserMapper userMapper, CategoryMapper categoryMapper, PointMapper pointMapper, PointService pointService) {
 		this.buynowMapper = buynowMapper;
 		this.userMapper = userMapper;
 		this.categoryMapper = categoryMapper;
+		this.pointMapper = pointMapper;
+		this.pointService = pointService;
 	}
 	
 	/**
@@ -84,6 +90,23 @@ public class BuynowService {
 		buynow.setCategoryMediumCode(categoryMediumCode);
 		
 		result = buynowMapper.addBuynow(buynow);
+		
+		if(usePoint > 0) {
+			userPointState -= buynow.getUsePoint();
+			userInfo.setPointState(userPointState);
+			
+			//회원 포인트 수정
+			pointMapper.modifyUserPointState(userInfo);
+			
+			//포인트 차감 등록
+			PointMinus pointMinus = new PointMinus(); 
+			pointMinus.setUserId(buynow.getUserId());
+			pointMinus.setPointMinus(buynow.getUsePoint());
+			pointMinus.setPointState(userPointState);
+			pointMinus.setPointMinusDate(buynow.getRegDate());
+			pointMinus.setPointMinusReason("상품 주문(결제 전)");
+			pointService.addPointMinus(pointMinus);
+		}
 		
 		return result;
 	}
