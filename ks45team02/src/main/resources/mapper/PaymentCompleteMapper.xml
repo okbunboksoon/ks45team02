@@ -39,5 +39,25 @@
 		FROM 
 			payment_complete;
     </select>
+    <select id="getPaymentCompleteInfo" resultMap="PaymentCompleteResultMap" >
+        SELECT
+        payment_complete_code
+        ,buynow_basket_total_code
+        ,buynow_basket
+        ,user_id
+        ,final_payment_amount
+        ,deli_code
+        ,order_date
+        ,payment_type_code
+        ,payment_date
+        ,point_use_group
+        ,product_order_state
+        ,point_save
+        ,product_order_point_group
+        FROM
+        payment_complete
+        WHERE
+        payment_complete_code=#{paymentCompleteCode}
+    </select>
 
 </mapper>
