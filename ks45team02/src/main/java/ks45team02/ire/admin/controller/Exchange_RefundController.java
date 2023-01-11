@@ -26,8 +26,9 @@ public class Exchange_RefundController {
 	private final GoodsMapper goodsMapper;
 	private final UserMapper userMapper;
 	private final PaymentCompleteMapper paymentCompleteMapper;
+	private final GoodsExchangeMapper goodsExchangeMapper;
 
-	public Exchange_RefundController(ExchangeStandardMapper exchangeStandardMapper, RefundStandardMapper refundStandardMapper, ExchangeStandardService exchangeStandardService, GoodsExchangeService goodsExchangeService, GoodsMapper goodsMapper, UserMapper userMapper, PaymentCompleteMapper paymentCompleteMapper) {
+	public Exchange_RefundController(ExchangeStandardMapper exchangeStandardMapper, RefundStandardMapper refundStandardMapper, ExchangeStandardService exchangeStandardService, GoodsExchangeService goodsExchangeService, GoodsMapper goodsMapper, UserMapper userMapper, PaymentCompleteMapper paymentCompleteMapper, GoodsExchangeMapper goodsExchangeMapper) {
 		this.exchangeStandardMapper = exchangeStandardMapper;
 		this.refundStandardMapper = refundStandardMapper;
 		this.exchangeStandardService = exchangeStandardService;
@@ -35,20 +36,27 @@ public class Exchange_RefundController {
 		this.goodsMapper = goodsMapper;
 		this.userMapper = userMapper;
 		this.paymentCompleteMapper = paymentCompleteMapper;
+		this.goodsExchangeMapper = goodsExchangeMapper;
 	}
 
 
-	@GetMapping("/approvalExchange_Refund")
-	public String approvalExchange_Refund(Model model) {
-		
-		return "admin/exchange_refund/exchange_refundApproval";
+	@GetMapping("/approvalExchange")
+	public String approvalExchange(Model model) {
+		model.addAttribute("title","approvalExchange_Refund");
+		model.addAttribute("pageTitle","교환 승인");
+		List<GoodsExchange>goodsExchangeList=goodsExchangeMapper.listGoodsExchange();
+		model.addAttribute("goodsExchangeList",goodsExchangeList);
+		log.info("goodsExchangeList:{}",goodsExchangeList);
+		return "admin/exchange_refund/exchangeApproval";
 	}
-		
-	@GetMapping("/searchExchange_Refund")
-	public String searchExchange_Refund() {
-		
-		return "admin/exchange_refund/exchange_refundSearch";
+	@GetMapping("/approvalRefund")
+	public String approvalRefund(Model model) {
+		model.addAttribute("title","approvalRefund");
+		model.addAttribute("pageTitle","환불 승인");
+		return "admin/exchange_refund/refundApproval";
 	}
+
+
 	
 	@GetMapping("/addExchangeStandard")
 	public String addExchangeStandard(Model model) {
@@ -72,9 +80,22 @@ public class Exchange_RefundController {
 	}
 		
 	@GetMapping("/modifyExchange")
-	public String modifyExchange() {
-		
+	public String modifyExchange(Model model,
+								 @RequestParam(value = "goodsExchangeCode",required = false)String goodsExchangeCode) {
+		model.addAttribute("title","modifyExchange");
+		model.addAttribute("pageTitle","교환수정,승인/반려");
+		GoodsExchange getGoodsExchange=goodsExchangeMapper.getGoodsExchange(goodsExchangeCode);
+		List<User>userList=userMapper.listUser();
+		model.addAttribute("userList",userList);
+		model.addAttribute("getGoodsExchange",getGoodsExchange);
+
 		return "admin/exchange_refund/exchangeModify";
+	}
+	@PostMapping("/modifyExchange")
+	public String modifyExchange(GoodsExchange goodsExchange){
+		goodsExchangeService.modifyGoodsExchange(goodsExchange);
+		log.info(":{goodsExchange}",goodsExchange);
+		return "redirect:/admin/approvalExchange";
 	}
 	@GetMapping("/requestExchange")
 	public String requestExchange(Model model,
@@ -96,11 +117,7 @@ public class Exchange_RefundController {
 		goodsExchangeService.addGoodsExchange(goodsExchange);
 		return "redirect:/admin/approvalExchange_Refund";
 	}
-	@GetMapping("/listExchange")
-	public String listExchange(Model model) {
 
-		return "admin/exchange_refund/exchangeList";
-	}
 	@GetMapping("/addRefundStandard")
 	public String addRefundStandard() {
 		
