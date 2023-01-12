@@ -7,5 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface DeliveryMapper {
+	
+	//deliveryCode와 UserId 일치 확인
+	public int checkDeliveryCodeAndUserId(String deliveryCode, String userId);
+	
     public List<Delivery>listDelivery();
 }

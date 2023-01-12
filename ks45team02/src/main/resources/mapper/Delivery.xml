@@ -12,6 +12,19 @@
         <result property="deliveryState" column="delivery_state"/>
         <result property="paymentCompleteCode" column="payment_complete_code"/>
     </resultMap>
+    
+    <select id="checkDeliveryCodeAndUserId" parameterType="String" resultType="int">
+    	<!-- deliveryCode와 UserId 일치 확인 -->
+    	SELECT 
+			COUNT(1)
+		FROM 
+			delivery
+		WHERE 
+			delivery_code = #{deliveryCode}
+			AND 
+			user_id = #{userId};
+    </select>
+    
     <select id="listDelivery" resultMap="DeliveryResultMap">
         SELECT
         delivery_code,

@@ -15,6 +15,18 @@
 		<result property="paymentTypeDeleteState" 	column="payment_type_delete_state" />
 	</resultMap>
 	
+	<select id="checkPaymentTypeCodeAndUserId" parameterType="String" resultType="int">
+		<!-- paymentTypeCode와 UserId 일치 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			type_payment_info
+		WHERE 
+			payment_type_code = #{paymentTypeCode}
+			AND 
+			user_id = #{userId};
+	</select>
+	
 	<update id="modifyTypePaymentInfo" parameterType="TypePaymentInfo">
 		<!-- 구매자별 결제 종류 수정 -->
 		UPDATE type_payment_info

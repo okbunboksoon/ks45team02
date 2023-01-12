@@ -2,7 +2,6 @@ package ks45team02.ire.admin.mapper;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,6 +14,9 @@ import ks45team02.ire.admin.dto.User;
 @Mapper
 public interface PointMapper {
 
+	//결제 완료 후 포인트 차감 그룹 수정
+	public int modifyPointMinusGroup(PointMinus pointMinus);
+	
 	//포인트 차감 수정
 	public int modifyPointMinus(PointMinus pointMinus);
 	
