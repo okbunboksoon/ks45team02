@@ -3,11 +3,13 @@ package ks45team02.ire.admin.service;
 import ks45team02.ire.admin.dto.BoardEvent;
 import ks45team02.ire.admin.mapper.BoardEventMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 
 @Service
+@Transactional
 public class BoardEventService {
 
     private final BoardEventMapper boardEventMapper;
