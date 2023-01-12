@@ -1,5 +1,11 @@
 package ks45team02.ire.admin.service;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import ks45team02.ire.admin.dto.Business;
 import ks45team02.ire.admin.dto.BusinessOrder;
 import ks45team02.ire.admin.dto.GoodsBuying;
@@ -15,7 +21,9 @@ public class Sales_BuyingService {
 		this.sales_BuyingMapper = sales_BuyingMapper;
 	}
 
+	
 	private static final Logger log = LoggerFactory.getLogger(Sales_BuyingService.class);
+
 
 	/**
 	 * 상품매입 리스트
