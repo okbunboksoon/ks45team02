@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardEventFileMapper">
+    <resultMap type="BoardEventFile" id="BoardEventfileResultMap">
+        <result property="eventFileIdx" 			column="event_file_idx"/>
+        <result property="eventFileOriginalName" 		column="event_file_original_name"/>
+        <result property="eventFileNewName" column="event_file_new_name"/>
+        <result property="eventFilePath" 		column="event_file_path"/>
+        <result property="eventFileSize" 		column="event_file_size"/>
+    </resultMap>
+
+    <insert id="addFile" parameterType="list">
+        INSERT INTO event_files
+        (
+        event_file_idx
+        ,event_file_original_name
+        ,event_file_new_name
+        ,event_file_path
+        ,event_file_size
+        )VALUES
+        <foreach collection="list" item="data" separator=",">
+            (
+            #{data.eventFileIdx}
+            ,#{data.eventFileOriginalName}
+            ,#{data.eventFileNewName}
+            ,#{data.eventFilePath}
+            ,#{data.eventFileSize}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getBoardEventFileList" resultMap="BoardEventfileResultMap">
+        SELECT
+            event_file_idx
+             ,event_file_original_name
+             ,event_file_new_name
+             ,event_file_path
+             ,event_file_size
+        FROM
+            evnet_files
+    </select>
+
+    <select id="getBoardEventFileInfoByIdx" parameterType="string" resultMap="BoardEventfileResultMap">
+        SELECT
+            event_file_idx
+             ,event_file_original_name
+             ,event_file_new_name
+             ,event_file_path
+             ,event_file_size
+        FROM
+            event_files
+        WHERE
+            event_file_idx = #{eventFileIdx}
+    </select>
+</mapper>
