@@ -25,6 +25,7 @@
 			user_id = #{userId};
     </select>
     
+    <!-- 배송 전체 조회 -->
     <select id="listDelivery" resultMap="DeliveryResultMap">
         SELECT
         delivery_code,

@@ -11,5 +11,6 @@ public interface DeliveryMapper {
 	//deliveryCode와 UserId 일치 확인
 	public int checkDeliveryCodeAndUserId(String deliveryCode, String userId);
 	
-    public List<Delivery>listDelivery();
+	// 배송 전체 조회
+    public List<Delivery> listDelivery();
 }
