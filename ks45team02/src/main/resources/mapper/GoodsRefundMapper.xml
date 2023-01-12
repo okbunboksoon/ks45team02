@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.GoodsRefundMapper">
+    <resultMap id="GoodsRefundResultMap" type="GoodsRefund">
+        <id property="goodsRefundCode" column="goods_refund_code"/>
+        <result property="RefundStandardCode" column="refund_standard_code"/>
+        <result property="paymentCompleteCode" column="payment_complete_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="goodsRefundCount" column="goods_refund_count"/>
+        <result property="goodsRefundPrice" column="goods_refund_price"/>
+        <result property="goodsRefundDate" column="goods_refund_date"/>
+        <result property="goodsRefundContent" column="goods_refund_content"/>
+        <result property="RefundProcessState" column="refund_process_state"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="RefundDate" column="refund_date"/>
+        <result property="RefundReject" column="refund_reject"/>
+        <result property="RefundApproval" column="refund_approval"/>
+    </resultMap>
+    <update id="modifyRefund" parameterType="GoodsRefund">
+        UPDATE goods_refund
+        SET
+        goods_refund_code=#{goodsRefundCode},
+        refund_standard_code=#{RefundStandardCode},
+        payment_complete_code=#{paymentCompleteCode},
+        user_id=#{userId},
+        goods_code=#{goodsCode},
+        goods_refund_count=#{goodsRefundCount},
+        goods_refund_price=#{goodsRefundPrice},
+        good_refund_content=#{goodsRefundContent},
+        goods_refund_date=#{goodsRefundDate},
+        refund_process_state=#{RefundProcessState},
+        manager_id=#{managerId},
+        refund_date=NOW(),
+        refund_reject=#{RefundReject},
+        refund_approval=#{RefundApproval}
+        WHERE goods_refund_code=#{goodsRefundCode}
+    </update>
+    <select id="listGoodsRefund" resultMap="GoodsRefundResultMap">
+        SELECT
+            goods_refund_code,
+            refund_standard_code,
+            payment_complete_code,
+            user_id, goods_code,
+            goods_refund_count,
+            goods_refund_price,
+            good_refund_content,
+            goods_refund_date,
+            refund_process_state,
+            manager_id,
+            refund_date,
+            refund_reject,
+            refund_approval
+        FROM
+            goods_refund
+    </select>
+    <insert id="addGoodsRefund" parameterType="GoodsRefund">
+        INSERT INTO goods_refund
+        (goods_refund_code,
+        refund_standard_code,
+        payment_complete_code,
+        user_id, goods_code,
+        goods_refund_count,
+        goods_refund_price,
+        goods_refund_date,
+        good_refund_content,
+        refund_process_state,
+        manager_id,
+        refund_date,
+        refund_reject,
+        refund_approval)
+        VALUES
+        (sf_new_goods_refund(),
+        #{RefundStandardCode},#{paymentCompleteCode}, #{userId},#{goodsCode},#{goodsRefundCount},
+        #{goodsRefundPrice},NOW(), #{goodsRefundContent},'환불요청중', #{managerId},
+        #{RefundDate},#{RefundReject},#{RefundApproval})
+    </insert>
+    <select id="getGoodsRefund" resultMap="GoodsRefundResultMap">
+        SELECT
+        goods_refund_code,
+        refund_standard_code,
+        payment_complete_code,
+        user_id, goods_code,
+        goods_refund_count,
+        goods_refund_price,
+        good_refund_content,
+        goods_refund_date,
+        refund_process_state,
+        manager_id,
+        refund_date,
+        refund_reject,
+        refund_approval
+        FROM
+        goods_refund
+        WHERE goods_refund_code=#{goodsRefundCode}
+    </select>
+</mapper>
