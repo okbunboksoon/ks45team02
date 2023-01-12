@@ -14,111 +14,92 @@ public class PaymentComplete {
     private String productOrderState;
     private int pointSave;
     private String productOrderPointGroup;
-
-    public String getPaymentCompleteCode() {
-        return paymentCompleteCode;
-    }
-
-    public void setPaymentCompleteCode(String paymentCompleteCode) {
-        this.paymentCompleteCode = paymentCompleteCode;
-    }
-
-    public String getBuynowBasketTotalCode() {
-        return buynowBasketTotalCode;
-    }
-
-    public void setBuynowBasketTotalCode(String buynowBasketTotalCode) {
-        this.buynowBasketTotalCode = buynowBasketTotalCode;
-    }
-
-    public String getBuynowBasket() {
-        return buynowBasket;
-    }
-
-    public void setBuynowBasket(String buynowBasket) {
-        this.buynowBasket = buynowBasket;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public int getFinalPaymentAmount() {
-        return finalPaymentAmount;
-    }
-
-    public void setFinalPaymentAmount(int finalPaymentAmount) {
-        this.finalPaymentAmount = finalPaymentAmount;
-    }
-
-    public String getDeliCode() {
-        return deliCode;
-    }
-
-    public void setDeliCode(String deliCode) {
-        this.deliCode = deliCode;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public String getPaymentTypeCode() {
-        return paymentTypeCode;
-    }
-
-    public void setPaymentTypeCode(String paymentTypeCode) {
-        this.paymentTypeCode = paymentTypeCode;
-    }
-
-    public String getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(String paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public String getPointUseGroup() {
-        return pointUseGroup;
-    }
-
-    public void setPointUseGroup(String pointUseGroup) {
-        this.pointUseGroup = pointUseGroup;
-    }
-
-    public String getProductOrderState() {
-        return productOrderState;
-    }
-
-    public void setProductOrderState(String productOrderState) {
-        this.productOrderState = productOrderState;
-    }
-
-    public int getPointSave() {
-        return pointSave;
-    }
-
-    public void setPointSave(int pointSave) {
-        this.pointSave = pointSave;
-    }
-
-    public String getProductOrderPointGroup() {
-        return productOrderPointGroup;
-    }
-
-    public void setProductOrderPointGroup(String productOrderPointGroup) {
-        this.productOrderPointGroup = productOrderPointGroup;
-    }
-
+    private char paymentCompleteDeleteState;
+    
+	public String getPaymentCompleteCode() {
+		return paymentCompleteCode;
+	}
+	public void setPaymentCompleteCode(String paymentCompleteCode) {
+		this.paymentCompleteCode = paymentCompleteCode;
+	}
+	public String getBuynowBasketTotalCode() {
+		return buynowBasketTotalCode;
+	}
+	public void setBuynowBasketTotalCode(String buynowBasketTotalCode) {
+		this.buynowBasketTotalCode = buynowBasketTotalCode;
+	}
+	public String getBuynowBasket() {
+		return buynowBasket;
+	}
+	public void setBuynowBasket(String buynowBasket) {
+		this.buynowBasket = buynowBasket;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getFinalPaymentAmount() {
+		return finalPaymentAmount;
+	}
+	public void setFinalPaymentAmount(int finalPaymentAmount) {
+		this.finalPaymentAmount = finalPaymentAmount;
+	}
+	public String getDeliCode() {
+		return deliCode;
+	}
+	public void setDeliCode(String deliCode) {
+		this.deliCode = deliCode;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getPaymentTypeCode() {
+		return paymentTypeCode;
+	}
+	public void setPaymentTypeCode(String paymentTypeCode) {
+		this.paymentTypeCode = paymentTypeCode;
+	}
+	public String getPaymentDate() {
+		return paymentDate;
+	}
+	public void setPaymentDate(String paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+	public String getPointUseGroup() {
+		return pointUseGroup;
+	}
+	public void setPointUseGroup(String pointUseGroup) {
+		this.pointUseGroup = pointUseGroup;
+	}
+	public String getProductOrderState() {
+		return productOrderState;
+	}
+	public void setProductOrderState(String productOrderState) {
+		this.productOrderState = productOrderState;
+	}
+	public int getPointSave() {
+		return pointSave;
+	}
+	public void setPointSave(int pointSave) {
+		this.pointSave = pointSave;
+	}
+	public String getProductOrderPointGroup() {
+		return productOrderPointGroup;
+	}
+	public void setProductOrderPointGroup(String productOrderPointGroup) {
+		this.productOrderPointGroup = productOrderPointGroup;
+	}
+	public char getPaymentCompleteDeleteState() {
+		return paymentCompleteDeleteState;
+	}
+	public void setPaymentCompleteDeleteState(char paymentCompleteDeleteState) {
+		this.paymentCompleteDeleteState = paymentCompleteDeleteState;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -148,9 +129,13 @@ public class PaymentComplete {
 		builder.append(pointSave);
 		builder.append(", productOrderPointGroup=");
 		builder.append(productOrderPointGroup);
+		builder.append(", paymentCompleteDeleteState=");
+		builder.append(paymentCompleteDeleteState);
 		builder.append("]");
 		return builder.toString();
 	}
+
+   
     
     
 }

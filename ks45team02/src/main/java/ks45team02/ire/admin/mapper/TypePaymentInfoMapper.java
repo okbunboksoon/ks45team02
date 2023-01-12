@@ -9,6 +9,9 @@ import ks45team02.ire.admin.dto.TypePaymentInfo;
 @Mapper
 public interface TypePaymentInfoMapper {
 
+	//paymentTypeCode와 UserId 일치 확인
+	public int checkPaymentTypeCodeAndUserId(String paymentTypeCode, String userId);
+	
 	//구매자별 결제 종류 수정
 	public int modifyTypePaymentInfo(TypePaymentInfo typePaymentInfo);
 	

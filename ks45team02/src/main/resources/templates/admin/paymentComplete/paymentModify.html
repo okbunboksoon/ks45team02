@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${paymentCompleteInfo}">
+				<br>
+				<form th:action="@{/admin/modifyPayment}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="paymentCompleteCode" class="col-form-label col-md-3 col-sm-3 label-align">결제완료코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentCompleteCode" name="paymentCompleteCode" th:value="*{paymentCompleteCode}"
+								   readonly="readonly" placeholder="즉시구매 코드/장바구니 그룹" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="SearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">주문 추가</label>
+						<div class="col-md-6 col-sm-6 ">
+							<button type="button" class="btn btn-secondary btn-sm" id="SearchBtn">주문 추가</button>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="buynowBasketTotalCode" class="col-form-label col-md-3 col-sm-3 label-align">즉시구매 코드/장바구니 그룹</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="buynowBasketTotalCode" name="buynowBasketTotalCode" th:value="*{buynowBasketTotalCode}"
+								   readonly="readonly" placeholder="즉시구매 코드/장바구니 그룹" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="buynowBasket" class="col-form-label col-md-3 col-sm-3 label-align">즉시구매/장바구니</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="buynowBasket" name="buynowBasket" th:value="*{buynowBasket}"
+								   readonly="readonly" placeholder="즉시구매/장바구니" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   readonly="readonly" placeholder="구매자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="finalPaymentAmount" class="col-form-label col-md-3 col-sm-3 label-align">최종결제합계</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="finalPaymentAmount" name="finalPaymentAmount" value="0" th:value="*{finalPaymentAmount}"
+								   readonly="readonly" placeholder="최종결제합계" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="orderDate" class="col-form-label col-md-3 col-sm-3 label-align">주문일자</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="orderDate" name="orderDate" th:value="*{orderDate}"
+								   readonly="readonly" placeholder="주문일자" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="deliCode" class="col-form-label col-md-3 col-sm-3 label-align">배송 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="deliCode" placeholder="공백 허용" name="deliCode" th:value="*{deliCode}"
+								   class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="paymentTypeCode" class="col-form-label col-md-3 col-sm-3 label-align">결제종류코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentTypeCode" placeholder="결제종류코드" name="paymentTypeCode" th:value="*{paymentTypeCode}"
+								   class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="paymentDate" class="col-form-label col-md-3 col-sm-3 label-align">결제일자</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="paymentDate" name="paymentDate" th:value="*{paymentDate}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="productOrderState" class="col-form-label col-md-3 col-sm-3 label-align">결제완료 후 상황</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="productOrderState" name="productOrderState"class="form-control">
+								<option value="결제완료" th:selected="*{productOrderState} == '결제완료'">결제완료</option>
+								<option value="배송준비중" th:selected="*{productOrderState} == '배송준비중'">배송준비중</option>
+								<option value="배송중" th:selected="*{productOrderState} == '배송중'">배송중</option>
+								<option value="배송완료" th:selected="*{productOrderState} == '배송완료'">배송완료</option>
+								<option value="구매확정" th:selected="*{productOrderState} == '구매확정'">구매확정</option>
+								<option value="구매취소" th:selected="*{productOrderState} == '구매취소'">구매취소</option>
+								<option value="교환요청" th:selected="*{productOrderState} == '교환요청'">교환요청</option>
+								<option value="환불요청" th:selected="*{productOrderState} == '환불요청'">환불요청</option>
+								<option value="교환처리" th:selected="*{productOrderState} == '교환처리'">교환처리</option>
+								<option value="환불처리" th:selected="*{productOrderState} == '환불처리'">환불처리</option>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSave" class="col-form-label col-md-3 col-sm-3 label-align">결제 완료 후 적립 포인트</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="pointSave" name="pointSave" value="0" th:value="*{pointSave}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="productOrderPointGroup" class="col-form-label col-md-3 col-sm-3 label-align">구매확정 그룹코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="productOrderPointGroup" name="productOrderPointGroup" th:value="*{productOrderPointGroup}"
+								   placeholder="공백 허용" class="form-control"/>
+						</div>
+					</div>
+										<div class="item form-group">
+						<label for="paymentCompleteDeleteState" class="col-form-label col-md-3 col-sm-3 label-align">결제내역 삭제여부</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="paymentCompleteDeleteState" name="paymentCompleteDeleteState"class="form-control">
+								<option value="N" th:selected="*{paymentCompleteDeleteState} == 'N'">N</option>
+								<option value="Y" th:selected="*{paymentCompleteDeleteState} == 'Y'">Y</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			
+			const $SearchBtn = document.getElementById('SearchBtn');
+			
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listPayment';
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						if(item.id != 'deliCode' && item.id != 'productOrderPointGroup'){
+							checkFlag = false;
+							}
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+				
+				alert('포인트 차감 그룹은 직접 수정해주세요.');
+			});
+			
+			$SearchBtn.addEventListener('click', function(){
+				window.name = "basketAdd";
+				let openWin = window.open('/admin/searchBuybasketAndBuynow', '주문 검색', 'width=1200, height=600, top=100, left=100 scrollbar = yes');
+			})
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
+	
+</html>
