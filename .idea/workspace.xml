@@ -4,24 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 조회 승인 반려&#10;변경시간: 1월 11일 15시 57분">
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/dto/GoodsRefund.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/GoodsRefundMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/GoodsRefundService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/RefundStandardService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/GoodsRefundMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/Exchange_RefundController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/Exchange_RefundController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/RefundStandardMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/RefundStandardMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/ExchangeStandardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/ExchangeStandardMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/GoodsExchangeMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/GoodsExchangeMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/RefundStandardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/RefundStandardMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeRequest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundAddStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundAddStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundApproval.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundApproval.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundRequest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/payment/paymentList.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/payment/paymentList.html" afterDir="false" />
+    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 환불 조회 승인 반려&#10;변경시간: 1월 12일 15시 56분">
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BusinessOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BusinessOrderController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
