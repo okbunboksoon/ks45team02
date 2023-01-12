@@ -16,6 +16,8 @@
 
 <th:block layout:fragment="customContents">
     <h1>이벤트 리스트</h1>
+    <button type="submit" class="btn btn-primary" style="float: right">
+        <a style ="color:white" th:href="@{/admin/addBoardEvent}">등록</a></button>
     <table id="listEvent" class="table table-striped table-bordered">
         <thead>
             <tr>

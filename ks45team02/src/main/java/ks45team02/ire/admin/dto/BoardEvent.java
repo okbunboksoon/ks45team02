@@ -4,10 +4,12 @@ public class BoardEvent {
     private String eventCode;
     private String eventTitle;
     private String eventContents;
-    private String eventImage;
+    private String eventFileIdx;
     private String eventStartDate;
     private String eventEndDate;
     private String eventRegdate;
+
+    private BoardEventFile boardEventFile;
 
     @Override
     public String toString() {
@@ -15,10 +17,11 @@ public class BoardEvent {
                 "eventCode='" + eventCode + '\'' +
                 ", eventTitle='" + eventTitle + '\'' +
                 ", eventContents='" + eventContents + '\'' +
-                ", eventImage='" + eventImage + '\'' +
+                ", eventFileIdx='" + eventFileIdx + '\'' +
                 ", eventStartDate='" + eventStartDate + '\'' +
                 ", eventEndDate='" + eventEndDate + '\'' +
                 ", eventRegdate='" + eventRegdate + '\'' +
+                ", boardEventFile=" + boardEventFile +
                 '}';
     }
 
@@ -46,12 +49,12 @@ public class BoardEvent {
         this.eventContents = eventContents;
     }
 
-    public String getEventImage() {
-        return eventImage;
+    public String getEventFileIdx() {
+        return eventFileIdx;
     }
 
-    public void setEventImage(String eventImage) {
-        this.eventImage = eventImage;
+    public void setEventFileIdx(String eventFileIdx) {
+        this.eventFileIdx = eventFileIdx;
     }
 
     public String getEventStartDate() {
@@ -76,5 +79,13 @@ public class BoardEvent {
 
     public void setEventRegdate(String eventRegdate) {
         this.eventRegdate = eventRegdate;
+    }
+
+    public BoardEventFile getBoardEventFile() {
+        return boardEventFile;
+    }
+
+    public void setBoardEventFile(BoardEventFile boardEventFile) {
+        this.boardEventFile = boardEventFile;
     }
 }

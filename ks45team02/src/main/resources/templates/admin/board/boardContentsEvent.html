@@ -35,6 +35,14 @@
             text-align : right;
             padding: 10px;
         }
+        #result_card img{
+            max-width: 100%;
+            height: auto;
+            display: block;
+            padding: 5px;
+            margin-top: 10px;
+            margin: auto;
+        }
     </style>
 </head>
 
@@ -43,7 +51,7 @@
     <br><br>
 
     <body>
-    <div  class="container" th:if="${not #lists.isEmpty(boardEventContents)}" th:each="l : ${boardEventContents}">
+    <div class="container" th:if="${not #lists.isEmpty(boardEventContents)}" th:each="l : ${boardEventContents}">
         <div id="eventTitle" th:text ="${l.eventTitle}">
         </div>
         <div id="eventNumDate">
@@ -56,10 +64,9 @@
             <span>등록날짜: </span>
             <span th:text="${l.eventRegdate}"></span>
         </div>
-        <div id="eventContents">
+        <div class="contents">
             <span th:text="${l.eventContents}"></span>
-            <span th:text="${l.eventImage}"></span>
-        </div>
+            <span th:text="${l.eventFileIdx}"></span>
         <div id="button">
             <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardEvent}'|">목록으로</button>
             <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardEvent(eventTitle=${l.eventTitle})}'|">수정</button>

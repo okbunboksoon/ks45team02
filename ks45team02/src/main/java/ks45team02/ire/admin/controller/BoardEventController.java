@@ -1,16 +1,17 @@
 package ks45team02.ire.admin.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ks45team02.ire.admin.dto.BoardEvent;
+import ks45team02.ire.admin.dto.BoardEventFile;
 import ks45team02.ire.admin.mapper.BoardEventMapper;
 import ks45team02.ire.admin.service.BoardEventService;
+import ks45team02.ire.admin.service.BoardEventfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,15 +23,30 @@ public class BoardEventController {
 
 	private final BoardEventService boardEventService;
 	private final BoardEventMapper boardEventMapper;
+	private final BoardEventfileService boardEventfileService;
 
-	public BoardEventController(BoardEventService boardEventService, BoardEventMapper boardEventMapper) {
+	public BoardEventController(BoardEventService boardEventService, BoardEventMapper boardEventMapper, BoardEventfileService boardEventfileService) {
 		this.boardEventService = boardEventService;
 		this.boardEventMapper = boardEventMapper;
+		this.boardEventfileService = boardEventfileService;
 	}
 
 	@PostMapping("/addBoardEvent")
-	public String addBoardEvent(BoardEvent boardEvent){
+	public String addBoardEvent(BoardEvent boardEvent, @RequestPart(value = "eventImage", required = false)
+								MultipartFile[] eventImage, Model model, HttpServletRequest request){
+
 		log.info("이벤트 등록 쿼리파라미터: {}", boardEvent);
+		log.info("파일 업로드: {}", eventImage[0].getOriginalFilename());
+
+		String serverName = request.getServerName();
+		String fileRealPath = "";
+		if("localhost".equals(serverName)){
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+		} else {
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
+		boardEventfileService.fileUpload(eventImage, fileRealPath);
+
 		boardEventService.addBoardEvent(boardEvent);
 
 		return "redirect:/admin/listBoardEvent";
@@ -43,7 +59,7 @@ public class BoardEventController {
 		List<BoardEvent> boardEventTitleList = boardEventMapper.getBoardEventTitleList();
 
 		model.addAttribute("title", "이벤트 등록");
-		model.addAttribute("boardEventTitleList", boardEventTitleList );
+		model.addAttribute("boardEventTitleList", boardEventTitleList);
 		return "admin/board/boardAddEvent";
 	}
 
@@ -63,19 +79,25 @@ public class BoardEventController {
 	}
 	
 	@GetMapping("/listBoardEvent")
-	public String listBoardEvent(Model model) {
+	public String listBoardEvent(@RequestParam(value = "eventFileIdx", required = false) String eventFileIdx, Model model) {
 		List<BoardEvent> boardEventList = boardEventService.getBoardEventList();
 		log.info("이벤트 목록 조회: {}", boardEventList);
 
+
 		model.addAttribute("title", "이벤트 목록");
 		model.addAttribute("boardEventList", boardEventList);
+
 		
 		return "admin/board/boardListEvent";
 	}
 
 	@GetMapping("/viewBoardEvent")
-	public String viewBoardEvent(@RequestParam(value = "eventTitle", required = false)String eventTitle, Model model){
+	public String viewBoardEvent(@RequestParam(value = "eventTitle", required = false)String eventTitle,
+								 @RequestParam(value = "eventFileIdx", required = false) String eventFileIdx, Model model){
+
 		List<BoardEvent> boardEventContents = boardEventService.viewBoardEvent(eventTitle);
+		List<BoardEventFile> boardEventFile = boardEventfileService.getBoardEventFileInfoByIdx(eventFileIdx);
+		model.addAttribute("boardEventFile", boardEventFile);
 
 		model.addAttribute("title", "이벤트 내용");
 		model.addAttribute("boardEventContents", boardEventContents);
