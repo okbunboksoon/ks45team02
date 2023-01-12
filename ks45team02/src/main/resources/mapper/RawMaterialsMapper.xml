@@ -76,12 +76,7 @@
 			,carbon_dioxide_emission_level = #{carbonDioxideEmissionLevel}
 			,raw_materials_daygroup = #{rawMaterialsDaygroup}
 			,donation_point_save = #{donationPointSave}
-			<if test="donationPointGroup != null">
-				,donation_point_group = sf_raw_materials_incoming_point_group(#{donationCode})
-			</if>
-			<if test="donationPointGroup == null">
-				,donation_point_group = null
-			</if>
+			,donation_point_group = #{donationPointGroup}
 		WHERE 
 			raw_materials_code = #{rawMaterialsCode};
 	</update>

@@ -21,15 +21,41 @@ public class BasketService {
 	private static final Logger log = LoggerFactory.getLogger(DonationService.class);
 	
 	private final BasketMapper basketMapper;
-	private final GoodsMapper goodsMapper;
 	private final CategoryMapper categoryMapper;
 	private final UserMapper userMapper;
 	
-	public BasketService(BasketMapper basketMapper, GoodsMapper goodsMapper, CategoryMapper categoryMapper, UserMapper userMapper) {
+	public BasketService(BasketMapper basketMapper, CategoryMapper categoryMapper, UserMapper userMapper) {
 		this.basketMapper = basketMapper;
-		this.goodsMapper = goodsMapper;
 		this.categoryMapper = categoryMapper;
 		this.userMapper = userMapper;
+	}
+	
+	
+	/**
+	 * 결제 전인 장바구니 검색
+	 * @param searchKey
+	 * @param searchValue
+	 * @return List<Baskset>
+	 */
+	public List<Basket> getBasketListBeforePayment(String searchKey, String searchValue){
+	
+		if(searchKey != null) {
+			switch(searchKey) {
+			case "basketCode"
+			: searchKey = "basket_code";
+			break;
+			case "basketGroup"
+			: searchKey = "basket_group";
+			break;
+			case "userId"
+			: searchKey = "user_id";
+			break;
+			}
+		}
+		
+		List<Basket> basketListBeforePayment = basketMapper.getBasketListBeforePayment(searchKey, searchValue);
+		
+		return basketListBeforePayment;
 	}
 	
 	/**
@@ -53,13 +79,25 @@ public class BasketService {
 	public int modifyBasket(Basket basket) {
 		
 		int result = 0;
-		
-		int goodsCheck = goodsMapper.goodsCheck(basket.getGoodsCode());
 		int idCheck = userMapper.idCheck(basket.getUserId());
+		int basketGroupCheck = basketMapper.checkCompleteBasketGroup(basket.getBasketGroup());
 		
-		if(goodsCheck == 0 || idCheck == 0) {
+		if(idCheck == 0 || basketGroupCheck > 0) {
 			return result;
 		}
+		
+		//장바구니 그룹이 같을 때 회원 아이디가 같은지 확인
+		int checkSameBasketGroupWithUserId = basketMapper.checkSameBasketGroupWithUserId(basket.getBasketGroup(), basket.getUserId());
+		//회원 아이디가 같을 때 같은 장바구니 그룹을 선택했는지 확인
+		int checkSameUserIdWithBasketGroup = basketMapper.checkSameUserIdWithBasketGroup(basket.getBasketGroup(), basket.getUserId());
+			
+		if(checkSameBasketGroupWithUserId > 0) {
+			return 51;
+		}
+		if(checkSameUserIdWithBasketGroup > 0) {
+			return 52;
+		}
+		
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
 		basket.setCategoryMediumCode(categoryMediumCode);
 		
@@ -76,13 +114,25 @@ public class BasketService {
 	public int addBasket(Basket basket) {
 		
 		int result = 0;
-		
-		int goodsCheck = goodsMapper.goodsCheck(basket.getGoodsCode());
 		int idCheck = userMapper.idCheck(basket.getUserId());
+		int basketGroupCheck = basketMapper.checkCompleteBasketGroup(basket.getBasketGroup());
 		
-		if(goodsCheck == 0 || idCheck == 0) {
+		if(idCheck == 0 || basketGroupCheck > 0) {
 			return result;
 		}
+	
+		//장바구니 그룹이 같을 때 회원 아이디가 같은지 확인
+		int checkSameBasketGroupWithUserId = basketMapper.checkSameBasketGroupWithUserId(basket.getBasketGroup(), basket.getUserId());
+		//회원 아이디가 같을 때 같은 장바구니 그룹을 선택했는지 확인
+		int checkSameUserIdWithBasketGroup = basketMapper.checkSameUserIdWithBasketGroup(basket.getBasketGroup(), basket.getUserId());
+		
+		if(checkSameBasketGroupWithUserId > 0) {
+			return 51;
+		}
+		if(checkSameUserIdWithBasketGroup > 0) {
+			return 52;
+		}
+		
 		String categoryMediumCode = categoryMapper.getCategoryMediumCodeByName(basket.getCategoryMediumName());
 		basket.setCategoryMediumCode(categoryMediumCode);
 		
@@ -91,29 +141,6 @@ public class BasketService {
 		return result;
 	}
 	
-	/**
-	 * 상품 검색
-	 * @param searchKey
-	 * @param searchValue
-	 * @return List<Goods>
-	 */
-	public List<Goods> searchGoods(String searchKey, String searchValue){
-		
-		if(searchKey != null && searchValue != null) {
-			switch(searchKey) {
-			case "goodsCode"
-			: searchKey = "goods_code";
-			break;
-			case "goodsName"
-			: searchKey = "goods_name";
-			break;
-			}
-		}
-		
-		List<Goods> goodsList = goodsMapper.searchGoods(searchKey, searchValue);
-		
-		return goodsList;
-	}
 	
 	/**
 	 * 장바구니 조회

@@ -1,10 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        .styleTitle {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-requestRefund
-</body>
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<th:block layout:fragment="customScript">
+</th:block>
+<th:block layout:fragment="customContents">
+    <div class="">
+        <div class="page-title"></div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <br><br>
+                        <h5 class="styleTitle">상품 환불</h5>
+                        <th:block th:object="${paymentComplete}">
+                            <form id="requestExchange" th:action="@{/admin/requestRefund}" method="post" >
+                                <div class="item form-group">
+                                    <label for="RefundStandardCode" class="col-form-label col-md-3 col-sm-3 label-align">환불기준코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="RefundStandardCode" name="RefundStandardCode" class="form-control" >
+                                            <th:block th:if="${not #lists.isEmpty(refundStandardList)}"
+                                                      th:each="rs : ${refundStandardList}">
+                                                <option th:value="${rs.refundStandardCode}">[[${rs.refundStandardCode}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(refundStandardList)}">
+                                                <option>환불기준코드가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="paymentCompleteCode" class="col-form-label col-md-3 col-sm-3 label-align">결제완료 코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="paymentCompleteCode"
+                                               name="paymentCompleteCode"
+                                               th:value="*{paymentCompleteCode}"
+                                               class="form-control"
+                                               readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자아이디</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="userId"
+                                               name="userId"
+                                               th:value="*{userId}"
+                                               class="form-control"
+                                               readonly="readonly">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="goodsCode" name="goodsCode" class="form-control" >
+                                            <th:block th:if="${not #lists.isEmpty(goodsList)}"
+                                                      th:each="g : ${goodsList}">
+                                                <option th:value="${g.goodsCode}">[[${g.goodsCode}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(goodsList)}">
+                                                <option>상품코드가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="goodsRefundCount" class="col-form-label col-md-3 col-sm-3 label-align">환불수량</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsRefundCount" name="goodsRefundCount"
+                                               placeholder="환불수량 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="goodsRefundPrice" class="col-form-label col-md-3 col-sm-3 label-align">환불금액</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsRefundPrice" name="goodsRefundPrice"
+                                               placeholder="환불금액 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="goodsRefundContent" class="col-form-label col-md-3 col-sm-3 label-align">환불요청사유</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsRefundContent" name="goodsRefundContent"
+                                               placeholder="환불요청사유 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="managerId" class="col-form-label col-md-3 col-sm-3 label-align">담당자아이디가</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="managerId" name="managerId" class="form-control" disabled>
+                                            <th:block th:if="${not #lists.isEmpty(userList)}"
+                                                      th:each="u : ${userList}">
+                                                <option th:value="${u.userId}">[[${u.userId}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(userList)}">
+                                                <option>담당자아이디가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="RefundDate" class="col-form-label col-md-3 col-sm-3 label-align">환불승인및반려일자</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="date" id="RefundDate" name="RefundDate"
+                                               placeholder="환불승인및반려일자 입력해주세요." class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="RefundReject" class="col-form-label col-md-3 col-sm-3 label-align">환불거절사유</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="RefundReject" name="RefundReject"
+                                               placeholder="환불거절사유 입력해주세요." class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="RefundApproval" class="col-form-label col-md-3 col-sm-3 label-align">환불요청승인</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="RefundApproval" name="RefundApproval"
+                                               placeholder="환불요청승인 입력해주세요." class="form-control" disabled/>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="item form-group">
+                                    <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+                                        <button class="btn btn-primary" type="submit" id="submitBtn">등록</button>
+                                        <button class="btn btn-danger" type="reset" id="resetBtn">취소</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customjs">
+    <!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+
+    <script th:src="@{/admin/build/js/custom.min.js}"></script>
+
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>

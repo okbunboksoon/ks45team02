@@ -33,6 +33,17 @@
 					});
 					if(isSubmit) $('#addGoodsForm').submit();
 				});
+				
+				  $("#goodsImage").change(function(){
+					   if(this.files && this.files[0]) {
+					    var reader = new FileReader;
+					    reader.onload = function(data) {
+					     $(".select_img img").attr("src", data.target.result).width(300);        
+					    }
+					    reader.readAsDataURL(this.files[0]);
+					   }
+					  });
+				
 			});
 		</script>
 	</th:block>
@@ -48,7 +59,7 @@
 					<div class="x_panel">
 						<div class="x_content">
 							<br><br>
-							<form id= "addGoodsForm" th:action="@{/admin/addGoods}" method="post">
+							<form id= "addGoodsForm" th:action="@{/admin/addGoods}" method="post" enctype="multipart/form-data">
 							<div class="item form-group">
 								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
 								<div class="col-md-6 col-sm-6 ">
@@ -134,20 +145,20 @@
 								</div>
 							</div>
 							
-							<div class="item form-group">
-								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
-								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="goodsImage" name="goodsImage"
-							  		        class="form-control"/>
-								</div>
-							</div>
-							
 				           <div class="field item form-group">
 								<label class="col-form-label col-md-3 col-sm-3  label-align">상품 상세 설명<span class="required"></span></label>
 		                            <div class="col-md-6 col-sm-6">
 		                            	<textarea class="form-control" rows="15" id="goodsSangse" name="goodsSangse" placeholder="내용을 입력해주세요"></textarea>  
 		                           </div>
 		                   </div>
+		                   
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="file" class="form-control-file" id="uploadfile" name="uploadfile" multiple="multiple">
+									<div class="select_img" style="margin: 20px"><img src="" /></div>
+								</div>
+							</div>
 								
 							<div class="item form-group">
 								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">

@@ -1,10 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        .styleTitle {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body>
-addOutGoing
-</body>
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){
+            $('#submitBtn').click(function (){
+                let isSubmint =true;
+                $('#addOutGoing input').each(function (idx,item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).parents('div').find('label').text();
+                    if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
+                        alert(`${labelValue}를 입력해 주세여`);
+                        $(item).focus();
+                        isSubmint=false;
+                        return false;
+                    }
+                });
+                if(isSubmint) $('#addOutGoing').submit();
+            });
+        });
+
+
+
+
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <div class="">
+        <div class="page-title"></div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <br><br>
+                        <h5 class="styleTitle">상품 출고 추가</h5>
+                        <form id="addOutGoing" th:action="@{/admin/addOutGoing}" method="post">
+
+                            <div class="item form-group">
+                                <label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="goodsCode" name="goodsCode" class="form-control">
+                                        <th:block th:if="${not #lists.isEmpty(goodsList)}"
+                                                  th:each="g : ${goodsList}">
+                                            <option th:value="${g.goodsCode}">[[${g.goodsCode}]]</option>
+                                        </th:block>
+                                        <th:block th:unless="${not #lists.isEmpty(goodsList)}">
+                                            <option>등록된 상품코드가없습니다.</option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label for="outgoingAmount" class="col-form-label col-md-3 col-sm-3 label-align">출고수량</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" id="outgoingAmount" name="outgoingAmount"
+                                           placeholder="출고수량을 입력해주세요." class="form-control"/>
+                                </div>
+                            </div>
+
+
+
+                            <div class="item form-group">
+                                <label for="outgoingDate" class="col-form-label col-md-3 col-sm-3 label-align">출고날짜</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="date" id="outgoingDate" name="outgoingDate"
+                                           placeholder="출고날짜를 입력해주세요." class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label for="paymentCompleteCode" class="col-form-label col-md-3 col-sm-3 label-align">결재완료코드</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="paymentCompleteCode" name="paymentCompleteCode" class="form-control">
+                                        <th:block th:if="${not #lists.isEmpty(paymentCompleteList)}"
+                                                  th:each="p : ${paymentCompleteList}">
+                                            <option th:value="${p.paymentCompleteCode}">[[${p.paymentCompleteCode}]]</option>
+                                        </th:block>
+                                        <th:block th:unless="${not #lists.isEmpty(paymentCompleteList)}">
+                                            <option>결제완료코드가 없습니다.</option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label for="deliveryCode" class="col-form-label col-md-3 col-sm-3 label-align">배송코드</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select id="deliveryCode" name="deliveryCode" class="form-control">
+                                        <th:block th:if="${not #lists.isEmpty(deliveryList)}"
+                                                  th:each="d : ${deliveryList}">
+                                            <option th:value="${d.deliveryCode}">[[${d.deliveryCode}]]</option>
+                                        </th:block>
+                                        <th:block th:unless="${not #lists.isEmpty(deliveryList)}">
+                                            <option>배송코드가 없습니다.</option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="item form-group">
+                                <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+                                    <button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+                                    <button class="btn btn-danger" type="button" id="resetBtn">취소</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customjs">
+    <!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>

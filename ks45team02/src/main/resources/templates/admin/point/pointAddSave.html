@@ -51,6 +51,16 @@
 								   value="0" class="form-control"/>
 						</div>
 					</div>
+					<div class="item form-group" style="display : none">
+						<label for="donationAmount" class="col-form-label col-md-3 col-sm-3 label-align">기부 포인트 증정 개수</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="donationAmount" th:with="numArr=${#numbers.sequence(1, 50)}" class="form-control">
+								<th:block th:each="num : ${numArr}">
+									<option th:value="${num}" th:text="${num}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
 					<div class="item form-group">
 						<label for="pointSave" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 금액</label>
 						<div class="col-md-6 col-sm-6 ">
@@ -64,6 +74,13 @@
 							<input type="date" id="pointSaveDate" name="pointSaveDate"
 								   class="form-control"/>
 						</div>
+					</div>
+					<div class="item form-group">
+						<label for="pointSaveGroup" class="col-form-label col-md-3 col-sm-3 label-align">포인트 지급 그룹코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointSaveGroup" name="pointSaveGroup"
+								   placeholder="공백 허용" class="form-control"/>
+						</div>			
 					</div>
 					
 					<div class="item form-group">
@@ -89,10 +106,13 @@
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $resetBtn = document.getElementById('resetBtn');
 			const $submitBtn = document.getElementById('submitBtn');
+			
 			const $pointSaveReason = document.getElementById('pointSaveReason');
 			const $paymentAmount = document.getElementById('paymentAmount');
 			const $pointSaveReasonEtc = document.getElementById('pointSaveReasonEtc');
+			const $donationAmount = document.getElementById('donationAmount');
 			const $pointSave = document.getElementById('pointSave');
+			
 			const $inputEle = document.querySelectorAll('.item > div > input');
 			let pointSaveAmountArr = [[${pointStandardSaveAmountList}]];
 			
@@ -111,7 +131,9 @@
 				let checkFlag = true;
 				$inputEle.forEach(function(item){
 					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
-						checkFlag = false;
+						if(item.id != 'pointSaveGroup' || $pointSaveReason.value == '미선택'){
+							checkFlag = false;
+							}
 					}
 				})
 				if(checkFlag){
@@ -126,8 +148,10 @@
 				$pointSave.readOnly = true;
 				$paymentAmount.parentElement.parentElement.style.display = 'none';
 				$pointSaveReasonEtc.parentElement.parentElement.style.display = 'none';
+				$donationAmount.parentElement.parentElement.style.display = 'none'
 				$paymentAmount.value = 0;
 				$pointSaveReasonEtc.value = 0;
+				$donationAmount.value = 1;
 				
 				if($pointSaveReason.value == '기타'){
 					$pointSaveReasonEtc.parentElement.parentElement.style.display = '';
@@ -141,7 +165,6 @@
 					$pointSave.readOnly = true;
 				}else{
 					if($pointSaveReason.value == '회원가입 이벤트'){
-						console.log(pointSaveAmountArr[0]);
 						$pointSave.value = pointSaveAmountArr[0];
 					}else if($pointSaveReason.value == '텍스트 리뷰 등록'){
 						$pointSave.value = pointSaveAmountArr[1];
@@ -149,15 +172,20 @@
 						$pointSave.value = pointSaveAmountArr[2];
 					}else if($pointSaveReason.value == '기부 등록'){
 						$pointSave.value = pointSaveAmountArr[3];
+						$donationAmount.parentElement.parentElement.style.display = '';
 					}
 					
 				}
 			});
 			
 			$paymentAmount.addEventListener('change', function(){
-				let paymentPointSave = Math.floor($paymentAmount.value * 0.1);
+				let paymentPointSave = Math.floor($paymentAmount.value * 0.01);
 				$pointSave.value = paymentPointSave;
 			});
+			
+			$donationAmount.addEventListener('change', function(){
+				$pointSave.value = pointSaveAmountArr[3] * $donationAmount.value;
+			})
 			
 			const msg = [[${msg}]];
 			if(msg != null){

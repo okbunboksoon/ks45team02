@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-buybasketList
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/RowGroup-1.3.0/css/rowGroup.dataTables.min.css}" rel="stylesheet" />
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="listBuybasket" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="basketGroup">장바구니 합계계산 그룹</th>
+											<th class="userId">회원아이디</th>
+											<th class="basketCode">장바구니코드</th>
+											<th class="goodsCode">상품코드</th>
+											<th class="goodsName">상품이름</th>
+											<th class="basketAmount">수량</th>
+											<th class="eachPaymentAmount">가격</th>
+											<th class="expectedAmount">결제예정합계</th>
+											<th class="usePoint">포인트사용</th>
+											<th class="finalPaymentAmount">최종결제합계</th>
+											<th class="regDate">등록일자</th>
+											<th class="buybasketDeleteState">삭제여부</th>
+											<th>수정</th>
+									</thead>
+									<tbody>
+										<th:block th:unless="${#lists.isEmpty(buybasketList)}" th:each="l : ${buybasketList}">
+											<th:block th:each="bl : ${l.basketList}">
+												<tr>							
+													<td th:text="${l.basketGroup}" id="basketGroup"></td>
+													<td th:text="${l.userId}"></td>
+													<td th:text="${bl.basketCode}"></td>
+													<td th:text="${bl.goodsCode}"></td>
+													<td th:text="${bl.goodsName}"></td>
+													<td th:text="${bl.basketAmount}"></td>
+													<td th:text="${bl.eachPaymentAmount}"></td>
+													<td th:text="${l.expectedAmount}"></td>
+													<td th:text="${l.usePoint}"></td>
+													<td th:text="${l.finalPaymentAmount}"></td>
+													<td th:text="${l.regDate}"></td>
+													<td th:text="${l.buybasketDeleteState}"></td>
+													<td>
+														<a th:href="@{/admin/modifyBuyBasket(basketGroup=${l.basketGroup})}">수정</a>
+													</td>
+												</tr>
+											</th:block>
+										</th:block>
+										<tr th:if="${#lists.isEmpty(buybasketList)}">
+											<td colspan="12">등록된 기부가 존재하지 않습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	    <script th:src="@{/admin/vendors/RowGroup-1.3.0/js/dataTables.rowGroup.min.js}"></script>
+	</th:block>
+	
+		<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+			$('#listBuybasket').DataTable({
+				rowGroup: true
+			});
+		</script>
+
+	</th:block>
+
 </html>

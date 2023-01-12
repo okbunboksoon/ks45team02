@@ -11,10 +11,10 @@ public class Goods {
 	private String goodsSize;
 	private String goodsRegDate;
 	private String goodsSangse;
-	private String goodsImage;
 	private String fabric;
 	private String rate;
 	private float upcyclingCarbonDioxideEmissionLevel;
+	private String fileIdx;
 	
 	private UnitPrice unitPrice;
 
@@ -90,14 +90,6 @@ public class Goods {
 		this.goodsSangse = goodsSangse;
 	}
 
-	public String getGoodsImage() {
-		return goodsImage;
-	}
-
-	public void setGoodsImage(String goodsImage) {
-		this.goodsImage = goodsImage;
-	}
-
 	public String getFabric() {
 		return fabric;
 	}
@@ -120,6 +112,14 @@ public class Goods {
 
 	public void setUpcyclingCarbonDioxideEmissionLevel(float upcyclingCarbonDioxideEmissionLevel) {
 		this.upcyclingCarbonDioxideEmissionLevel = upcyclingCarbonDioxideEmissionLevel;
+	}
+
+	public String getFileIdx() {
+		return fileIdx;
+	}
+
+	public void setFileIdx(String fileIdx) {
+		this.fileIdx = fileIdx;
 	}
 
 	public UnitPrice getUnitPrice() {
@@ -151,17 +151,17 @@ public class Goods {
 		builder.append(goodsRegDate);
 		builder.append(", goodsSangse=");
 		builder.append(goodsSangse);
-		builder.append(", goodsImage=");
-		builder.append(goodsImage);
 		builder.append(", fabric=");
 		builder.append(fabric);
 		builder.append(", rate=");
 		builder.append(rate);
 		builder.append(", upcyclingCarbonDioxideEmissionLevel=");
 		builder.append(upcyclingCarbonDioxideEmissionLevel);
+		builder.append(", fileIdx=");
+		builder.append(fileIdx);
 		builder.append(", unitPrice=");
 		builder.append(unitPrice);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
 }

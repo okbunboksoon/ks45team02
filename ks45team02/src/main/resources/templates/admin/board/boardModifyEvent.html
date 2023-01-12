@@ -43,7 +43,7 @@
         <h1>이벤트 수정</h1>
         <br><br>
         <th:block th:if="${not #lists.isEmpty(boardEventInfo)}" th:each="mn : ${boardEventInfo}">
-            <input type="hidden" class="form-control" id="eventNum" name="eventNum" th:value="${mn.eventNum}">
+            <input type="hidden" class="form-control" id="eventNum" name="eventNum" th:value="${mn.eventCode}">
             <div class="mb-3">
                 <label class="form-label">이벤트 제목</label>
                 <input type="text" class="form-control" id="eventTitle" name="eventTitle" th:value="${mn.eventTitle}">

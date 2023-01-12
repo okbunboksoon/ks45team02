@@ -1,10 +1,226 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        table {
+            border: 1px solid black;
+            width: 100%;
+            table-layout: auto;
+            text-align: center;
+        }
+        th {
+            border: 1px solid black;
+            background-color: cornflowerblue;
+            color: azure;
+            height: 30px;
+        }
+        td {
+            border: 1px solid black;
+            height: 30px;
+        }
+        #submitBtn{
+            margin-right: 30px;
+        }
+        input {
+            width: 98%;
+            height: 80%;
+        }
+        select {
+            width: 99%;
+            height: 90%;
+        }
+        button {
+            width: 47%;
+            height: 90%;
+        }
+
+    </style>
 </head>
-<body>
-modifyRefund
-</body>
+<th:block layout:fragment="customJs">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){
+            $('resetBtn').click(function (){
+                location.href='/admin/approvalRefund';
+            })
+        })
+
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <h1>회원수정</h1>
+    <form id="modifyExchange" th:action="@{/admin/modifyRefund}" method="post">
+        <table th:object="${getGoodsRefund}" >
+            <tbody>
+            <tr>
+                <td>
+                    <label for="goodsRefundCode">환불코드</label>
+                </td>
+                <td>
+                    <input type="text" id="goodsRefundCode"
+                           name="goodsRefundCode"
+                           th:value="*{goodsRefundCode}"
+                           readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="RefundStandardCode">환불기준코드</label>
+                </td>
+                <td >
+                    <input type="text"
+                           id="RefundStandardCode"
+                           name="RefundStandardCode"
+                           th:value="*{refundStandardCode}"
+                           readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="paymentCompleteCode">결제완료코드</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="paymentCompleteCode"
+                           name="paymentCompleteCode"
+                           th:value="*{paymentCompleteCode}"
+                           readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="userId">구매자아이디</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="userId"
+                           name="userId"
+                           th:value="*{userId}"
+                           readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="goodsCode">상품코드</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="goodsCode"
+                           name="goodsCode"
+                           th:value="*{goodsCode}"
+                           readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="goodsRefundCount">상품환불요청수량</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="goodsRefundCount"
+                           name="goodsRefundCount"
+                           th:value="*{goodsRefundCount}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="goodsRefundPrice">상품환불요청금액</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="goodsRefundPrice"
+                           name="goodsRefundPrice"
+                           th:value="*{goodsRefundPrice}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="goodsRefundDate">환불요청날짜</label>
+                </td>
+                <td>
+                    <input type="date"
+                           id="goodsRefundDate"
+                           name="goodsRefundDate"
+                           th:value="*{goodsRefundDate}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="goodsRefundContent">환불요청사유</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="goodsRefundContent"
+                           name="goodsRefundContent"
+                           th:value="*{goodsRefundContent}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="RefundProcessState">환불상태</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="RefundProcessState"
+                           name="RefundProcessState"
+                           th:value="*{refundProcessState}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="managerId">환불당담자아이디</label>
+                </td>
+                <td>
+                    <select id="managerId" name="managerId" class="form-control">
+                        <th:block th:if="${not #lists.isEmpty(userList)}"
+                                  th:each="u : ${userList}">
+                            <option th:value="${u.userId}">[[${u.userId}]]</option>
+                        </th:block>
+                        <th:block th:unless="${not #lists.isEmpty(userList)}">
+                            <option>등록된 환불당담자아이디가  없습니다.</option>
+                        </th:block>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="RefundReject">환불 반려사유</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="RefundReject"
+                           name="RefundReject"
+                           th:value="*{refundReject}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="RefundApproval">환불 승인/반려</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="RefundApproval"
+                           name="RefundApproval"
+                           th:value="*{refundApproval}">
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">
+                    <button type="submit" id="submitBtn">회원수정</button>
+                    <button type="button" id="resetBtn">취소</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</th:block>
+
 </html>

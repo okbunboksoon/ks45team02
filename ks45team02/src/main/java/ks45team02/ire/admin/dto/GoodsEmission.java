@@ -5,6 +5,8 @@ public class GoodsEmission {
 	private String fabric;
 	private float carbon_dioxide_emission_level;
 	private float upcycling_carbon_dioxide_emission_level;
+	
+	
 	public String getFabric() {
 		return fabric;
 	}

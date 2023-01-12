@@ -26,14 +26,9 @@
 			}
 		</style>
 	</head>
-	
-	<!-- 사용자 지정 js 파일 -->
-	<th:block layout:fragment="customJs">
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	</th:block>
-	
+		
 	<th:block layout:fragment="customScript">
-		<script>
+		<script type="text/javascript" th:inline="javascript">
 		$(function(){
 			function validateValue(checkValue) {
 				if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
@@ -60,6 +55,11 @@
 			
 				if(isSubmit) $('#addNoticeForm').submit();
 			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
 		});
 		</script>
 	</th:block>

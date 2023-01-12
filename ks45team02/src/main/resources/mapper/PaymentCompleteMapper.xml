@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.PaymentCompleteMapper">
+
+    <resultMap type="PaymentComplete" id="PaymentCompleteResultMap">
+        <id property="paymentCompleteCode" 				column="payment_complete_code"/>
+        <result property="buynowBasketTotalCode" 		column="buynow_basket_total_code"/>
+        <result property="buynowBasket" 				column="buynow_basket"/>
+        <result property="userId" 						column="user_id"/>
+        <result property="finalPaymentAmount" 			column="final_payment_amount"/>
+        <result property="orderDate" 					column="order_date"/>
+        <result property="deliCode"						column="deli_code"/>
+        <result property="paymentTypeCode" 				column="payment_type_code"/>
+        <result property="paymentDate" 					column="payment_date"/>
+        <result property="pointUseGroup" 				column="point_use_group"/>
+        <result property="productOrderState" 			column="product_order_state"/>
+        <result property="pointSave" 					column="point_save"/>
+        <result property="productOrderPointGroup"		column="product_order_point_group"/>
+        <result property="paymentCompleteDeleteState"	column="payment_complete_delete_state"/>
+    </resultMap>
+    
+    <update id="modifyPaymentComplete" parameterType="PaymentComplete">
+    	<!-- 결제내역 수정 -->
+    	UPDATE 
+			payment_complete
+		SET 
+			 buynow_basket_total_code = #{buynowBasketTotalCode}
+			,buynow_basket = #{buynowBasket}
+			,user_id = #{userId}
+			,final_payment_amount = #{finalPaymentAmount}
+			,order_date = #{orderDate}
+			,deli_code = NULLIF(#{deliCode}, '') 
+			,payment_type_code = #{paymentTypeCode}
+			,payment_date = #{paymentDate}
+			,point_use_group = #{pointUseGroup}
+			,product_order_state = #{productOrderState}
+			,point_save = #{pointSave}
+			,product_order_point_group = NULLIF(#{productOrderPointGroup}, '')
+			,payment_complete_delete_state = #{paymentCompleteDeleteState}
+		WHERE 
+			payment_complete_code = #{paymentCompleteCode};
+    </update>
+    
+    <select id="getPaymentCompleteInfoByBuynowBasketTotalCode" resultMap="PaymentCompleteResultMap" parameterType="String">
+    	<!-- 즉시구매 코드/장바구니 그룹으로 결제내역 조회 -->
+    	SELECT 
+			 payment_complete_code
+			,buynow_basket_total_code
+			,buynow_basket
+			,user_id
+			,final_payment_amount
+			,order_date
+			,deli_code
+			,payment_type_code
+			,payment_date
+			,point_use_group
+			,product_order_state
+			,point_save
+			,product_order_point_group
+			,payment_complete_delete_state
+		FROM 
+			payment_complete
+		WHERE 
+			buynow_basket_total_code = #{buynowBasketTotalCode};
+    </select>
+    
+    <insert id="addPayment" parameterType="PaymentComplete">
+    	<!-- 결제내역 등록 -->
+    	INSERT
+		INTO payment_complete(
+			 payment_complete_code
+			,buynow_basket_total_code
+			,buynow_basket
+			,user_id
+			,final_payment_amount
+			,order_date
+			,deli_code
+			,payment_type_code
+			,payment_date
+			,point_use_group
+			,product_order_state
+			,point_save
+			,product_order_point_group
+			,payment_complete_delete_state
+		)VALUES(
+			 sf_new_payment_complete_code()
+			,#{buynowBasketTotalCode}
+			,#{buynowBasket}
+			,#{userId}
+			,#{finalPaymentAmount}
+			,#{orderDate}
+			,NULLIF(#{deliCode}, '') 
+			,#{paymentTypeCode}
+			,#{paymentDate}
+			<if test="pointUseGroup == 'point_use'">
+			,sf_new_point_group_code(#{pointUseGroup})
+			</if>
+			<if test="pointUseGroup != 'point_use'">
+			,#{pointUseGroup}
+			</if>
+			,#{productOrderState}
+			,#{pointSave}
+			,NULLIF(#{productOrderPointGroup}, '')
+			,'N');
+    </insert>
+    
+    <select id="searchBuybasketAndBuynow" resultType="PaymentComplete" parameterType="String">
+    	<!-- 장바구니 구매와 즉시구매 함께 검색 -->
+    	<if test="searchKey != null and searchKey != '' and searchValue != null and searchValue != ''">
+	    	SELECT
+				buybasket_and_buynow.*
+			FROM (	
+    	</if>
+			SELECT 
+				 bb.basket_group AS 'buynowBasketTotalCode'
+				,'장바구니' AS 'buynowBasket'
+				,bb.user_id AS 'userId'
+				,bb.final_payment_amount AS 'finalPaymentAmount'
+				,bb.reg_date AS 'orderDate'
+			FROM 
+				buybasket AS bb
+				LEFT OUTER JOIN
+				payment_complete AS pc
+				ON 
+				bb.basket_group = pc.buynow_basket_total_code
+				WHERE 
+				pc.payment_complete_code IS NULL
+			UNION 
+			SELECT 
+				 bn.buynow_code AS 'buynowBasketTotalCode'
+				,'즉시구매' AS 'buynowBasket'
+				,bn.user_id AS 'userId'
+				,bn.final_payment_amount AS 'finalPaymentAmount'
+				,bn.reg_date AS 'orderDate'
+			FROM 
+				buynow AS bn
+				LEFT OUTER JOIN
+				payment_complete AS pc
+				ON 
+				bn.buynow_code = pc.buynow_basket_total_code
+				WHERE 
+				pc.payment_complete_code IS NULL
+		<if test="searchKey != null and searchKey != '' and searchValue != null and searchValue != ''">
+					)AS buybasket_and_buynow
+			WHERE 
+				${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+    	</if>
+    </select>
+    
+    <select id="listPaymentComplete" resultMap="PaymentCompleteResultMap">
+    	<!-- 결제내역 조회 -->
+		SELECT 
+			 payment_complete_code
+			,buynow_basket_total_code
+			,buynow_basket
+			,user_id
+			,final_payment_amount
+			,deli_code
+			,order_date
+			,payment_type_code
+			,payment_date
+			,point_use_group
+			,product_order_state
+			,point_save
+			,product_order_point_group
+			,payment_complete_delete_state
+		FROM 
+			payment_complete;
+    </select>
+    
+    <select id="getPaymentCompleteInfo" resultMap="PaymentCompleteResultMap" parameterType="String">
+    	<!-- 결제내역 코드로 결제내역 조회 -->
+        SELECT
+	         payment_complete_code
+	        ,buynow_basket_total_code
+	        ,buynow_basket
+	        ,user_id
+	        ,final_payment_amount
+	        ,deli_code
+	        ,order_date
+	        ,payment_type_code
+	        ,payment_date
+	        ,point_use_group
+	        ,product_order_state
+	        ,point_save
+	        ,product_order_point_group
+	        ,payment_complete_delete_state
+        FROM
+        	payment_complete
+        WHERE
+       	 	payment_complete_code = #{paymentCompleteCode};
+    </select>
+
+</mapper>

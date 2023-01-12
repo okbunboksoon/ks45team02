@@ -32,17 +32,18 @@ public class BasketController {
 		this.basketService = basketService;
 	}
 	
-	//상품 검색
-	@GetMapping("/goodsSearchForBasketadd")
-	public String goodsSearchForBasketadd(@RequestParam(value="searchKey", required = false) String searchKey
-										 ,@RequestParam(value="searchValue", required = false) String searchValue
-										 ,Model model) {
+	//결제 전인 장바구니 검색
+	@GetMapping("/basketBeforePaymentSearch")
+	public String basketBeforePaymentSearch(Model model
+										   ,@RequestParam(value="searchKey", required = false) String searchKey
+										   ,@RequestParam(value="searchValue", required = false) String searchValue) {
 		
-		List<Goods> goodsList = basketService.searchGoods(searchKey, searchValue);
-		model.addAttribute("title", "상품 검색");
-		model.addAttribute("goodsList", goodsList);
+		List<Basket> basketBeforePaymentList = basketService.getBasketListBeforePayment(searchKey, searchValue);
 		
-		return "admin/basket/goodsSearchForBasketadd";
+		model.addAttribute("title", "결제 전인 장바구니 검색");
+		model.addAttribute("basketBeforePaymentList", basketBeforePaymentList);
+		
+		return "admin/search/basketBeforePaymentSearch";
 	}
 	
 	//장바구니 등록 처리
@@ -52,6 +53,12 @@ public class BasketController {
 		int result = basketService.addBasket(basket);
 		if(result == 0) {
 			reAttr.addAttribute("msg", "장바구니 등록에 실패하였습니다.");
+			return "redirect:/admin/addBasket";
+		}else if(result == 51) {
+			reAttr.addAttribute("msg", "다른 회원의 장바구니 그룹입니다.");
+			return "redirect:/admin/addBasket";
+		}else if(result == 52) {
+			reAttr.addAttribute("msg", "해당 회원의 미주문 장바구니가 이미 존재합니다.");
 			return "redirect:/admin/addBasket";
 		}else {
 			reAttr.addAttribute("msg", "장바구니 등록에 성공하였습니다.");
@@ -132,6 +139,14 @@ public class BasketController {
 		if(result == 0) {
 			reAttr.addAttribute("basketCode", basket.getBasketCode());
 			reAttr.addAttribute("msg", "장바구니 수정에 실패하였습니다.");
+			return "redirect:/admin/modifyBasket";
+		}else if(result == 51) {
+			reAttr.addAttribute("basketCode", basket.getBasketCode());
+			reAttr.addAttribute("msg", "다른 회원의 장바구니 그룹입니다.");
+			return "redirect:/admin/modifyBasket";
+		}else if(result == 52) {
+			reAttr.addAttribute("basketCode", basket.getBasketCode());
+			reAttr.addAttribute("msg", "해당 회원의 미주문 장바구니가 이미 존재합니다.");
 			return "redirect:/admin/modifyBasket";
 		}else {
 			reAttr.addAttribute("msg", "장바구니 수정에 성공하였습니다.");

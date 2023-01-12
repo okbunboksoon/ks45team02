@@ -43,13 +43,12 @@
 		            <li><a><i class="fa fa-edit"></i>#회원-김재범 <span class="fa fa-chevron-down"></span></a>
 		                <ul class="nav child_menu">
 		                    <li><a href="/admin/addUser">#회원 등록</a></li>
-		                    <li><a href="/admin/modifyUser">#회원 수정</a></li>
-		                    <li><a href="/admin/findIdUser">#회원 아이디 찾기</a></li>
-		                    <li><a href="/admin/findPwUser">#회원 비밀번호 찾기</a></li>
+		                    <li><a href="/admin/findIdUser">#-X회원 아이디 찾기</a></li>
+		                    <li><a href="/admin/findPwUser">#-X회원 비밀번호 찾기</a></li>
 		                    <li><a href="/admin/listUser">#회원 조회</a></li>
 		                    <li><a href="/admin/deliveryUser">#회원 배송</a></li>
-		                    <li><a href="/admin/listDormantUser">#휴면 회원 조회</a></li>
-		                    <li><a href="/admin/listDropUser">#삭제 회원 조회</a></li>
+		                    <li><a href="/admin/listDormantUser">#-X휴면 회원 조회</a></li>
+		                    <li><a href="/admin/listDropUser">#-X삭제 회원 조회</a></li>
 		                    <li><a href="/admin/usePointSaveUser">#회원 포인트 적립</a></li>
 		                    <li><a href="/admin/loginUser">#회원 로그인</a></li>
 		                    <li><a href="/admin/loginHistory">#회원 로그인 내역 조회</a></li>
@@ -85,7 +84,6 @@
                         <ul class="nav child_menu">
                             <li><a href="/admin/addContract">#계약 등록</a></li>
                             <li><a href="/admin/modifyContract">#계약 수정</a></li>
-                            <li><a href="/admin/deleteContract">#계약 삭제</a></li>
                             <li><a href="/admin/listContract">#계약 조회</a></li>
                         </ul>
                     </li>
@@ -135,14 +133,15 @@
                     </li>
                     <li><a><i class="fa fa-edit"></i>#상품매출 및 매입비용 - 이유민 <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="/admin/addGoodsBuyingSales_Buying">#상품매입 등록</a></li>
-                            <li><a href="/admin/listGoodsBuyingSales_Buying">#상품매입 조회</a></li>
-                            <li><a href="/admin/modifyGoodsBuyingSales_Buying">#상품매입 수정</a></li>
-                            <li><a href="/admin/addGoodsSalesSales_Buying">#상품매출 등록</a></li>
-                            <li><a href="/admin/listGoodsSalesSales_Buying">#상품매출 조회</a></li>
-                            <li><a href="/admin/modifyGoodsSalesSales_Buying">#상품매출 수정</a></li>
-                            <li><a href="/admin/goodsSalesBuyingGroupSales_Buying">#매입,매출(연,월,일)조회</a></li>
-                            <li><a href="/admin/goodsSalesTotalSearchSales_Buying">#상품 총 매출 조회</a></li>
+                            <li><a href="/admin/addGoodsBuying">#상품매입 등록</a></li>
+                            <li><a href="/admin/listGoodsBuying">#상품매입 조회</a></li>
+                            ----------------------------------------1---
+                            <li><a href="/admin/addGoodsSales">#상품매출 등록</a></li>
+                            <li><a href="/admin/listGoodsSales">#상품매출 조회</a></li>
+                            <li><a href="/admin/modifyGoodsSales">#상품매출 수정</a></li>
+                            --------------------------------------------
+                            <li><a href="/admin/goodsSalesBuyingGroup">#매입,매출(연,월,일)조회</a></li>
+                            <li><a href="/admin/goodsSalesTotalSearch">#상품 총 매출 조회</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i>#원자재 입고/출고 - 김민경/임수락 <span class="fa fa-chevron-down"></span></a>
@@ -219,7 +218,6 @@
                         <ul class="nav child_menu">
                             <li><a href="/admin/addIncoming">#상품입고 등록</a></li>
                             <li><a href="/admin/modifyIncoming">#상품입고 수정</a></li>
-                            <li><a href="/admin/deleteIncoming">#상품입고 삭제</a></li>
                             <li><a href="/admin/listIncoming">#상품입고 조회</a></li>
                             <li><a href="/admin/listIncomingStock">#상품 재고 현황 조회</a></li>
                         </ul>
@@ -228,7 +226,6 @@
                         <ul class="nav child_menu">
                             <li><a href="/admin/addOutGoing">#상품출고 등록</a></li>
                             <li><a href="/admin/modifyOutGoing">#상품출고 수정</a></li>
-                            <li><a href="/admin/deleteOutGoing">#상품출고 삭제</a></li>
                             <li><a href="/admin/listOutGoing">#상품출고 조회</a></li>
                         </ul>
                     </li>
@@ -238,12 +235,12 @@
                             <li><a href="/admin/listExchangeStandard">#교환 기준 조회</a></li>
                             <li><a href="/admin/modifyExchange">#교환 수정</a></li>
                             <li><a href="/admin/requestExchange">#교환 요청</a></li>
+                            <li><a href="/admin/approvalExchange">#교환 승인</a></li>
                             <li><a href="/admin/addRefundStandard">#환불 기준 등록</a></li>
                             <li><a href="/admin/listRefundStandard">#환불 기준 조회</a></li>
                             <li><a href="/admin/modifyRefund">#환불 수정</a></li>
                             <li><a href="/admin/requestRefund">환불 요청</a></li>
-                            <li><a href="/admin/approvalExchange_Refund">#교환환불 승인</a></li>
-                            <li><a href="/admin/searchExchange_Refund">#교환환불 검색</a></li>
+                            <li><a href="/admin/approvalRefund">#환불 승인</a></li>
                         </ul>
                     </li>
 

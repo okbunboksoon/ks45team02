@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BuybasketMapper">
+	<resultMap type="Buybasket" 				id="buybasketResultMap">
+		<id property="basketGroup" 				column="basket_group" />
+		<result property="userId" 				column="user_id" />
+		<result property="expectedAmount"		column="expected_amount" />
+		<result property="usePoint" 			column="use_point" />
+		<result property="finalPaymentAmount" 	column="final_payment_amount" />
+		<result property="regDate"				column="reg_date" />
+		<result property="buybasketDeleteState"	column="buybasket_delete_state" />
+		<collection property="basketList" javaType="List" ofType="Basket">
+			<id property="basketCode" column="basket_code"/>
+			<result property="goodsCode" column="goods_code" />
+			<result property="goodsName" column="goods_name" />
+			<result property="basketAmount" column="basket_amount" />
+			<result property="eachPaymentAmount" column="each_payment_amount" />
+		</collection>
+	</resultMap>
+	
+	<select id="getBuybasketInfo" resultMap="buybasketResultMap" parameterType="String">
+		<!-- 장바구니 그룹으로 장바구니 구매 조회 -->
+		SELECT 
+			 bb.basket_group
+			,bb.user_id
+			,b.basket_code
+			,bb.expected_amount
+			,bb.use_point
+			,bb.final_payment_amount
+			,bb.reg_date
+			,bb.buybasket_delete_state
+		FROM 
+			buybasket AS bb
+			INNER JOIN 
+			basket AS b
+			ON 
+			bb.basket_group = b.basket_group
+		WHERE 
+			bb.basket_group = #{basketGroup};
+	</select>
+	
+	<update id="modifyBuybasket" parameterType="Buybasket">
+		<!-- 장바구니 구매 수정 -->
+		UPDATE buybasket 
+		SET
+			 user_id = #{userId}
+			,expected_amount = #{expectedAmount}
+			,use_point = #{usePoint}
+			,final_payment_amount = #{finalPaymentAmount}
+			,reg_date = #{regDate}
+			,buybasket_delete_state = #{buybasketDeleteState}
+		WHERE
+			basket_group = #{basketGroup};
+	</update>
+	
+	<select id="getNewBasketGroup" resultType="String">	
+		<!-- 새로운 장바구니 그룹 조회 -->
+		SELECT sf_new_basket_group();
+	</select>
+	
+	<update id="newBasketGroupNotBuy" parameterType="String">
+		<!-- 주문 안 한 장바구니에게 새로운 장바구니 그룹 부여 -->
+		UPDATE basket 
+		SET 
+			basket_group = #{newBasketGroup}
+		WHERE 	
+			basket_group = #{basketGroup}
+			AND 
+			basket_state = '주문 전';
+	</update>
+	
+	<update id="modifyBasketOrderComplete" parameterType="String">
+		<!-- 주문 한 장바구니를 주문 완료로 변경 -->
+		UPDATE basket 
+		SET 
+			basket_state = '주문 완료'
+		WHERE 
+			basket_code = #{basketCode};
+	</update>
+	
+	<insert id="addBuybasket" parameterType="Buybasket">
+		<!-- 장바구니 구매 등록 -->
+		INSERT
+			INTO buybasket(
+				 basket_group
+				,user_id
+				,expected_amount
+				,use_point
+				,final_payment_amount
+				,reg_date
+				,buybasket_delete_state
+			)VALUES(
+				 #{basketGroup}
+				,#{userId}
+				,#{expectedAmount}
+				,#{usePoint}
+				,#{finalPaymentAmount}
+				,#{regDate}
+				,'N');
+	</insert>
+	
+	<select id="getBuybasketList" resultMap="buybasketResultMap">
+		<!-- 장바구니 구매 조회 -->
+		SELECT 
+			 bb.basket_group
+			,b.basket_code
+			,bb.user_id
+			,b.goods_code
+			,b.goods_name
+			,b.basket_amount
+			,b.each_payment_amount
+			,bb.expected_amount
+			,bb.use_point
+			,bb.final_payment_amount
+			,bb.reg_date	
+			,bb.buybasket_delete_state
+		FROM 
+			buybasket AS bb
+			INNER JOIN 
+			basket AS b
+			ON 
+			bb.basket_group = b.basket_group
+		ORDER BY bb.basket_group;
+	</select>
+	
+	
+	
+</mapper>

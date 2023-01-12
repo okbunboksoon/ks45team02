@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BusinessOrderMapper">
+
+	<resultMap id="businessOrderResultMap" type="BusinessOrder">
+		<id 	property="businessOrderCode"  			column="business_order_code"/>
+		<result property="userId" 						column="user_id" />
+		<result property="contractCode" 				column="contract_code" />
+		<result property="businessCode"		 			column="business_code" />
+		<result property="businessOrderAmount" 			column="business_order_amount" />
+		<result property="businessOrderDate" 			column="business_order_date" />
+		<result property="businessOrderResult"			column="business_order_result" />
+		<result property="businessManagerName"			column="business_manager_name" />
+		<result property="goodsCode"					column="goods_code" />
+		<result property="goodsOrderAmount"				column="goods_order_amount" />
+		<result property="factoryGoodsPrice"			column="factory_goods_price" />
+		<result property="businessConfirmOrderDate"		column="business_confirm_order_date" />
+		<result property="expectDate"					column="expect_date" />
+			<association property="business" javaType="Business">
+			<id property="businessCode" 				column="business_code"/>
+	        <result property="businessName"				column="business_name"/>
+	        <result property="businessNum" 				column="business_num"/>
+	        <result property="businessType" 			column="business_type"/>
+	        <result property="sectors" 					column="sectors"/>
+	        <result property="businessManagerName" 		column="business_manager_name"/>
+	        <result property="businessPhone" 			column="business_phone"/>
+	        <result property="userId" 					column="user_id"/>
+			</association>
+	</resultMap>
+	
+	<!-- 발주 목록 전체 조회 -->
+	<select id="getListBusinessOrder" resultMap="businessOrderResultMap">
+		SELECT
+			 b.business_order_code
+			,b.user_id
+			,b.contract_code
+			,b.business_code
+			,b.business_order_amount
+			,b.business_order_date
+			,b.business_order_result
+			,b.business_manager_name
+			,b.goods_code
+			,b.goods_order_amount
+			,b.factory_goods_price
+			,b.business_confirm_order_date
+			,b.expect_date
+		FROM
+			business_order AS b
+	</select>
+
+	<!-- 발주 등록 처리 -->
+	<insert id="addBusinessOrder" parameterType="BusinessOrder">
+		INSERT INTO business_order
+	(business_order_code, user_id, contract_code, business_code, business_order_amount, 
+	 business_order_date, business_order_result, business_manager_name, goods_code, 
+	 goods_order_amount, factory_goods_price)
+	VALUES (sf_new_businessorder_code(), 'id001', #{contractCode}, #{businessCode}, 
+			#{businessOrderAmount}, NOW(), #{businessOrderResult}, #{businessManagerName}, #{goodsCode}, 0, 0)
+	</insert>
+	
+	<!-- 발주 삭제 처리 -->
+	<delete id="deleteBusinessOrder" parameterType="String">
+		DELETE 
+		FROM 
+			business_order 
+		WHERE 
+			business_order_code= #{businessOrderCode}
+	</delete>
+	
+	<!-- 발주 목록 특정 코드 조회 -->
+	<select id="getListBusinessOrderByCode" parameterType="String" resultMap="businessOrderResultMap">
+		SELECT
+			bo.business_order_code
+			,b.business_name
+			,bo.user_id
+			,bo.contract_code
+			,bo.business_code
+			,bo.business_order_amount
+			,bo.business_order_date
+			,bo.business_order_result
+			,bo.business_manager_name
+			,bo.goods_code
+			,bo.goods_order_amount
+			,bo.factory_goods_price
+			,bo.business_confirm_order_date
+			,bo.expect_date
+			,b.business_name
+		FROM
+			business_order AS bo
+			INNER JOIN
+			business AS b
+			on
+			bo.business_code = b.business_code
+		WHERE
+			bo.business_order_code =  #{businessOrderCode}
+	</select>
+	
+	<!--  발주 목록  -->
+	<select id="getListBusinessOrderRe" parameterType="String" resultMap="businessOrderResultMap">
+		SELECT
+			bo.business_order_code
+			,b.business_name
+			,bo.user_id
+			,bo.contract_code
+			,bo.business_code
+			,bo.business_order_amount
+			,bo.business_order_date
+			,bo.business_order_result
+			,bo.business_manager_name
+			,bo.goods_code
+			,bo.goods_order_amount
+			,bo.factory_goods_price
+			,bo.business_confirm_order_date
+			,bo.expect_date
+			,b.business_name
+		FROM
+			business_order AS bo
+			INNER JOIN
+			business AS b
+			on
+			bo.business_code = b.business_code
+		</select>
+	
+	<!-- 발주 수정 처리 -->
+	<update id="modifyBusinessOrder" parameterType="BusinessOrder">
+		UPDATE business_order
+		<trim prefix="SET" prefixOverrides=",">
+		<if test="userId != null and userId != '' ">
+			,user_id= #{userId}
+		</if>
+		<if test="contractCode != null and contractCode != '' ">
+			,contract_code= #{contractCode}
+		</if>
+		<if test="businessCode != null and businessCode != '' ">
+			,business_code= #{businessCode}
+		</if>
+		<if test="businessOrderAmount != null and businessOrderAmount != '' ">
+			,business_order_amount= #{businessOrderAmount}
+		</if>
+		<if test="businessOrderResult != null and businessOrderResult != '' ">
+			,business_order_result= #{businessOrderResult}
+		</if>
+		<if test="businessManagerName != null and businessManagerName != '' ">
+			,business_manager_name= #{businessManagerName}
+		</if>
+		<if test="goodsCode != null and goodsCode != '' ">
+			,goods_code= #{goodsCode}
+		</if>
+		<if test="goodsOrderAmount != null and goodsOrderAmount != '' ">
+			,goods_order_amount= #{goodsOrderAmount}
+		</if>
+		<if test="factoryGoodsPrice != null and factoryGoodsPrice != '' ">
+			,factory_goods_price= #{factoryGoodsPrice}
+		</if>
+		<if test="goodsOrderAmount != null and goodsOrderAmount != '' ">
+			,goods_order_amount= #{goodsOrderAmount}
+		</if>
+		<if test="businessConfirmOrderDate != null and businessConfirmOrderDate != '' ">
+			,business_confirm_order_date= #{businessConfirmOrderDate}
+		</if>
+		<if test="expectDate != null and expectDate != '' ">
+			,expect_date= #{expectDate}
+		</if>
+	</trim>		
+	WHERE 
+		business_order_code=#{businessOrderCode}
+	</update>
+
+</mapper>

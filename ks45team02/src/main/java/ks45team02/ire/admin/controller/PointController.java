@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ks45team02.ire.admin.dto.PointMinus;
 import ks45team02.ire.admin.dto.PointSave;
 import ks45team02.ire.admin.dto.PointSaveAndMinus;
 import ks45team02.ire.admin.dto.PointSaveStandard;
@@ -80,6 +81,7 @@ public class PointController {
 		int result = pointService.modifyPointSaveStandard(pointSaveStandard);
 		if(result == 0) {
 			reAttr.addAttribute("msg", "포인트 적립 기준 수정에 실패하였습니다.");
+			reAttr.addAttribute("pointSaveStandardCode", pointSaveStandard.getPointSaveStandardCode());
 			return "redirect:/admin/modifyStandardPoint";
 		}
 		reAttr.addAttribute("msg", "포인트 적립 기준 수정에 성공하였습니다.");
@@ -168,8 +170,31 @@ public class PointController {
 		
 		return "admin/point/pointAddSave";
 	}
+	
+	//포인트 차감 등록 처리
+	@PostMapping("/addMinusPoint")
+	public String addMinusPoint(PointMinus pointMinus ,RedirectAttributes reAttr) {
+		
+		int result = pointService.addPointMinus(pointMinus);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "포인트 차감 등록에 실패하였습니다.");
+			return "redirect:/admin/addMinusPoint";
+		}
+		reAttr.addAttribute("msg", "포인트 차감 등록에 성공하였습니다.");
+		
+		return "redirect:/admin/listPoint";
+	}
+	
+	//포인트 차감 등록 페이지
 	@GetMapping("/addMinusPoint")
-	public String addMinusPoint() {
+	public String addMinusPoint(Model model
+							   ,@RequestParam(value="msg", required = false) String msg) {
+		
+		model.addAttribute("title", "포인트 차감 등록");
+		model.addAttribute("pageTitle", "포인트 차감 등록");
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/point/pointAddMinus";
 	}
@@ -199,6 +224,7 @@ public class PointController {
 		
 		if(result == 0) {
 			reAttr.addAttribute("msg", "포인트 지급 수정에 실패하였습니다.");
+			reAttr.addAttribute("pointSaveCode", pointSave.getPointSaveCode());
 			return "redirect:/admin/modifySavePoint";
 		}
 		reAttr.addAttribute("msg", "포인트 지급 수정에 성공하였습니다.");
@@ -226,8 +252,35 @@ public class PointController {
 		return "admin/point/pointModifySave";
 	}
 	
+	//포인트 차감 수정 처리
+	@PostMapping("/modifyMinusPoint")
+	public String modifyMinusPoint(PointMinus pointMinus, RedirectAttributes reAttr) {
+		
+		int result = pointService.modifyPointMinus(pointMinus);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "포인트 차감 수정에 실패하였습니다.");
+			reAttr.addAttribute("pointMinusCode", pointMinus.getPointMinusCode());
+			return "redirect:/admin/modifyMinusPoint";
+		}
+		reAttr.addAttribute("msg", "포인트 차감 수정에 성공하였습니다.");
+		
+		return "redirect:/admin/listPoint";
+	}
+	
+	//포인트 차감 수정 페이지
 	@GetMapping("/modifyMinusPoint")
-	public String modifyMinusPoint() {
+	public String modifyMinusPoint(Model model
+								  ,@RequestParam(value="msg", required = false) String msg
+								  ,@RequestParam(value="pointMinusCode") String pointMinusCode) {
+		
+		PointMinus pointMinusInfo = pointMapper.getPointMinusInfo(pointMinusCode);
+		
+		model.addAttribute("title", "포인트 차감 수정");
+		model.addAttribute("pageTitle", "포인트 차감 수정");
+		model.addAttribute("pointMinusInfo", pointMinusInfo);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/point/pointModifyMinus";
 	}

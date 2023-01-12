@@ -9,10 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ks45team02.ire.admin.dto.CategoryMedium;
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.service.CategoryService;
+import ks45team02.ire.admin.service.FileService;
 import ks45team02.ire.admin.service.GoodsService;
 
 @Controller
@@ -23,13 +27,29 @@ public class GoodsController {
 	
 	private final GoodsService goodsService;
 	private final CategoryService categoryService;
+	private FileService fileService;
 	
 	public GoodsController(GoodsService goodsService, 
-						   CategoryService categoryService) {
+						   CategoryService categoryService,
+						   FileService fileService) {
 		this.categoryService = categoryService;
 		this.goodsService = goodsService;
+		this.fileService = fileService;
 		
 		
+	}
+	
+	//상품 검색
+	@GetMapping("/goodsSearch")
+	public String goodsSearchForBasketadd(@RequestParam(value="searchKey", required = false) String searchKey
+										 ,@RequestParam(value="searchValue", required = false) String searchValue
+										 ,Model model) {
+			
+		List<Goods> goodsList = goodsService.searchGoods(searchKey, searchValue);
+		model.addAttribute("title", "상품 검색");
+		model.addAttribute("goodsList", goodsList);
+			
+		return "admin/search/goodsSearch";
 	}
 	
 	/**
@@ -48,11 +68,29 @@ public class GoodsController {
 		return "admin/goods/goodsAdd";
 	}
 	
+	/**
+	 * 상품 등록 처리
+	 * @param goods
+	 * @return
+	 */
 	@PostMapping("/addGoods")
-	public String addGoods(Goods goods) {
-		
+	public String addGoods(Goods goods,@RequestParam MultipartFile[] uploadfile
+						  ,Model model, HttpServletRequest request) {
 		
 		log.info("goods : {}", goods);
+		log.info("uploadfile : {}", uploadfile);
+		
+		String serverName = request.getServerName();
+		String fileRealPath = "";
+		if("localhost".equals(serverName)) {				
+			fileRealPath = System.getProperty("user.dir") + "/src/main/resources/static/";
+		}else {
+			fileRealPath = request.getSession().getServletContext().getRealPath("/WEB-INF/classes/static/");
+		}
+		int addfile = fileService.fileUpload(uploadfile, fileRealPath);
+		log.info("addfile : {}", addfile);
+		if(addfile == 1)goodsService.addGoods(goods);
+		
 		
 		return "redirect:/admin/listGoods";
 	}

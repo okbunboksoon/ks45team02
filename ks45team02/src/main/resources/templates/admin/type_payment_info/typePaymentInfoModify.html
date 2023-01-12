@@ -1,10 +1,272 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-typePaymentInfoModify
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${typePaymentInfo}">
+				<br>
+				<form th:action="@{/admin/modifyTypePaymentInfo}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="paymentTypeCode" class="col-form-label col-md-3 col-sm-3 label-align">결제종류 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentTypeCode" name="paymentTypeCode" th:value="*{paymentTypeCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   placeholder="구매자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="paymentType" class="col-form-label col-md-3 col-sm-3 label-align">결제 종류</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="paymentType" name="paymentType" class="form-control">
+								<option value="미선택">선택해주세요.</option>
+								<option value="신용카드" th:selected="*{paymentType} == '신용카드'">신용카드</option>
+								<option value="계좌이체" th:selected="*{paymentType} == '계좌이체'">계좌이체</option>
+								<option value="무통장입금" th:selected="*{paymentType} == '무통장입금'">무통장입금</option>
+								<option value="휴대폰 결제" th:selected="*{paymentType} == '휴대폰 결제'">휴대폰 결제</option>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentBank" class="col-form-label col-md-3 col-sm-3 label-align">결제 은행 종류</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="paymentBank" name="paymentBank" class="form-control">
+								<option value="미선택">선택해주세요.</option>
+								<option value="신한" th:selected="*{paymentBank} == '신한'">신한</option>
+								<option value="농협" th:selected="*{paymentBank} == '농협'">농협</option>
+								<option value="국민" th:selected="*{paymentBank} == '국민'">국민</option>
+								<option value="한국" th:selected="*{paymentBank} == '한국'">한국</option>
+								<option value="우리" th:selected="*{paymentBank} == '우리'">우리</option>
+								<option value="하나" th:selected="*{paymentBank} == '하나'">하나</option>
+								<option value="수협" th:selected="*{paymentBank} == '수협'">수협</option>
+								<option value="대구" th:selected="*{paymentBank} == '대구'">대구</option>
+								<option value="부산" th:selected="*{paymentBank} == '부산'">부산</option>
+								<option value="경남" th:selected="*{paymentBank} == '경남'">경남</option>
+								<option value="광주" th:selected="*{paymentBank} == '광주'">광주</option>
+								<option value="전북" th:selected="*{paymentBank} == '전북'">전북</option>
+								<option value="제주" th:selected="*{paymentBank} == '제주'">제주</option>
+								<option value="카카오뱅크" th:selected="*{paymentBank} == '신용카드'">카카오뱅크</option>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentCardNumber" class="col-form-label col-md-3 col-sm-3 label-align">결제 카드번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentCardNumber" name="paymentCardNumber" maxlength="19" th:value="*{paymentCardNumber}"
+								   class="form-control "/>
+						</div>			
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentAccountCode" class="col-form-label col-md-3 col-sm-3 label-align">계좌이체, 무통장 계좌번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="number" id="paymentAccountCode" name="paymentAccountCode" th:value="*{paymentAccountCode}"
+								   class="form-control"/>
+						</div>		
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentPhoneTelco" class="col-form-label col-md-3 col-sm-3 label-align">결제 통신사</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="paymentPhoneTelco" name="paymentPhoneTelco"class="form-control">
+								<option value="미선택" >선택해주세요.</option>
+								<option value="SK" th:selected="*{paymentPhoneTelco} == 'SK'">SK</option>
+								<option value="KT" th:selected="*{paymentPhoneTelco} == 'KT'">KT</option>
+								<option value="LG U+" th:selected="*{paymentPhoneTelco} == 'LG U+'">LG U+</option>
+							</select>
+						</div>			
+					</div>
+					<div class="item form-group" style="display : none">
+						<label for="paymentPhoneNum" class="col-form-label col-md-3 col-sm-3 label-align">결제 휴대폰 번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="paymentPhoneNum" name="paymentPhoneNum" maxlength="13" th:value="*{paymentPhoneNum}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="paymentTypeDeleteState" class="col-form-label col-md-3 col-sm-3 label-align">결제 종류 삭제여부</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="paymentTypeDeleteState" name="paymentTypeDeleteState"class="form-control" >
+								<option value="N" th:selected="*{paymentTypeDeleteState} == 'N'">N</option>
+								<option value="Y" th:selected="*{paymentTypeDeleteState} == 'Y'">Y</option>
+							</select>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			
+			const $paymentType = document.getElementById('paymentType');
+			const $paymentBank = document.getElementById('paymentBank');
+			const $paymentCardNumber = document.getElementById('paymentCardNumber');
+			const $paymentAccountCode = document.getElementById('paymentAccountCode');
+			const $paymentPhoneTelco = document.getElementById('paymentPhoneTelco');
+			const $paymentPhoneNum = document.getElementById('paymentPhoneNum');
+			
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			const $selectEle = document.querySelectorAll('.item > div > select');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listTypePaymentInfo';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				location.reload();
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null || $paymentType.value == '미선택'){
+						if(item.parentElement.parentElement.style.display != 'none'){
+							checkFlag = false;
+						}
+					}
+				})
+				$selectEle.forEach(function(item){
+					if(item.value == '미선택'){
+						if(item.parentElement.parentElement.style.display != 'none'){
+							checkFlag = false;
+						}
+					}
+				})
+				
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			
+			
+			$inputEle.forEach(function(item){
+				if(item.value != null && item.value != ''){
+					item.parentElement.parentElement.style.display = '';
+				}
+			});
+			$selectEle.forEach(function(item){
+				if(item.value != null && item.value != '미선택'){
+					item.parentElement.parentElement.style.display = '';
+				}else{
+					item.value = null;
+				}
+			});
+			
+			$paymentType.addEventListener('change', function(){
+				$paymentBank.parentElement.parentElement.style.display = 'none';
+				$paymentCardNumber.parentElement.parentElement.style.display = 'none';
+				$paymentAccountCode.parentElement.parentElement.style.display = 'none';
+				$paymentPhoneTelco.parentElement.parentElement.style.display = 'none';
+				$paymentPhoneNum.parentElement.parentElement.style.display = 'none';
+				
+				$paymentBank.value = null;
+				$paymentCardNumber.value = null;
+				$paymentAccountCode.value = null;
+				$paymentPhoneTelco.value = null;
+				$paymentPhoneNum.value = null;
+				
+				if($paymentType.value == '신용카드'){
+					$paymentBank.parentElement.parentElement.style.display = '';
+					$paymentCardNumber.parentElement.parentElement.style.display = '';
+					$paymentBank.options[0].selected = true;
+				}else if($paymentType.value == '계좌이체' || $paymentType.value == '무통장입금'){
+					$paymentBank.parentElement.parentElement.style.display = '';
+					$paymentAccountCode.parentElement.parentElement.style.display = '';
+					$paymentBank.options[0].selected = true;
+				}else if($paymentType.value == '휴대폰 결제'){
+					$paymentPhoneTelco.parentElement.parentElement.style.display = '';
+					$paymentPhoneNum.parentElement.parentElement.style.display = '';
+					$paymentPhoneTelco.options[0].selected = true;
+				}
+			});
+			
+			$paymentCardNumber.addEventListener('input', function(){
+				let val = $paymentCardNumber.value.replace(/\D/g, '');
+				let leng = val.length;
+				let result = '';
+				if(leng < 5) result = val;
+				else if(leng < 9){
+					result += val.substring(0,4);
+					result += " ";
+					result += val.substring(4);
+				}else if(leng < 13){
+					result += val.substring(0,4);
+					result += " ";
+					result += val.substring(4,8);
+					result += " ";
+					result += val.substring(8);
+				}else{
+					result += val.substring(0,4);
+					result += " ";
+					result += val.substring(4,8);
+					result += " ";
+					result += val.substring(8,12);
+					result += " ";
+					result += val.substring(12);
+				  
+				}
+				$paymentCardNumber.value = result;
+			});
+			
+			$paymentPhoneNum.addEventListener('input', function(){
+				let val = $paymentPhoneNum.value.replace(/\D/g, '');
+				let leng = val.length;
+				let result = '';
+				if(leng < 4) result = val;
+				else if(leng < 8){
+				 	result += val.substring(0,3);
+				    result += "-";
+				    result += val.substring(3);
+				}else{
+					result += val.substring(0, 3);
+					result += "-";
+					result += val.substring(3, 7);
+					result += "-";
+					result += val.substring(7);
+			  }
+				$paymentPhoneNum.value = result;
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>

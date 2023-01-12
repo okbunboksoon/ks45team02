@@ -59,7 +59,10 @@ public class CategoryService {
 	 */
 	public int addCategoryBig(CategoryBig categoryBig) {
 		
-		return categoryMapper.addCategoryBig(categoryBig);
+		int result = 0;
+		result = categoryMapper.addCategoryBig(categoryBig);
+		
+		return result;
 	}
 	
 	/**
@@ -69,7 +72,10 @@ public class CategoryService {
 	 */
 	public int addCategoryMedium(CategoryMedium categoryMedium) {
 		
-		return categoryMapper.addCategoryMedium(categoryMedium);
+		int result = 0;
+		result = categoryMapper.addCategoryMedium(categoryMedium);
+		
+		return result;
 	}
 	
 	/**
@@ -87,7 +93,7 @@ public class CategoryService {
 	/**
 	 * 카테고리 중 특정코드 조회
 	 * @param categoryMediumCode
-	 * @return
+	 * @return mediumCategoryInfo
 	 */
 	public CategoryMedium getMediumCategoryByCode(String categoryMediumCode){
 		
@@ -99,45 +105,49 @@ public class CategoryService {
 	/**
 	 * 카테고리 대 수정 처리
 	 * @param categoryBig
-	 * @return categoryMapper.modifyBigCategory(categoryBig)
+	 * @return result
 	 */
 	public int modifyBigCategory(CategoryBig categoryBig) {
 		
-		return categoryMapper.modifyBigCategory(categoryBig);
+		int result = 0;
+		result = categoryMapper.modifyBigCategory(categoryBig);
+		
+		return result;
 	}
 	
 	/**
 	 * 카테고리 중 수정 처리
-	 * @param categoryMedium
+	 * @param result
 	 */
 	public int  modifyMediumCategory(CategoryMedium categoryMedium) {
 		
-		return categoryMapper.modifyMediumCategory(categoryMedium);
+		int result = 0;
+		result = categoryMapper.modifyMediumCategory(categoryMedium);
+		
+		return result;
 	}
 	
 	/**
 	 * 카테고리 중 삭제 처리
 	 * @param categoryMediumCode
-	 * @return
+	 * @return result
 	 */
 	public int deleteMediumCategory(String categoryMediumCode) {
 			
 		int result = 0;
-		result += categoryMapper.deleteMediumCategoryByBuynow(categoryMediumCode);
-		result += categoryMapper.deleteMediumCategoryByBasket(categoryMediumCode);
-		result += categoryMapper.deleteMediumCategoryByGoods(categoryMediumCode);
 		result += categoryMapper.deleteMediumCategory(categoryMediumCode);
 		
 		return result;
 	}
 	
+	/**
+	 * 카테고리 대 삭제 처리
+	 * @param categoryBigCode
+	 * @return result
+	 */
 	public int deleteBigCateory(String categoryBigCode) {
 		
 		int result = 0;
-		result += categoryMapper.deleteBigCategoryByBuynow(categoryBigCode);
-		result += categoryMapper.deleteBigCategoryByBasket(categoryBigCode);
-		//result += categoryMapper.deleteBigCategoryByBusinessOrder(categoryBigCode);
-		result += categoryMapper.deleteBigCategoryByGoods(categoryBigCode);
 		result += categoryMapper.deleteCateBigCode(categoryBigCode);
 		result += categoryMapper.deleteBigCategory(categoryBigCode);
 		

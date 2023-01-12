@@ -28,9 +28,9 @@ public class BoardNoticeService {
 	}
 	
 	/**
-	 * 공지사항 목록, 페이징
+	 * 공지사항 목록
 	 * @param currentPage
-	 * @return paramNoticeMap
+	 * @return noticeList
 	 */
 	public List<BoardNotice> getNoticeList(){
 		
@@ -42,11 +42,14 @@ public class BoardNoticeService {
 	/**
 	 * 공지사항 등록
 	 * @param boardNotice
-	 * @return boardNoticeMapper.insertNotice(boardNotice)
+	 * @return result
 	 */
 	public int addNotice(BoardNotice boardNotice) {
 		
-		return boardNoticeMapper.addNotice(boardNotice);
+		int result = 0;
+		result = boardNoticeMapper.addNotice(boardNotice);
+		
+		return result;
 	}
 	
 	/**
@@ -64,16 +67,27 @@ public class BoardNoticeService {
 	/**
 	 * 공지사항 수정처리
 	 * @param boardNotice
-	 * @return boardNoticeMapper.modifyBoardNotice(boardNotice)
+	 * @return result
 	 */
 	public int modifyBoardNotice(BoardNotice boardNotice) {
 		
-		return boardNoticeMapper.modifyBoardNotice(boardNotice);
+		int result = 0;
+		result = boardNoticeMapper.modifyBoardNotice(boardNotice);
+		
+		return result;
 	}
 	
+	/**
+	 * 공지사항 삭제처리
+	 * @param noticeCode
+	 * @return result
+	 */
 	public int deleteBoardNotice(String noticeCode) {
 		
-		return boardNoticeMapper.deleteBoardNotice(noticeCode);
+		int result = 0;
+		result = boardNoticeMapper.deleteBoardNotice(noticeCode);
+		
+		return result;
 	}
 }
 

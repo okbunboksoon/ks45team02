@@ -1,10 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <!-- Datatables -->
+    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
 </head>
-<body>
-listQualityHazadousSubstanceLevel
-</body>
+
+<th:block layout:fragment="customContents">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <table id="qualityHazadousSubstanceLevelList" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th class="hazadousQualityLevel">유해물질시험검사기준</th>
+                                    <th class="formaldehydeTest">폼알데하이드</th>
+                                    <th class="phenolChlorideTest">염소화페놀류</th>
+                                    <th class="haramfulElementsTest">유해원소</th>
+                                    <th>수정</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:unless="${#lists.isEmpty(qualityHazadousSubstanceLevelList)}" th:each="l : ${qualityHazadousSubstanceLevelList}">
+                                    <td th:text="${l.hazadousQualityLevel}"></td>
+                                    <td th:text="${l.formaldehydeTest}"></td>
+                                    <td th:text="${l.phenolChlorideTest}"></td>
+                                    <td th:text="${l.haramfulElementsTest}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/modifyQualityHazadousSubstanceLevel(hazadousQualityLevel=${l.hazadousQualityLevel})}">수정</a>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(qualityHazadousSubstanceLevelList)}">
+                                    <td colspan="13">기준이 존재하지 않습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customJs">
+    <!-- Datatables -->
+    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+</th:block>
+
+<!-- 사용자 지정 js script -->
+
+<th:block layout:fragment="customScript">
+    <script type="text/javascript" th:inline="javascript">
+
+        const msg = [[${msg}]];
+        if(msg != null){
+            alert(msg);
+        }
+
+        $('#pointSaveAndMinusList').DataTable();
+    </script>
+
+</th:block>
+
 </html>
