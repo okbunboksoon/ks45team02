@@ -21,6 +21,17 @@
         <result property="paymentCompleteDeleteState"	column="payment_complete_delete_state"/>
     </resultMap>
     
+    <update id="modifyProductOrderState" parameterType="String">
+    	<!-- 결제 취소/교환/환불 처리 -->
+    	UPDATE 
+			payment_complete 
+		SET 
+			 product_order_state = #{productOrderState}
+			,point_save = 0
+		WHERE 
+			payment_complete_code = #{paymentCompleteCode};
+    </update>
+    
     <update id="modifyPaymentComplete" parameterType="PaymentComplete">
     	<!-- 결제내역 수정 -->
     	UPDATE 
@@ -34,7 +45,7 @@
 			,deli_code = NULLIF(#{deliCode}, '') 
 			,payment_type_code = #{paymentTypeCode}
 			,payment_date = #{paymentDate}
-			,point_use_group = #{pointUseGroup}
+			,point_use_group = NULLIF(#{pointUseGroup}, '') 
 			,product_order_state = #{productOrderState}
 			,point_save = #{pointSave}
 			,product_order_point_group = NULLIF(#{productOrderPointGroup}, '')

@@ -8,6 +8,9 @@ import java.util.List;
 @Mapper
 public interface PaymentCompleteMapper {
 	
+	//결제완료 후 상황 수정
+	public int modifyProductOrderState(String paymentCompleteCode, String productOrderState);
+	
 	//결제내역 수정
 	public int modifyPaymentComplete(PaymentComplete paymentComplete);
 	
