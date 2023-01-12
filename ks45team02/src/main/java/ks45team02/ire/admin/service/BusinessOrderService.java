@@ -144,9 +144,9 @@ public class BusinessOrderService {
 		
 		int result = 0;
 		result = businessOrderMapper.modifyBusinessOrder(businessOrder);
-		/*
-		 * if(result == 1) { sales_BuyingService.addGoodsBuying(businessOrder); }
-		 */
+		
+		  if(result == 1) { sales_BuyingService.addGoodsBuying(businessOrder); }
+		 
 		return result;
 	}
 }

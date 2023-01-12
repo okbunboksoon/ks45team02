@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import ks45team02.ire.admin.dto.Business;
 import ks45team02.ire.admin.dto.BusinessOrder;
 import ks45team02.ire.admin.dto.GoodsBuying;
 import ks45team02.ire.admin.mapper.Sales_BuyingMapper;
@@ -35,28 +36,33 @@ public class Sales_BuyingService {
 	}
 
 	
-	/*	*//**
-			 * 상품 매입 등록 처리
-			 * 
-			 * @param goodsBuying
-			 * @return result
-			 *//*
-				 * public int addGoodsBuying(BusinessOrder businessOrder) {
-				 * 
-				 * int result = 0; int getGoodsOrderAmount =
-				 * businessOrder.getGoodsOrderAmount(); int getFactoryGoodsPrice =
-				 * businessOrder.getFactoryGoodsPrice(); int buy_price = getGoodsOrderAmount *
-				 * getFactoryGoodsPrice; int buy_vat = (int) ((getGoodsOrderAmount *
-				 * getFactoryGoodsPrice) * 0.1); int buy_total = buy_price + buy_vat;
-				 * 
-				 * log.info("businessOrder: {}" , businessOrder);
-				 * log.info("getGoodsOrderAmount: {}" , getGoodsOrderAmount);
-				 * log.info("getFactoryGoodsPrice: {}" , getFactoryGoodsPrice);
-				 * log.info("buy_price: {}" , buy_price); log.info("buy_vat: {}" , buy_vat);
-				 * log.info("buy_total: {}" , buy_total);
-				 * 
-				 * 
-				 * return result; }
-				 */
+		/**
+		 * 상품 매입 등록 처리
+		 * 
+		 * @param goodsBuying
+		 * @return result
+		 */
+		  public void addGoodsBuying(BusinessOrder businessOrder) {
+		  GoodsBuying goodsBuying = new GoodsBuying();
+		  Business Business = businessOrder.getBusiness();
+		  
+		  int getGoodsOrderAmount = businessOrder.getGoodsOrderAmount(); 
+		  int getFactoryGoodsPrice = businessOrder.getFactoryGoodsPrice(); 
+		  int buy_price = getGoodsOrderAmount * getFactoryGoodsPrice; 
+		  int buy_vat = (int) ((getGoodsOrderAmount * getFactoryGoodsPrice) * 0.1); 
+		  int buy_total = buy_price + buy_vat;
+		  
+		  goodsBuying.setBusinessCode(Business.getBusinessCode());
+		  goodsBuying.setBusinessName(Business.getBusinessName());
+		  goodsBuying.setGoodsCode(businessOrder.getGoodsCode());
+		  goodsBuying.setGoodsOrderAmount(getGoodsOrderAmount);
+		  goodsBuying.setFactoryGoodsPrice(getFactoryGoodsPrice);
+		  goodsBuying.setBuy_price(buy_price);
+		  goodsBuying.setBuy_vat(buy_vat);
+		  goodsBuying.setBuy_total(buy_total);	  
+		  
+		  sales_BuyingMapper.addGoodsBuying(goodsBuying);
+		  }
+				 
 
 }
