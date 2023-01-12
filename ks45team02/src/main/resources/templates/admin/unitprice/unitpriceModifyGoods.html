@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+	</head>
+
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#ModifyUnitPriceForm input').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#ModifyUnitPriceForm').submit();
+				});
+			});
+		</script>
+	</th:block>
+	
+	
+	
+	<th:block layout:fragment="customContents">
+	<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<br><br>
+							<form id= "ModifyUnitPriceForm" th:action="@{/admin/modifyUnitPrice}" method="post" enctype="multipart/form-data">
+							<th:block th:if="${not #lists.isEmpty(getListUnitPriceByGoodsCode)}" th:each="lu : ${getListUnitPriceByGoodsCode}">
+							
+							<div class="item form-group">
+								<label for="goods_code" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goods_code" name="goods_code" class="form-control" 
+									  	   th:value = "${lu.goods_code}" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="factory_goods_price" class="col-form-label col-md-3 col-sm-3 label-align">매입가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="factory_goods_price" name="factory_goods_price" class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goods_price" class="col-form-label col-md-3 col-sm-3 label-align">매입가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goods_price" name="goods_price" class="form-control"/>
+								</div>
+							</div>
+
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</th:block>
+							</form>
+               			</div>
+           			</div>
+       			</div>
+   			</div>	     
+	</th:block>
+	
+		
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+	</th:block>
+
+</html>

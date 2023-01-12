@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/admin")
-public class DeliveryController {
+public class DeliveryInfoController {
 
-	@GetMapping("/addDelivery")
+	@GetMapping("/addDeliveryInfo")
 	public String addDelivery(Model model,
 							  @RequestParam(value="msg", required=false) String msg) {
 		
-		model.addAttribute("title", "배송목록");
-		model.addAttribute("pageTitle", "배송목록");
+		model.addAttribute("title", "배송목록지");
+		model.addAttribute("pageTitle", "배송목록지");
 		
 		if(msg != null) {
 			model.addAttribute("msg", msg);
@@ -24,21 +24,21 @@ public class DeliveryController {
 		return "admin/delivery/deliveryAdd";
 	}
 	
-	@GetMapping("/deleteDelivery")
+	@GetMapping("/deleteDeliveryInfo")
 	public String deleteDelivery() {
 		
 		return "admin/delivery/deliveryDelete";
 	}
 	
 	
-	@GetMapping("/listDelivery")
+	@GetMapping("/listDeliveryInfo")
 	public String listDelivery() {
 		
 		return "admin/delivery/deliveryList";
 	}
 	
 	
-	@GetMapping("/modifyDelivery")
+	@GetMapping("/modifyDeliveryInfo")
 	public String modifyDelivery() {
 		
 		return "admin/delivery/deliveryModify";
