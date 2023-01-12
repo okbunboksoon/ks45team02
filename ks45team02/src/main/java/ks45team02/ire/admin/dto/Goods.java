@@ -164,4 +164,7 @@ public class Goods {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
+	
 }
