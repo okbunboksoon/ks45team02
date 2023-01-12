@@ -45,8 +45,35 @@ public class PaymentController {
 		return "admin/search/buybasketAndBuynowSearch";
 	}
 	
+	//결제 취소 처리
+	@PostMapping("/cancelPayment")
+	public String cancelPayment(PaymentComplete paymentComplete, RedirectAttributes reAttr) {
+		
+		int result = paymentCompleteService.cancelPaymentComplete(paymentComplete);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "결제 취소에 실패하였습니다.");
+			reAttr.addAttribute("paymentCompleteCode", paymentComplete.getPaymentCompleteCode());
+			return "redirect:/admin/cancelPayment";
+		}
+		reAttr.addAttribute("msg", "결제 취소에 성공하였습니다.");
+		
+		return "redirect:/admin/listPayment";
+	}
+	
+	//결제 취소 페이지
 	@GetMapping("/cancelPayment")
-	public String cancelPayment(Model model) {
+	public String cancelPayment(Model model
+							  ,@RequestParam(value="paymentCompleteCode") String paymentCompleteCode
+							  ,@RequestParam(value="msg", required = false) String msg) {
+		
+		PaymentComplete paymentCompleteInfo = paymentCompleteMapper.getPaymentCompleteInfo(paymentCompleteCode);
+		
+		model.addAttribute("title", "결제 취소");
+		model.addAttribute("pageTitle", "결제 취소");
+		model.addAttribute("paymentCompleteInfo", paymentCompleteInfo);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/paymentComplete/paymentCancel";
 	}
