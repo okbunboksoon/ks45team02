@@ -16,7 +16,7 @@
         FROM
             exchange_standard
     </select>
-    <insert id="addExchangeStandard">
+    <insert id="addExchangeStandard" parameterType="ExchangeStandard">
         INSERT INTO exchange_standard
         (exchange_standard_code,
         goods_exchange_condition,

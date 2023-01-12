@@ -34,129 +34,129 @@
                         <br><br>
                         <h5 class="styleTitle">상품 교환</h5>
                         <th:block th:object="${paymentCompleteInfo}">
-                        <form id="requestExchange" th:action="@{/admin/requestExchange}" method="post" >
+                            <form id="requestExchange" th:action="@{/admin/requestExchange}" method="post" >
 
-                            <div class="item form-group">
-                                <label for="exchangeStandardCode" class="col-form-label col-md-3 col-sm-3 label-align">교환기준코드</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <select id="exchangeStandardCode" name="exchangeStandardCode" class="form-control" >
-                                        <th:block th:if="${not #lists.isEmpty(exchangeStandardList)}"
-                                                  th:each="e : ${exchangeStandardList}">
-                                            <option th:value="${e.exchangeStandardCode}">[[${e.exchangeStandardCode}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(exchangeStandardList)}">
-                                            <option>교환기준코드가 없습니다.</option>
-                                        </th:block>
-                                    </select>
+                                <div class="item form-group">
+                                    <label for="exchangeStandardCode" class="col-form-label col-md-3 col-sm-3 label-align">교환기준코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="exchangeStandardCode" name="exchangeStandardCode" class="form-control" >
+                                            <th:block th:if="${not #lists.isEmpty(exchangeStandardList)}"
+                                                      th:each="e : ${exchangeStandardList}">
+                                                <option th:value="${e.exchangeStandardCode}">[[${e.exchangeStandardCode}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(exchangeStandardList)}">
+                                                <option>교환기준코드가 없습니다.</option>
+                                            </th:block>
+                                        </select>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="paymentCompleteCode" class="col-form-label col-md-3 col-sm-3 label-align">결제완료</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="paymentCompleteCode"
-                                           name="paymentCompleteCode"
-                                           th:value="*{paymentCompleteCode}"
-                                           class="form-control"
-                                           readonly="readonly">
+                                <div class="item form-group">
+                                    <label for="paymentCompleteCode" class="col-form-label col-md-3 col-sm-3 label-align">결제완료</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="paymentCompleteCode"
+                                               name="paymentCompleteCode"
+                                               th:value="*{paymentCompleteCode}"
+                                               class="form-control"
+                                               readonly="readonly">
+                                    </div>
                                 </div>
-                            </div>
-
-
-                            <div class="item form-group">
-                                <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자아이디</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="userId"
-                                           name="userId"
-                                           th:value="*{userId}"
-                                           class="form-control"
-                                           readonly="readonly">
-                                </div>
-                            </div>
-
-                            <div class="item form-group">
-                                <label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <select id="goodsCode" name="goodsCode" class="form-control" >
-                                        <th:block th:if="${not #lists.isEmpty(goodsList)}"
-                                                  th:each="g : ${goodsList}">
-                                            <option th:value="${g.goodsCode}">[[${g.goodsCode}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(goodsList)}">
-                                            <option>상품코드가 없습니다.</option>
-                                        </th:block>
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="goodsExchangeCount" class="col-form-label col-md-3 col-sm-3 label-align">상품수량</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="goodsExchangeCount" name="goodsExchangeCount"
-                                           placeholder="상품수량 입력해주세요." class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="goodsExchangePrice" class="col-form-label col-md-3 col-sm-3 label-align">교환금액</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="goodsExchangePrice" name="goodsExchangePrice"
-                                           placeholder="교환금액 입력해주세요." class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div class="item form-group">
-                                <label for="goodsExchangeContent" class="col-form-label col-md-3 col-sm-3 label-align">교환요청사유</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="goodsExchangeContent" name="goodsExchangeContent"
-                                           placeholder="교환요청사유 입력해주세요." class="form-control"/>
-                                </div>
-                            </div>
-
-                            <div class="item form-group">
-                                <label for="managerId" class="col-form-label col-md-3 col-sm-3 label-align">담당자아이디가</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <select id="managerId" name="managerId" class="form-control" disabled>
-                                        <th:block th:if="${not #lists.isEmpty(userList)}"
-                                                  th:each="u : ${userList}">
-                                            <option th:value="${u.userId}">[[${u.userId}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(userList)}">
-                                            <option>담당자아이디가 없습니다.</option>
-                                        </th:block>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="exchangeDate" class="col-form-label col-md-3 col-sm-3 label-align">교환승인및반려일자</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="date" id="exchangeDate" name="exchangeDate"
-                                           placeholder="교환승인및반려일자 입력해주세요." class="form-control" disabled/>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="exchangeReject" class="col-form-label col-md-3 col-sm-3 label-align">교환거절사유</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="exchangeReject" name="exchangeReject"
-                                           placeholder="교환거절사유 입력해주세요." class="form-control" disabled/>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label for="exchangeApproval" class="col-form-label col-md-3 col-sm-3 label-align">교환요청승인</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" id="exchangeApproval" name="exchangeApproval"
-                                           placeholder="교환요청승인 입력해주세요." class="form-control" disabled/>
-                                </div>
-                            </div>
 
 
-
-                            <div class="item form-group">
-                                <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
-                                    <button class="btn btn-primary" type="submit" id="submitBtn">등록</button>
-                                    <button class="btn btn-danger" type="reset" id="resetBtn">취소</button>
+                                <div class="item form-group">
+                                    <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자아이디</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="userId"
+                                               name="userId"
+                                               th:value="*{userId}"
+                                               class="form-control"
+                                               readonly="readonly">
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+
+                                <div class="item form-group">
+                                    <label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="goodsCode" name="goodsCode" class="form-control" >
+                                            <th:block th:if="${not #lists.isEmpty(goodsList)}"
+                                                      th:each="g : ${goodsList}">
+                                                <option th:value="${g.goodsCode}">[[${g.goodsCode}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(goodsList)}">
+                                                <option>상품코드가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="goodsExchangeCount" class="col-form-label col-md-3 col-sm-3 label-align">상품수량</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsExchangeCount" name="goodsExchangeCount"
+                                               placeholder="상품수량 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="goodsExchangePrice" class="col-form-label col-md-3 col-sm-3 label-align">교환금액</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsExchangePrice" name="goodsExchangePrice"
+                                               placeholder="교환금액 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="goodsExchangeContent" class="col-form-label col-md-3 col-sm-3 label-align">교환요청사유</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsExchangeContent" name="goodsExchangeContent"
+                                               placeholder="교환요청사유 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="managerId" class="col-form-label col-md-3 col-sm-3 label-align">담당자아이디가</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="managerId" name="managerId" class="form-control" disabled>
+                                            <th:block th:if="${not #lists.isEmpty(userList)}"
+                                                      th:each="u : ${userList}">
+                                                <option th:value="${u.userId}">[[${u.userId}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(userList)}">
+                                                <option>담당자아이디가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="exchangeDate" class="col-form-label col-md-3 col-sm-3 label-align">교환승인및반려일자</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="date" id="exchangeDate" name="exchangeDate"
+                                               placeholder="교환승인및반려일자 입력해주세요." class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="exchangeReject" class="col-form-label col-md-3 col-sm-3 label-align">교환거절사유</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="exchangeReject" name="exchangeReject"
+                                               placeholder="교환거절사유 입력해주세요." class="form-control" disabled/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="exchangeApproval" class="col-form-label col-md-3 col-sm-3 label-align">교환요청승인</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="exchangeApproval" name="exchangeApproval"
+                                               placeholder="교환요청승인 입력해주세요." class="form-control" disabled/>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="item form-group">
+                                    <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+                                        <button class="btn btn-primary" type="submit" id="submitBtn">등록</button>
+                                        <button class="btn btn-danger" type="reset" id="resetBtn">취소</button>
+                                    </div>
+                                </div>
+                            </form>
                         </th:block>
                     </div>
                 </div>

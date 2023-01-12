@@ -59,7 +59,7 @@
 											<td><a th:href="@{/admin/modifyPayment(paymentCompleteCode=${l.paymentCompleteCode})}">수정</a></td>
 											<td><a th:href="@{/admin/cancelPayment(paymentCompleteCode=${l.paymentCompleteCode})}">취소</a></td>
 											<td><a th:href="@{/admin/requestExchange(paymentCompleteCode=${l.paymentCompleteCode})}">교환요청</a></td>
-											<td><a th:href="@{/admin/requestRefund}">환불(링크X)</a></td>
+											<td><a th:href="@{/admin/requestRefund(paymentCompleteCode=${l.paymentCompleteCode})}">환불요청</a></td>
 										</tr>
 										<tr th:if="${#lists.isEmpty(PaymentCompleteList)}">
 											<td colspan="17">등록된 결제완료가 존재하지 않습니다.</td>
