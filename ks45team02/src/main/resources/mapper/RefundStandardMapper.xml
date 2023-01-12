@@ -16,4 +16,10 @@
         FROM
             refund_standard
     </select>
+    <insert id="addRefundStandard" parameterType="RefundStandard">
+        INSERT INTO refund_standard
+        (refund_standard_code, goods_refund_condition, refund_standard)
+        VALUES (sf_new_refund_standard_code(),#{goodsRefundCondition},#{refundStandard})
+
+    </insert>
 </mapper>

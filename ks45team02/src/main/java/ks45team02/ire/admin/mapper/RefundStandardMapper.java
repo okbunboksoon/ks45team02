@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface RefundStandardMapper {
     public List<RefundStandard>listRefundStandard();
+
+    public int addRefundStandard(RefundStandard refundStandard);
 }

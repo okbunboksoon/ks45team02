@@ -21,48 +21,14 @@
 					alert(msg);
 				}
 				
-				$('.deleteBtn').click(function(){
-					let deleteCheck = confirm("정말 삭제하시겠습니까?")
-					let deleteValue = $(this).val();
-					
-					if(!deleteCheck){
-						return false;
-					}else{
-						$.ajax({
-							type: "post",
-							url: '/admin/deleteGoodsBuying',
-							data: {"goods_buying_code": deleteValue},
-							dataType: "json",
-							success:function(data){
-								var result = data.result
-								var goods_buying_code = data.goods_buying_code
-								var redirect = data.redirect	
-								if(result == "성공"){
-									alert(`카테고리 코드 ${goods_buying_code} 삭제했습니다.`)	
-									location.href = redirect
-								}else{
-									alert("삭제에실패했습니다.")
-									location.href = redirect
-								};
-							}
-						});	
-					};
-				});
-					/* $('.updateBtn').click(function(){
-						window.name = "listGoodsBuying";
-						let openWin = window.open('/admin/GoodsBuyingUpdate', '거래처검색'
-												  ,'width=1000, height=600, top=100, left=100 scrollbar = yes');
-					}); */
+
+
 		});
 		</script>	
 	</th:block>
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12 ">
-			<!-- <div class="item form-group">
-			<label for="goodsSearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">거래처 검색</label>
-				<button type="button" class="btn btn-secondary btn-sm" id="GoodsBuyingUpdateBtn">거래처 검색</button>
-			<div class="col-md-6 col-sm-6 ">
-			</div> -->
+
 		</div>
 			<button type="submit" class="btn btn-primary" style="float: right">
 				<a style ="color:white" th:href="@{/admin/addGoodsBuying}">등록</a></button>
@@ -83,9 +49,7 @@
 											<th class="buy_price">매입금액</th>
 											<th class="buy_vat">매입 부가세액</th>
 											<th class="buy_total">매입 합계</th>
-											<th>업데이트</th>
-											<th>편집</th>											
-											<th>삭제</th>
+
 										</tr>
 									</thead>
 									<tbody>
@@ -98,15 +62,7 @@
 											<td th:text="${gbs.factoryGoodsPrice}" />
 											<td th:text="${gbs.buy_price}" />
 											<td th:text="${gbs.buy_vat}" />
-											<td th:text="${gbs.buy_total}" />"  
-											<td><button type="button" class="btn btn-secondary btn-sm updateBtn" 
-														th:value="${gbs.goods_buying_code}">업데이트</button></td>
-											<td><button type="button" class="btn btn-primary btn-sm">
-												<a style ="color:white" th:href="@{/admin/modifyGoodsBuying(goods_buying_code=${gbs.goods_buying_code})}">
-														편집</a></button></td>
-											<td><button type="button" class="btn btn-danger btn-sm deleteBtn" 
-														th:value="${gbs.goods_buying_code}">삭제</button></td>
-										</tr>
+											<td th:text="${gbs.buy_total}" />
 										<tr th:unless="${not #lists.isEmpty(goodsBuyingList)}">
 											<td colspan="4">등록된 카테고리가 없습니다.</td>
 										</tr>

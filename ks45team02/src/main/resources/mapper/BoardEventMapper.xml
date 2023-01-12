@@ -7,7 +7,7 @@
         <id property="eventCode"         column="event_code" />
         <result property="eventTitle"    column="event_title" />
         <result property="eventContents"    column="event_contents" />
-        <result property="eventImage"    column="event_image" />
+        <result property="eventFileIdx"    column="event_file_idx" />
         <result property="eventStartDate"    column="event_start" />
         <result property="eventEndDate"    column="event_finish" />
         <result property="eventRegdate"    column="event_reg_date" />
@@ -22,19 +22,19 @@
         </select>
     <insert id = "addBoardEvent" parameterType="BoardEvent">
         INSERT INTO event
-        (event_code, event_title, event_contents, event_image, event_start, event_finish, event_reg_date)
+        (event_code, event_title, event_contents, event_file_idx, event_start, event_finish, event_reg_date)
         VALUES
-        (sf_new_Event_code(), #{eventTitle}, #{eventContents}, #{eventImage}, #{eventStartDate}, #{eventEndDate}, CURDATE())
+        (sf_new_Event_code(), #{eventTitle}, #{eventContents}, sf_new_eventfile_code(), #{eventStartDate}, #{eventEndDate}, CURDATE())
     </insert>
     <select id = "getBoardEventTitleList" resultType="BoardEvent">
         SELECT
-        e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish
+        e.event_title, e.event_contents, e.event_file_idx, e.event_start, e.event_finish
         FROM
         event AS e
     </select>
     <select id="viewBoardEvent" resultType="String"  resultMap="BoardEventResultMap">
         SELECT
-         e.event_code, e.event_title, e.event_contents, e.event_image, e.event_start, e.event_finish, e.event_reg_date
+         e.event_code, e.event_title, e.event_contents, e.event_file_idx, e.event_start, e.event_finish, e.event_reg_date
         FROM
         event AS e
         WHERE
@@ -50,7 +50,7 @@
                     ,event_contents= #{eventContents}
                  </if>
                  <if test="eventImage != null and eventImage != '' ">
-                    ,event_image= #{eventImage}
+                    ,event_file_idx= #{eventFileIdx}
                  </if>
                 <if test="eventStartDate != null and eventStartDate != '' ">
                     ,event_start= #{eventStartDate}

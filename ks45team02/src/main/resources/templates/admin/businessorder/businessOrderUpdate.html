@@ -95,7 +95,7 @@
 							
 							<th:block th:if="${not #lists.isEmpty(businessOrderList)}" th:each="bo : ${businessOrderList}">
 								<div class="item form-group">
-									<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">발주번호</label>
+									<label for="businessOrderCode" class="col-form-label col-md-3 col-sm-3 label-align">발주번호</label>
 									<div class="col-md-6 col-sm-6 ">
 										<input type="text" id=businessOrderCode name="businessOrderCode" th:value="${bo.businessOrderCode}"  
 								  		       class="form-control" readonly="readonly"/>
@@ -103,15 +103,19 @@
 								</div>
 								
 								<div class="item form-group">
-									<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">거래처명</label>
+									<label for="businessName" class="col-form-label col-md-3 col-sm-3 label-align">거래처명</label>
 									<div class="col-md-6 col-sm-6 ">
-										<input type="text" id=businessName name="businessName" th:value="${bo.business.businessName}"
+										<input type="text" id=businessName name="business.businessName" th:value="${bo.business.businessName}"
+								  		      class="form-control" readonly="readonly"/>
+										<input type="hidden" id=businessName name="business.businessCode" th:value="${bo.business.businessCode}"
+								  		      class="form-control" readonly="readonly"/>
+										<input type="hidden" id=businessName name="goodsCode" th:value="${bo.goodsCode}"
 								  		      class="form-control" readonly="readonly"/>
 									</div>
 								</div>
 								
 								<div class="item form-group">
-									<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">매입단가</label>
+									<label for="factoryGoodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">매입단가</label>
 									<div class="col-md-6 col-sm-6 ">
 										<input type="text" id=factoryGoodsPrice name="factoryGoodsPrice" th:value="${bo.factoryGoodsPrice}"  
 								  		       class="form-control" readonly="readonly"/>
@@ -119,7 +123,7 @@
 								</div>
 								
 								<div class="item form-group">
-									<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">주문수량</label>
+									<label for="goodsOrderAmount" class="col-form-label col-md-3 col-sm-3 label-align">주문수량</label>
 									<div class="col-md-6 col-sm-6 ">
 										<input type="text" id=goodsOrderAmount name="goodsOrderAmount"
 								  		       placeholder="주문수량을 입력해주세요." class="form-control"/>
@@ -127,14 +131,14 @@
 								</div>
 								
 								<div class="item form-group">
-									<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">주문신청일</label>
+									<label for="businessConfirmOrderDate" class="col-form-label col-md-3 col-sm-3 label-align">주문신청일</label>
 									<div class="col-md-6 col-sm-6 ">
 										<input type="date" id=businessConfirmOrderDate name="businessConfirmOrderDate" class="form-control"/>
 									</div>
 								</div>
 								
 								<div class="item form-group">
-									<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align">예정도착일</label>
+									<label for="expectDate" class="col-form-label col-md-3 col-sm-3 label-align">예정도착일</label>
 									<div class="col-md-6 col-sm-6 ">
 										<input type="date" id=expectDate name="expectDate" class="form-control"/>
 									</div>

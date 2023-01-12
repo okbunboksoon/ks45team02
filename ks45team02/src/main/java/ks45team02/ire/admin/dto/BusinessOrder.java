@@ -18,6 +18,16 @@ public class BusinessOrder {
 	
 	private Business business;
 
+	private GoodsBuying goodsBuying;
+	
+	public GoodsBuying getGoodsBuying() {
+		return goodsBuying;
+	}
+
+	public void setGoodsBuying(GoodsBuying goodsBuying) {
+		this.goodsBuying = goodsBuying;
+	}
+
 	public String getBusinessOrderCode() {
 		return businessOrderCode;
 	}
@@ -161,8 +171,10 @@ public class BusinessOrder {
 		builder.append(expectDate);
 		builder.append(", business=");
 		builder.append(business);
+		builder.append(", goodsBuying=");
+		builder.append(goodsBuying);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

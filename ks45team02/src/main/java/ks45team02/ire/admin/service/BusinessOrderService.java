@@ -18,14 +18,15 @@ public class BusinessOrderService {
 	private BusinessOrderMapper businessOrderMapper;
 	private final GoodsMapper goodsMapper;
 	private final BusinessMapper businessMapper;
+	private final Sales_BuyingService sales_BuyingService;
 	
 	public BusinessOrderService(BusinessOrderMapper businessOrderMapper, GoodsMapper goodsMapper
-							   ,BusinessMapper businessMapper) {
+							   ,BusinessMapper businessMapper, Sales_BuyingService sales_BuyingService) {
 		
 		this.businessOrderMapper = businessOrderMapper;
 		this.goodsMapper = goodsMapper;
 		this.businessMapper = businessMapper;
-		
+		this.sales_BuyingService = sales_BuyingService;
 	}
 	
 	/**
@@ -83,6 +84,7 @@ public class BusinessOrderService {
 			switch(searchKey) {
 			case "businessCode"
 			: searchKey = "business_code";
+			
 			break; 
 			case "businessName"
 			: searchKey = "business_name";
@@ -143,6 +145,8 @@ public class BusinessOrderService {
 		int result = 0;
 		result = businessOrderMapper.modifyBusinessOrder(businessOrder);
 		
+		  if(result == 1) { sales_BuyingService.addGoodsBuying(businessOrder); }
+		 
 		return result;
 	}
 }

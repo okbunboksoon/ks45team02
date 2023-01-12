@@ -4,6 +4,8 @@ import ks45team02.ire.admin.dto.*;
 import ks45team02.ire.admin.mapper.*;
 import ks45team02.ire.admin.service.ExchangeStandardService;
 import ks45team02.ire.admin.service.GoodsExchangeService;
+import ks45team02.ire.admin.service.GoodsRefundService;
+import ks45team02.ire.admin.service.RefundStandardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,10 @@ import java.util.List;
 public class Exchange_RefundController {
 	private static final Logger log= LoggerFactory.getLogger(UserController.class);
 	private final ExchangeStandardMapper exchangeStandardMapper;
+	private final GoodsRefundService goodsRefundService;
 	private final RefundStandardMapper refundStandardMapper;
+	private final GoodsRefundMapper goodsRefundMapper;
+	private final RefundStandardService refundStandardService;
 	private final ExchangeStandardService exchangeStandardService;
 	private final GoodsExchangeService goodsExchangeService;
 	private final GoodsMapper goodsMapper;
@@ -28,9 +33,12 @@ public class Exchange_RefundController {
 	private final PaymentCompleteMapper paymentCompleteMapper;
 	private final GoodsExchangeMapper goodsExchangeMapper;
 
-	public Exchange_RefundController(ExchangeStandardMapper exchangeStandardMapper, RefundStandardMapper refundStandardMapper, ExchangeStandardService exchangeStandardService, GoodsExchangeService goodsExchangeService, GoodsMapper goodsMapper, UserMapper userMapper, PaymentCompleteMapper paymentCompleteMapper, GoodsExchangeMapper goodsExchangeMapper) {
+	public Exchange_RefundController(ExchangeStandardMapper exchangeStandardMapper, GoodsRefundService goodsRefundService, RefundStandardMapper refundStandardMapper, GoodsRefundMapper goodsRefundMapper, RefundStandardService refundStandardService, ExchangeStandardService exchangeStandardService, GoodsExchangeService goodsExchangeService, GoodsMapper goodsMapper, UserMapper userMapper, PaymentCompleteMapper paymentCompleteMapper, GoodsExchangeMapper goodsExchangeMapper) {
 		this.exchangeStandardMapper = exchangeStandardMapper;
+		this.goodsRefundService = goodsRefundService;
 		this.refundStandardMapper = refundStandardMapper;
+		this.goodsRefundMapper = goodsRefundMapper;
+		this.refundStandardService = refundStandardService;
 		this.exchangeStandardService = exchangeStandardService;
 		this.goodsExchangeService = goodsExchangeService;
 		this.goodsMapper = goodsMapper;
@@ -53,6 +61,8 @@ public class Exchange_RefundController {
 	public String approvalRefund(Model model) {
 		model.addAttribute("title","approvalRefund");
 		model.addAttribute("pageTitle","환불 승인");
+		List<GoodsRefund>goodsRefundList=goodsRefundMapper.listGoodsRefund();
+		model.addAttribute("goodsRefundList",goodsRefundList);
 		return "admin/exchange_refund/refundApproval";
 	}
 
@@ -94,7 +104,6 @@ public class Exchange_RefundController {
 	@PostMapping("/modifyExchange")
 	public String modifyExchange(GoodsExchange goodsExchange){
 		goodsExchangeService.modifyGoodsExchange(goodsExchange);
-		log.info(":{goodsExchange}",goodsExchange);
 		return "redirect:/admin/approvalExchange";
 	}
 	@GetMapping("/requestExchange")
@@ -119,9 +128,15 @@ public class Exchange_RefundController {
 	}
 
 	@GetMapping("/addRefundStandard")
-	public String addRefundStandard() {
-		
+	public String addRefundStandard(Model model) {
+		model.addAttribute("title","addRefundStandard");
+		model.addAttribute("pageTitle","환불기준등록");
 		return "admin/exchange_refund/refundAddStandard";
+	}
+	@PostMapping("/addRefundStandard")
+	public String addRefundStandard(RefundStandard refundStandard){
+		refundStandardService.addRefundStandard(refundStandard);
+		return "redirect:/admin/listRefundStandard";
 	}
 	@GetMapping("/listRefundStandard")
 	public String listRefundStandard(Model model) {
@@ -129,18 +144,46 @@ public class Exchange_RefundController {
 		model.addAttribute("pageTitle","환불기준 조회");
 		List<RefundStandard>refundStandardList=refundStandardMapper.listRefundStandard();
 		model.addAttribute("refundStandardList",refundStandardList);
+
 		return "admin/exchange_refund/refundListStandard";
 	}
 		
 	@GetMapping("/modifyRefund")
-	public String modifyRefund() {
-		
+	public String modifyRefund(Model model,
+							   @RequestParam(value = "goodsRefundCode",required = false)String goodsRefundCode) {
+		GoodsRefund getGoodsRefund=goodsRefundMapper.getGoodsRefund(goodsRefundCode);
+		model.addAttribute("title","modifyRefund");
+		model.addAttribute("pageTitle","환불 수정");
+		model.addAttribute("getGoodsRefund",getGoodsRefund);
+		List<User>userList=userMapper.listUser();
+		model.addAttribute("userList",userList);
 		return "admin/exchange_refund/refundModify";
 	}
+	@PostMapping("/modifyRefund")
+	public String modifyRefund(GoodsRefund goodsRefund){
+		goodsRefundService.modifyRefund(goodsRefund);
+		return "redirect:/admin/approvalRefund";
+	}
 	@GetMapping("/requestRefund")
-	public String requestRefund() {
-		
+	public String requestRefund(Model model,
+								@RequestParam(value = "paymentCompleteCode",required = false)String paymentCompleteCode) {
+		model.addAttribute("title","requestRefund");
+		model.addAttribute("pageTitle","환불 요청");
+		PaymentComplete paymentComplete=paymentCompleteMapper.getPaymentCompleteInfo(paymentCompleteCode);
+		model.addAttribute("paymentComplete",paymentComplete);
+		List<User>userList=userMapper.listUser();
+		model.addAttribute("userList",userList);
+		List<Goods>goodsList=goodsMapper.getListGoods();
+		model.addAttribute("goodsList",goodsList);
+		List<RefundStandard>refundStandardList=refundStandardMapper.listRefundStandard();
+		model.addAttribute("refundStandardList",refundStandardList);
+		log.info("refundStandardList:{}",refundStandardList);
 		return "admin/exchange_refund/refundRequest";
+	}
+	@PostMapping("/requestRefund")
+	public String requestRefund(GoodsRefund goodsRefund){
+		goodsRefundService.addGoodsRefund(goodsRefund);
+		return "redirect:/admin/approvalRefund";
 	}
 }
 

@@ -20,4 +20,5 @@ public interface Sales_BuyingMapper {
 	 */
 	public int addGoodsBuying(GoodsBuying goodsBuying);
 	
+
 }

@@ -48,7 +48,7 @@ public class PaymentController {
 	@GetMapping("/cancelPayment")
 	public String cancelPayment(Model model) {
 		
-		return "admin/payment/paymentCancel";
+		return "admin/paymentComplete/paymentCancel";
 	}
 	
 	//결제내역 등록 처리
