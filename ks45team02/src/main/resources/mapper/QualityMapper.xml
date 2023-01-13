@@ -107,4 +107,34 @@
 		WHERE
 		hazadous_quality_level = #{hazadousQualityLevel}
 	</update>
+	<select id="deleteQualityGeneralLevelInfo" resultMap="qualityResultMap">
+		SELECT
+			gql.general_quality_level, gql.durability_test, gql.functional_test, gql.dyeability_test
+		FROM
+			general_quality_level AS gql
+		WHERE
+			gql.general_quality_level = #{generalQualityLevel}
+	</select>
+	<delete id="deleteQualityGeneralLevel" parameterType="String">
+		DELETE
+		FROM
+			general_quality_level AS gql
+		WHERE
+			gql.general_quality_level = #{generalQualityLevel}
+	</delete>
+	<select id="deleteQualityHazadousSubstanceLevelInfo" resultMap="qualityResultMap">
+		SELECT
+			hsl.hazadous_quality_level, hsl.formaldehyde_test, hsl.phenol_chloride_test, hsl.harmful_elements_test
+		FROM
+			hazadous_substance_level AS hsl
+		WHERE
+			hsl.hazadous_quality_level = #{hazadousQualityLevel}
+	</select>
+	<delete id="deleteQualityHazadousSubstanceLevel" parameterType="String">
+		DELETE
+		FROM
+			hazadous_substance_level AS hsl
+		WHERE
+			hsl.hazadous_quality_level =#{hazadousQualityLevel}
+	</delete>
 </mapper>

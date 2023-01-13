@@ -43,4 +43,24 @@ public class QualityService {
         int result = qualityMapper.modifyQualityHazadousSubstanceLevel(quality);
         return result;
     }
+
+    public Quality deleteQualityGeneralLevelInfo(String generalQualityLevel) {
+        Quality deleteQualityGeneralLevelInfo = qualityMapper.deleteQualityGeneralLevelInfo(generalQualityLevel);
+        return deleteQualityGeneralLevelInfo;
+    }
+
+    public int deleteQualityGeneralLevel(Quality quality) {
+        int result = qualityMapper.deleteQualityGeneralLevel(quality);
+        return result;
+    }
+
+    public Quality deleteQualityHazadousSubstanceLevelInfo(String hazadousQualityLevel) {
+        Quality deleteQualityHazadousSubstanceLevelInfo = qualityMapper.deleteQualityHazadousSubstanceLevelInfo(hazadousQualityLevel);
+        return deleteQualityHazadousSubstanceLevelInfo;
+    }
+
+    public int deleteQualityHazadousSubstanceLevel(Quality quality) {
+        int result = qualityMapper.deleteQualityHazadousSubstanceLevel(quality);
+        return result;
+    }
 }

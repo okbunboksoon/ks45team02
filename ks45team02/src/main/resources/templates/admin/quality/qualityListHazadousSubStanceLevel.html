@@ -29,6 +29,7 @@
                                     <th class="phenolChlorideTest">염소화페놀류</th>
                                     <th class="haramfulElementsTest">유해원소</th>
                                     <th>수정</th>
+                                    <th>삭제</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +40,9 @@
                                     <td th:text="${l.haramfulElementsTest}"></td>
                                     <td>
                                         <a th:href="@{/admin/modifyQualityHazadousSubstanceLevel(hazadousQualityLevel=${l.hazadousQualityLevel})}">수정</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/admin/deleteQualityHazadousSubstanceLevel(hazadousQualityLevel=${l.hazadousQualityLevel})}">삭제</a>
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(qualityHazadousSubstanceLevelList)}">
