@@ -74,5 +74,16 @@
 	WHERE
 		guide_code = #{guide_code}
 	</delete>
+	
+	<!-- 조회수 올리기 -->
+	<update id="updateViewsCnt">
+		UPDATE 
+			user_guide 
+		SET 
+			guide_views = guide_views + 1 
+		WHERE 
+			guide_code = #{guide_code}
+		
+	</update>
 
 </mapper>

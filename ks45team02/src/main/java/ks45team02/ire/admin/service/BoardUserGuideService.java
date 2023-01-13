@@ -85,6 +85,13 @@ public class BoardUserGuideService {
 		return result;
 	}
 	
+	/**
+	 * 이용가이드 조회수 올리기
+	 */
+	public int updateViewsCnt(String guide_code) throws Exception{
+		
+		return boardUserGuideMapper.updateViewsCnt(guide_code);
+	}
 	
 	
 	

@@ -33,4 +33,10 @@ public interface BoardUserGuideMapper {
 	 * 이용가이드 삭제처리
 	 */
 	public int deleteBoardUserGuide (String guide_code);
+	
+	/**
+	 * 이용가이드 조회수 올리기
+	 */
+	 public int updateViewsCnt(String guide_code);
+	 
 }

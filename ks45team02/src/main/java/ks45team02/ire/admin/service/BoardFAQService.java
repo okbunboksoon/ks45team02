@@ -75,4 +75,11 @@ public class BoardFAQService {
 		return boardFAQMapper.deleteBoardFAQ(FAQ_code);
 	}
 	
+	/**
+	 * 이용가이드 조회수 올리기
+	 */
+	public int updateFAQViewsCnt(String FAQ_code) throws Exception{
+		return boardFAQMapper.updateFAQViewsCnt(FAQ_code);
+	}
+	
 }
