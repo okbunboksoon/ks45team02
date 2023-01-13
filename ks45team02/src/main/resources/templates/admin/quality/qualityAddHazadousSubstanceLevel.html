@@ -50,33 +50,32 @@
                         <h5 class="styleTitle">유해물질검사기준</h5>
                         <form id="qualityHazadousSubstanceLevelList" th:action="@{/admin/addQualityHazadousSubstanceLevel}" method="post">
                             <div class="item form-group">
-                                <label for="qualityHazadousSubstanceLevelList" class="col-form-label col-md-3 col-sm-3 label-align">내구성</label>
+                                <label for="qualityHazadousSubstanceLevelList" class="col-form-label col-md-3 col-sm-3 label-align">유해물질검사기준</label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select id="hazadousQualityLevel" name="hazadousQualityLevel" class="form-control">
-                                        <th:block th:if="${not #lists.isEmpty(qualityHazadousSubstanceLevelList)}"
-                                                  th:each="l : ${qualityHazadousSubstanceLevelList}">
-                                            <option th:value="${l.hazadousQualityLevel}">[[${l.hazadousQualityLevel}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(qualityHazadousSubstanceLevelList)}">
-                                            <option>등록된 유해물질시험검사기준이 없습니다.</option>
-                                        </th:block>
-                                    </select>
+                                        <input type="text" id="hazadousQualityLevel" name="hazadousQualityLevel"
+                                               placeholder="유해물질검사기준을 등록해주세요." class="form-control"/>
                                 </div>
                             </div>
-                            <div class ="mb-3">
-                                <label class ="form-label">폼알데하이드</label>
-                                <textarea type ="float" id = "formaldehydeTest" name = "formaldehydeTest"
-                                          placeholder = "수치를 입력해주세요(mg/kg)" style = "width: 500px; height: 350px;"> </textarea>
+                            <div class ="item form-group">
+                                <label for="formaldehydeTest" class="col-form-label col-md-3 col-sm-3 label-align">폼알데하이드</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type ="float" id = "formaldehydeTest" name = "formaldehydeTest"
+                                           placeholder = "수치를 입력해주세요(mg/kg)" class="form-control" />
+                                </div>
                             </div>
-                            <div class ="mb-3">
-                                <label class ="form-label">염소화페놀류</label>
-                                <textarea type ="float" id = "phenolChlorideTest" name = "phenolChlorideTest"
-                                          placeholder = "수치를 입력해주세요(mg/kg)" style = "width: 500px; height: 350px;"> </textarea>
+                            <div class ="item form-group">
+                                <label for="phenolChlorideTest" class="col-form-label col-md-3 col-sm-3 label-align">염소화페놀류</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type ="float" id = "phenolChlorideTest" name = "phenolChlorideTest"
+                                           placeholder = "수치를 입력해주세요(mg/kg)" class="form-control" />
+                                </div>
                             </div>
-                            <div class ="mb-3">
-                                <label class ="form-label">유해원소</label>
-                                <textarea type ="float" id = "haramfulElementsTest" name = "haramfulElementsTest"
-                                          placeholder = "수치를 입력해주세요(mg/kg)" style = "width: 500px; height: 350px;"> </textarea>
+                            <div class ="item form-group">
+                                <label for="haramfulElementsTest" class="col-form-label col-md-3 col-sm-3 label-align">유해원소</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type ="float" id = "haramfulElementsTest" name = "haramfulElementsTest"
+                                           placeholder = "수치를 입력해주세요(mg/kg)" class="form-control" />
+                                </div>
                             </div>
                             <div class="item form-group">
                                 <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
