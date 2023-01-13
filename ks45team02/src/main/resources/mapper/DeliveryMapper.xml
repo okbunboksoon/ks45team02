@@ -37,4 +37,22 @@
         payment_complete_code
         FROM delivery
     </select>
+    
+    <!-- 운송장 번호 생성 -->
+    <select id="addDeliveryNum" resultType="String">
+    SELECT 
+	CONCAT(lpad(floor(rand()*1000), 4, '0'),'-',
+		   lpad(floor(rand()*1000), 4, '0'), '-',
+		   lpad(floor(rand()*1000), 4, '0')) AS delivery_num
+    </select>
+    
+    <!-- 배송 추가 -->
+    <insert id="addDelivery" parameterType="Delivery">
+    	INSERT INTO delivery
+			(delivery_code, del_info_code, user_id, delivery_num,
+			 business_code, delivery_state, payment_complete_code)
+		VALUES
+			(sf_new_delivery_code(), #{delInfoCode}, #{userId},
+			 #{deliveryNum}, #{businessCode}, '배송전', 'payment_complete_007')
+    </insert>
 </mapper>

@@ -30,4 +30,18 @@
 		FROM
 			delivery_info AS di
 	</select>
+	
+	<!-- 배송지 추가 -->
+	<insert id="addDeliveryInfo" parameterType="DeliveryInfo" useGeneratedKeys="true">
+	INSERT INTO delivery_info
+		(del_info_code, buynow_basket_total_code, 
+		 buynow_basket_category, user_id, delivery_postnum_addr, 
+		 delivery_addr, delivery_detail_addr, recipient_name, recipient_phone)
+	VALUES 
+		(sf_new_deliveryinfo_code(), 'basket_group_001', '장바구니', #{userId}, ${deliveryPostnumAddr}
+		 ,#{deliveryAddr}, #{deliveryDetailAddr}, #{recipientName}, #{recipientPhone})
+		<selectKey resultType="String" keyProperty="delInfoCode" keyColumn="del_info_code" order="AFTER">
+	        SELECT del_info_code FROM delivery_info ORDER BY del_info_code DESC LIMIT 0, 1;
+	    </selectKey> 
+	</insert>
 </mapper>
