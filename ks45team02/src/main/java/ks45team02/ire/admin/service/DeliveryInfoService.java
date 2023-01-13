@@ -43,7 +43,7 @@ public class DeliveryInfoService {
 	}
 	
 	/**
-	 * 배송지 추가
+	 * 배송정보 추가
 	 * @param deliveryInfo
 	 * @return result
 	 */
@@ -64,6 +64,29 @@ public class DeliveryInfoService {
 		if(result == 1) {
 			log.info("deliveryInfo insert 후 :{}", deliveryInfo);
 		}
+		return result;
+	}
+	/**
+	 * 배송정보코드로 특정 배송정보 조회
+	 * @param delInfoCode
+	 * @return deliveryInfo
+	 */
+	public List<DeliveryInfo> getDeliveryInfoByCode(String delInfoCode){
+		
+		List<DeliveryInfo> deliveryInfo = deliveryInfoMapper.getDeliveryInfoByCode(delInfoCode);
+		
+		return deliveryInfo;
+	}
+	
+	/**
+	 * 배송정보 수정
+	 * @param deliveryInfo
+	 * @return result
+	 */
+	public int modifyDeliveryInfo(DeliveryInfo deliveryInfo) {
+		
+		int result = deliveryInfoMapper.modifyDeliveryInfo(deliveryInfo);
+		
 		return result;
 	}
 }

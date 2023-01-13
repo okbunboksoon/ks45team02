@@ -55,4 +55,26 @@
 			(sf_new_delivery_code(), #{delInfoCode}, #{userId},
 			 #{deliveryNum}, #{businessCode}, '배송전', 'payment_complete_007')
     </insert>
+    
+    <!-- 배송코드로 배송상태 확인-->
+    <select id="getDeliveryStateByCode" parameterType="String" resultType="String">
+	    SELECT
+			d.delivery_state
+		FROM
+			delivery AS d
+		WHERE
+			d.delivery_code = #{deliveryCode}
+    </select>
+    
+    <!-- 배송상태 업데이트 -->
+    <update id="updateDeliveryState" parameterType="String">
+	    UPDATE delivery
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="deliveryState != null and deliveryState != '' ">
+			,delivery_state= #{deliveryState}
+			</if>
+		</trim>
+			WHERE 
+				delivery_code= #{deliveryCode}
+    </update>
 </mapper>
