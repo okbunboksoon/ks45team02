@@ -133,12 +133,18 @@
 		<script type="text/javascript" th:inline="javascript">
 			const $cancelBtn = document.getElementById('cancelBtn');
 			const $paymentCancelBtn = document.getElementById('paymentCancelBtn');
+			const $productOrderState = document.getElementById('productOrderState');
 			
 			$cancelBtn.addEventListener('click', function(){
 				location.href = '/admin/listPayment';
 			});
 			
 			$paymentCancelBtn.addEventListener('click', function(){
+				
+				if($productOrderState.value == '결제취소'){
+					alert('이미 결제 취소 처리되었습니다.');
+					return false;
+				}
 				
 				if(confirm('정말 결제를 취소하시겠습니까?')){
 					$paymentCancelBtn.setAttribute("type", "submit");
