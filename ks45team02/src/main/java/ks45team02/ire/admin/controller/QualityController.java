@@ -64,14 +64,38 @@ public class QualityController {
 
 	}
 	@GetMapping("/deleteQualityGeneralLevel")
-	public String deleteQualityGeneralLevel() {
+	public String deleteQualityGeneralLevel(@RequestParam(value = "generalQualityLevel", required = false )String generalQualityLevel, Model model) {
+
+		log.info("일반품질검사기준: {}", generalQualityLevel);
+		Quality deleteQualityGeneralLevelInfo = qualityService.deleteQualityGeneralLevelInfo(generalQualityLevel);
+		log.info("일반품질검사 기준 삭제: {}", deleteQualityGeneralLevelInfo);
+		model.addAttribute("deleteQualityGeneralLevelInfo", deleteQualityGeneralLevelInfo);
 		
 		return "admin/quality/qualityDeleteGeneralLevel";
 	}
+	@PostMapping("/deleteQualityGeneralLevel")
+	public String deleteQualityGeneralLevel(Quality quality){
+
+		log.info("삭제할 일반품질검사기준: {}", quality);
+		qualityService.deleteQualityGeneralLevel(quality);
+
+		return "redirect:/admin/listQualityGeneralLevel";
+	}
 	@GetMapping("/deleteQualityHazadousSubstanceLevel")
-	public String deleteQualityHazadousSubstanceLevel() {
-		
+	public String deleteQualityHazadousSubstanceLevel(@RequestParam(value = "hazadousQualityLevel", required = false)
+														  String hazadousQualityLevel, Model model) {
+		log.info("유해물질검사기준:{}", hazadousQualityLevel);
+		Quality deleteQualityHazadousSubstanceLevelInfo = qualityService.deleteQualityHazadousSubstanceLevelInfo(hazadousQualityLevel);
+		log.info("유해물질검사기준 삭제 : {}", deleteQualityHazadousSubstanceLevelInfo);
+		model.addAttribute("deleteQualityHazadousSubstanceLevelInfo", deleteQualityHazadousSubstanceLevelInfo);
 		return "admin/quality/qualityDeleteHazadousSubstanceLevel";
+	}
+	@PostMapping("/deleteQualityHazadousSubstanceLevel")
+	public String deleteQualityHazadousSubstanceLevel(Quality quality){
+		log.info("삭제할 유해물질시험검사기준 : {}", quality);
+		qualityService.deleteQualityHazadousSubstanceLevel(quality);
+
+		return "redirect:/admin/listQualityHazadousSubstanceLevel";
 	}
 	@GetMapping("/listQualityGeneralLevel")
 	public String listQualityGeneralLevel(Model model) {
