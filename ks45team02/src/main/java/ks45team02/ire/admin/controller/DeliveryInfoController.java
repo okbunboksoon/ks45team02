@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.DeliveryInfo;
 import ks45team02.ire.admin.service.DeliveryInfoService;
@@ -17,10 +19,8 @@ import ks45team02.ire.admin.service.DeliveryInfoService;
 @RequestMapping("/admin")
 public class DeliveryInfoController {
 	
-	
 	private static final Logger log = LoggerFactory.getLogger(DeliveryInfoController.class);
 
-	
 	private final DeliveryInfoService deliveryInfoService;
 	
 	public DeliveryInfoController(DeliveryInfoService deliveryInfoService) {
@@ -31,7 +31,7 @@ public class DeliveryInfoController {
 	/**
 	 * 배송정보 전체 조회
 	 * @param model, msg
-	 * @return
+	 * @return listDeliveryInfo
 	 */
 	@GetMapping("/listDeliveryInfo")
 	public String listDeliveryInfo(Model model,
@@ -50,20 +50,32 @@ public class DeliveryInfoController {
 		return "admin/deliveryInfo/deliveryInfoList";
 	}
 	
-	@GetMapping("/deleteDeliveryInfo")
-	public String deleteDeliveryInfo() {
-		
-		return "admin/deliveryInfo/deliveryInfoDelete";
-	}
-	
-
+	/**
+	 * 배송 정보 등록 화면
+	 * @param model
+	 */
 	@GetMapping("/addDeliveryInfo")
-	public String addDeliveryInfo() {
+	public String addDeliveryInfo(Model model) {
+		
+		model.addAttribute("title", "배송정보 등록");
+		model.addAttribute("pageTitle", "배송정보 등록");
 		
 		return "admin/deliveryInfo/deliveryInfoAdd";
 	}
 	
-	
+	@PostMapping("/addDeliveryInfo")
+	public String addDeliveryInfo(DeliveryInfo deliveryInfo
+								 ,RedirectAttributes reAttr) {
+		
+		log.info("deliveryInfo :{}", deliveryInfo);
+		
+		int result = deliveryInfoService.addDeliveryInfo(deliveryInfo);
+		
+		log.info("등록 후 컨트롤러 반환 :{}", result);
+		
+		
+		return "redirect:/admin/listDeliveryInfo";
+	}
 	@GetMapping("/modifyDeliveryInfo")
 	public String modifyDeliveryInfo() {
 		

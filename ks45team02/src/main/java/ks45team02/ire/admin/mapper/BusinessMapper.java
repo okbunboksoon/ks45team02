@@ -20,5 +20,6 @@ public interface BusinessMapper {
     //특정 거래처 조회
     public Business getInfoByBusiness(String businessCode);
 
-
+    // 거래처 선택
+    public String randemSectors();
 }

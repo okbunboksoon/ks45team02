@@ -13,4 +13,10 @@ public interface DeliveryMapper {
 	
 	// 배송 전체 조회
     public List<Delivery> listDelivery();
+    
+    // 운송장 번호 생성
+    public String addDeliveryNum();
+    
+    // 배송 추가
+    public int addDelivery(Delivery delivery);
 }
