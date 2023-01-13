@@ -50,7 +50,7 @@
                         <h5 class="styleTitle">일반품질검사 기준 추가</h5>
                         <form id="addQualityGeneralLevel" th:action="@{/admin/addQualityGeneralLevel}" method="post">
                             <div class="item form-group">
-                                <label for="generalQualityLevel" class="col-form-label col-md-3 col-sm-3 label-align">계약내용</label>
+                                <label for="generalQualityLevel" class="col-form-label col-md-3 col-sm-3 label-align">일반품질검사기준</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" id="generalQualityLevel" name="generalQualityLevel"
                                            placeholder="일반품질검사기준을 등록해주세요." class="form-control"/>
@@ -60,13 +60,10 @@
                                 <label for="durabilityTest" class="col-form-label col-md-3 col-sm-3 label-align">내구성</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select id="durabilityTest" name="durabilityTest" class="form-control">
-                                        <th:block th:if="${not #lists.isEmpty(qualityGeneralList)}"
-                                                  th:each="l : ${qualityGeneralList}">
-                                            <option th:value="${l.durabilityTest}">[[${l.durabilityTest}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(qualityGeneralList)}">
-                                            <option>등록된 내구성이 없습니다.</option>
-                                        </th:block>
+                                        <option value="1급">1급</option>
+                                        <option value="2급">2급</option>
+                                        <option value="3급">3급</option>
+                                        <option value="4급">4급</option>
                                     </select>
                                 </div>
                             </div>
@@ -74,13 +71,10 @@
                                 <label for="functionalTest" class="col-form-label col-md-3 col-sm-3 label-align">기능성</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select id="functionalTest" name="functionalTest" class="form-control">
-                                        <th:block th:if="${not #lists.isEmpty(qualityGeneralList)}"
-                                                  th:each="l : ${qualityGeneralList}">
-                                            <option th:value="${l.functionalTest}">[[${l.functionalTest}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(qualityGeneralList)}">
-                                            <option>등록된 기능성이 없습니다.</option>
-                                        </th:block>
+                                        <option value="1급">1급</option>
+                                        <option value="2급">2급</option>
+                                        <option value="3급">3급</option>
+                                        <option value="4급">4급</option>
                                     </select>
                                 </div>
                             </div>
@@ -88,13 +82,11 @@
                                 <label for="dyeabilityTest" class="col-form-label col-md-3 col-sm-3 label-align">염색성</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select id="dyeabilityTest" name="dyeabilityTest" class="form-control">
-                                        <th:block th:if="${not #lists.isEmpty(qualityGeneralList)}"
-                                                  th:each="l : ${qualityGeneralList}">
-                                            <option th:value="${l.dyeabilityTest}">[[${l.dyeabilityTest}]]</option>
-                                        </th:block>
-                                        <th:block th:unless="${not #lists.isEmpty(qualityGeneralList)}">
-                                            <option>등록된 염색성이 없습니다.</option>
-                                        </th:block>
+                                        <option value="1급">1급</option>
+                                        <option value="2급">2급</option>
+                                        <option value="3급">3급</option>
+                                        <option value="4급">4급</option>
+                                    </select>
                                     </select>
                                 </div>
                             </div>
