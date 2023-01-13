@@ -54,9 +54,12 @@ public class BoardUserGuideController {
 	 * 상세페이지 만들기
 	 * @param guide_code model
 	 * @return admin/board/boardContentsUserGuide
+	 * @throws Exception 
 	 */
 	@GetMapping("/ContentsUserGuide")
-	public String ContentsUserGuide (@RequestParam(value = "guide_code") String guide_code, Model model) {
+	public String ContentsUserGuide (@RequestParam(value = "guide_code") String guide_code, Model model) throws Exception {
+		
+		boardUserGuideService.updateViewsCnt(guide_code);
 		
 		List<BoardUserGuide> contentsUserGuide = boardUserGuideService.ContentsUserGuide(guide_code);
 		model.addAttribute("title", "이용가이드 상세페이지");
@@ -157,17 +160,14 @@ public class BoardUserGuideController {
 		int result = boardUserGuideService.deleteBoardUserGuide(guide_code);
 		log.info("result: {}", result);
 		
-		if(result == 0) {
-			reAttr.addAttribute("msg", "이용가이드 삭제에 실패하였습니다.");
-			return "redirect:/admin/addBoardUserGuide";
-		}else {
-			reAttr.addAttribute("msg", "이용가이드 삭제에 성공하였습니다.");
-		}
+
+		reAttr.addAttribute("msg", "이용가이드 삭제에 성공하였습니다.");
+		
 		
 		return "redirect:/admin/listBoardUserGuide";
 	}
 	
-	
+
 
 }
 

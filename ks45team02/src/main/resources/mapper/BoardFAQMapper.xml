@@ -84,4 +84,13 @@
      	FAQ_code = #{FAQ_code}
     </delete>
     
+    <!-- 조회수 올리기 -->
+    <update id="updateFAQViewsCnt">
+    	UPDATE
+    		faq
+    	SET
+    		FAQ_views = FAQ_views + 1
+    	WHERE
+    		 FAQ_code= #{FAQ_code}
+    </update>
 </mapper>

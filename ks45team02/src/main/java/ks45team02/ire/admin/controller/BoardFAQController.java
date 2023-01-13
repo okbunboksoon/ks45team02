@@ -85,9 +85,11 @@ public class BoardFAQController {
 	 *
 	 */
 	@GetMapping("/contentsFAQ")
-	public String contentsFAQ(@RequestParam(value = "FAQ_code") String FAQ_code, Model model) {
+	public String contentsFAQ(@RequestParam(value = "FAQ_code") String FAQ_code, Model model) throws Exception{
 		
 		log.info("FAQ_code : {}" , FAQ_code);
+		
+		boardFAQService.updateFAQViewsCnt(FAQ_code);
 		List<BoardFAQ> contentsFAQ = boardFAQService.contentsFAQ(FAQ_code);
 		model.addAttribute("title", "FAQ 상세페이지");
 		model.addAttribute("contentsFAQ", contentsFAQ);
