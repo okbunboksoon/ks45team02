@@ -44,4 +44,55 @@
 	        SELECT del_info_code FROM delivery_info ORDER BY del_info_code DESC LIMIT 0, 1;
 	    </selectKey> 
 	</insert>
+	
+	<!-- 배송정보코드 특정 배송정보 조회 -->
+	<select id="getDeliveryInfoByCode" parameterType="String" resultMap="DeliveryInfoResultMap">
+		SELECT
+			di.del_info_code
+			,di.buynow_basket_total_code
+			,di.buynow_basket_category
+			,di.user_id
+			,di.delivery_postnum_addr
+			,di.delivery_addr
+			,di.delivery_detail_addr
+			,di.recipient_name
+			,di.recipient_phone	
+		FROM
+			delivery_info AS di
+		WHERE
+			di.del_info_code = #{delInfoCode}
+	</select>	
+	
+	<!-- 배송정보 수정-->	
+	<update id="modifyDeliveryInfo" parameterType="DeliveryInfo">
+		UPDATE delivery_info
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="buynowBasketTotalCode != null and buynowBasketTotalCode != '' ">
+				,buynow_basket_total_code= #{buynowBasketTotalCode}
+			</if>
+			<if test="buynowBasketCategory != null and buynowBasketCategory != '' ">
+				,buynow_basket_category= #{buynowBasketCategory}
+			</if>
+			<if test="userId != null and userId != '' ">
+				,user_id= #{userId}
+			</if>
+			<if test="deliveryPostnumAddr != null and deliveryPostnumAddr != '' ">
+				,delivery_postnum_addr= ${deliveryPostnumAddr}
+			</if>
+			<if test="deliveryAddr != null and deliveryAddr != '' ">
+				,delivery_addr= #{deliveryAddr}
+			</if>
+			<if test="deliveryDetailAddr != null and deliveryDetailAddr != '' ">
+				,delivery_detail_addr= #{deliveryDetailAddr}
+			</if>
+			<if test="recipientName != null and recipientName != '' ">
+				,recipient_name= #{recipientName}
+			</if>
+			<if test="recipientPhone != null and recipientPhone != '' ">
+				,recipient_phone= #{recipientPhone}
+			</if>
+		</trim>
+		WHERE 
+			del_info_code= #{delInfoCode}
+	</update>
 </mapper>

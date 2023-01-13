@@ -19,4 +19,10 @@ public interface DeliveryMapper {
     
     // 배송 추가
     public int addDelivery(Delivery delivery);
+    
+    // 배송코드로 배송상태 확인
+    public String getDeliveryStateByCode(String deliveryCode);
+    
+    // 배송정보 업데이트
+    public int updateDeliveryState(String deliveryCode, String deliveryState);
 }

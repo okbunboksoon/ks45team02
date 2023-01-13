@@ -51,7 +51,7 @@ public class DeliveryInfoController {
 	}
 	
 	/**
-	 * 배송 정보 등록 화면
+	 * 배송정보 등록 화면
 	 * @param model
 	 */
 	@GetMapping("/addDeliveryInfo")
@@ -63,6 +63,12 @@ public class DeliveryInfoController {
 		return "admin/deliveryInfo/deliveryInfoAdd";
 	}
 	
+	/**
+	 * 배송정보 등록
+	 * @param deliveryInfo
+	 * @param reAttr
+	 * @return
+	 */
 	@PostMapping("/addDeliveryInfo")
 	public String addDeliveryInfo(DeliveryInfo deliveryInfo
 								 ,RedirectAttributes reAttr) {
@@ -70,17 +76,46 @@ public class DeliveryInfoController {
 		log.info("deliveryInfo :{}", deliveryInfo);
 		
 		int result = deliveryInfoService.addDeliveryInfo(deliveryInfo);
-		
-		log.info("등록 후 컨트롤러 반환 :{}", result);
-		
-		
+			
 		return "redirect:/admin/listDeliveryInfo";
 	}
+	
+	/**
+	 * 배송정보 수정 화면
+	 * @return
+	 */
 	@GetMapping("/modifyDeliveryInfo")
-	public String modifyDeliveryInfo() {
+	public String modifyDeliveryInfo(@RequestParam(value = "delInfoCode")String delInfoCode
+									,@RequestParam(value="msg", required = false) String msg, Model model) {
+		log.info("delInfoCode :{}", delInfoCode);
+		List<DeliveryInfo> deliveryInfo = deliveryInfoService.getDeliveryInfoByCode(delInfoCode);
+		log.info("deliveryInfo :{}", deliveryInfo);
+		model.addAttribute("title", "배송정보 수정");
+		model.addAttribute("pageTitle", "배송정보 수정");
+		model.addAttribute("deliveryInfo", deliveryInfo);
+		
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "admin/deliveryInfo/deliveryInfoModify";
 	}
 
+	@PostMapping("/modifyDeliveryInfo")
+	public String modifyDeliveryInfo(DeliveryInfo deliveryInfo
+									,RedirectAttributes reAttr) {
+		
+		log.info("deliveryInfo :{}", deliveryInfo);
+		int result = deliveryInfoService.modifyDeliveryInfo(deliveryInfo);
+		
+		if(result == 0) {
+			reAttr.addAttribute("msg", "배송정보 수정에 실패하였습니다.");
+			return "redirect:/admin/addBusinessOrder";
+		}else {
+			reAttr.addAttribute("msg", "배송정보 수정에 성공하였습니다.");
+		}
+		
+		return "redirect:/admin/listDeliveryInfo";
+	}
 }
 

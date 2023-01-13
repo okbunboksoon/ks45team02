@@ -20,13 +20,33 @@
 				if(msg != null){
 					alert(msg);
 				}
+				
+				$('.updateBtn').click(function(){
+					let updateValue = $(this).val();
+					console.log(updateValue);
+						$.ajax({
+							type: "post",
+							url: '/admin/updateDelivery',
+							data: {"deliveryCode": updateValue},
+							dataType: "json",
+							success:function(data){
+								var result = data.result
+								var redirect = data.redirect
+								if(result == "성공"){
+									location.href = redirect
+									alert('배송상태가 변경되었습니다.')
+								}else{
+									alert('배송완료된 상품입니다.')
+									location.href = redirect
+								}
+							}
+						});	
+				});
 		});
 		</script>	
 	</th:block>
 	<th:block layout:fragment="customContents">
 		<div class="col-md-12 col-sm-12 ">
-			<button type="submit" class="btn btn-primary" style="float: right">
-				<a style ="color:white" th:href="@{/admin/addDelivery}">등록</a></button>
 			<div class="x_panel">
 				<div class="x_content">
 					<div class="row">
@@ -42,7 +62,6 @@
 											<th class="businessCode">거래처 코드</th>
 											<th class="deliveryState">배송상태</th>
 											<th class="paymentCompleteCode">결제완료_코드(결제완료 연결해야함)</th>
-											<th>수정</th>
 											<th>업데이트</th>
 										</tr>
 									</thead>
@@ -55,12 +74,8 @@
 											<td th:text="${di.businessCode}" />
 											<td th:text="${di.deliveryState}" />
 											<td th:text="${di.paymentCompleteCode}" />
-											<td><button type="button" class="btn btn-primary btn-sm">
-												<a style ="color:white" th:href="@{/admin/modifyDelivery(deliveryCode=${di.deliveryCode})}">
-														편집</a></button></td>
-											<td><button type="button" class="btn btn-secondary btn-sm">
-												<a style ="color:white" th:href="@{/admin/updateDelivery(deliveryCode=${di.deliveryCode})}">
-														업데이트</a></button></td>
+											<td><button type="button" class="btn btn-secondary btn-sm updateBtn" 
+														th:value="${di.deliveryCode}">업데이트</button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(listDelivey)}">
 											<td colspan="9">등록된 배송지가 없습니다.</td>

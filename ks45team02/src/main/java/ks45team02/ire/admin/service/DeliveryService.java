@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
+
 import ks45team02.ire.admin.dto.Delivery;
 import ks45team02.ire.admin.dto.DeliveryInfo;
 import ks45team02.ire.admin.mapper.BusinessMapper;
@@ -60,5 +62,31 @@ public class DeliveryService {
     	
     	
     	return addDelivery;
+    }
+    /**
+     * 배송코드로 배송정보확인 수정
+     * @param deliveryCode
+     * @return result
+     */
+    public int getDeliveryStateByCode(String deliveryCode) {
+    	int result = 0;
+    	String deliveryStateCheck = deliveryMapper.getDeliveryStateByCode(deliveryCode);
+    	log.info("deliveryStateCheck : {}", deliveryStateCheck);
+    	String deliveryState = null;
+    	if(deliveryStateCheck != "배송완료") {
+    		
+    		switch (deliveryStateCheck) {
+    		case "배송전"
+    		: deliveryState = "배송중";
+    		  result = deliveryMapper.updateDeliveryState(deliveryCode, deliveryState);
+    		break;
+    		case "배송중"
+    		: deliveryState = "배송완료";
+    		  result = deliveryMapper.updateDeliveryState(deliveryCode, deliveryState);
+    		break;
+    		}
+    		log.info("deliveryState : {}, deliveryCode : {}", deliveryState,deliveryCode);
+    	}
+    	return result;
     }
 }
