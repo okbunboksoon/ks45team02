@@ -142,11 +142,7 @@ public class EmissionController {
 	}
 	
 	
-	@GetMapping("/listEmissionRawMaterialsGroupStatistics")
-	public String listEmissionRawMaterialsGroupStatistics() {
-		
-		return "admin/emission/emissionListRawMaterialsGroupStatistics";
-	}
+	
 	
 /**
  * 	
@@ -259,13 +255,7 @@ public class EmissionController {
 		return reResult;
 	}
 	
-	
-	@GetMapping("/listEmissionC02Total")
-	public String listEmissionC02Total() {
-		
-		return "admin/emission/emissionListCO2Total";
-	}
-	
+
 	
 	
 	
