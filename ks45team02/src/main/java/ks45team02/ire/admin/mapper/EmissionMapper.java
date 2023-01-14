@@ -74,5 +74,6 @@ public interface EmissionMapper {
 	 * 상품 원단 비율 LastFabric
 	 */
 	public double getLastFabric(String resultLastFabric);
+
 	
 }

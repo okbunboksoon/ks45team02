@@ -121,7 +121,14 @@
 			,sf_raw_materials_incoming_daygroup()
 			,#{donationPointSave}
 			,sf_raw_materials_incoming_point_group(#{donationCode}));
+			
+		<selectKey resultType="String" keyProperty="rawMaterialsCode" keyColumn="raw_materials_code" order="AFTER">
+            SELECT raw_materials_code FROM raw_materials_incoming ORDER BY raw_materials_code DESC LIMIT 0, 1;
+        </selectKey>
 	</insert>
+	
+	
+		
 	
 	
 	<select id="getDonationCodeNotIncoming" resultType="String">
