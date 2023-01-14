@@ -4,7 +4,7 @@ public class BoardReview {
 	private String reviewCode;
 	private String userId;
 	private String goodsCode;
-	private float reviewStarCount;
+	private int reviewStarCount;
 	private String reviewContent;
 	private String reviewRegDate;
 	private int reviewPointSave;
@@ -37,11 +37,11 @@ public class BoardReview {
 		this.goodsCode = goodsCode;
 	}
 
-	public float getReviewStarCount() {
+	public int getReviewStarCount() {
 		return reviewStarCount;
 	}
 
-	public void setReviewStarCount(float reviewStarCount) {
+	public void setReviewStarCount(int reviewStarCount) {
 		this.reviewStarCount = reviewStarCount;
 	}
 
@@ -120,6 +120,7 @@ public class BoardReview {
 		return builder.toString();
 	}
 
+	
 	
 	
 }

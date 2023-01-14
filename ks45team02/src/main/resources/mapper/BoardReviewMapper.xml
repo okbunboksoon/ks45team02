@@ -22,6 +22,50 @@
 		</association>
 	</resultMap>
 	
+	<update id="modifyBoardReview" parameterType="BoardReview">
+		<!-- 리뷰 글 수정 -->
+		UPDATE 
+			goods_review
+		SET 
+			 user_id = #{userId}
+			,goods_code = #{goodsCode}
+			,review_star_count = #{reviewStarCount}
+			,review_content = #{reviewContent}
+			,review_reg_date = #{reviewRegDate}
+			,review_point_save = #{reviewPointSave}
+			,review_point_group = #{reviewPointGroup}
+			,review_delete_state = #{reviewDeleteState}
+		WHERE
+			review_code = #{reviewCode};
+	</update>
+	
+	<insert id="addBoardReview" parameterType="BoardReview">
+		<!-- 리뷰 글 등록 -->
+		INSERT INTO goods_review(
+			 review_code
+			,user_id
+			,goods_code
+			,review_star_count
+			,review_content
+			,review_reg_date
+			,review_point_save
+			,review_point_group
+			,review_delete_state
+		)VALUES(
+			 sf_new_goods_review_code()
+			,#{userId}
+			,#{goodsCode}
+			,#{reviewStarCount}
+			,#{reviewContent}
+			,#{reviewRegDate}
+			,#{reviewPointSave}
+			,sf_new_point_group_code(#{reviewPointGroup})
+			,'N');
+			<selectKey resultType="String" keyProperty="reviewPointGroup" keyColumn="review_point_group" order="AFTER">
+            	SELECT review_point_group FROM goods_review ORDER BY review_code DESC LIMIT 0, 1;
+        	</selectKey>
+	</insert>
+	
 	<select id="getBoardReviewInfo" parameterType="String" resultMap="boardReviewResultMap">
 		<!-- 리뷰 게시판 상세 보기 -->
 		SELECT 

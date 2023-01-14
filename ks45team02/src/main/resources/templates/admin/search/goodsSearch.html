@@ -126,14 +126,14 @@
 						goodsInfoArr.push(item.innerText);
 					}
 					opener.document.getElementById("goodsCode").value = goodsInfoArr[0];
-					opener.document.getElementById("goodsName").value = goodsInfoArr[1];
-					opener.document.getElementById("categoryMediumName").value = goodsInfoArr[2];
-					opener.document.getElementById("goodsPrice").value = goodsInfoArr[3];
-					
-					const amount = opener.document.getElementById("amount").value;
-					opener.document.getElementById("paymentAmount").value = goodsInfoArr[3] * amount;
-					
 					try{
+						opener.document.getElementById("goodsName").value = goodsInfoArr[1];
+						opener.document.getElementById("categoryMediumName").value = goodsInfoArr[2];
+						opener.document.getElementById("goodsPrice").value = goodsInfoArr[3];
+						
+						const amount = opener.document.getElementById("amount").value;
+						opener.document.getElementById("paymentAmount").value = goodsInfoArr[3] * amount;
+
 						const usePoint = opener.document.getElementById("usePoint").value;
 						opener.document.getElementById("finalPaymentAmount").value = goodsInfoArr[3] * amount - usePoint;
 					}catch(error){

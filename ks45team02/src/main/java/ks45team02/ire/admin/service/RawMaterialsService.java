@@ -108,11 +108,9 @@ public class RawMaterialsService {
 			break;
 		}
 		
-		
 		for(int i = 0; i < rawMaterialsIncomingAmount; i++) {
 			result += rawmaterialsMapper.addIncomingRawmaterials(rawMaterialsIncoming);
 		}
-		
 		
 		emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
 		
