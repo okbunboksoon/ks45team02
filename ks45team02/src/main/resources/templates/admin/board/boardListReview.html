@@ -1,10 +1,107 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-listBoardReview
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="boardReviewList" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="reviewCode">리뷰코드</th>
+											<th class="userId">작성자아이디</th>
+											<th class="goodsCode">상품코드</th>
+											<th class="goodsName">상품이름</th>
+											<th class="goodsPrice">상품가격</th>
+											<th class="goodsColor">상품색상</th>
+											<th class="goodsSize">상품사이즈</th>
+											<th class="reviewStarCount">리뷰별점</th>
+											<th class="reviewRegDate">등록일자</th>
+											<th class="reviewPointSave">포인트 적립금액</th>
+											<th class="reviewPointGroup">포인트 그룹코드</th>
+											<th class="reviewDeleteState">삭제여부</th>
+									</thead>
+									<tbody>
+										<th:block th:unless="${#lists.isEmpty(boardReviewList)}" th:each="l : ${boardReviewList}">
+											<th:block th:each="gl : ${l.goods}">
+												<tr>							
+													<td th:text="${l.reviewCode}"></td>
+													<td th:text="${l.userId}"></td>
+													<td th:text="${l.goodsCode}"></td>
+													<td>
+														<a th:text="${gl.goodsName}" th:href="@{/admin/contentsBoardReview(reviewCode=${l.reviewCode})}"></a>
+													</td>
+													<td th:text="${gl.goodsPrice}"></td>
+													<td th:text="${gl.goodsColor}"></td>
+													<td th:text="${gl.goodsSize}"></td>
+													<td th:text="${l.reviewStarCount}"></td>
+													<td th:text="${l.reviewRegDate}"></td>
+													<td th:text="${l.reviewPointSave}"></td>
+													<td th:text="${l.reviewPointGroup}"></td>
+													<td th:text="${l.reviewDeleteState}"></td>
+												</tr>
+											</th:block>
+										</th:block>
+										<tr th:if="${#lists.isEmpty(boardReviewList)}">
+											<td colspan="12">등록된 리뷰가 존재하지 않습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
+	
+		<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+		
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+
+			$('#boardReviewList').DataTable();
+		</script>
+
+	</th:block>
+
 </html>

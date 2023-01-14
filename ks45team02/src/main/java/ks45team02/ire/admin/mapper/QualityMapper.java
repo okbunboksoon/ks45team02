@@ -24,4 +24,12 @@ public interface QualityMapper {
     Quality qualityHazadousSubstanceLevelInfo(String hazadousQualityLevel);
 
     int modifyQualityHazadousSubstanceLevel(Quality quality);
+
+    Quality deleteQualityGeneralLevelInfo(String generalQualityLevel);
+
+    int deleteQualityGeneralLevel(Quality quality);
+
+    Quality deleteQualityHazadousSubstanceLevelInfo(String hazadousQualityLevel);
+
+    int deleteQualityHazadousSubstanceLevel(Quality quality);
 }

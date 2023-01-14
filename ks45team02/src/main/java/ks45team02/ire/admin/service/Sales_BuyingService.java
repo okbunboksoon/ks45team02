@@ -21,7 +21,9 @@ public class Sales_BuyingService {
 		this.sales_BuyingMapper = sales_BuyingMapper;
 	}
 
+	
 	private static final Logger log = LoggerFactory.getLogger(Sales_BuyingService.class);
+
 
 	/**
 	 * 상품매입 리스트

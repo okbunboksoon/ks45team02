@@ -6,8 +6,8 @@
 
 	<resultMap id="UnitPriceResultMap" type="UnitPrice">
 			<id property="goodsCode" 					column="goods_code" />
-			<result property="factoryGoodsPrice" 				column="factory_goods_price"/>
-			<result property="goodsPrice"		column="goods_price"/>
+			<result property="factoryGoodsPrice" 		column="factory_goods_price"/>
+			<result property="goodsPrice"				column="goods_price"/>
 		</resultMap>
 	
 	<!-- 상품 판매단가 및 상품가격 조회 -->
@@ -21,10 +21,48 @@
 		ORDER BY u.goods_code
 	</select>
 	
+	<!-- 상품코드로 특정 상품 판매단가 및 상품가격 조회 -->
+	<select id="getListUnitPriceByGoodsCode" parameterType="String" resultMap="UnitPriceResultMap">
+		SELECT
+			u.goods_code
+			,u.factory_goods_price
+			,u.goods_price
+		FROM
+			goods_unit_price_info AS u
+		WHERE 
+		u.goods_code = #{goodsCode}
+		ORDER BY u.goods_code
+	</select>
+	
 	<!-- 상품 판매단가 및 상품가격 등록 -->
 	<insert id="addUnitPrice" parameterType="Goods">
 		INSERT INTO goods_unit_price_info
 		(goods_code, factory_goods_price, goods_price)
 		VALUES (sf_select_goods_code() ,#{unitPrice.factoryGoodsPrice} , #{goodsPrice})
 	</insert>
+	
+	<!-- 상품삭제시 판매단가 및 상품가격 삭제 -->
+	<delete id="deleteUnitPrice" parameterType="String">
+		DELETE
+		FROM
+			goods_unit_price_info AS u
+		WHERE
+			u.goods_code = #{goodsCode}
+	</delete>
+	
+	<!-- 상품수정시 판매단가 및 상품가격 수정 -->
+	<update id="modifyUnitPrice" parameterType="Goods">
+		UPDATE goods_unit_price_info
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="goodsCode != null and goodsCode != '' ">
+				,factory_goods_price= #{unitPrice.factoryGoodsPrice}
+				</if>
+				<if test="goodsPrice != null and goodsPrice != '' ">
+				,goods_price= #{goodsPrice}
+				</if>
+			</trim>
+		WHERE 
+			goods_code = #{goodsCode}
+	</update>
+	
 </mapper>

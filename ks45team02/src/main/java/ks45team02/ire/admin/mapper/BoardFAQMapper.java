@@ -23,4 +23,7 @@ public interface BoardFAQMapper {
 	
 	/* FAQ 삭제처리*/
 	public int deleteBoardFAQ(String FAQ_code);
+	
+	/* FAQ 조회수 올리기*/
+	public int updateFAQViewsCnt (String FAQ_code);
 }

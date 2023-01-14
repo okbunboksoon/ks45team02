@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardUserGuideMapper">
+
+	<resultMap id="BoardUserGuideResultMap" type="BoardUserGuide">
+		<id property="guide_code"			column="guide_code" />
+        <result property="guide_title"		column="guide_title" />
+        <result property="guide_views"		column="guide_views" />
+        <result property="guide_reg_date"		column="guide_reg_date" />
+    	<result property="guide_contents"	column="guide_contents" /> 
+	</resultMap>
+	
+	<!-- 이용가이드 목록 -->
+	<select id="getUserGuideList" resultMap="BoardUserGuideResultMap">
+	SELECT
+		guide.guide_code
+		,guide.guide_title
+		,guide.guide_views
+		,guide.guide_reg_date
+		,guide.guide_contents 
+	FROM
+		user_guide AS guide
+	</select>
+	
+	<!-- 이용가이드 상세페이지 -->
+	<select id="ContentsUserGuide" resultMap="BoardUserGuideResultMap">
+	SELECT
+		guide.guide_code
+		,guide.guide_title
+		,guide.guide_views
+		,guide.guide_reg_date
+		,guide.guide_contents 
+	FROM
+		user_guide AS guide
+	WHERE
+		guide.guide_code = #{guide_code}
+	
+	</select>
+
+	<!-- 이용가이드 등록 -->
+	<insert id="addUserGuide" parameterType="BoardUserGuide">
+	INSERT INTO user_guide
+		(guide_code
+		, guide_title
+		, guide_contents
+		, guide_views
+		, guide_reg_date)
+	VALUES 
+		(sf_new_guide_code(), #{guide_title}, #{guide_contents}, 0, CURDATE())
+	</insert>
+
+	<!-- 이용가이드 수정처리 -->
+	<update id="modifyBoardUserGuide" parameterType="BoardUserGuide">
+	UPDATE user_guide
+	<trim prefix="SET" prefixOverrides=",">
+		<if test="guide_title != null and guide_title != '' ">
+			, guide_title = #{guide_title}
+		</if>
+		<if test ="guide_contents != null and guide_contents != '' ">
+			, guide_contents = #{guide_contents}
+		</if>
+	</trim>
+	WHERE
+		guide_code = #{guide_code}
+	</update>
+
+	<!-- 이용가이드 삭제처리 -->
+	<delete id="deleteBoardUserGuide" parameterType="String">
+	DELETE
+	FROM
+		user_guide
+	WHERE
+		guide_code = #{guide_code}
+	</delete>
+	
+	<!-- 조회수 올리기 -->
+	<update id="updateViewsCnt">
+		UPDATE 
+			user_guide 
+		SET 
+			guide_views = guide_views + 1 
+		WHERE 
+			guide_code = #{guide_code}
+		
+	</update>
+
+</mapper>

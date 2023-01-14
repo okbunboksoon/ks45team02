@@ -30,6 +30,39 @@
 		<result property="pointMinusDeleteState" 	column="point_minus_delete_state"/>
 	</resultMap>
 	
+	<select id="getPointMinusInfoByPointMinusGroup" parameterType="String" resultMap="pointMinusResultMap">
+		<!-- 포인트 차감 그룹으로 포인트 차감 조회 -->
+		SELECT 
+			 point_minus_code
+			,user_id
+			,point_minus
+			,point_state
+			,point_minus_date
+			,point_minus_reason
+			,point_minus_group
+			,point_minus_delete_state
+		FROM 
+			point_minus
+		WHERE 
+			point_minus_group = #{pointMinusGroup};
+	</select>	
+	
+	<update id="modifyPointMinusGroup" parameterType="PointMinus">
+		<!-- 결제 완료 후 포인트 차감 그룹 수정 -->
+		UPDATE 
+			point_minus 
+		SET 
+			point_minus_group = #{pointMinusGroup}
+		WHERE 
+			user_id = #{userId}
+			AND 
+			point_minus = #{pointMinus}
+			AND 
+			point_minus_date = #{pointMinusDate}
+			AND 
+			point_minus_reason = '상품 구매 시 사용';
+	</update>
+	
 	<update id="modifyPointMinus" parameterType="PointMinus">
 		<!-- 포인트 차감 수정 -->
 		UPDATE 
@@ -40,7 +73,7 @@
 			,point_state = #{pointState}
 			,point_minus_date = #{pointMinusDate}
 			,point_minus_reason = #{pointMinusReason}
-			,point_minus_group = #{pointMinusGroup}
+			,point_minus_group = NULLIF(#{pointMinusGroup}, '')
 			,point_minus_delete_state = #{pointMinusDeleteState}
 		WHERE 
 			point_minus_code = #{pointMinusCode};
@@ -80,7 +113,7 @@
 			,#{pointState}
 			,#{pointMinusDate}
 			,#{pointMinusReason}
-			,#{pointMinusGroup}
+			,NULLIF(#{pointMinusGroup}, '')
 		);
 	</insert>
 	
@@ -94,7 +127,7 @@
 			,point_state = #{pointState}
 			,point_save_date = #{pointSaveDate}
 			,point_save_reason = #{pointSaveReason}
-			,point_save_group = #{pointSaveGroup}
+			,point_save_group = NULLIF(#{pointSaveGroup}, '')
 			,point_save_delete_state = #{pointSaveDeleteState}
 		WHERE 
 			point_save_code = #{pointSaveCode};
@@ -150,9 +183,14 @@
 			,#{userId}
 			,#{pointSave}
 			,#{pointState}
-			,#{pointSaveDate}
+			<if test="pointSaveDate == null">
+				,NOW()
+			</if>
+			<if test="pointSaveDate != null">
+				,#{pointSaveDate}
+			</if>
 			,#{pointSaveReason}
-			,#{pointSaveGroup}
+			,NULLIF(#{pointSaveGroup}, '')
 		);
 	</insert>
 	

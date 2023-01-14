@@ -43,7 +43,6 @@
 											<th class="goodsName">매입단가</th>
 											<th class="categoryMediumCode">판매단가</th>
 											<th>수정</th>
-											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -52,9 +51,7 @@
 											<td th:text="${lu.factoryGoodsPrice}" />
 											<td th:text="${lu.goodsPrice}" />
 											<td><button type="button" class="btn btn-primary btn-sm">
-												<a style ="color:white" th:href="@{/admin/modifyMediumCategory(goodsCode=${lu.goodsCode})}">편집</a></button></td>
-											<td><button type="button" class="btn btn-danger btn-sm deleteBtn" 
-														th:value="${lu.goodsCode}">삭제</button></td>
+												<a style ="color:white" th:href="@{/admin/modifyUnitPrice(goodsCode=${lu.goodsCode})}">편집</a></button></td>
 										</tr>
 										<tr th:unless="${not #lists.isEmpty(listUnitPrice)}">
 											<td colspan="9">등록된 상품이 없습니다.</td>
