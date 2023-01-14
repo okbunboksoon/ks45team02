@@ -16,6 +16,7 @@
         <result property="carbon_dioxide_emission_level"			column="carbon_dioxide_emission_level" />
         <result property="upcycling_carbon_dioxide_emission_level"		column="upcycling_carbon_dioxide_emission_level" />
     </resultMap>
+
     
     <!-- 상품 원단 비율 firstFabric -->
     <select id="getFirstFabric" resultType="double">
@@ -170,10 +171,7 @@
     		fabric = #{fabric}
     </select>
     
-    
-    
-    
-    
+
     
     
     
