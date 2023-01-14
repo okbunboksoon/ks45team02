@@ -112,7 +112,6 @@ public class RawMaterialsService {
 			result += rawmaterialsMapper.addIncomingRawmaterials(rawMaterialsIncoming);
 		}
 		
-		
 		emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
 		
 		

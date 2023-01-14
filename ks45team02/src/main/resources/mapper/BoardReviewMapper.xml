@@ -39,24 +39,8 @@
 			review_code = #{reviewCode};
 	</update>
 	
-	<select id="getReviewCode" parameterType="BoardReview" resultMap="boardReviewResultMap">
-		<!-- 리뷰 글 코드 조회 -->
-		SELECT 
-			review_code
-		FROM
-			goods_review
-		WHERE 
-			user_id = #{userId}
-			AND goods_code = #{goodsCode}
-			AND review_star_count = #{reviewStarCount}
-			AND review_content = #{reviewContent}
-			AND review_reg_date = #{reviewRegDate}
-			AND review_point_save = #{reviewPointSave}
-			AND review_point_group = #{reviewPointGroup}
-			AND review_delete_state = 'N';
-	</select>
-	
 	<insert id="addBoardReview" parameterType="BoardReview">
+		<!-- 리뷰 글 등록 -->
 		INSERT INTO goods_review(
 			 review_code
 			,user_id
@@ -77,6 +61,9 @@
 			,#{reviewPointSave}
 			,sf_new_point_group_code(#{reviewPointGroup})
 			,'N');
+			<selectKey resultType="String" keyProperty="reviewPointGroup" keyColumn="review_point_group" order="AFTER">
+            	SELECT review_point_group FROM goods_review ORDER BY review_code DESC LIMIT 0, 1;
+        	</selectKey>
 	</insert>
 	
 	<select id="getBoardReviewInfo" parameterType="String" resultMap="boardReviewResultMap">

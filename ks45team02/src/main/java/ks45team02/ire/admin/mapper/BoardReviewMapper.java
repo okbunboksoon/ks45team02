@@ -12,9 +12,6 @@ public interface BoardReviewMapper {
 	//리뷰 글 수정
 	public int modifyBoardReview(BoardReview boardReview);
 	
-	//리뷰 글 코드 조회
-	public String getReviewCode(BoardReview boardReview);
-	
 	//리뷰 글 등록
 	public int addBoardReview(BoardReview boardReview);
 	

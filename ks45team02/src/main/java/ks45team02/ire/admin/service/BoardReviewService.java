@@ -73,14 +73,13 @@ public class BoardReviewService {
 			boardReview.setReviewPointGroup("text_review");
 		}
 		result = boardReviewMapper.addBoardReview(boardReview);
-		String boardReviewCode = boardReviewMapper.getReviewCode(boardReview);
 		
 		//포인트 적립 처리
 		PointSave pointSave = new PointSave();
 		pointSave.setUserId(boardReview.getUserId());
 		pointSave.setPointSave(pointSaveAmount);
 		pointSave.setPointSaveReason("텍스트 리뷰 등록");
-		pointSave.setPointSaveGroup(boardReviewCode);
+		pointSave.setPointSaveGroup(boardReview.getReviewPointGroup());
 		pointService.addPointSave(pointSave);
 		
 		return result;
