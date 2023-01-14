@@ -12,20 +12,65 @@
         <result property="user_id"						column="user_id" />
         <result property="reg_date"						column="reg_date" />
         <result property="year_and_month"				column="year_and_month" />
-         <result property="raw_materials_monthgroup"	column="raw_materials_monthgroup" />
+        <result property="raw_materials_monthgroup"	column="raw_materials_monthgroup" />
+        	<association property="rawMaterialsIncoming"    javaType="RawMaterialsIncoming">
+			<id property="rawMaterialsCode" 				column="raw_materials_code" />
+			<result property="donationCode" 				column="donation_code" />
+			<result property="rawMaterialsIncomingAmount" 	column="raw_materials_incoming_amount" />
+			<result property="rawMaterialsIncomingDate" 	column="raw_materials_incoming_date" />
+			<result property="rawMaterialsStatus"			column="raw_materials_status" />
+			<result property="carbonDioxideEmissionLevel" 	column="carbon_dioxide_emission_level" />
+			<result property="rawMaterialsDaygroup" 		column="raw_materials_daygroup" />
+			<result property="donationPointSave" 			column="donation_point_save" />
+			<result property="donationPointGroup" 			column="donation_point_group" />
+    		</association>
     </resultMap>
     
-    <!-- 기부받은 의류별 CO2 일별 통계 -->
-    <select id="RawMaterialsEmissionStatisticsDayList" resultMap="RawMaterialsEmissionStatisticsDayResultMap">
-    SELECT 
-		rmd.raw_materials_daygroup
-		, rmd.rm_incoming_date
-		, rmd.carbon_dioxide_emission_sum
-		, rmd.user_id
-		, rmd.reg_date
-		, rmd.year_and_month
-		, rmd.raw_materials_monthgroup
-	FROM 
-		rmd.raw_materials_daygroup_statistics
+    <!-- 기부받은 의류별 CO2 일별 통계 등록-->
+	<insert id="rawMaterialsDayAdd" parameterType="RawMaterialsEmissionStatisticsDay">
+    INSERT INTO raw_materials_daygroup_statistics
+		(raw_materials_daygroup
+		, rm_incoming_date
+		, carbon_dioxide_emission_sum
+		, user_id
+		, reg_date
+		, year_and_month)
+	VALUES 
+	(sf_new_raw_materials_daygroup()
+	, #{rawMaterialsIncomingDate}
+	, #{carbonDioxideEmissionLevel}
+	, "id001"
+	, CURDATE()
+	, null)
+    </insert> 
+    
+    <!-- CO2 통계 입고 그룹코드 존재 여부 확인 -->
+    <select id="rawMaterialsDayCheck" parameterType="String" resultType="int" >
+    SELECT
+    COUNT(1)
+	FROM
+	    raw_materials_incoming AS r
+	    INNER JOIN
+	    raw_materials_daygroup_statistics AS d
+	    on
+	    r.raw_materials_daygroup = d.raw_materials_daygroup
+	WHERE
+	    r.raw_materials_daygroup = #{rawMaterialsDaygroup}
+    </select>
+    
+    <!-- 기부받은 의류별 CO2 일별  -->
+    <select id="rawMaterialsDaySumSelect" parameterType="String" resultType="int" >
+	SELECT
+		d.carbon_dioxide_emission_sum
+	FROM
+	    raw_materials_incoming AS r
+	    INNER JOIN
+	    raw_materials_daygroup_statistics AS d
+	    on
+	    r.raw_materials_daygroup = d.raw_materials_daygroup
+	WHERE
+	    r.raw_materials_daygroup = #{rawMaterialsDaygroup}
 	</select>
+
+	
 </mapper>

@@ -3,11 +3,12 @@ package ks45team02.ire.admin.dto;
 public class RawMaterialsEmissionStatisticsDay {
 	private String raw_materials_daygroup;
 	private String rm_incoming_date;
-	private int carbon_dioxide_emission_sum;
+	private float carbon_dioxide_emission_sum;
 	private String user_id;
 	private String reg_date;
 	private String year_and_month;
 	private String raw_materials_monthgroup;
+	private RawMaterialsIncoming rawMaterialsIncoming;
 	public String getRaw_materials_daygroup() {
 		return raw_materials_daygroup;
 	}
@@ -20,10 +21,10 @@ public class RawMaterialsEmissionStatisticsDay {
 	public void setRm_incoming_date(String rm_incoming_date) {
 		this.rm_incoming_date = rm_incoming_date;
 	}
-	public int getCarbon_dioxide_emission_sum() {
+	public float getCarbon_dioxide_emission_sum() {
 		return carbon_dioxide_emission_sum;
 	}
-	public void setCarbon_dioxide_emission_sum(int carbon_dioxide_emission_sum) {
+	public void setCarbon_dioxide_emission_sum(float carbon_dioxide_emission_sum) {
 		this.carbon_dioxide_emission_sum = carbon_dioxide_emission_sum;
 	}
 	public String getUser_id() {
@@ -50,10 +51,16 @@ public class RawMaterialsEmissionStatisticsDay {
 	public void setRaw_materials_monthgroup(String raw_materials_monthgroup) {
 		this.raw_materials_monthgroup = raw_materials_monthgroup;
 	}
+	public RawMaterialsIncoming getRawMaterialsIncoming() {
+		return rawMaterialsIncoming;
+	}
+	public void setRawMaterialsIncoming(RawMaterialsIncoming rawMaterialsIncoming) {
+		this.rawMaterialsIncoming = rawMaterialsIncoming;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("RawMaterialsEmissionStatistics [raw_materials_daygroup=");
+		builder.append("RawMaterialsEmissionStatisticsDay [raw_materials_daygroup=");
 		builder.append(raw_materials_daygroup);
 		builder.append(", rm_incoming_date=");
 		builder.append(rm_incoming_date);
@@ -67,9 +74,13 @@ public class RawMaterialsEmissionStatisticsDay {
 		builder.append(year_and_month);
 		builder.append(", raw_materials_monthgroup=");
 		builder.append(raw_materials_monthgroup);
+		builder.append(", rawMaterialsIncoming=");
+		builder.append(rawMaterialsIncoming);
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
 	
 	
 }
