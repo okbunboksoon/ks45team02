@@ -12,7 +12,7 @@ import ks45team02.ire.admin.service.EmissionStatisticsService;
 @RequestMapping("/admin")
 public class EmissionStatisticsController {
 	
-	
+	 
 	private static final Logger log = LoggerFactory.getLogger(EmissionStatisticsController.class);
 
 	private final EmissionStatisticsService emissionStatisticsService;
@@ -22,6 +22,10 @@ public class EmissionStatisticsController {
 	}
 	
 	
+	/**
+	 * 기부받은 의류 CO2 일별 통계
+	 * @return
+	 */
 	@GetMapping("/listEmissionRawMaterialsGroupStatistics")
 	public String listEmissionRawMaterialsGroupStatistics() {
 		

@@ -6,6 +6,7 @@ import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.DonationMapper;
+import ks45team02.ire.admin.mapper.EmissionStatisticsMapper;
 import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,14 @@ public class RawMaterialsService {
 	private final RawMaterialsMapper rawmaterialsMapper ;
 	private final DonationMapper donationMapper ;
 	private final PointMapper pointMapper ;
+	private final EmissionStatisticsService emissionStatisticsService;
 	
 	public int result;
-	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointMapper pointMapper) {
+	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointMapper pointMapper, EmissionStatisticsService emissionStatisticsService) {
 		this.rawmaterialsMapper = rawmaterialsMapper;
 		this.donationMapper = donationMapper;
 		this.pointMapper = pointMapper;
+		this.emissionStatisticsService = emissionStatisticsService;
 	}
 	
 	
@@ -109,6 +112,10 @@ public class RawMaterialsService {
 		for(int i = 0; i < rawMaterialsIncomingAmount; i++) {
 			result += rawmaterialsMapper.addIncomingRawmaterials(rawMaterialsIncoming);
 		}
+		
+		
+		emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
+		
 		
 		return result;
 	}
