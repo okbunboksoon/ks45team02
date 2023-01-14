@@ -266,6 +266,9 @@ public class EmissionController {
 		return "admin/emission/emissionListCO2Total";
 	}
 	
+	
+	
+	
 
 }
 

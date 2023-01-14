@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.EmissionStatisticsMapper">
+
+	    
+    <resultMap id="RawMaterialsEmissionStatisticsDayResultMap" type="RawMaterialsEmissionStatisticsDay">
+    <id property="raw_materials_daygroup"				column="raw_materials_daygroup" />
+        <result property="rm_incoming_date"				column="rm_incoming_date" />
+        <result property="carbon_dioxide_emission_sum"	column="carbon_dioxide_emission_sum" />
+        <result property="user_id"						column="user_id" />
+        <result property="reg_date"						column="reg_date" />
+        <result property="year_and_month"				column="year_and_month" />
+         <result property="raw_materials_monthgroup"	column="raw_materials_monthgroup" />
+    </resultMap>
+    
+    <!-- 기부받은 의류별 CO2 일별 통계 -->
+    <select id="RawMaterialsEmissionStatisticsDayList" resultMap="RawMaterialsEmissionStatisticsDayResultMap">
+    SELECT 
+		rmd.raw_materials_daygroup
+		, rmd.rm_incoming_date
+		, rmd.carbon_dioxide_emission_sum
+		, rmd.user_id
+		, rmd.reg_date
+		, rmd.year_and_month
+		, rmd.raw_materials_monthgroup
+	FROM 
+		rmd.raw_materials_daygroup_statistics
+	</select>
+</mapper>
