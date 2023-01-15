@@ -127,10 +127,6 @@
         </selectKey>
 	</insert>
 	
-	
-		
-	
-	
 	<select id="getDonationCodeNotIncoming" resultType="String">
 		<!-- 원자재 입고 등록되지 않은 기부 코드 조회 -->
 		SELECT 
