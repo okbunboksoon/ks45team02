@@ -9,6 +9,8 @@
 		<result property="goodsCode"		 	column="goods_code" />
 		<result property="reviewStarCount" 		column="review_star_count" />
 		<result property="reviewContent" 		column="review_content" />
+		<result property="reviewImageName" 		column="review_image_name" />
+		<result property="reviewImagePath" 		column="review_image_path" />
 		<result property="reviewRegDate"		column="review_reg_date" />
 		<result property="reviewPointSave"		column="review_point_save" />
 		<result property="reviewPointGroup"		column="review_point_group" />
@@ -31,6 +33,10 @@
 			,goods_code = #{goodsCode}
 			,review_star_count = #{reviewStarCount}
 			,review_content = #{reviewContent}
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,review_image_name = #{reviewImageName}
+				,review_image_path = #{reviewImagePath}
+			</if>
 			,review_reg_date = #{reviewRegDate}
 			,review_point_save = #{reviewPointSave}
 			,review_point_group = #{reviewPointGroup}
@@ -47,6 +53,10 @@
 			,goods_code
 			,review_star_count
 			,review_content
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,review_image_name
+				,review_image_path
+			</if>
 			,review_reg_date
 			,review_point_save
 			,review_point_group
@@ -57,6 +67,10 @@
 			,#{goodsCode}
 			,#{reviewStarCount}
 			,#{reviewContent}
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,#{reviewImageName}
+				,#{reviewImagePath}
+			</if>
 			,#{reviewRegDate}
 			,#{reviewPointSave}
 			,sf_new_point_group_code(#{reviewPointGroup})
@@ -78,6 +92,8 @@
 			,g.goods_size
 			,gr.review_star_count
 			,gr.review_content
+			,gr.review_image_name
+			,gr.review_image_path
 			,gr.review_reg_date
 			,gr.review_point_save
 			,gr.review_point_group
