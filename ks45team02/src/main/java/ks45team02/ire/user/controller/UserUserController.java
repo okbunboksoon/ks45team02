@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class UserUserController {
 
+	@GetMapping("/myPage")
+	public String myPage(Model model) {
+		
+		return "user/user/myPage";
+	}
+	
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
 		
 		return "user/user/userAdd";
-	}
-	
-	@GetMapping("/basketUser")
-	public String basketUser() {
-		
-		return "user/user/userBasket";
 	}
 	
 	@GetMapping("/deleteUser")
