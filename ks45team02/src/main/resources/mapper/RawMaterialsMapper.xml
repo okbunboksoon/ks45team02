@@ -115,7 +115,7 @@
 			 sf_new_raw_materials_incoming_code()
 			,#{donationCode}
 			,1
-			,#{rawMaterialsIncomingDate}
+			,NOW()
 			,#{rawMaterialsStatus}
 			,#{carbonDioxideEmissionLevel}
 			,sf_raw_materials_incoming_daygroup()
