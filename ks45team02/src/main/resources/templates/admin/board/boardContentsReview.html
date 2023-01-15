@@ -69,6 +69,8 @@
 								</div>
 								<p th:text="${l.reviewContent}" style="white-space: pre-line;">
 								</p>
+								<img id="reviewImagePath" th:if="*{l.reviewImagePath != null}" th:src="*{l.reviewImagePath}" 
+									 alt="리뷰 이미지" width="200px" height="200px"/>
 							</blockquote>
 						</div>
 					</div>
