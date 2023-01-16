@@ -13,6 +13,11 @@
 	</head>
 
 	<th:block layout:fragment="customContents">
+		<div class="item form-group pull-right">
+			<div>
+				<button class="btn btn-primary" type="button" id="addBtn">등록</button>
+			</div>
+		</div>
 		<div class="col-md-12 col-sm-12 ">
 			<div class="x_panel">
 				<div class="x_content">
@@ -26,7 +31,6 @@
 											<th class="userId">작성자아이디</th>
 											<th class="goodsCode">상품코드</th>
 											<th class="goodsName">상품이름</th>
-											<th class="goodsPrice">상품가격</th>
 											<th class="goodsColor">상품색상</th>
 											<th class="goodsSize">상품사이즈</th>
 											<th class="reviewStarCount">리뷰별점</th>
@@ -45,7 +49,6 @@
 													<td>
 														<a th:text="${gl.goodsName}" th:href="@{/admin/contentsBoardReview(reviewCode=${l.reviewCode})}"></a>
 													</td>
-													<td th:text="${gl.goodsPrice}"></td>
 													<td th:text="${gl.goodsColor}"></td>
 													<td th:text="${gl.goodsSize}"></td>
 													<td th:text="${l.reviewStarCount}"></td>
@@ -57,7 +60,7 @@
 											</th:block>
 										</th:block>
 										<tr th:if="${#lists.isEmpty(boardReviewList)}">
-											<td colspan="12">등록된 리뷰가 존재하지 않습니다.</td>
+											<td colspan="11">등록된 리뷰가 존재하지 않습니다.</td>
 										</tr>
 									</tbody>
 								</table>
@@ -93,6 +96,12 @@
 	 
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
+		
+			const $addBtn = document.getElementById('addBtn');
+			
+			$addBtn.addEventListener('click', function(){
+				location.href = "/admin/addBoardReview";
+			})
 		
 			const msg = [[${msg}]];
 			if(msg != null){

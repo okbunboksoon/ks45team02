@@ -115,14 +115,17 @@
 			 sf_new_raw_materials_incoming_code()
 			,#{donationCode}
 			,1
-			,#{rawMaterialsIncomingDate}
+			,NOW()
 			,#{rawMaterialsStatus}
 			,#{carbonDioxideEmissionLevel}
 			,sf_raw_materials_incoming_daygroup()
 			,#{donationPointSave}
 			,sf_raw_materials_incoming_point_group(#{donationCode}));
+			
+		<selectKey resultType="String" keyProperty="rawMaterialsCode" keyColumn="raw_materials_code" order="AFTER">
+            SELECT raw_materials_code FROM raw_materials_incoming ORDER BY raw_materials_code DESC LIMIT 0, 1;
+        </selectKey>
 	</insert>
-	
 	
 	<select id="getDonationCodeNotIncoming" resultType="String">
 		<!-- 원자재 입고 등록되지 않은 기부 코드 조회 -->
@@ -166,5 +169,16 @@
         FROM
           	raw_materials as r
 
+    </select>
+    
+    <!-- 원자재 입고 일별 기부상품 입고 그룹 확인 -->
+    <select id="getLastRawMaterialsDaygroup" resultType="String">
+    	SELECT 
+			raw_materials_daygroup 
+		FROM 
+			raw_materials_incoming 
+		ORDER BY 
+			raw_materials_daygroup DESC 
+		LIMIT 0, 1;
     </select>
 </mapper>

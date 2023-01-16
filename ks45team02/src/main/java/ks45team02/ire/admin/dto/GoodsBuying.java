@@ -12,6 +12,7 @@ public class GoodsBuying {
 	private int buy_vat;
 	private int buy_total;
 	private BusinessOrder businessOrder;
+	
 	public String getGoods_buying_code() {
 		return goods_buying_code;
 	}

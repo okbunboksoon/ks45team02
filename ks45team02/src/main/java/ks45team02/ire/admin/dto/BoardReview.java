@@ -4,8 +4,10 @@ public class BoardReview {
 	private String reviewCode;
 	private String userId;
 	private String goodsCode;
-	private float reviewStarCount;
+	private int reviewStarCount;
 	private String reviewContent;
+	private String reviewImageName;
+	private String reviewImagePath;
 	private String reviewRegDate;
 	private int reviewPointSave;
 	private String reviewPointGroup;
@@ -37,11 +39,11 @@ public class BoardReview {
 		this.goodsCode = goodsCode;
 	}
 
-	public float getReviewStarCount() {
+	public int getReviewStarCount() {
 		return reviewStarCount;
 	}
 
-	public void setReviewStarCount(float reviewStarCount) {
+	public void setReviewStarCount(int reviewStarCount) {
 		this.reviewStarCount = reviewStarCount;
 	}
 
@@ -51,6 +53,22 @@ public class BoardReview {
 
 	public void setReviewContent(String reviewContent) {
 		this.reviewContent = reviewContent;
+	}
+
+	public String getReviewImageName() {
+		return reviewImageName;
+	}
+
+	public void setReviewImageName(String reviewImageName) {
+		this.reviewImageName = reviewImageName;
+	}
+
+	public String getReviewImagePath() {
+		return reviewImagePath;
+	}
+
+	public void setReviewImagePath(String reviewImagePath) {
+		this.reviewImagePath = reviewImagePath;
 	}
 
 	public String getReviewRegDate() {
@@ -106,6 +124,10 @@ public class BoardReview {
 		builder.append(reviewStarCount);
 		builder.append(", reviewContent=");
 		builder.append(reviewContent);
+		builder.append(", reviewImageName=");
+		builder.append(reviewImageName);
+		builder.append(", reviewImagePath=");
+		builder.append(reviewImagePath);
 		builder.append(", reviewRegDate=");
 		builder.append(reviewRegDate);
 		builder.append(", reviewPointSave=");
@@ -120,6 +142,9 @@ public class BoardReview {
 		return builder.toString();
 	}
 
+	
+
+	
 	
 	
 }

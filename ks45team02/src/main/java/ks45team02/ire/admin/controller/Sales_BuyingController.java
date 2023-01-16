@@ -50,59 +50,6 @@ public class Sales_BuyingController {
 		return "admin/sales_buying/GoodsBuyingList";
 	}
 
-	/*	*//**
-			 * 상품 매입 등록 화면
-			 * 
-			 * @param model
-			 * @return
-			 */
-	/*
-	 * @GetMapping("/addGoodsBuying") public String addGoodsBuying(Model model
-	 * ,@RequestParam(value="msg", required = false) String msg) {
-	 * model.addAttribute("title", "상품매입 등록"); model.addAttribute("pageTitle",
-	 * "상품매입 등록");
-	 * 
-	 * if(msg!= null) { model.addAttribute("msg",msg); } return
-	 * "admin/sales_buying/GoodsBuyingAdd"; }
-	 * 
-	 *//**
-		 * 상품 매입 등록 처리
-		 * 
-		 * @param goodsBuying
-		 */
-
-	/*
-	 * @PostMapping("/addGoodsBuying") public String addGoodsBuying(GoodsBuying
-	 * goodsBuying, RedirectAttributes reAttr) {
-	 * 
-	 * log.info("goodsBuying: {}", goodsBuying);
-	 * 
-	 * int result = sales_BuyingService.addGoodsBuying(goodsBuying);
-	 * 
-	 * 
-	 * log.info("result:{}", result); if(result ==0) { reAttr.addAttribute("msg",
-	 * "상품 매입 등록에 실패하였습니다"); return "redirect:/admin/addGoodsBuying"; }else {
-	 * reAttr.addAttribute("msg", "상품 매입 등록에 성공하였습니다."); }
-	 * 
-	 * return "redirect:/admin/listGoodsBuying"; }
-	 * 
-	 *//**
-		 * 발주 검색
-		 * 
-		 * @param searchKey, searchValue, model
-		 * @return businessOrder
-		 *//*
-			 * @GetMapping("/businessOrderForGoodsBuyingAdd") public String
-			 * businessOrderForGoodsBuyingAdd(@RequestParam(value="searchKey", required =
-			 * false) String searchKey ,@RequestParam(value="searchValue", required = false)
-			 * String searchValue ,Model model) {
-			 * 
-			 * List<BusinessOrder> businessOrderList =
-			 * businessOrderService.getListBusinessOrderRe(); model.addAttribute("title",
-			 * "발주 검색"); model.addAttribute("businessOrderList",businessOrderList);
-			 * 
-			 * return "admin/sales_buying/businessOrderForGoodsBuyingAdd"; }
-			 */
 
 	@GetMapping("/listGoodsSales")
 	public String listGoodsSales() {
