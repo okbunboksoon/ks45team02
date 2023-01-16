@@ -23,7 +23,7 @@ public class EmissionStatisticsController {
 	
 	
 	/**
-	 * 기부받은 의류 CO2 일별 통계
+	 * 기부받은 의류 CO2 일,월,년 통계
 	 * @return
 	 */
 	@GetMapping("/listEmissionRawMaterialsGroupStatistics")

@@ -86,6 +86,10 @@ public class EmissionStatisticsService {
 		}
 	}
 	
+	
+	/**
+	 * 기부받은 의류별 CO2 월별 통계
+	 */
 	public void addRawMaterialsEmissionStatisticsMonth(int result) {
 		log.info("기부받은 의류별 CO2 월별 통계 / result : {}", result);
 	}
