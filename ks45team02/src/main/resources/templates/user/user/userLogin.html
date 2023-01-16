@@ -76,7 +76,24 @@
 
                 if(isSubmit) $('#loginUser').submit();
             });
+
+            $('#submitBtn').hover(function(){
+                //alert('123')
+                $(this).css('background-color','gray');
+            },function(){
+                $(this).css('background-color','black');
+            })
         });
+        /*
+        document.querySelector("#submitBtn").addEventListener("mouseover",function(){
+            document.querySelector("#submitBtn").style.backgroundColor = "gray";
+        });
+
+        document.querySelector("#submitBtn").addEventListener("hover",function(){
+            document.querySelector("#submitBtn").style.backgroundColor = "black";
+        });
+        */
+
     </script>
 </th:block>
 </html>
