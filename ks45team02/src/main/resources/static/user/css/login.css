@@ -1,0 +1,124 @@
+:root{
+
+
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Alata', sans-serif;
+}
+
+.page-container{
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+
+}
+
+.login-form-container{
+
+    background:#f5f5f5 ;
+    width:50%;
+    height: 75%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+
+}
+.login-form-right-side{
+    width: 50%;
+    border-radius: 10px 0px 0px 10px;
+    padding:10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    background-image:
+            radial-gradient(ellipse farthest-corner at 0 140%, #777777 0%, #77757a 70%, #0b0b0b 70%);
+}
+
+
+.login-form-left-side{
+    width: 50%;
+    border-radius: 0px 10px 10px 0px;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    padding:40px;
+    background: rgb(255,255,255);
+    background: linear-gradient(287deg, rgba(255,255,255,1) 0%, rgba(243,244,244,1) 0%, rgba(255,255,255,1) 100%);
+}
+.login-form-left-side .login-top-wrap{
+    display: flex;
+    justify-content: flex-end;
+    width:100%;
+}
+.login-form-left-side .login-top-wrap span{
+    color: black;
+    font-size: 33px;
+    padding-right:45%;
+
+}
+.login-form-left-side .login-top-wrap .create-account-btn {
+    background: white;
+    border:  0;
+    width:45%;
+    height: 20%;
+    font-size: 11px;
+    color: #0b2e13;
+    border-radius: 3px;
+
+}
+.login-input-container{
+    padding-top:120px;
+    width:70%;
+}
+.login-input-container .login-input-wrap{
+    width:auto;
+    height: 45px;
+    margin-top: 20px;
+    border-radius: 2px;
+    border-bottom: solid 2px #0b0b0b;
+
+}
+.login-input-container .login-input-wrap i{
+    color: black;
+    line-height: 45px;
+}
+
+.login-input-container .login-input-wrap input{
+    background: none;
+    border: none;
+    line-height: 45px;
+    padding-left:10px;
+    width:30%;
+}
+.login-input-container .login-input-wrap input:focus{
+    outline: none;
+}
+.login-btn-wrap{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-btn-wrap .login-btn{
+    width:95px;
+    height:35px;
+    color:white;
+    border: 0;
+    border-radius: 4px;
+
+    background-color: black;
+
+}
+.login-btn-wrap a{
+    margin-top:10px;
+    text-decoration: none;
+    font-size: 11px;
+    color: gray;
+
+}
