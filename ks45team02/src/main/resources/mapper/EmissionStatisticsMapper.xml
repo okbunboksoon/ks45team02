@@ -26,6 +26,7 @@
     		</association>
     </resultMap>
     
+    
     <!-- 기부받은 의류별 CO2 일별 통계 등록-->
 	<insert id="rawMaterialsDayAdd" parameterType="RawMaterialsEmissionStatisticsDay">
     INSERT INTO raw_materials_daygroup_statistics
@@ -44,9 +45,14 @@
 		, CURDATE()
 		, #{year_and_month}
 		, sf_new_raw_materials_monthgroup())
+		
+		<selectKey>
+		
+		</selectKey>
     </insert> 
     
-    <!-- CO2 통계 입고 그룹코드 존재 여부 확인 -->
+    
+    <!-- CO2 통계 입고 그룹코드 존재 여부 확인 --> 
     <select id="rawMaterialsDayCheck" parameterType="String" resultType="int" >
     SELECT
     COUNT(1)
@@ -60,6 +66,7 @@
 	    r.raw_materials_daygroup = #{rawMaterialsDaygroup}
     </select>
     
+    
     <!-- 기부받은 의류별 CO2 일별 일반 상품별 이산화탄소 배출량 조회 -->
     <select id="rawMaterialsDaySumSelect" parameterType="String" resultType="int" >
 		SELECT
@@ -69,6 +76,7 @@
 		WHERE
 		    d.raw_materials_daygroup = #{rawMaterialsDaygroup}
 	</select>
+	
 	
 	<!-- 기부받은 의류별 CO2 일별 등록날짜 생성 -->
 	<select id="addYearAndMonth" parameterType="String" resultType="String">
@@ -81,6 +89,7 @@
 			r.raw_materials_code = #{rawMaterialsIncomingDate}
 	</select>
 	
+	
 	<!-- 업데이트 처리 -->
 	<update id="rawMaterialsDayUpdate" parameterType="RawMaterialsEmissionStatisticsDay">
 		UPDATE raw_materials_daygroup_statistics
@@ -89,6 +98,7 @@
 		WHERE 
 			raw_materials_daygroup = #{raw_materials_daygroup}
 	</update>
+	
 	
 	<!-- 일별그룹 월별 이산화탄소 합계 -->
 	<select id="getYearAndMonthSum">
@@ -99,4 +109,6 @@
 		WHERE 
 			d.year_and_month = #{year_and_month}
 	</select>
+	
+
 </mapper>

@@ -32,5 +32,11 @@ public interface EmissionStatisticsMapper {
 	/**
 	 * 기부받은 의류별 CO2 일별 통계 업데이트
 	 */
-	public int rawMaterialsDayUpdate(RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay);;
+	public int rawMaterialsDayUpdate(RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay);
+	
+	
+	
+	/**
+	 * 
+	 */
 }

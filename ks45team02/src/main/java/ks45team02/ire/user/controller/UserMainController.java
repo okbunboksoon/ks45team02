@@ -10,6 +10,7 @@ public class UserMainController {
 	@GetMapping("/")
 	public String userMain(Model model) {
 		
+		model.addAttribute("title", "Ire");
 		return "user/userMain";
 	}
 }
