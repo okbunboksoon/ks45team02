@@ -36,4 +36,7 @@ public interface RawMaterialsMapper {
 	
 	 //원자재 목록 조회
 	public List<RawMaterials> rawmaterialsList();	
+	
+	//원자재 입고 일별 기부상품 입고 그룹 확인
+	public String getLastRawMaterialsDaygroup();
 }

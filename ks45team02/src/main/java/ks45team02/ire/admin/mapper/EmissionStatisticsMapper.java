@@ -9,9 +9,9 @@ public interface EmissionStatisticsMapper {
 	
 	
 	/**
-	 * 기부받은 의류별 CO2 일별 통계
+	 * 기부받은 의류별 CO2 일별 통계 추가
 	 */
-	public int addRawMaterialsEmissionStatisticsDay (RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay);
+	public int rawMaterialsDayAdd (RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay);
 	
 	
 	/**
@@ -19,4 +19,18 @@ public interface EmissionStatisticsMapper {
 	 */
 	public int rawMaterialsDayCheck (String rawMaterialsDaygroup);
 	
+	/**
+	 * 기부받은 의류별 CO2 일별 일반 상품별 이산화탄소 배출량 조회
+	 */
+	public int rawMaterialsDaySumSelect (String rawMaterialsDaygroup);
+	
+	/**
+	 * 기부받은 의류별 CO2 일별 등록날짜 생성
+	 */
+	public String addYearAndMonth(String rawMaterialsIncomingDate);
+	
+	/**
+	 * 기부받은 의류별 CO2 일별 통계 업데이트
+	 */
+	public int rawMaterialsDayUpdate(RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay);;
 }

@@ -174,4 +174,15 @@
           	raw_materials as r
 
     </select>
+    
+    <!-- 원자재 입고 일별 기부상품 입고 그룹 확인 -->
+    <select id="getLastRawMaterialsDaygroup" resultType="String">
+    	SELECT 
+			raw_materials_daygroup 
+		FROM 
+			raw_materials_incoming 
+		ORDER BY 
+			raw_materials_daygroup DESC 
+		LIMIT 0, 1;
+    </select>
 </mapper>
