@@ -72,6 +72,7 @@ public class UserUserController {
 	public String loginUser(Model model,
 							@RequestParam(value = "msg",required = false)String msg,
 							HttpSession httpSession) {
+		//로그인 세션으로 구분 하기
 		model.addAttribute("pageTitle","Sign In");
 		if (msg!=null)model.addAttribute("msg",msg);
 		String redirectURI="user/user/userLogin";
