@@ -46,6 +46,11 @@ public class PaymentCompleteService {
 		this.pointService = pointService;
 	}
 	
+	/**
+	 * 결제 취소
+	 * @param paymentComplete
+	 * @return int
+	 */
 	public int cancelPaymentComplete(PaymentComplete paymentComplete) {
 		
 		int result = 0;

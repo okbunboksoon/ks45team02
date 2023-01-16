@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.user.mapper.UserOrderMapper">
+	
+	<select id="getUserOrderList" resultType="UserOrder">
+		<!-- 주문내역 리스트 -->
+		SELECT
+			goods_order.* 
+			,pc.product_order_state AS 'orderState'
+		FROM 
+			(SELECT 
+				 bn.buynow_code AS 'orderCode'
+				,bn.goods_name AS 'goodsName'
+				,bn.final_payment_amount AS 'orderPaymentAmount'
+				,bn.reg_date AS 'orderDate'
+				,1 AS 'orderCount'
+			FROM	
+				buynow AS bn
+			WHERE 
+				bn.buynow_delete_state = 'N'
+			UNION 
+				SELECT 
+				 	bb.basket_group AS 'orderCode'
+					,b.goods_name AS 'goodsName'
+					,bb.final_payment_amount AS 'orderPaymentAmount'
+					,bb.reg_date AS 'orderDate'
+					,COUNT(bb.basket_group) OVER (PARTITION BY bb.basket_group) AS 'orderCount'
+				FROM	
+					buybasket AS bb
+					INNER JOIN 
+					basket AS b
+					ON 
+					bb.basket_group = b.basket_group
+				WHERE bb.buybasket_delete_state = 'N'
+						AND b.basket_delete_state = 'N') AS goods_order
+			INNER JOIN 
+			payment_complete AS pc
+			ON 
+			pc.buynow_basket_total_code = orderCode
+		WHERE 
+			pc.payment_complete_delete_state = 'N'
+		ORDER BY orderDate DESC;
+	</select>
+	
+</mapper>
