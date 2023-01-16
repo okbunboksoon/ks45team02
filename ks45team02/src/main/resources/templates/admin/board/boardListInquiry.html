@@ -14,37 +14,25 @@
 <th:block layout:fragment="customScript">
     <script>
         $(function(){
-            $('#listNotice').DataTable();
+            $('#listBoardInquiry').DataTable();
 
-            $('#deleteBtn').click(function(){
-                let deleteValue = $('#deleteBtn').val();
-                alert(deleteValue);
-                let deleteCheck = confirm("정말 삭제하시겠습니까?")
-                if(!deleteCheck){
-                    return false;
-                }else{
-                    $('#deleteNoticeForm').submit();
-                }
-            });
         });
     </script>
 </th:block>
 <th:block layout:fragment="customContents">
     <div class="col-md-12 col-sm-12 ">
-        <button type="submit" class="btn btn-primary" style="float: right"><a style ="color:white" th:href="@{/admin}">등록</a></button>
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="listNotice" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <table id="listBoardInquiry" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th class="inquiryCode">번호</th>
                                     <th class="userId">회원아이디</th>
                                     <th class="inquiryCate">구분</th>
                                     <th class="inquiryTitle">제목</th>
-                                    <th class="inquiryContents">내용</th>
                                     <th class="inquiryFile">첨부자료</th>
                                     <th class="inquiryRegDate">등록날짜</th>
                                     <th class="inquiryReRef">게시글 그룹번호</th>
@@ -57,8 +45,9 @@
                                     <td th:text="${b.inquiryCode}" />
                                     <td th:text="${b.userId}" />
                                     <td th:text="${b.inquiryCate}" />
-                                    <td th:text="${b.inquiryTitle}" />
-                                    <td th:text="${b.inquiryContents}" />
+                                    <td>
+                                        <a th:text="${b.inquiryTitle}" th:href="@{/admin/ContentsInquiry(inquiryCode=${b.inquiryCode})}"/>
+                                    </td>
                                     <td th:text="${b.inquiryFile}" />
                                     <td th:text="${b.inquiryRegDate}" />
                                     <td th:text="${b.inquiryReRef}" />

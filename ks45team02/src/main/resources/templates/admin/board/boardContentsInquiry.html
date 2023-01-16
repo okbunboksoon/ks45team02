@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style type="text/css">
+			div {
+				color : black;
+			}
+			#inquiryTitle {
+				border-top: solid 3px black;
+				border-bottom: solid 1px gray;
+				font-size: 25px;
+				text-align : center;
+				padding: 10px;
+			}
+			#inquiryCodeDate {
+				border-bottom: solid 1px gray;
+				background-color : ivory;
+				font-size: 13px;
+				text-align : right;
+				padding: 10px;
+			}
+			#inquiryContents {
+				border-bottom: solid 3px black;
+				font-size: 15px;
+				white-space:pre-line;
+				height: 500px;
+			}
+			#button {
+				text-align : right;	
+				padding: 10px;		
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customScript">
+		<script>
+
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+		<br><br>
+		<th:block th:if="${not #lists.isEmpty(contentsInquiry)}" th:each="c : ${contentsInquiry}">
+			<body>
+				<div  class="container">
+					<div id="inquiryTitle" th:text="${c.inquiryTitle}"></div>
+					<div id="inquiryCodeDate">
+						<span>등록번호</span>
+						<span th:text="${c.inquiryCode}"></span>
+						<span>등록날짜</span>
+						<span th:text="${c.inquiryRegDate}"></span>
+					</div>
+					<div id="inquiryContents">
+						<div th:text="${c.inquiryContents}"></div>
+					</div>
+					<div id="button">
+						<button type="button" class="btn btn-outline-dark">
+								<a th:href="@{/admin/listBoardInquiry}">목록으로</a></button>
+						<button type="button" class="btn btn-outline-dark">
+								<a th:href="@{/admin/modifyBoardInquiry(inquiryCode=${c.inquiryCode})}">편집</a></button>
+						<button id="deleteBtn" type="button" class="btn btn-outline-dark"
+								th:value="${c.inquiryCode}">답변</button>
+					</div>	
+				</div>
+			</body>
+		</th:block>
+	</th:block>
+
+</html>
