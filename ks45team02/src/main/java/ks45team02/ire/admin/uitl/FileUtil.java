@@ -55,7 +55,7 @@ public class FileUtil {
 						else if(contentType.contains("image/gif")) {
 							originalFileExtension = ".gif";
 						}
-						directory = "images" + File.separator;
+						directory = "imagess" + File.separator;
 					}else {
 						directory = "files" + File.separator;
 					}
