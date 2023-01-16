@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+
+<th:block layout:fragment="customContents">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="/user/css/login.css">
+        <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    </head>
+    <h1>로그인 화면</h1>
+    <body>
+        <form id="loginUser" th:action="@{/loginUser}" method="post">
+            <div class="page-container">
+                    <div class="login-form-left-side">
+                        <div class="login-top-wrap">
+                            <span>Sign In</span>
+
+                        </div>
+                        <div class="login-input-container">
+                            <div class="login-input-wrap input-id">
+                                <input  placeholder="아이디를 입력해 주세요" type="text"
+                                        id="userId"
+                                        name="userId">
+
+                            </div>
+                            <div class="login-input-wrap input-password">
+                                <input placeholder="비밀번호를 입력해주세요"  type="password"
+                                       id="userPw"
+                                        name="userPw">
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="login-btn-wrap">
+                            <button class="login-btn" id="submitBtn" type="submit">로그인</button>
+                            <a href="/addUser" >회원가입</a>
+                        </div>
+                    </div>
+            </div>
+        </form>
+    </body>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+            function validateValue(checkValue) {
+                if(    typeof checkValue == 'undefined'
+                        || checkValue == null
+                        || checkValue == ''					){
+                    return true;
+                }
+                return false;
+
+            }
+            $('#submitBtn').click(function(){
+                let isSubmit = true;
+
+                $('#loginUser input').each(function(idx, item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).text();
+                    console.log(checkValue,labelValue);
+                    if(validateValue(checkValue)){
+                        alert(`${labelValue}를 입력해주세요`);
+                        $(item).focus();
+                        isSubmit = false;
+
+                        return false;
+                    }
+
+                });
+
+                if(isSubmit) $('#loginUser').submit();
+            });
+        });
+    </script>
+</th:block>
 </html>

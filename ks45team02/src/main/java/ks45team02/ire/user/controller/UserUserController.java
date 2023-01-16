@@ -1,13 +1,34 @@
 package ks45team02.ire.user.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import ks45team02.ire.admin.controller.UserController;
+import ks45team02.ire.admin.dto.LoginInfo;
+import ks45team02.ire.admin.dto.User;
+import ks45team02.ire.admin.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
 public class UserUserController {
+	private static final Logger log= LoggerFactory.getLogger(UserController.class);
+	private final UserService userService;
+
+	public UserUserController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@GetMapping("/myPage")
 	public String myPage(Model model) {
@@ -48,9 +69,44 @@ public class UserUserController {
 
 	
 	@GetMapping("/loginUser")
-	public String loginUser() {
-		
-		return "user/user/userLogin";
+	public String loginUser(Model model,
+							@RequestParam(value = "msg",required = false)String msg,
+							HttpSession httpSession) {
+		model.addAttribute("pageTitle","Sign In");
+		if (msg!=null)model.addAttribute("msg",msg);
+		String redirectURI="user/user/userLogin";
+		LoginInfo loginInfo= (LoginInfo) httpSession.getAttribute("S_MEMBER_INFO");
+		if(loginInfo!=null){
+			redirectURI="redirect:/myPage";
+		}
+		return redirectURI;
+	}
+	@PostMapping("/loginUser")
+	public String loginUser(@RequestParam(name = "userId",required = false)String userId,
+							@RequestParam(name = "userPw",required = false)String userPw,
+							RedirectAttributes reAttr,
+							HttpSession session,
+							HttpServletRequest request,
+							HttpServletResponse response){
+		log.info("userId:{},userPw:{}",userId,userPw);
+		Map<String,Object> checkResult=userService.checkPwByMemberId(userId,userPw);
+		boolean isChecked= (boolean) checkResult.get("result");
+
+		String redirectURI="redirect:/";
+		if(!isChecked){
+			redirectURI= "redirect:/loginUser";
+			reAttr.addAttribute("msg","입력하신 회원의 정보가 일치하지 않습니다.");
+		}else {
+			User user=(User) checkResult.get("userInfo");
+			LoginInfo loginInfo=new LoginInfo(userId,user.getUserName());
+			session.setAttribute("S_MEMBER_INFO",loginInfo);
+			userService.updateLoginHistory(userId);
+			Cookie cookie=new Cookie("loginKeepId",userId);
+			cookie.setPath("/");
+			cookie.setMaxAge(60 * 60 * 24);
+			response.addCookie(cookie);
+		}
+		return redirectURI;
 	}
 	@GetMapping("/modifyUser")
 	public String modifyUser() {
