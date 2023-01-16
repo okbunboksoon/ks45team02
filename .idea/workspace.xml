@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 환불 조회 승인 반려&#10;변경시간: 1월 12일 15시 56분">
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BusinessOrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BusinessOrderController.java" afterDir="false" />
+    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항: BusinessOrderController에 리다이렉트 주소변경&#10;변경시간: 1월 12일 16시40분">
+      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardContentsInquiry.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BoardInquiryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BoardInquiryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/BoardInquiryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/BoardInquiryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/BoardInquiryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/BoardInquiryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/BoardInquiryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/BoardInquiryMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardAddInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardAddInquiry.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardListInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardListInquiry.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardModifyInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardModifyInquiry.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +76,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/mapper&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/templates/admin/board&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -85,6 +93,7 @@
       <recent name="ks45team02.src.main.java.ks45team02.ire" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\templates\admin\board" />
       <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\mapper" />
       <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\templates\admin\exchange_refund" />
     </key>
@@ -137,6 +146,8 @@
       <workItem from="1673412265126" duration="9419000" />
       <workItem from="1673484840447" duration="8136000" />
       <workItem from="1673502788294" duration="3445000" />
+      <workItem from="1673663168020" duration="4336000" />
+      <workItem from="1673828107234" duration="2971000" />
     </task>
     <task id="LOCAL-00001" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분">
       <created>1672216122635</created>
@@ -292,7 +303,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673420281801</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: BusinessOrderController에 리다이렉트 주소변경&#10;변경시간: 1월 12일 16시40분">
+      <created>1673509218213</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1673509218213</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,6 +353,7 @@
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:test&#10;변경시간: 1월 10일 15시 24분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 처리등록&#10;변경시간: 1월 11일 13시 45분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 조회 승인 반려&#10;변경시간: 1월 11일 15시 57분" />
-    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항:상품결제후 교환 조회 승인 반려&#10;변경시간: 1월 11일 15시 57분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: BusinessOrderController에 리다이렉트 주소변경&#10;변경시간: 1월 12일 16시40분" />
+    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항: BusinessOrderController에 리다이렉트 주소변경&#10;변경시간: 1월 12일 16시40분" />
   </component>
 </project>
