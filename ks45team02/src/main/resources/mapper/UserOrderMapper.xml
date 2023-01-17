@@ -4,7 +4,17 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.user.mapper.UserOrderMapper">
 	
-	<select id="getUserOrderList" resultType="UserOrder">
+	
+	<select id="getOrderCnt" resultType="int">
+		<!-- 주문 데이터 개수 -->
+		SELECT 
+			COUNT(1) 
+		FROM 
+			payment_complete;
+	</select> 
+
+	
+	<select id="getUserOrderList" parameterType="map" resultType="UserOrder">
 		<!-- 주문내역 리스트 -->
 		SELECT
 			goods_order.* 
@@ -21,27 +31,35 @@
 			WHERE 
 				bn.buynow_delete_state = 'N'
 			UNION 
-				SELECT 
-				 	bb.basket_group AS 'orderCode'
-					,b.goods_name AS 'goodsName'
-					,bb.final_payment_amount AS 'orderPaymentAmount'
-					,bb.reg_date AS 'orderDate'
-					,COUNT(bb.basket_group) OVER (PARTITION BY bb.basket_group) AS 'orderCount'
-				FROM	
-					buybasket AS bb
-					INNER JOIN 
-					basket AS b
-					ON 
-					bb.basket_group = b.basket_group
-				WHERE bb.buybasket_delete_state = 'N'
-						AND b.basket_delete_state = 'N') AS goods_order
+			SELECT 
+				bb.basket_group AS 'orderCode'
+				,b.goods_name AS 'goodsName'
+				,bb.final_payment_amount AS 'orderPaymentAmount'
+				,bb.reg_date AS 'orderDate'
+				,COUNT(bb.basket_group) OVER (PARTITION BY bb.basket_group) AS 'orderCount'
+			FROM	
+				buybasket AS bb
+				INNER JOIN 
+				basket AS b
+				ON 
+				bb.basket_group = b.basket_group
+			WHERE bb.buybasket_delete_state = 'N'
+					AND b.basket_delete_state = 'N') AS goods_order
 			INNER JOIN 
-			payment_complete AS pc
-			ON 
+			payment_complete AS pc	ON 
 			pc.buynow_basket_total_code = orderCode
 		WHERE 
+			pc.user_id = 'id001'
+			AND
 			pc.payment_complete_delete_state = 'N'
-		ORDER BY orderDate DESC;
+			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				AND 
+				pc.order_date >= #{startDate}
+				AND 
+				<![CDATA[ pc.order_date <= #{endDate} ]]>
+			</if>
+		ORDER BY orderDate DESC
+		<if test="startRowNum != null and startRowNum > -1">LIMIT #{startRowNum}, #{rowPerPage}</if> 
 	</select>
 	
 </mapper>
