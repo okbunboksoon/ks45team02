@@ -4,7 +4,10 @@ public class UserOrder {
 	
 	private String orderCode;
 	private String goodsName;
+	private String goodsPrice;
+	private int orderAmount;
 	private int orderPaymentAmount;
+	private int usePoint;
 	private String orderDate;
 	private String orderCount;
 	private String orderState;
@@ -21,11 +24,29 @@ public class UserOrder {
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 	}
+	public String getGoodsPrice() {
+		return goodsPrice;
+	}
+	public void setGoodsPrice(String goodsPrice) {
+		this.goodsPrice = goodsPrice;
+	}
+	public int getOrderAmount() {
+		return orderAmount;
+	}
+	public void setOrderAmount(int orderAmount) {
+		this.orderAmount = orderAmount;
+	}
 	public int getOrderPaymentAmount() {
 		return orderPaymentAmount;
 	}
 	public void setOrderPaymentAmount(int orderPaymentAmount) {
 		this.orderPaymentAmount = orderPaymentAmount;
+	}
+	public int getUsePoint() {
+		return usePoint;
+	}
+	public void setUsePoint(int usePoint) {
+		this.usePoint = usePoint;
 	}
 	public String getOrderDate() {
 		return orderDate;
@@ -52,8 +73,14 @@ public class UserOrder {
 		builder.append(orderCode);
 		builder.append(", goodsName=");
 		builder.append(goodsName);
+		builder.append(", goodsPrice=");
+		builder.append(goodsPrice);
+		builder.append(", orderAmount=");
+		builder.append(orderAmount);
 		builder.append(", orderPaymentAmount=");
 		builder.append(orderPaymentAmount);
+		builder.append(", usePoint=");
+		builder.append(usePoint);
 		builder.append(", orderDate=");
 		builder.append(orderDate);
 		builder.append(", orderCount=");
@@ -63,8 +90,6 @@ public class UserOrder {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
 	
 	
 }

@@ -3,6 +3,17 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{user/layout/userDefault}">
 
+	<head>
+		<style>
+			a {
+				color: #7a8ad9;
+			}
+			.userTable td {
+				height : 180px;
+			}
+		</style>
+	</head>
+
 	<th:block layout:fragment="customContents">
 	
 		<div class="row">
@@ -16,7 +27,15 @@
 								<h1>order</h1>
 							</div>
 							<br>
-							<div>아이디: </div>
+							<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
+							<div style="float:right;">
+								<form th:action="@{/listOrder}" method="GET">
+									<input type="date" name="startDate" style="display: inline-block"> 
+									~ 
+									<input type="date" name="endDate" style="display: inline-block">
+									<input type="submit" value="검색" style="display: inline-block">
+								</form>
+							</div>
 							<table class="userTable">
 								<thead>
 									<tr>
@@ -29,24 +48,54 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="l : ${userOrderList}">
-										<td style="display : none" th:text="*{l.orderCode}"></td>
-										<td th:if="*{l.orderCount} == 1" th:text="*{l.goodsName}"></td>
-										<td th:if="*{l.orderCount} > 1" th:text="|*{l.goodsName} 외 *{l.orderCount-1}개|"></td>
-										<td th:text="*{l.orderPaymentAmount}" style="border-top: none"></td>
-										<td th:text="*{l.orderDate}" style="border-top: none"></td>
-										<td th:text="*{l.orderState}"></td>
+									<tr th:unless="${#lists.isEmpty(userOrderList)}" th:each="l : ${userOrderList}">
+										<td style="display : none" th:text="${l.orderCode}"></td>
+										<td th:if="${l.orderCount} == 1">
+											<a th:text="${l.goodsName}" th:href="@{/contentsOrder(orderCode=${l.orderCode})}"></a>
+										</td>
+										<td th:if="${l.orderCount} > 1">
+											<a th:text="|${l.goodsName} 외 ${l.orderCount-1}개|" th:href="@{/contentsOrder(orderCode=${l.orderCode})}"></a>
+										</td>
+										<td th:text="${l.orderPaymentAmount}"></td>
+										<td th:text="${l.orderDate}"></td>
+										<td th:text="${l.orderState}"></td>
 										<td>
 											<ul>
-												<li th:if="*{l.orderState} == '배송완료'"><a>구매확정</a></li>
-												<li th:if="*{l.orderState} == '구매확정'"><a>리뷰작성</a></li>
-												<li th:if="*{l.orderState} == '결제완료' or *{l.orderState} == '배송준비중'"><a>주문취소</a></li>
-												<li th:if="*{l.orderState} == '배송완료'"><a>반품</a></li>
-												<li th:if="*{l.orderState} == '배송완료'"><a>환불</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a>구매확정</a></li>
+												<li th:if="${l.orderState} == '구매확정'"><a>리뷰작성</a></li>
+												<li th:if="${l.orderState} == '결제완료' or ${l.orderState} == '배송준비중'"><a>주문취소</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a>반품</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a>환불</a></li>
 											</ul>
 										</td>	
 									</tr>
+									<tr th:if="${#lists.isEmpty(userOrderList)}">
+										<td colspan="6">주문 내역이 없습니다.</td>
+									</tr>
 								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="6">
+											<a th:href="@{/listOrder}">[맨처음으로]</a>
+											<a th:if="${currentPage > 1}" 
+												 th:href="@{/listOrder(currentPage=${currentPage - 1})}"
+											>[이전]</a>
+											<span th:unless="${currentPage > 1}" >[이전]</span>
+											<th:block th:each="num: ${#numbers.sequence(startPageNum, endPageNum)}">
+												<a th:if="${currentPage != num}"
+													 th:href="@{/listOrder(currentPage=${num})}"
+													 th:text="|[ ${num} ]|">
+												</a>
+												<span th:if="${currentPage == num}">[[${'[' + num + ']'}]]</span>
+											</th:block>
+											<a th:if="${currentPage < lastPage}"
+												 th:href="@{/listOrder(currentPage=${currentPage + 1})}"
+											>[다음]</a>
+											<span th:unless="${currentPage < lastPage}" >[다음]</span>
+											<a th:href="@{/listOrder(currentPage=${lastPage})}">[맨마지막으로]</a>
+										</td>
+									</tr>
+								</tfoot>
 							</table>
 						</div>
 					</div>
@@ -73,5 +122,17 @@
 			</div>
 		</div>
 		
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const loginId = [[${session.S_MEMBER_INFO.loginId}]];
+			if(loginId == null){
+				location.href="/loginUser";
+			}
+
+		</script>
+
 	</th:block>
 </html>
