@@ -30,6 +30,11 @@ public class UserController {
 	}
 
 
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/";
+	}
 	//	회원 가입
 	@GetMapping("/addUser")
 	public String addUser(Model model) {

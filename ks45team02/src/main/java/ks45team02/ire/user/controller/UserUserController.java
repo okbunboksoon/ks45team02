@@ -30,6 +30,11 @@ public class UserUserController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/";
+	}
 	@GetMapping("/myPage")
 	public String myPage(Model model) {
 		
@@ -110,9 +115,19 @@ public class UserUserController {
 		return redirectURI;
 	}
 	@GetMapping("/modifyUser")
-	public String modifyUser() {
-		
+	public String modifyUser(Model model,
+							 HttpSession httpSession) {
+		model.addAttribute("pageTitle","회원정보 수정");
+		LoginInfo loginInfo= (LoginInfo) httpSession.getAttribute("S_MEMBER_INFO");
+		User userInfo=userService.getUserInfoById(loginInfo.getLoginId());
+		model.addAttribute("userInfo",userInfo);
+		log.info("userInfo:{}",userInfo);
 		return "user/user/userModify";
+	}
+	@PostMapping("/modifyUser")
+	public String modifyUser(User user){
+		userService.modifyUser(user);
+		return "redirect:/myPage";
 	}
 	@GetMapping("/usePointSaveUser")
 	public String usePointSaveUser() {
