@@ -26,6 +26,36 @@
     		</association>
     </resultMap>
     
+    <resultMap id="RawMaterialsEmissionStatisticsMonthResultMap" type="RawMaterialsEmissionStatisticsMonth">
+     <id property="rawMaterialsCode"				column="raw_materials_code" />
+        <result property="donationCode"				column="rm_incoming_date" />
+        <result property="rawMaterialsIncomingAmount"	column="carbon_dioxide_emission_sum" />
+        <result property="rawMaterialsIncomingDate"						column="user_id" />
+        <result property="rawMaterialsStatus"						column="reg_date" />
+        <result property="carbonDioxideEmissionLevel"				column="year_and_month" />
+        <result property="rawMaterialsDaygroup"	column="raw_materials_monthgroup" />
+        <result property="donationPointSave"	column="raw_materials_monthgroup" />
+        <result property="donationPointGroup"	column="raw_materials_monthgroup" />
+    		<association property="StatisticsYear" javaType="RawMaterialsEmissionStatisticsYear">
+    		
+    		</association>
+    </resultMap>
+    
+    
+    
+    <!-- 기부받은 의류별 CO2 일별 통계 전체 조회 -->
+    <select id="rawMaterialsDaySearch" resultMap="RawMaterialsEmissionStatisticsDayResultMap">
+    SELECT 
+		rmd.raw_materials_daygroup
+		, rmd.rm_incoming_date
+		, rmd.carbon_dioxide_emission_sum
+		, rmd.user_id
+		, rmd.reg_date
+		, rmd.year_and_month
+		, rmd.raw_materials_monthgroup
+	FROM 
+		raw_materials_daygroup_statistics AS rmd
+    </select>
     
     <!-- 기부받은 의류별 CO2 일별 통계 등록-->
 	<insert id="rawMaterialsDayAdd" parameterType="RawMaterialsEmissionStatisticsDay">
@@ -109,6 +139,8 @@
 		WHERE 
 			d.year_and_month = #{year_and_month}
 	</select>
+	
+	
 	
 
 </mapper>
