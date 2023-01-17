@@ -43,10 +43,16 @@ public class UserUserController {
 	
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
-		
+		model.addAttribute("pageTitle","회원 등록");
 		return "user/user/userAdd";
 	}
-	
+	@PostMapping("/addUser")
+	public String addUser(User user){
+		log.info("회원가입 :{}",user);
+		userService.addUser(user);
+
+		return "redirect:/";
+	}
 	@GetMapping("/deleteUser")
 	public String deleteUser() {
 		
