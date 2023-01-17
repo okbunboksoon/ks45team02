@@ -1,5 +1,7 @@
 package ks45team02.ire.admin.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
@@ -7,6 +9,10 @@ import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
 @Mapper
 public interface EmissionStatisticsMapper {
 	
+	/**
+	 * 기부받은 의류별 CO2 일별 전체 조회
+	 */
+	public List<RawMaterialsEmissionStatisticsDay>  rawMaterialsDaySearch();
 	
 	/**
 	 * 기부받은 의류별 CO2 일별 통계 추가

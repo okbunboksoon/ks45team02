@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class UserEmissionController {
-
+	
 	@GetMapping("/listEmissionC02GoodsTotal")
 	public String listEmissionC02GoodsTotal() {
 		
@@ -20,6 +20,7 @@ public class UserEmissionController {
 		
 		return "user/emission/emissionListCO2Total";
 	}
+	
 	@GetMapping("/listEmissionRawMaterialsGroupStatistics")
 	public String listEmissionRawMaterialsGroupStatistics() {
 		

@@ -1,5 +1,7 @@
  package ks45team02.ire.admin.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,15 @@ public class EmissionStatisticsService {
 		this.rawMaterialsMapper = rawMaterialsMapper;
 	}
 	
-	
+	/**
+	 * 기부받은 의류별 CO2 일별 통계 전체 조회
+	 */
+	public List<RawMaterialsEmissionStatisticsDay>  getListRawMaterialsEmissionStatisticsDay() {
+		
+		List<RawMaterialsEmissionStatisticsDay> rawMaterialsEmissionStatisticsDayList = emissionStatisticsMapper.rawMaterialsDaySearch();
+		
+		return rawMaterialsEmissionStatisticsDayList;
+	}
 	
 	/**
 	 * 기부받은 의류별 CO2 일별 통계

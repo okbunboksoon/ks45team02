@@ -8,6 +8,8 @@ public class RawMaterialsEmissionStatisticsMonth {
 	private String reg_date;
 	private String year_and_month;
 	private String raw_materials_yeargroup;
+	
+	
 	public String getRaw_materials_monthgroup() {
 		return raw_materials_monthgroup;
 	}
