@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +16,8 @@ import ks45team02.ire.user.mapper.UserOrderMapper;
 @Transactional
 public class UserOrderService {
 	
+	private static final Logger log = LoggerFactory.getLogger(UserOrderService.class);
+
 	private final UserOrderMapper userOrderMapper;
 	
 	public UserOrderService(UserOrderMapper userOrderMapper) {
@@ -34,9 +38,10 @@ public class UserOrderService {
 		
 		// 마지막페이지 
 		// 1. 로그인이력 테이블의 전체 행의 갯수
-		double rowCnt = userOrderMapper.getOrderCnt();
+		double rowCnt = userOrderMapper.getOrderCnt(loginId);
 		// 2. 마지막페이지
 		int lastPage = (int) Math.ceil(rowCnt/rowPerPage);
+		log.info("lastPage: {}", lastPage);
 		
 		// 보여질 페이지 번호 구현
 		// 보여질 페이지 번호 초기화

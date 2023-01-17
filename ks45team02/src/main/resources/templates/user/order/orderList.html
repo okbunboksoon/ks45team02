@@ -53,8 +53,8 @@
 										<td th:if="${l.orderCount} > 1">
 											<a th:text="|${l.goodsName} 외 ${l.orderCount-1}개|" th:href="@{/contentsOrder(orderCode=${l.orderCode})}"></a>
 										</td>
-										<td th:text="${l.orderPaymentAmount}" style="border-top: none"></td>
-										<td th:text="${l.orderDate}" style="border-top: none"></td>
+										<td th:text="${l.orderPaymentAmount}"></td>
+										<td th:text="${l.orderDate}"></td>
 										<td th:text="${l.orderState}"></td>
 										<td>
 											<ul>

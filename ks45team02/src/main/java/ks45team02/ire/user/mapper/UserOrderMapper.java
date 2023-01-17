@@ -10,8 +10,11 @@ import ks45team02.ire.user.dto.UserOrder;
 @Mapper
 public interface UserOrderMapper {
 
+	//주문상세
+	public List<UserOrder> getUserOrderInfo(String loginId, String orderCode);
+	
 	//주문내역 개수
-	public int getOrderCnt();
+	public int getOrderCnt(String loginId);
 	
 	//주문내역 리스트
 	public List<UserOrder> getUserOrderList(Map<String, Object> pageMap);

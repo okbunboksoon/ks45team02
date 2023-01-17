@@ -45,9 +45,19 @@ public class UserOrderController {
 	
 	//주문내역 상세
 	@GetMapping("/contentsOrder")
-	public String contentsOrder(Model model) {
+	public String contentsOrder(Model model, HttpSession session
+							  ,@RequestParam(value="orderCode") String orderCode) {
+		
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		String loginId = loginInfo.getLoginId();
+		
+		List<UserOrder> userOrderInfo = userOrderMapper.getUserOrderInfo(loginId, orderCode);
 		
 		model.addAttribute("title", "주문 상세");
+		model.addAttribute("userOrderInfo", userOrderInfo);
 		
 		return "user/order/orderContents";
 	}
@@ -79,6 +89,8 @@ public class UserOrderController {
 		model.addAttribute("userOrderList", userOrderList);
 		model.addAttribute("startPageNum", startPageNum);
 		model.addAttribute("endPageNum", endPageNum);
+		
+		log.info("currentPage: {}", currentPage);
 		
 		return "user/order/orderList";
 	}

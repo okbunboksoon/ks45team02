@@ -4,13 +4,63 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.user.mapper.UserOrderMapper">
 	
+	<select id="getUserOrderInfo" parameterType="String" resultType="UserOrder">
+		<!-- 주문상세 -->
+		SELECT
+			goods_order.* 
+			,pc.product_order_state AS 'orderState'
+		FROM 
+			(SELECT 
+				 bn.buynow_code AS 'orderCode'
+				,bn.goods_name AS 'goodsName'
+				,bn.goods_price AS 'goodsPrice'
+				,bn.buynow_amount AS 'orderAmount'
+				,bn.final_payment_amount AS 'orderPaymentAmount'
+				,bn.use_point AS 'usePoint'
+				,bn.reg_date AS 'orderDate'
+				,1 AS 'orderCount'
+			FROM	
+				buynow AS bn
+			WHERE 
+				bn.buynow_delete_state = 'N'
+			UNION 
+			SELECT 
+				bb.basket_group AS 'orderCode'
+				,b.goods_name AS 'goodsName'
+				,b.goods_price AS 'goodsPrice'
+				,b.basket_amount AS 'orderAmount'
+				,bb.final_payment_amount AS 'orderPaymentAmount'
+				,bb.use_point AS 'usePoint'
+				,bb.reg_date AS 'orderDate'
+				,COUNT(bb.basket_group) OVER (PARTITION BY bb.basket_group) AS 'orderCount'
+			FROM	
+				buybasket AS bb
+				INNER JOIN 
+				basket AS b
+				ON 
+				bb.basket_group = b.basket_group
+			WHERE bb.buybasket_delete_state = 'N'
+					AND b.basket_delete_state = 'N') AS goods_order
+			INNER JOIN 
+			payment_complete AS pc	ON 
+			pc.buynow_basket_total_code = orderCode
+		WHERE 
+			pc.user_id = #{loginId}
+			AND
+			pc.buynow_basket_total_code = #{orderCode}
+			AND 
+			pc.payment_complete_delete_state = 'N'
+		ORDER BY orderDate DESC;
+	</select>
 	
-	<select id="getOrderCnt" resultType="int">
+	<select id="getOrderCnt" resultType="int" parameterType="String">
 		<!-- 주문 데이터 개수 -->
 		SELECT 
 			COUNT(1) 
 		FROM 
-			payment_complete;
+			payment_complete
+		WHERE 
+			user_id = #{loginId};
 	</select> 
 
 	
@@ -49,7 +99,7 @@
 			payment_complete AS pc	ON 
 			pc.buynow_basket_total_code = orderCode
 		WHERE 
-			pc.user_id = 'id001'
+			pc.user_id = #{loginId}
 			AND
 			pc.payment_complete_delete_state = 'N'
 			<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
