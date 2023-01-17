@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
 
-</body>
+	<head>
+		<style>
+			a {
+				color:#7a8ad9;
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+	
+		<div class="row">
+			<div class="col-md-8 col-lg-9 p-b-80">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-userTable">
+							<br>
+							<br>
+							<div class="pageTitle">
+								<h1>point standard</h1>
+							</div>
+							<br>
+							<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
+							<table class="userTable">
+								<thead>
+									<tr>
+										<th>포인트 기준</th>
+										<th>포인트 지급액</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:unless="${#lists.isEmpty(pointSaveStandardList)}" th:each="l : ${pointSaveStandardList}">
+										<td th:text="${l.pointSaveStandardDetail}"></td>
+										<td th:text="${l.pointSave}"></td>
+									</tr>
+									<tr th:if="${#lists.isEmpty(pointSaveStandardList)}">
+										<td colspan="2">포인트 지급 기준이 없습니다.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="side-menu">
+				<div class="p-t-55">
+					<h4 class="mtext-112 cl2 p-b-33">My Page</h4>
+					<ul>
+						<li class="bor18">
+							<a href="/modifyUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">정보 수정</a>
+							<a href="/listPoint" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">포인트 내역</a>
+							<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">주문 내역</a>
+							<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">취소 내역</a>
+							<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">교환/환불 내역</a>
+							<a href="/listDonation" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">기부 내역</a>
+							<a href="/admin" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">관리자 페이지</a>
+							<a href="#" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">로그아웃</a>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+		
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+		</script>
+
+	</th:block>
 </html>

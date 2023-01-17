@@ -108,6 +108,7 @@
 				AND 
 				<![CDATA[ pc.order_date <= #{endDate} ]]>
 			</if>
+		GROUP BY pc.payment_complete_code
 		ORDER BY orderDate DESC
 		<if test="startRowNum != null and startRowNum > -1">LIMIT #{startRowNum}, #{rowPerPage}</if> 
 	</select>
