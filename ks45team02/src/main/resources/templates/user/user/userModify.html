@@ -1,10 +1,119 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+
+<th:block layout:fragment="customContents">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/user/css/login.css">
+        <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    </head>
+    <body>
+    <form id="modifyUser" th:action="@{/modifyUser}" method="post" th:object="${userInfo}">
+        <div class="page-container">
+            <div class="login-form-left-side">
+                <div class="login-top-wrap">
+                    <span>Modify</span>
+                </div>
+                <div>
+                    <div >
+                        <input  type="text"
+                                id="userId"
+                                name="userId"
+                                th:value="*{userId}"
+                                readonly="readonly">아이디
+                    </div>
+                    <div>
+                        <input type="text"
+                               id="userPw"
+                               name="userPw"
+                               th:value="*{userPw}">비밀번호
+                    </div>
+                    <div>
+                        <input type="text"
+                               id="userName"
+                               name="userName"
+                               th:value="*{userName}">이름
+                    </div>
+                    <div>
+                        <input type="text"
+                               id="userNickName"
+                               name="userNickName"
+                               th:value="*{userNickName}">닉네임
+                    </div>
+                    <div>
+                        <input type="date"
+                               id="userBirth"
+                               name="userBirth"
+                               th:value="*{userBirth}"
+                                readonly="readonly">생년월일
+                    </div>
+                    <div>
+                        <input type="text"
+                               id="userPhone"
+                               name="userPhone"
+                               th:value="*{userPhone}">휴대폰
+                    </div>
+                    <div>
+                        <input type="email"
+                               id="userEmail"
+                               name="userEmail"
+                               th:value="*{userEmail}">이메일
+                    </div>
+                    <div>
+                        <input type="text"
+                               id="userAddr"
+                               name="userAddr"
+                               th:value="*{userAddr}">주소
+                    </div>
+                </div>
+                <div class="login-btn-wrap">
+                    <button class="login-btn" id="submitBtn" type="button">회원 수정</button>
+                    <a href="/myPage" >취소</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+            function validateValue(checkValue) {
+                if(    typeof checkValue == 'undefined'
+                        || checkValue == null
+                        || checkValue == ''					){
+                    return true;
+                }
+                return false;
+            }
+            $('#submitBtn').click(function(){
+                let isSubmit = true;
+                $('#modifyUser input').each(function(idx, item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).text();
+                    console.log(checkValue,labelValue);
+                    if(validateValue(checkValue)){
+                        alert(`${labelValue}를 입력해주세요`);
+                        $(item).focus();
+                        isSubmit = false;
+                        return false;
+                    }
+                });
+                if(isSubmit) $('#modifyUser').submit();
+            });
+
+            $('#submitBtn').hover(function(){
+                $(this).css('background-color','gray');
+            },function(){
+                $(this).css('background-color','black');
+            })
+        });
+
+    </script>
+</th:block>
 </html>
