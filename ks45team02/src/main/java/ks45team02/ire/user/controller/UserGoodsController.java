@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.service.GoodsService;
+import ks45team02.ire.user.dto.UserGoods;
+import ks45team02.ire.user.service.UserGoodsService;
 
 @Controller
 @RequestMapping("/")
@@ -20,11 +23,11 @@ public class UserGoodsController {
 	private static final Logger log = LoggerFactory.getLogger(UserGoodsController.class);
 
 	
-	private GoodsService goodsService;
+	private UserGoodsService userGoodsService;
 	
-	public UserGoodsController(GoodsService goodsService) {
+	public UserGoodsController(UserGoodsService userGoodsService) {
 		
-		this.goodsService = goodsService;
+		this.userGoodsService = userGoodsService;
 	}
 	
 	@GetMapping("/orderGoods")
@@ -39,7 +42,7 @@ public class UserGoodsController {
 	@GetMapping("/listGoods")
 	public String listGoods(Model model) {
 		
-		List<Goods> listGoods =  goodsService.getListGoods();
+		List<UserGoods> listGoods =  userGoodsService.getUserGoodsList();
 		
 		model.addAttribute("title", "Ire");
 		model.addAttribute("listGoods", listGoods);
@@ -47,6 +50,19 @@ public class UserGoodsController {
 		
 		return "user/goods/goodsList";
 	}
+	
+	@GetMapping("/goodsContents")
+	public String goodsContents(Model model,
+								@RequestParam(value = "goodsCode")String goodsCode) {
+		log.info("goodsCode : {}", goodsCode);
+		List<UserGoods> getGoodsList = userGoodsService.getGoodsFileByCode(goodsCode);
+		model.addAttribute("title", "Ire");
+		model.addAttribute("getGoodsList", getGoodsList);
+		log.info("getGoodsList : {}", getGoodsList);
+		
+		return "user/goods/goodsContents";
+	}
+	
 	
 }
 

@@ -220,47 +220,39 @@
 			</div>
 
 			<div class="row isotope-grid">
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-					<!-- Block2 -->
-					<x` class="block2">
-						<div class="block2-pic hov-img0">
-							<img src="/imagess/20230116/플랫슈즈2410607694029000.jpg" alt="IMG-PRODUCT">
-
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-								Quick View 
-							</a>
-						</div>
-
-						<div class="block2-txt flex-w flex-t p-t-14">
-							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-									상품명
-								</a>
-
-								<span class="stext-105 cl3">
-									가격
-								</span>
-							</div>
-
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+				<th:block th:if="${not #lists.isEmpty(listGoods)}" th:each="gl : ${listGoods}">
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+						<!-- Block2 -->
+						<x` class="block2">
+							<div class="block2-pic hov-img0">
+								<img th:src="@{|/${gl.fileDto.filePath}|}"  alt="IMG-PRODUCT">
+								<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+									Quick View 
 								</a>
 							</div>
+							<div class="block2-txt flex-w flex-t p-t-14">
+								<div class="block2-txt-child1 flex-col-l ">
+									<a th:href="@{goodsContents(goodsCode=${gl.goodsCode})}" 
+									   class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" th:text="${gl.goodsName}" />
+									<span class="stext-105 cl3" th:text="${#numbers.formatInteger(gl.goodsPrice, 3, 'COMMA') + '원'}" />
+								</div>
+								<div class="block2-txt-child2 flex-r p-t-3">
+									<a th:href="@{goodsContents(goodsCode=${gl.goodsCode})}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" >
+										<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+									</a>
+								</div>
+							</div>
 						</div>
-					</div>
+					</th:block>
 				</div>
-
 			<!-- 상품페이지 마지막 div -->
 			</div>
-					
-				
 
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
 				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					Load More
+					더보기
 				</a>
 			</div>
 		</div>

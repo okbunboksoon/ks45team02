@@ -2,17 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{admin/layout/adminDefault}">
-
+	  
+<link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+<link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+<link th:href="@{https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap}" rel="stylesheet">
 	<head>
 		<style type="text/css">
 			div {
 				color: black;
+				font-family: 'Noto Sans KR', sans-serif;
 			}
 			#inputTitle {
 				width: 100%
+				
 			}
 			#inputContent {
 				width: 100%
+				
+				
 			}
 			.btnGroup {
 				text-align : center;
@@ -26,6 +33,7 @@
 			}
 		</style>
 	</head>
+
 		
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
