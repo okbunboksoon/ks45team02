@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/imagess/**")
-				.addResourceLocations("file:///home/springboot/teamproject/resources/images/");
+				.addResourceLocations("file:///home/springboot/teamproject/resources/imagess/");
 		registry.addResourceHandler("/files/**")
 				.addResourceLocations("file:///home/springboot/teamproject/resources/files/");
 		WebMvcConfigurer.super.addResourceHandlers(registry);

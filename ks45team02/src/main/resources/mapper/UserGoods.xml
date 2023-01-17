@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.user.mapper.UserGoodsMapper">
+		<resultMap id="UserGoodsResultMap" type="UserGoods">
+	        <id property="goodsCode"                     column="goods_code" />
+	        <result property="goodsName"                 column="goods_name"/>
+	        <result property="categoryMediumCode"        column="category_medium_code"/>
+	        <result property="categoryMediumName"        column="category_medium_name"/>
+	        <result property="goodsPrice"                column="goods_price"/>
+	        <result property="goodsColor"                column="goods_color"/>
+	        <result property="goodsSize"                 column="goods_size"/>
+	        <result property="goodsRegDate"				 column="goods_reg_date"/>
+	        <result property="goodsSangse"               column="goods_sangse"/>
+	        <result property="fileIdx"               	 column="file_idx"/>
+	        <result property="fabric"                    column="fabric"/>
+	        <result property="rate"                      column="rate"/>
+	        <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+	            <association property="fileDto" javaType="FileDto">
+	            <id property="fileIdx"                 	 column="file_idx" />
+	            <result property="fileOriginalName"      column="file_original_name"/>
+	            <result property="fileNewName"           column="file_new_name"/>
+	            <result property="filePath"            	 column="file_path"/>
+	            <result property="fileSize"              column="file_size"/>
+	            </association>
+	    </resultMap>
+	    
+	<!-- 상품 및 이미지 경로 불러오기 -->
+	<select id="getUserGoodsList" resultMap="UserGoodsResultMap">
+		SELECT
+			 g.goods_code
+			,g.goods_name
+			,g.category_medium_code
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,g.goods_reg_date
+			,g.goods_sangse
+			,g.fabric
+			,g.rate
+			,g.file_idx
+			,f.file_idx
+			,f.file_original_name
+			,f.file_new_name
+			,f.file_path
+			,f.file_size
+		FROM
+			goods AS g
+			INNER JOIN
+			goods_file AS f
+			on
+			g.file_idx = f.file_idx
+	</select>
+
+	<!-- 상품 및 이미지 특정 코드 조회 -->
+	<select id="getGoodsFileByCode" parameterType="String" resultMap="UserGoodsResultMap">
+		SELECT
+			 g.goods_code
+			,g.goods_name
+			,g.category_medium_code
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,g.goods_reg_date
+			,g.goods_sangse
+			,g.fabric
+			,g.rate
+			,g.file_idx
+			,f.file_idx
+			,f.file_original_name
+			,f.file_new_name
+			,f.file_path
+			,f.file_size
+		FROM
+			goods AS g
+			INNER JOIN
+			goods_file AS f
+			on
+			g.file_idx = f.file_idx
+		WHERE
+			g.goods_code = #{goodsCode}
+	</select>
+</mapper>
