@@ -3,9 +3,24 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{user/layout/userDefault}">
 
-
-	  
-	
+	<head>
+	<style type="text/css">
+		@font-face {
+	    font-family: 'IBMPlexSansKR-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;}
+		
+		div{
+			color: black;
+		}
+		
+		*{
+		font-family: 'IBMPlexSansKR-Regular';
+		}
+		
+		</style>
+		</head>
 	
 <th:block layout:fragment="customContents">
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
@@ -20,7 +35,7 @@
 				<div class="col-md-7 col-lg-2"></div>
 				<div class="col-md-7 col-lg-8">
 					<div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
-						
+						<h6>이용가이드</h6>
 							<table id="listUserGuide" class="table" cellspacing="0" width="1000"  style="margin-left: auto; margin-right: auto;">
 								<thead>
 									<tr>
@@ -34,7 +49,7 @@
 								<tbody>
 								<tr th:if="${not #lists.isEmpty(userGuideList)}" th:each="ugl : ${userGuideList}">
 											<td th:text="${#strings.substring(ugl.guide_code, 8, 9)}"/>
-											<td colspan="5"><a th:text="${ugl.guide_title}" th:href="@{/admin/ContentsUserGuide(guide_code=${ugl.guide_code})}"></a></td>
+											<td colspan="5"><a th:text="${ugl.guide_title}" th:href="@{ContentsUserGuide(guide_code=${ugl.guide_code})}" style="color: black"></a></td>
 											<td style= "text-align: right" th:text="${ugl.guide_views}"></td>
 											<td style= "text-align: right" th:text="${ugl.guide_reg_date}" />
 								</tr>
@@ -42,13 +57,12 @@
 											<td colspan="5">등록된 이용가이드가 없습니다.</td>
 										</tr>
 								</tbody>
-							</table>
-							
-							
-							
+
+							</table>	
+
+						</div>
 					</div>
-				</div>
-			<div class="col-md-7 col-lg-2"></div>
+				<div class="col-md-7 col-lg-2"></div>
 			</div>
 		</div>
 	 </section>

@@ -160,7 +160,7 @@
             user_birth,
             point_state,
             user_join_date,
-            user_drop_date
+            user_drop_state
         )
         VALUES
         (
