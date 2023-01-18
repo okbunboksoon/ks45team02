@@ -39,7 +39,9 @@
 												<input type="text" name="goodsCode" th:text="${l.goodsCode}">
 												<input type="text" name="basketGroup" th:text="${l.basketGroup}">
 											</td>
-											<td class="column-1" th:text="${l.goodsName}" colspan="2"></td>
+											<td class="column-1" colspan="2">
+												<a th:href="@{/goodsContents(goodsCode=${l.goodsCode})}" th:text="${l.goodsName}"></a>
+											</td>
 											<td class="column-3" id="goodsPrice" th:text="${l.goodsPrice}"></td>
 											<td class="column-4">
 												<div class="wrap-num-product flex-w m-l-auto m-r-0">
