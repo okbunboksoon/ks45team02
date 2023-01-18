@@ -117,6 +117,9 @@ public class UserUserController {
 			cookie.setPath("/");
 			cookie.setMaxAge(60 * 60 * 24);
 			response.addCookie(cookie);
+			if(user.getUserId()=="root"){
+				redirectURI="redirect:/admin";
+			}
 		}
 		return redirectURI;
 	}

@@ -7,10 +7,21 @@ public class BoardInquiry {
     private String inquiryCate;
     private String inquiryTitle;
     private String inquiryContents;
-    private String inquiryFile;
     private String inquiryRegDate;
     private int inquiryReRef;
-    private int inquiryReLev;
+
+    @Override
+    public String toString() {
+        return "BoardInquiry{" +
+                "inquiryCode='" + inquiryCode + '\'' +
+                ", userId='" + userId + '\'' +
+                ", inquiryCate='" + inquiryCate + '\'' +
+                ", inquiryTitle='" + inquiryTitle + '\'' +
+                ", inquiryContents='" + inquiryContents + '\'' +
+                ", inquiryRegDate='" + inquiryRegDate + '\'' +
+                ", inquiryReRef=" + inquiryReRef +
+                '}';
+    }
 
     public String getInquiryCode() {
         return inquiryCode;
@@ -52,14 +63,6 @@ public class BoardInquiry {
         this.inquiryContents = inquiryContents;
     }
 
-    public String getInquiryFile() {
-        return inquiryFile;
-    }
-
-    public void setInquiryFile(String inquiryFile) {
-        this.inquiryFile = inquiryFile;
-    }
-
     public String getInquiryRegDate() {
         return inquiryRegDate;
     }
@@ -74,28 +77,5 @@ public class BoardInquiry {
 
     public void setInquiryReRef(int inquiryReRef) {
         this.inquiryReRef = inquiryReRef;
-    }
-
-    public int getInquiryReLev() {
-        return inquiryReLev;
-    }
-
-    public void setInquiryReLev(int inquiryReLev) {
-        this.inquiryReLev = inquiryReLev;
-    }
-
-    @Override
-    public String toString() {
-        return "BoardInquiry{" +
-                "inquiryCode='" + inquiryCode + '\'' +
-                ", userId='" + userId + '\'' +
-                ", inquiryCate='" + inquiryCate + '\'' +
-                ", inquiryTitle='" + inquiryTitle + '\'' +
-                ", inquiryContents='" + inquiryContents + '\'' +
-                ", inquiryFile='" + inquiryFile + '\'' +
-                ", inquiryRegDate='" + inquiryRegDate + '\'' +
-                ", inquiryReRef=" + inquiryReRef +
-                ", inquiryReLev=" + inquiryReLev +
-                '}';
     }
 }

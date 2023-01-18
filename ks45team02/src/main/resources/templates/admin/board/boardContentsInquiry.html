@@ -35,12 +35,6 @@
 		</style>
 	</head>
 
-	<th:block layout:fragment="customScript">
-		<script>
-
-		</script>
-	</th:block>
-	
 	<th:block layout:fragment="customContents">
 		<br><br>
 		<th:block th:if="${not #lists.isEmpty(contentsInquiry)}" th:each="c : ${contentsInquiry}">
@@ -61,8 +55,8 @@
 								<a th:href="@{/admin/listBoardInquiry}">목록으로</a></button>
 						<button type="button" class="btn btn-outline-dark">
 								<a th:href="@{/admin/modifyBoardInquiry(inquiryCode=${c.inquiryCode})}">편집</a></button>
-						<button id="deleteBtn" type="button" class="btn btn-outline-dark"
-								th:value="${c.inquiryCode}">답변</button>
+						<button type="button" class="btn btn-outline-dark">
+                            <a th:href="@{/admin/modifyBoardInquiry(inquiryCode=${c.inquiryCode})}">답변 가즈아</a></button>
 					</div>	
 				</div>
 			</body>

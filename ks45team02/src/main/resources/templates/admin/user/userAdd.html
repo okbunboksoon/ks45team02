@@ -12,9 +12,6 @@
         }
     </style>
 </head>
-<th:block layout:fragment="customJs">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-</th:block>
 <th:block layout:fragment="customScript">
     <script>
         $(function (){ //window.onload(요소가 다 렌더링이 되고 나서 실행)
@@ -176,7 +173,7 @@
                                     <div class="item form-group">
                                         <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
                                             <button class="btn btn-primary" type="button" id="submitBtn">등록</button>
-                                            <button class="btn btn-danger" type="button" id="resetBtn">취소</button>
+                                            <button class="btn btn-danger" type="button" id="resetBtn"><a href="/">취소</a></button>
                                         </div>
                                     </div>
                             </form>
@@ -191,15 +188,10 @@
 <th:block layout:fragment="customjs">
     <!-- jQuery -->
     <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
-    <!-- Bootstrap -->
     <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-    <!-- FastClick -->
     <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
-    <!-- NProgress -->
     <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
-
-    <script th:src="@{/admin/build/js/custom.min.js"></script>
-
+    <script th:src="@{/admin/build/js/custom.min.js}"></script>
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
     <script th:src="@{admin/vendors/validator/multifield.js}"></script>
     <script th:src="@{admin/vendors/validator/validator.js}"></script>

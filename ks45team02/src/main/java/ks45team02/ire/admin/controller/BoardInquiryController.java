@@ -50,9 +50,19 @@ public class BoardInquiryController {
 		return "admin/board/boardDeleteInquiry";
 	}
 	@GetMapping("/answerBoardInquiry")
-	public String answerBoardInquiry() {
-		
+	public String answerBoardInquiry(Model model,
+									 @RequestParam(value = "inquiryCode",required = false)String inquiryCode) {
+		model.addAttribute("pageTitle","1:1문의 답변");
+		List<User> userList=userMapper.listUser();
+		model.addAttribute("userList",userList);
+		BoardInquiry getInquiryRe= boardInquiryMapper.getInquiryInfo(inquiryCode);
+		model.addAttribute("getInquiryRe",getInquiryRe);
 		return "admin/board/boardInquiryAnswer";
+	}
+	@PostMapping("/answerBoardInquiry")
+	public String answerBoardInquiry(BoardInquiry boardInquiry){
+		boardInquiryService.answer(boardInquiry);
+		return "redirect:/admin/listBoardInquiry";
 	}
 	@GetMapping("/listBoardInquiry")
 	public String listBoardInquiry(Model model) {
@@ -60,8 +70,6 @@ public class BoardInquiryController {
 		List<BoardInquiry>boardInquiryList= boardInquiryService.boardInquiryList();
 		model.addAttribute("pageTitle","1:1문의 조회");
 		model.addAttribute("boardInquiryList",boardInquiryList);
-		log.info("1:1문의조회:{}",boardInquiryList);
-
 		return "admin/board/boardListInquiry";
 	}
 	@GetMapping("/ContentsInquiry")
