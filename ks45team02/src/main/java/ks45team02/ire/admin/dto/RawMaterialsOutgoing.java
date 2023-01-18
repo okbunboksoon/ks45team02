@@ -6,8 +6,9 @@ public class RawMaterialsOutgoing {
     private String rawMaterialsOutgoingDate;
     private String rawMaterialsCode;
     private String businessCode;
-    private RawMaterials rawMaterials;
+
     private Business business;
+    private RawMaterials rawMaterials;
 
     @Override
     public String toString() {
@@ -17,8 +18,8 @@ public class RawMaterialsOutgoing {
                 ", rawMaterialsOutgoingDate='" + rawMaterialsOutgoingDate + '\'' +
                 ", rawMaterialsCode='" + rawMaterialsCode + '\'' +
                 ", businessCode='" + businessCode + '\'' +
-                ", rawMaterials=" + rawMaterials +
                 ", business=" + business +
+                ", rawMaterials=" + rawMaterials +
                 '}';
     }
 
@@ -62,19 +63,19 @@ public class RawMaterialsOutgoing {
         this.businessCode = businessCode;
     }
 
-    public RawMaterials getRawMaterials() {
-        return rawMaterials;
-    }
-
-    public void setRawMaterials(RawMaterials rawMaterials) {
-        this.rawMaterials = rawMaterials;
-    }
-
     public Business getBusiness() {
         return business;
     }
 
     public void setBusiness(Business business) {
         this.business = business;
+    }
+
+    public RawMaterials getRawMaterials() {
+        return rawMaterials;
+    }
+
+    public void setRawMaterials(RawMaterials rawMaterials) {
+        this.rawMaterials = rawMaterials;
     }
 }

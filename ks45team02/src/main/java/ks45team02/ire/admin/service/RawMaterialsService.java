@@ -1,16 +1,16 @@
 package ks45team02.ire.admin.service;
 
-import java.util.List;
-
 import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
+import ks45team02.ire.admin.dto.RawMaterialsOutgoing;
 import ks45team02.ire.admin.mapper.DonationMapper;
-import ks45team02.ire.admin.mapper.EmissionStatisticsMapper;
 import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -136,7 +136,12 @@ public class RawMaterialsService {
 		System.out.println(rawmaterialsList);
 		return rawmaterialsList;
 	}
-	
-	}
+
+    public int addoutgoingRawmaterials(RawMaterialsOutgoing rawMaterialsOutgoing) {
+
+		int result = rawmaterialsMapper.addoutgoingRawmaterials(rawMaterialsOutgoing);
+		return result;
+    }
+}
 
 

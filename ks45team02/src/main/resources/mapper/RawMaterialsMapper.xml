@@ -25,8 +25,46 @@
 		<result property="donationPointSave" 			column="donation_point_save" />
 		<result property="donationPointGroup" 			column="donation_point_group" />
 	</resultMap>
-	
-	
+	<resultMap  type="RawMaterialsOutgoing" id="rawMaterialsOutgoingResultMap">
+		<id property="rawMaterialsOutgoingCode" column="out_going_code"/>
+		<result property="rawMaterialsOutgoingAmount" column="raw_materials_outgoing_amount"/>
+		<result property="rawMaterialsOutgoingDate" column="raw_materials_outgoing_date"/>
+		<result property= "rawMaterialsCode" column="raw_materials_code"/>
+		<result property="businessCode" column="business_code"/>
+	</resultMap>
+	<select id="rawMaterialsOutgoingList" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 내역 -->
+		SELECT
+			rmo.out_going_code, rmo.raw_materials_outgoing_amount, rmo.raw_materials_outgoing_date, rmo.raw_materials_code, rmo.business_code
+		FROM
+			raw_materials_outgoing AS rmo
+	</select>
+	<select id="addoutgoingRawmaterialsInfo" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 정보 출력 -->
+		SELECT
+			r.raw_materials_code
+		FROM
+			raw_materials AS r
+		WHERE r.raw_materials_code NOT in
+		(
+		SELECT
+			rmo.raw_materials_code
+		FROM
+			raw_materials_outgoing AS rmo
+		)
+	</select>
+	<insert id="addoutgoingRawmaterials" parameterType="RawMaterialsOutgoing">
+		<!-- 원자재 출고 등록 -->
+		INSERT INTO raw_materials_outgoing(
+			out_going_code, raw_materials_outgoing_amount, raw_materials_outgoing_date, raw_materials_code, business_code
+			)
+		VALUES(
+			sf_new_rawmaterials_outgoing_code(), #{rawMaterialsOutgoingAmount}, curdate(), #{rawMaterialsCode}, #{businessCode}
+		)
+
+	</insert>
+
+
 	<delete id="deleteRawMaterialsIncomingByRawMaterialsCode">
 		<!-- 원자재 입고 삭제 -->
 		DELETE 

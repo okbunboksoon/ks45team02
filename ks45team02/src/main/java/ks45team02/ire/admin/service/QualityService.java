@@ -63,4 +63,12 @@ public class QualityService {
         int result = qualityMapper.deleteQualityHazadousSubstanceLevel(quality);
         return result;
     }
+
+    public void addRequestQualityInspection(Quality quality) {
+        qualityMapper.addRequestQualityInspection(quality);
+    }
+
+    public void addInspectionStandard(Quality quality) {
+        qualityMapper.addInspectionStandard(quality);
+    }
 }
