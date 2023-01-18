@@ -5,6 +5,27 @@
     
 <mapper namespace="ks45team02.ire.user.mapper.UserPointMapper">
 	
+	
+	<select id="getPointCnt" resultType="int" parameterType="String">
+		<!-- 포인트 데이터 개수 -->
+		SELECT 
+			COUNT(pointList.pointCode)
+		FROM 
+			(SELECT 
+				ps.point_save_code AS pointCode
+			FROM
+				point_save AS ps
+			WHERE 
+				ps.user_id = #{loginId}
+			UNION 
+			SELECT 
+				pm.point_minus_code AS pointCode
+			FROM 
+				point_minus AS pm
+			WHERE 
+				pm.user_id = #{loginId})AS pointList;
+	</select> 
+	
 	<select id="getUserPointSaveAndMinusList" resultType="PointSaveAndMinus" parameterType="String">
 		<!-- 포인트 적립/차감 총 조회 -->
 		SELECT 
@@ -36,7 +57,8 @@
 			user_id = #{loginId}
 			AND
 			point_save_delete_state = 'N'
-		ORDER BY pointDate;
+		ORDER BY pointDate DESC
+		<if test="startRowNum != null and startRowNum > -1">LIMIT #{startRowNum}, #{rowPerPage}</if> 
 	</select>
 	
 </mapper>

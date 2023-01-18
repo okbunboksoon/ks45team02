@@ -90,8 +90,6 @@ public class UserOrderController {
 		model.addAttribute("startPageNum", startPageNum);
 		model.addAttribute("endPageNum", endPageNum);
 		
-		log.info("currentPage: {}", currentPage);
-		
 		return "user/order/orderList";
 	}
 	
