@@ -33,11 +33,10 @@
                                     <th class="userId">회원아이디</th>
                                     <th class="inquiryCate">구분</th>
                                     <th class="inquiryTitle">제목</th>
-                                    <th class="inquiryFile">첨부자료</th>
                                     <th class="inquiryRegDate">등록날짜</th>
                                     <th class="inquiryReRef">게시글 그룹번호</th>
-                                    <th class="inquiryReLev">게시글 깊이</th>
                                     <th>수정</th>
+                                    <th>답변</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,11 +47,18 @@
                                     <td>
                                         <a th:text="${b.inquiryTitle}" th:href="@{/admin/ContentsInquiry(inquiryCode=${b.inquiryCode})}"/>
                                     </td>
-                                    <td th:text="${b.inquiryFile}" />
                                     <td th:text="${b.inquiryRegDate}" />
                                     <td th:text="${b.inquiryReRef}" />
-                                    <td th:text="${b.inquiryReLev}" />
-                                    <td><button type="button" class="btn btn-info"><a style ="color:white" th:href="@{/admin/modifyBoardInquiry(inquiryCode=${b.inquiryCode})}">수정</a></button></td>
+                                    <td>
+                                        <button type="button" class="btn btn-info">
+                                            <a style ="color:white" th:href="@{/admin/modifyBoardInquiry(inquiryCode=${b.inquiryCode})}">수정</a>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info">
+                                            <a style ="color:white" th:href="@{/admin/answerBoardInquiry(inquiryCode=${b.inquiryCode})}">답변</a>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr th:unless="${not #lists.isEmpty(boardInquiryList)}">
                                     <td colspan="5">등록된 공지사항이 없습니다.</td>

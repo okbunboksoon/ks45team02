@@ -34,5 +34,8 @@ public class BoardInquiryService {
     public int modifyInquiry(BoardInquiry boardInquiry){
         return boardInquiryMapper.modifyInquiry(boardInquiry);
     }
+    public int answer(BoardInquiry boardInquiry){
+        return boardInquiryMapper.answer(boardInquiry);
+    }
 
 }

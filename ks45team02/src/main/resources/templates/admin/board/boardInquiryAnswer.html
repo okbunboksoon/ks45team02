@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        div {
+            color: black;
+        }
+        #inquiryTitle {
+            width: 100%
+        }
+        #inquiryContents {
+            width: 100%
+        }
+        .btnGroup {
+            text-align : center;
+        }
+        button {
+            width: 20%
+        }
+        label {
+            font-size: 20px;
+            margin: 5px;
+        }
+    </style>
 </head>
-<body>
-answerBoardInquiry
-</body>
+
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+
+
+            $('#submitBtn').click(function(){
+                let isSubmit = true;
+
+
+
+                if(isSubmit) $('#answerBoardInquiry').submit();
+            });
+        });
+    </script>
+</th:block>
+
+<th:block layout:fragment="customContents">
+    <form id="answerBoardInquiry" th:action="@{/admin/answerBoardInquiry}" method="post">
+        <br><br>
+        <div class="mb-3">
+            <label class="form-label">작성자</label>
+            <select  class="form-control" id="userId" name="userId">
+                <th:block th:if="${not #lists.isEmpty(userList)}"
+                          th:each="u : ${userList}">
+                    <option th:value="${u.userId}" >[[${u.userId}]]</option>
+                </th:block>
+                <th:block th:unless="${not #lists.isEmpty(userList)}">
+                    <option>등록된 작성자가 없습니다.</option>
+                </th:block>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">제목</label>
+            <input type="text" class="form-control" id="inquiryTitle" name="inquiryTitle" placeholder="제목을 입력해주세요">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">카테고리</label>
+            <select class="form-control" id="inquiryCate" name="inquiryCate">
+                <option>답변</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">그룹번호</label>
+            <input type="text" class="form-control" rows="30" id="inquiryReRef" name="inquiryReRef"
+                      th:value="${getInquiryRe.inquiryReRef}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+            <textarea class="form-control" rows="30"
+                      id="inquiryContents"name="inquiryContents" placeholder="내용을 입력해주세요"></textarea>
+        </div>
+
+        <div class="btnGroup">
+            <button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
+            <button type="button" class="btn btn-outline-danger" id="resetBtn">취소</button>
+        </div>
+    </form>
+</th:block>
 </html>

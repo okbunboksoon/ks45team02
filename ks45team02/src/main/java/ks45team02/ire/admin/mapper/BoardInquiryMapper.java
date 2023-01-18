@@ -16,4 +16,5 @@ public interface BoardInquiryMapper {
     public List<BoardInquiry>contentsInquiry(String inquiryCode);
     public BoardInquiry getInquiryInfo(String inquiryCode);
     public int modifyInquiry(BoardInquiry boardInquiry);
+    public int answer(BoardInquiry boardInquiry);
 }

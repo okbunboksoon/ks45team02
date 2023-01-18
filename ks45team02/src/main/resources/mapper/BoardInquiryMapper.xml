@@ -9,36 +9,48 @@
     <result property="inquiryCate" column="inquiry_cate"/>
     <result property="inquiryTitle" column="inquiry_title"/>
     <result property="inquiryContents" column="inquiry_contents"/>
-    <result property="inquiryFile" column="inquiry_file"/>
     <result property="inquiryRegDate" column="inquiry_reg_date"/>
     <result property="inquiryReRef" column="inquiry_re_ref"/>
-    <result property="inquiryReLev" column="inquiry_re_lev"/>
 </resultMap>
+
     <insert id="addInquiry" parameterType="BoardInquiry">
         INSERT INTO inquiry
-        (
-            inquiry_code,
-            user_id,
-            inquiry_cate,
-            inquiry_title,
-            inquiry_contents,
-            inquiry_file,
-            inquiry_reg_date,
-            inquiry_re_ref,
-            inquiry_re_lev
-        )
-        VALUES
-        (
-            sf_new_inquiry_code(),
-            #{userId},
-            #{inquiryCate},
-            #{inquiryTitle},
-            #{inquiryContents},
-            #{inquiryFile},
-            NOW(),
-            '0',
-            '0'
-        )
+        (inquiry_code,
+         user_id,
+         inquiry_cate,
+         inquiry_title,
+         inquiry_contents,
+         inquiry_reg_date,
+         inquiry_re_ref
+        )VALUES(
+         sf_new_inquiry_code(),
+         #{userId},
+         #{inquiryCate},
+         #{inquiryTitle},
+         #{inquiryContents},
+         CURDATE(),
+         (SELECT
+            MAX(i.inquiry_re_ref)+1
+          FROM inquiry AS i));
+
+    </insert>
+    <insert id="answer" parameterType="BoardInquiry">
+        INSERT INTO inquiry
+        (inquiry_code,
+        user_id,
+        inquiry_cate,
+        inquiry_title,
+        inquiry_contents,
+        inquiry_reg_date,
+        inquiry_re_ref
+        )VALUES(
+        sf_new_inquiry_code(),
+        #{userId},
+        #{inquiryCate},
+        #{inquiryTitle},
+        #{inquiryContents},
+        CURDATE(),
+        #{inquiryReRef});
     </insert>
     <select id="listInquiryList" resultMap="BoardInquiryResultMap">
         <!--1:1문의 전체조회-->
@@ -48,10 +60,8 @@
             inquiry_cate,
             inquiry_title,
             inquiry_contents,
-            inquiry_file,
             inquiry_reg_date,
-            inquiry_re_ref,
-            inquiry_re_lev
+            inquiry_re_ref
         FROM
             inquiry
     </select>
@@ -62,10 +72,8 @@
             inquiry_cate,
             inquiry_title,
             inquiry_contents,
-            inquiry_file,
             inquiry_reg_date,
-            inquiry_re_ref,
-            inquiry_re_lev
+            inquiry_re_ref
         FROM
             inquiry
         WHERE inquiry_code=#{inquiryCode};
@@ -77,10 +85,8 @@
             inquiry_cate,
             inquiry_title,
             inquiry_contents,
-            inquiry_file,
             inquiry_reg_date,
-            inquiry_re_ref,
-            inquiry_re_lev
+            inquiry_re_ref
         FROM
             inquiry
         WHERE inquiry_code=#{inquiryCode}
@@ -92,8 +98,7 @@
         user_id=#{userId},
         inquiry_cate=#{inquiryCate},
         inquiry_title=#{inquiryTitle},
-        inquiry_contents=#{inquiryContents},
-        inquiry_file=#{inquiryFile}
+        inquiry_contents=#{inquiryContents}
         WHERE inquiry_code=#{inquiryCode}
     </update>
 </mapper>
