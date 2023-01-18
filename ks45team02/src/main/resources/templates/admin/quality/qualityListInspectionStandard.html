@@ -29,6 +29,7 @@
                                     <th class="generalQualityLevel">일반품질검사기준</th>
                                     <th class="hazadousQualityLevel">유해물질시험검사기준</th>
                                     <th class="qualityResult">품질검사 결과</th>
+                                    <th>검사 등록</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -40,6 +41,9 @@
                                     <td th:text="${l.generalQualityLevel}"></td>
                                     <td th:text="${l.hazadousQualityLevel}"></td>
                                     <td th:text="${l.qualityResult}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/addInspectionStandard(qualityCode=${l.qualityCode})}">검사 등록</a>
+                                    </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(qualityInspectionStandardList)}">
                                     <td colspan="13">결과가 존재하지 않습니다.</td>

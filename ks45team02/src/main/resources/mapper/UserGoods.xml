@@ -17,6 +17,8 @@
 	        <result property="fabric"                    column="fabric"/>
 	        <result property="rate"                      column="rate"/>
 	        <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+	        <result property="fileSangseIdx"             column="file_sangse_idx"/>
+	        <result property="fileSangse"             	 column="file_sangse_idx"/>
 	            <association property="fileDto" javaType="FileDto">
 	            <id property="fileIdx"                 	 column="file_idx" />
 	            <result property="fileOriginalName"      column="file_original_name"/>
@@ -40,6 +42,7 @@
 			,g.fabric
 			,g.rate
 			,g.file_idx
+			,g.file_sangse_idx
 			,f.file_idx
 			,f.file_original_name
 			,f.file_new_name
@@ -56,7 +59,7 @@
 	<!-- 상품 및 이미지 특정 코드 조회 -->
 	<select id="getGoodsFileByCode" parameterType="String" resultMap="UserGoodsResultMap">
 		SELECT
-			 g.goods_code
+			g.goods_code
 			,g.goods_name
 			,g.category_medium_code
 			,g.goods_price
@@ -67,6 +70,7 @@
 			,g.fabric
 			,g.rate
 			,g.file_idx
+			,g.file_sangse_idx
 			,f.file_idx
 			,f.file_original_name
 			,f.file_new_name
@@ -74,11 +78,57 @@
 			,f.file_size
 		FROM
 			goods AS g
+			INNER JOIN 
+			category_medium AS m
+			on
+			g.category_medium_code = m.category_medium_code
+			INNER JOIN
+			category_big AS b
+			on
+			m.category_big_code = b.category_big_code
 			INNER JOIN
 			goods_file AS f
 			on
 			g.file_idx = f.file_idx
 		WHERE
 			g.goods_code = #{goodsCode}
+	</select>
+	
+	<!-- 카테고리 상품 선택 -->
+	<select id="getListItemValueByBigCode" parameterType="String" resultMap="UserGoodsResultMap">
+		SELECT
+			g.goods_code
+			,g.goods_name
+			,g.category_medium_code
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,g.goods_reg_date
+			,g.goods_sangse
+			,g.fabric
+			,g.rate
+			,g.file_idx
+			,g.file_sangse_idx
+			,f.file_idx
+			,f.file_original_name
+			,f.file_new_name
+			,f.file_path
+			,f.file_size
+		FROM
+			goods AS g
+			INNER JOIN 
+			category_medium AS m
+			on
+			g.category_medium_code = m.category_medium_code
+			INNER JOIN
+			category_big AS b
+			on
+			m.category_big_code = b.category_big_code
+			INNER JOIN
+			goods_file AS f
+			on
+			g.file_idx = f.file_idx
+		WHERE
+			b.category_big_code = #{itemValue};
 	</select>
 </mapper>

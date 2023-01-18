@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -173,9 +174,42 @@ public class QualityController {
 	}
 	
 	@GetMapping("/requestQualityInspection")
-	public String requestQualityInspection() {
+	public String requestQualityInspection(Model model) {
+
+
+		List<Quality> qualityInspectionRequestList = qualityMapper.qualityInspectionRequestList();
+		model.addAttribute("title", qualityInspectionRequestList);
+		model.addAttribute("qualityInspectionRequestList", qualityInspectionRequestList);
 		
 		return "admin/quality/qualityRequestInspection";
+	}
+
+	@GetMapping("/addRequestQualityInspection")
+	public String addRequestQualityInspection(Model model){
+
+		List<Map<String, Object>> qualityInspectionRequestInfo = qualityMapper.qualityInspectionRequestInfo();
+		log.info("입고코드 조회:{}", qualityInspectionRequestInfo);
+		model.addAttribute("title", "입고코드 등록");
+		model.addAttribute("qualityInspectionRequestInfo", qualityInspectionRequestInfo);
+
+		return "admin/quality/qualityAddRequestQualityInspection";
+	}
+	@PostMapping("/addRequestQualityInspection")
+	public String addRequestQualityInspection(Quality quality) {
+		log.info("품질검사요청 파라미터: {} ", quality);
+		qualityService.addRequestQualityInspection(quality);
+		qualityService.addInspectionStandard(quality);
+		return "redirect:/admin/requestQualityInspection";
+	}
+
+	@GetMapping("addInspectionStandard")
+	public String addInspectionStandard(Model model){
+		Quality InspectionStandardInfo = qualityMapper.InspectionStandardInfo();
+		log.info("검사 목록 조회:{}", InspectionStandardInfo);
+		model.addAttribute("title", "검사 목록 조회");
+		model.addAttribute("InspectionStandardInfo", InspectionStandardInfo);
+
+		return "admin/quality/qualityAddInspectionStandard";
 	}
 }
 

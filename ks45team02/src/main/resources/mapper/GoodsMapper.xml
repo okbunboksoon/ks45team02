@@ -17,6 +17,7 @@
 	        <result property="fabric"                     column="fabric"/>
 	        <result property="rate"                     column="rate"/>
 	        <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+	        <result property="fileSangseIdx"                     column="file_sangse_idx"/>
 	            <association property="unitPrice" javaType="UnitPrice">
 	            <id property="goodsCode"                 column="goods_code" />
 	            <result property="factoryGoodsPrice"     column="factory_goods_price"/>
@@ -132,10 +133,10 @@
         INSERT INTO goods
             (goods_code, goods_name, category_medium_code, goods_price, 
              goods_color, goods_size, goods_reg_date, goods_sangse, 
-             fabric, rate, upcycling_carbon_dioxide_emission_level, file_idx)
+             fabric, rate, upcycling_carbon_dioxide_emission_level, file_idx, file_sangse_idx)
         VALUES 
             (sf_new_goods_code(), #{goodsName}, #{categoryMediumCode}, #{goodsPrice}, #{goodsColor}, 
-             #{goodsSize}, NOW(), #{goodsSangse}, #{fabric}, #{rate}, 0, sf_new_file_code())
+             #{goodsSize}, NOW(), #{goodsSangse}, #{fabric}, #{rate}, 0, sf_new_file_code(), sf_new_goods_idx_code())
     </insert>
 	
 	<!-- 상품 수정 -->

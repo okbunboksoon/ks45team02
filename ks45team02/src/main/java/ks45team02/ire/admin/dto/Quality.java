@@ -13,8 +13,8 @@ public class Quality {
     private String checkDate;
     private String incomingCode;
     private String goodsCode;
+    private String goodsName;
     private String qualityResult;
-
     private Goods goods;
     private Incoming incoming;
 
@@ -33,6 +33,7 @@ public class Quality {
                 ", checkDate='" + checkDate + '\'' +
                 ", incomingCode='" + incomingCode + '\'' +
                 ", goodsCode='" + goodsCode + '\'' +
+                ", goodsName='" + goodsName + '\'' +
                 ", qualityResult='" + qualityResult + '\'' +
                 ", goods=" + goods +
                 ", incoming=" + incoming +
@@ -133,6 +134,14 @@ public class Quality {
 
     public void setGoodsCode(String goodsCode) {
         this.goodsCode = goodsCode;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
     public String getQualityResult() {

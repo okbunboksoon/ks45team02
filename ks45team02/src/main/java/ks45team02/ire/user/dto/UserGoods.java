@@ -17,6 +17,9 @@ public class UserGoods {
 	private String rate;
 	private float upcyclingCarbonDioxideEmissionLevel;
 	private String fileIdx;
+	private String fileSangseIdx;
+	private String fileSangse;
+	
 	
 	private FileDto fileDto;
 
@@ -124,6 +127,14 @@ public class UserGoods {
 		this.fileIdx = fileIdx;
 	}
 
+	public String getFileSangseIdx() {
+		return fileSangseIdx;
+	}
+
+	public void setFileSangseIdx(String fileSangseIdx) {
+		this.fileSangseIdx = fileSangseIdx;
+	}
+
 	public FileDto getFileDto() {
 		return fileDto;
 	}
@@ -132,10 +143,19 @@ public class UserGoods {
 		this.fileDto = fileDto;
 	}
 
+	
+	public String getFileSangse() {
+		return fileSangse;
+	}
+
+	public void setFileSangse(String fileSangse) {
+		this.fileSangse = fileSangse;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Goods [goodsCode=");
+		builder.append("UserGoods [goodsCode=");
 		builder.append(goodsCode);
 		builder.append(", goodsName=");
 		builder.append(goodsName);
@@ -161,9 +181,17 @@ public class UserGoods {
 		builder.append(upcyclingCarbonDioxideEmissionLevel);
 		builder.append(", fileIdx=");
 		builder.append(fileIdx);
+		builder.append(", fileSangseIdx=");
+		builder.append(fileSangseIdx);
+		builder.append(", fileSangse=");
+		builder.append(fileSangse);
 		builder.append(", fileDto=");
 		builder.append(fileDto);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
+
+
+
+	
 }

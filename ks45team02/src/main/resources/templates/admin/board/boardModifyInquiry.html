@@ -27,12 +27,6 @@
 
     </style>
 </head>
-
-<!-- 사용자 지정 js 파일 -->
-<th:block layout:fragment="customJs">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-</th:block>
-
 <th:block layout:fragment="customScript">
     <script type="text/javascript" th:inline="javascript">
         $(function(){
@@ -92,14 +86,7 @@
                 <textarea class="form-control" rows="30" id="inquiryContents"name="inquiryContents"
                           th:text="${i.inquiryContents}" th:value="${i.inquiryContents}"></textarea>
             </div>
-            <div class="item form-group">
-                <label for="inquiryFile" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
-                <div class="col-md-6 col-sm-6 ">
-                    <input type="file" class="form-control-file" id="inquiryFile" name="inquiryFile"
-                           multiple="multiple" th:text="${i.inquiryFile}" th:value="${i.inquiryFile}">
-                    <div class="select_img" style="margin: 20px"><img src="" /></div>
-                </div>
-            </div>
+
             <div class="btnGroup">
                 <button type="button" class="btn btn-outline-primary" id="submitBtn">수정</button>
                 <button type="button" class="btn btn-outline-danger" id="resetBtn"
@@ -108,4 +95,5 @@
         </th:block>
     </form>
 </th:block>
+
 </html>

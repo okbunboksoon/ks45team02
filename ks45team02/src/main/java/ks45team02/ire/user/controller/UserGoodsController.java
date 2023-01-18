@@ -51,6 +51,10 @@ public class UserGoodsController {
 		return "user/goods/goodsList";
 	}
 	
+	/**
+	 * 상품상세페이지
+	 * @param model, goodsCode
+	 */
 	@GetMapping("/goodsContents")
 	public String goodsContents(Model model,
 								@RequestParam(value = "goodsCode")String goodsCode) {
@@ -61,6 +65,18 @@ public class UserGoodsController {
 		log.info("getGoodsList : {}", getGoodsList);
 		
 		return "user/goods/goodsContents";
+	}
+	
+	@GetMapping("/listGoodsItem")
+	public String listGoodsItem(Model model, @RequestParam(value = "item") String item ) {
+		log.info("item : {}", item);
+		
+		List<UserGoods> listGoods = userGoodsService.getListItemValueByBigCode(item);
+		log.info("listGoods : {}", listGoods);
+		model.addAttribute("title", "Ire");
+		model.addAttribute("listGoods", listGoods);
+		
+		return "user/goods/goodsListItem";
 	}
 	
 	

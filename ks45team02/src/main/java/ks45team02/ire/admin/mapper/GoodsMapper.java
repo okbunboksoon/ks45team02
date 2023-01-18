@@ -23,6 +23,7 @@ public interface GoodsMapper {
 	
 	// 상품코드로 상품 및 단가 검색
 	public List<Goods> getListGoodsAndUnitPrice(String goodsCode);
+	
 	// 상품 등록 처리
 	public int addGoods(Goods goods);
 	
