@@ -4,6 +4,7 @@ import ks45team02.ire.admin.dto.Quality;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface QualityMapper {
@@ -32,4 +33,14 @@ public interface QualityMapper {
     Quality deleteQualityHazadousSubstanceLevelInfo(String hazadousQualityLevel);
 
     int deleteQualityHazadousSubstanceLevel(Quality quality);
+
+    List<Quality> qualityInspectionRequestList();
+
+    void addRequestQualityInspection(Quality quality);
+
+    List<Map<String, Object>> qualityInspectionRequestInfo();
+
+    Quality InspectionStandardInfo();
+
+    void addInspectionStandard(Quality quality);
 }
