@@ -41,7 +41,6 @@ public class UserOrderService {
 		double rowCnt = userOrderMapper.getOrderCnt(loginId);
 		// 2. 마지막페이지
 		int lastPage = (int) Math.ceil(rowCnt/rowPerPage);
-		log.info("lastPage: {}", lastPage);
 		
 		// 보여질 페이지 번호 구현
 		// 보여질 페이지 번호 초기화
