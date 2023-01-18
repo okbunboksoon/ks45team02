@@ -14,4 +14,7 @@ public interface UserGoodsMapper {
 	
 	// 상품 및 이미지 특정 코드 조회
 	public List<UserGoods> getGoodsFileByCode(String goodsCode);
+	
+	// 카테고리 상품 선택
+	public List<UserGoods> getListItemValueByBigCode(String ItemValue);
 }

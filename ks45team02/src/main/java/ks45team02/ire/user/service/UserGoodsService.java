@@ -38,4 +38,11 @@ public class UserGoodsService {
 		return getGoodsList;
 				
 	}
+	
+	public List<UserGoods> getListItemValueByBigCode(String ItemValue){
+		
+		List<UserGoods> listGoods = userGoodsMapper.getListItemValueByBigCode(ItemValue);
+		
+		return listGoods;
+	}
 }

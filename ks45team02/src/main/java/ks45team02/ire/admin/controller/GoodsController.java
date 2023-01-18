@@ -94,7 +94,7 @@ public class GoodsController {
 		}
 		int addfile = fileService.fileUpload(uploadfile, fileRealPath);
 		log.info("addfile : {}", addfile);
-		if(addfile == 1)goodsService.addGoods(goods);
+		if(addfile != 0)goodsService.addGoods(goods);
 		
 		
 		return "redirect:/admin/listGoods";
