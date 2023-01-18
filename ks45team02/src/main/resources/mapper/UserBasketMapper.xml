@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.user.mapper.UserBasketMapper">
+	<resultMap type="Basket" 					id="basketResultMap">
+		<id property="basketCode" 				column="basket_code" />
+		<result property="goodsCode" 			column="goods_code" />
+		<result property="basketGroup"		 	column="basket_group" />
+		<result property="userId" 				column="user_id" />
+		<result property="goodsName" 			column="goods_name" />
+		<result property="categoryMediumCode"	column="category_medium_code" />
+		<result property="categoryMediumName"	column="category_medium_name" />
+		<result property="goodsPrice"			column="goods_price" />
+		<result property="basketAmount"			column="basket_amount" />
+		<result property="eachPaymentAmount"	column="each_payment_amount" />
+		<result property="regDate"				column="reg_date" />
+		<result property="basketState"			column="basket_state" />
+		<result property="basketDeleteState"	column="basket_delete_state" />
+	</resultMap>
+	
+	<select id="getUserBasketList" parameterType="String" resultMap="basketResultMap">
+		<!-- 회원의 장바구니 조회 -->
+		SELECT 
+			 basket_code
+			,basket_group
+			,user_id
+			,goods_code
+			,goods_name
+			,goods_price
+			,basket_amount
+			,each_payment_amount
+		FROM
+			basket 
+		WHERE 
+			user_id = #{loginId}
+			AND 
+			basket_state = '주문 전'
+			AND 
+			basket_delete_state = 'N'
+			;
+	</select>
+	
+	
+</mapper>
