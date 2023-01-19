@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
+import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsMonth;
+import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsYear;
 import ks45team02.ire.admin.mapper.EmissionStatisticsMapper;
 import ks45team02.ire.admin.service.EmissionStatisticsService;
 
@@ -28,7 +30,7 @@ public class EmissionStatisticsController {
 	
 	
 	/**
-	 * 기부받은 의류 CO2 일,월,년 통계 전체 조회
+	 * 기부받은 의류 CO2 일 통계 조회
 	 * @return
 	 */
 	@GetMapping("/listEmissionRawMaterialsGroupStatistics")
@@ -36,13 +38,47 @@ public class EmissionStatisticsController {
 		
 		List<RawMaterialsEmissionStatisticsDay> getListRawMaterialsEmissionStatisticsDay = emissionStatisticsService.getListRawMaterialsEmissionStatisticsDay();
 		
+		model.addAttribute("title", "기부받은 의류 일 통계 자료");
+		model.addAttribute("pageTitle", "기부받은 의류 일 통계 자료");
 		model.addAttribute("getListRawMaterialsEmissionStatisticsDay", getListRawMaterialsEmissionStatisticsDay);
 		
 		log.info("getListRawMaterialsEmissionStatisticsDay: {}", getListRawMaterialsEmissionStatisticsDay);
 		return "admin/emissionstatistics/emissionListRawMaterialsGroupStatistics";
 	}
 	
+	/**
+	 * 기부받은 의류 CO2 월 통계 조회
+	 * @return
+	 */
+	@GetMapping("/listEmissionRawMaterialsGroupStatisticsMonth")
+	public String listEmissionRawMaterialsGroupStatisticsMonth(Model model) {
+		
+		List<RawMaterialsEmissionStatisticsMonth> rmmsList = emissionStatisticsService.rawMaterialsMonthSearch();
+		
+		model.addAttribute("title", "기부받은 의류 월 통계 자료");
+		model.addAttribute("pageTitle", "기부받은 의류 월 통계 자료");
+		model.addAttribute("rmmsList", rmmsList);
+		
+		log.info("rmmsList: {}", rmmsList);
+		return "admin/emissionstatistics/emissionListRawMaterialsGroupStatisticsMonth";
+	}
 	
+	/**
+	 * 기부받은 의류 CO2 년 통계 조회
+	 * @return
+	 */
+	@GetMapping("/listEmissionRawMaterialsGroupStatisticsYear")
+	public String listEmissionRawMaterialsGroupStatisticsYear(Model model) {
+		
+		List<RawMaterialsEmissionStatisticsYear> rmysList = emissionStatisticsService.rawMaterialsYearhSearch();
+		
+		model.addAttribute("title", "기부받은 의류 년 통계 자료");
+		model.addAttribute("pageTitle", "기부받은 의류 년 통계 자료");
+		model.addAttribute("rmysList", rmysList);
+		
+		log.info("rmysList: {}", rmysList);
+		return "admin/emissionstatistics/emissionListRawMaterialsGroupStatisticsYear";
+	}
 	
 	@GetMapping("/listEmissionC02Total")
 	public String listEmissionC02Total() {
