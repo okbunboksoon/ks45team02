@@ -62,7 +62,6 @@ public class UserGoodsController {
 		List<UserGoods> getGoodsList = userGoodsService.getGoodsFileByCode(goodsCode);
 		model.addAttribute("title", "Ire");
 		model.addAttribute("getGoodsList", getGoodsList);
-		log.info("getGoodsList : {}", getGoodsList);
 		
 		return "user/goods/goodsContents";
 	}
@@ -72,7 +71,6 @@ public class UserGoodsController {
 		log.info("item : {}", item);
 		
 		List<UserGoods> listGoods = userGoodsService.getListItemValueByBigCode(item);
-		log.info("listGoods : {}", listGoods);
 		model.addAttribute("title", "Ire");
 		model.addAttribute("listGoods", listGoods);
 		
