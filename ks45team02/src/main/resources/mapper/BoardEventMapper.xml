@@ -18,7 +18,7 @@
             , e.event_title
             , e.event_reg_date
             FROM
-            event AS e
+                event AS e
         </select>
     <insert id = "addBoardEvent" parameterType="BoardEvent">
         INSERT INTO event
