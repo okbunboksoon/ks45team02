@@ -65,6 +65,7 @@ public class BoardEventController {
 	}
 
 	@PostMapping("/deleteBoardEvent")
+	//이벤트 삭제
 	public String deleteBoardEvent(@RequestParam(value = "eventCode")String eventCode,
 								   RedirectAttributes reAttr){
 
