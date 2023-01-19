@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -203,11 +200,34 @@ public class RawmaterialsController {
 	}
 
 	@GetMapping("/modifyOutgoingRawmaterials")
-	public String modifyOutgoingRawMatrials() {
+	public String modifyOutgoingRawMatrials(Model model, @RequestParam(value = "rawMaterialsOutgoingCode") String rawMaterialsOutgoingCode
+															, @RequestParam(value = "msg", required = false) String msg) {
+
+		RawMaterialsOutgoing modifyOutgoingRawmaterialsInfo = rawmaterialsMapper.modifyOutgoingRawmaterialsInfo(rawMaterialsOutgoingCode);
+		model.addAttribute("title", "원자재 출고 수정");
+		model.addAttribute("pageTitle", "원자재 출고 수정");
+		model.addAttribute("modifyOutgoingRawmaterialsInfo", modifyOutgoingRawmaterialsInfo);
+
+		if (msg != null) {
+			model.addAttribute("msg", msg);
+		}
+
 
 		return "admin/rawmaterials/rawmaterialsModifyOutgoing";
 	}
+	@PostMapping("/modifyOutgoingRawmaterials")
+	public String modifyOutgoingRawMatrials(RawMaterialsOutgoing rawMaterialsOutgoing){
+		rawmaterialsService.modifyOutgoingRawMatrials(rawMaterialsOutgoing);
+		return "redirect:/admin/listOutgoingRawmaterials";
+	}
+	@GetMapping("/checkRawMaterialCode")
+	@ResponseBody
+	public int checkRawMaterialCode(@RequestParam(value = "rawMaterialsCode", required = false) String rawMaterialsCode){
+		int isChecked = 0;
 
+		isChecked = rawmaterialsMapper.checkRawMaterialCode(rawMaterialsCode);
+		return isChecked;
+	}
 
 	@GetMapping("/totalRawmaterialsInOut")
 	public String totalRawMatrialsInOut(Model model) {
