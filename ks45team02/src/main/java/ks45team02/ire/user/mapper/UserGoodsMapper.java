@@ -17,4 +17,10 @@ public interface UserGoodsMapper {
 	
 	// 카테고리 상품 선택
 	public List<UserGoods> getListItemValueByBigCode(String ItemValue);
+	
+	public List<UserGoods> getListGoodsBag(String categoryCode);
+	
+	public List<UserGoods> getListGoodsShose(String categoryCode);
+	
+	public List<UserGoods> getListGoodsAcc(String categoryCode);
 }
