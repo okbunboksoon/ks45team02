@@ -3,6 +3,17 @@
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{user/layout/userDefault}">
 	
+	<head>
+		<style>
+			.reviewEmptyStarCount{
+			    color: transparent;
+			    text-shadow: 0 0 0 #f0f0f0;
+			}
+			.reviewStarCount{
+			    color : #ffd14b;
+			}
+		</style>
+	</head>
 
 	<th:block layout:fragment="customContents">
 		<!-- Product Detail -->
@@ -111,7 +122,7 @@
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">상품평</a>
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab" id="reviewTab">상품평</a>
 						</li>
 					</ul>
 	
@@ -135,78 +146,17 @@
 									<div class="p-b-30 m-lr-15-sm">
 									
 										<!-- Review -->
-										<div class="flex-w flex-t p-b-68">
-											<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-												<img src="images/avatar-01.jpg" alt="AVATAR">
-											</div>
+										<div class="flex-w flex-t p-b-68" id="goodsReviewDiv">
 
-											<div class="size-207">
-												<div class="flex-w flex-sb-m p-b-17">
-													<span class="mtext-107 cl2 p-r-20">
-														임라라
-													</span>
-
-													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star-half"></i>
-													</span>
-												</div>
-
-												<p class="stext-102 cl6">
-													상품 너무 좋아요!
-												</p>
+											<div class="size-207" id="goodsReviewTab">
+												
 											</div>
 										</div>
 										
-										<!-- Add review -->
-										<form class="w-full">
-											<h5 class="mtext-108 cl2 p-b-7">
-												Add a review
-											</h5>
-
-											<p class="stext-102 cl6">
-												Your email address will not be published. Required fields are marked *
-											</p>
-
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Your Rating
-												</span>
-
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="rating">
-												</span>
-											</div>
-
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">Your review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
-												</div>
-											</div>
-
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-												Submit
-											</button>
-										</form>
+										<div id="goodsReviewPage">
+											
+										</div>
+										
 									</div>
 								</div>
 							</div>
@@ -221,5 +171,159 @@
 			</span>
 		</div>
 	</section>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const $reviewTab = document.getElementById('reviewTab');
+			const $goodsReviewTab = document.getElementById('goodsReviewTab');
+			const $goodsReviewDiv = document.getElementById('goodsReviewDiv');
+			const $reviewStarCountEle = document.getElementById('reviewStarCount');
+			const $goodsReviewPage = document.getElementById('goodsReviewPage');
+			const goodsCode = [[${getGoodsList}]][0].goodsCode;
+			
+			//동적 페이지 생성 함수
+			function getReviewPage(reviewInfo){
+				 const divIdDate = document.createElement('div');
+				 const spanId = document.createElement('span');
+				 spanId.setAttribute('class', 'mtext-107 cl2 p-r-20');
+				 const spanDate = document.createElement('span');
+				 
+				 const spanStar = document.createElement('span');
+				 spanStar.setAttribute('class', 'reviewStarCount');
+				 const spanEmptyStar = document.createElement('span');
+				 spanEmptyStar.setAttribute('class', 'reviewEmptyStarCount');
+				 
+				 const p = document.createElement('p');
+				 
+				 const pContents = document.createElement('p');
+				 pContents.style.whiteSpace = 'pre-line';
+				 
+				 const imgReview = document.createElement('img');
+				 imgReview.setAttribute('alt', '리뷰 사진');
+				 imgReview.style.width = '100px';
+				 imgReview.style.height = '100px';
+				 
+				 const divSpace = document.createElement('div');
+				 divSpace.style.height = '50px';
+				 
+				 //값 할당
+				 spanId.innerText = reviewInfo.userId;
+				 spanDate.innerText = reviewInfo.reviewRegDate;
+				 divIdDate.append(spanId);
+				 divIdDate.append(spanDate);
+				 $goodsReviewTab.append(divIdDate);
+				 
+				 switch(reviewInfo.reviewStarCount){
+				 case 1 : spanStar.innerText = '★';
+				 		  spanEmptyStar.innerText = '★★★★';
+						  break;
+				 case 2 : spanStar.innerText = '★★';
+				 		  spanEmptyStar.innerText = '★★★';
+						  break;
+				 case 3 : spanStar.innerText = '★★★';
+				 		  spanEmptyStar.innerText = '★★';
+						  break;		  
+				 case 4 : spanStar.innerText = '★★★★';
+				 		  spanEmptyStar.innerText = '★★';
+						  break;		  
+				 case 5 : spanStar.innerText = '★★★★★';
+				 		  spanEmptyStar.innerText = '';
+						  break;		    
+				 }
+				 $goodsReviewTab.append(spanStar);
+				 $goodsReviewTab.append(spanEmptyStar);
+				 $goodsReviewTab.append(p);
+				 
+				 pContents.innerText = reviewInfo.reviewContent
+				 $goodsReviewTab.append(pContents);
+				 
+				 if(reviewInfo.reviewImagePath != null){
+					 imgReview.src = reviewInfo.reviewImagePath;
+					 $goodsReviewTab.append(imgReview);
+				 }
+				 
+				 $goodsReviewTab.append(divSpace);
+			}
+			
+			
+			//페이지 목록 생성
+			function pageList(data){
+				const spanPreviousPage = document.createElement('span');
+				spanPreviousPage.setAttribute('class', 'pageButton');
+				const spanNextPage = document.createElement('span');
+				spanNextPage.setAttribute('class', 'pageButton');
+				
+				spanPreviousPage.innerText = '[이전]';
+				spanNextPage.innerText = '[다음]';
+				
+				$goodsReviewPage.append(spanPreviousPage);
+				
+				let startPageNum = data.startPageNum;
+				let endPageNum = data.endPageNum;
+				for(let i=startPageNum; i<=endPageNum; i++){
+					let spanPageList = document.createElement('span');
+					spanPageList.setAttribute('class', 'pageButton');
+					spanPageList.innerText = '[' + i + ']';
+					$goodsReviewPage.append(spanPageList);
+				}
+				$goodsReviewPage.append(spanNextPage);
+			}
+			
+			let pageButtonArr = document.querySelectorAll('.pageButton');
+			
+			//리뷰 탭 클릭 이벤트
+			$reviewTab.addEventListener('click', function(){
+				let request = $.ajax({
+					url : "/listBoardReview",
+					method : 'GET',
+					data : {'goodsCode' : goodsCode},
+					dataType : 'json'
+				});
+				
+				request.done(function(data){
+					let reviewForGoods = data.reviewForGoods
+					for(let reviewInfo of reviewForGoods){
+						getReviewPage(reviewInfo);
+					}
+					pageList(data);
+					pageButtonArr = document.querySelectorAll('.pageButton');
+					console.log(pageButtonArr);
+					movePage();
+					
+				});
+				request.fail(function(jdXHR, textStatus){
+					console.log("Request failed : " + textStatus);
+				});
+			})
+			
+			//리뷰 페이지 이동
+			//클릭 이벤트 부여가 되지 않은듯
+			function movePage(){
+				for (const pageButton of pageButtonArr) {
+					pageButton.addEventListener('click', function() {
+						console.log(this)
+						let request = $.ajax({
+							url : "/listBoardReview",
+							method : 'GET',
+							data : {'goodsCode' : goodsCode},
+							dataType : 'json'
+						});
+						
+						request.done(function(data){
+							
+							
+							
+						});
+						request.fail(function(jdXHR, textStatus){
+							console.log("Request failed : " + textStatus);
+						});
+					}
+				)};
+			}
+			
+		</script>
+
 	</th:block>
 </html>
