@@ -21,4 +21,5 @@ public interface BoardEventMapper {
     //이벤트 수정 처리
     public int modifyBoardEventInfo(BoardEvent boardEvent);
 
+    int deleteBoardEvent(String eventCode);
 }

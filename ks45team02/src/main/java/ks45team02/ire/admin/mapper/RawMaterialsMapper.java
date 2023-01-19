@@ -51,4 +51,8 @@ public interface RawMaterialsMapper {
 	int modifyOutgoingRawMatrials(RawMaterialsOutgoing rawMaterialsOutgoing);
 
 	int checkRawMaterialCode(String rawMaterialsCode);
+
+	RawMaterialsOutgoing rawMaterialsOutgoingDeleteInfo(String rawMaterialsOutgoingCode);
+
+	int deleteoutgoingRawMatrials(String rawMaterialsOutgoingCode);
 }
