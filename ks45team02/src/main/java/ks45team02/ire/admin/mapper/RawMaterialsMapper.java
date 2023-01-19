@@ -45,4 +45,10 @@ public interface RawMaterialsMapper {
 	List<RawMaterialsOutgoing> addoutgoingRawmaterialsInfo();
 
 	int addoutgoingRawmaterials(RawMaterialsOutgoing rawMaterialsOutgoing);
+
+	RawMaterialsOutgoing modifyOutgoingRawmaterialsInfo(String rawMaterialsOutgoingCode);
+
+	int modifyOutgoingRawMatrials(RawMaterialsOutgoing rawMaterialsOutgoing);
+
+	int checkRawMaterialCode(String rawMaterialsCode);
 }
