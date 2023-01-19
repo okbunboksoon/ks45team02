@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.CategoryMedium;
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.service.CategoryService;
@@ -69,7 +72,6 @@ public class GoodsController {
 		model.addAttribute("title", "상품등록");
 		model.addAttribute("pageTitle", "상품등록");
 		model.addAttribute("listAllCategory", listAllCategory);
-		
 		return "admin/goods/goodsAdd";
 	}
 	
@@ -81,9 +83,10 @@ public class GoodsController {
 	@PostMapping("/addGoods")
 	public String addGoods(Goods goods,@RequestParam MultipartFile[] uploadfile
 						  ,Model model, HttpServletRequest request) {
-		
+
 		log.info("goods : {}", goods);
 		log.info("uploadfile : {}", uploadfile);
+		
 		
 		String serverName = request.getServerName();
 		String fileRealPath = "";
@@ -95,8 +98,7 @@ public class GoodsController {
 		int addfile = fileService.fileUpload(uploadfile, fileRealPath);
 		log.info("addfile : {}", addfile);
 		if(addfile != 0)goodsService.addGoods(goods);
-		
-		
+	
 		return "redirect:/admin/listGoods";
 	}
 	

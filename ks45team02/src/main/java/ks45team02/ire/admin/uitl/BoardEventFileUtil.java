@@ -59,7 +59,7 @@ public class BoardEventFileUtil {
                     //Paths 클래스를 통한 파일의 경로(주소의 / 경로와 실제 os의 경로 \의 차이)
                     path = Paths.get(fileRealPath + directory + current.format(format)).toString();
 
-                    //파일 경로 셋
+                    //파일 경로 셋팅
                     File file = new File(path);
 
                     //파일 디렉토리 없을 경우 디렉토리 생성
@@ -67,7 +67,7 @@ public class BoardEventFileUtil {
                         file.mkdirs();
                     }
 
-                    //파일 명이 겹치지 않게 파일명 ㅅ ㅓㄹ정
+                    //파일 명이 겹치지 않게 파일명 설정
                     String resultFileName = "";
                     String[] fileNameSplit = multipartFile.getOriginalFilename().split("\\.");
 
@@ -92,6 +92,7 @@ public class BoardEventFileUtil {
                         return null;
                     }
 
+                    //올려진 파일 리스트로 정리(테이블에 삽입할 내용)
                     boardeventFileIdx = "file_" + current.format(format) + Long.toString(System.nanoTime());
                     BoardEventFile boardEventFile = new BoardEventFile();
                     boardEventFile.setEventFileIdx(boardeventFileIdx);

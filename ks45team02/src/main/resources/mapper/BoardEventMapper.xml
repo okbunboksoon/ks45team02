@@ -18,7 +18,7 @@
             , e.event_title
             , e.event_reg_date
             FROM
-            event AS e
+                event AS e
         </select>
     <insert id = "addBoardEvent" parameterType="BoardEvent">
         INSERT INTO event
@@ -65,4 +65,12 @@
             WHERE
                 event_code = #{eventCode}
     </update>
+    <delete id="deleteBoardEvent" parameterType="String">
+        DELETE
+            e
+        FROM
+            event AS e
+        WHERE
+            e.event_code = #{eventCode}
+    </delete>
 </mapper>

@@ -4,6 +4,12 @@
       layout:decorate="~{admin/layout/adminDefault}">
 
 <head>
+        <!-- Datatables -->
+        <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+        <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+        <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+        <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+        <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
     <style type="text/css">
         div {
             color : black;
@@ -45,35 +51,74 @@
         }
     </style>
 </head>
-
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+            $('#deleteBtn').click(function(){
+                let deleteValue = $('#deleteBtn').val();
+                let deleteCheck = confirm("정말 삭제하시겠습니까?")
+                if(!deleteCheck){
+                    return false;
+                }else{
+                    $('#deleteEventForm').submit();
+                }
+            });
+        });
+    </script>
+</th:block>
 <th:block layout:fragment="customContents">
-    <h1>상세페이지</h1>
+
+</th:block>
+<th:block layout:fragment="customContents">
     <br><br>
-
-    <body>
-    <div class="container" th:if="${not #lists.isEmpty(boardEventContents)}" th:each="l : ${boardEventContents}">
-        <div id="eventTitle" th:text ="${l.eventTitle}">
-        </div>
-        <div id="eventNumDate">
-            <span>등록번호</span>
-            <span th:text="${l.eventCode}"></span>
-            <span>이벤트 시작일: </span>
-            <span th:text="${l.eventStartDate}"></span>
-            <span>이벤트 종료일: </span>
-            <span th:text="${l.eventEndDate}"></span>
-            <span>등록날짜: </span>
-            <span th:text="${l.eventRegdate}"></span>
-        </div>
-        <div class="contents">
-            <span th:text="${l.eventContents}"></span>
-            <span th:text="${l.eventFileIdx}"></span>
-        <div id="button">
-            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/listBoardEvent}'|">목록으로</button>
-            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/modifyBoardEvent(eventTitle=${l.eventTitle})}'|">수정</button>
-            <button type="button" class="btn btn-outline-dark" th:onclick="|location.href='@{/admin/deleteBoardEvent(eventTitle=${l.eventTitle})}'|">삭제</button>
-        </div>
-    </div>
-    </body>
-
+    <th:block th:if="${not #lists.isEmpty(boardEventContents)}" th:each="l : ${boardEventContents}">
+        <form id = "deleteEventForm" th:action="@{/admin/deleteBoardEvent(eventCode=${l.eventCode})}" method="post"/>
+        <body>
+        <div class="container" >
+            <div id="eventTitle" th:text ="${l.eventTitle}"></div>
+            <div id="eventNumDate">
+                <span>등록번호:</span>
+                <span th:text="${l.eventCode}"></span>
+                <span>이벤트 시작일: </span>
+                <span th:text="${l.eventStartDate}"></span>
+                <span>이벤트 종료일: </span>
+                <span th:text="${l.eventEndDate}"></span>
+                <span>등록날짜: </span>
+                <span th:text="${l.eventRegdate}"></span>
+            </div>
+            <div id="contents">
+                <div th:text="${l.eventContents}"></div>
+                <div th:text="${l.eventFileIdx}"></div>
+                <div id="button">
+                    <button type ="button" class =" btn btn-outline-dark">
+                        <a th:href="@{/admin/listBoardEvent}">목록으로</a></button>
+                    <button type ="button" class =" btn btn-outline-dark">
+                        <a th:href="@{/admin/modifyBoardEvent(eventTitle=${l.eventTitle})}">수정</a></button>
+                    <button id = "deleteBtn" type ="button" class =" btn btn-outline-dark"
+                            th:value ="${l.eventCode}">삭제</button>
+                    </button>
+                </div>
+            </div>
+         </div>
+        </body>
+    </th:block>
+</th:block>
+<th:block layout:fragment="customJs">
+    <!-- Datatables -->
+    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 </th:block>
 </html>

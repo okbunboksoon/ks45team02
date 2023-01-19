@@ -45,4 +45,9 @@ public class BoardEventService {
         List<BoardEvent> boardEventInfo = boardEventMapper.viewBoardEvent(eventTitle);
         return boardEventInfo;
     }
+
+    public int deleteBoardEvent(String eventCode) {
+        int result = boardEventMapper.deleteBoardEvent(eventCode);
+        return result;
+    }
 }
