@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
+
+
+
+<head>
+
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'IBMPlexSansKR-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;}
+
+        div {
+            color : black;
+        }
+        #eventTitle {
+            border-top: solid 3px black;
+            border-bottom: solid 1px gray;
+            font-size: 25px;
+            text-align : center;
+            padding: 10px;
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+        #eventNumDate {
+            border-bottom: solid 1px gray;
+            background-color : white;
+            font-size: 13px;
+            text-align : right;
+            padding: 10px;
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+        #contents {
+            border-bottom: solid 3px black;
+            margin: 1px;
+            line-height: 3em;
+            font-size: 15px;
+            text-align: center;
+            white-space:pre-line;
+            height: 400px;
+            font-family: 'IBMPlexSansKR-Regular';
+
+        }
+        #button {
+            text-align : right;
+            padding: 10px;
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+    </style>
+</head>
+
+
+
+<th:block layout:fragment="customContents">
+
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
+        <h2 class="text-105 cl0 txt-center">
+            event
+        </h2>
+    </section>
+
+    <br><br>
+    <th:block th:if="${not #lists.isEmpty(boardEventContents)}" th:each="l : ${boardEventContents}">
+        <body>
+        <div class="container" >
+            <div id="eventTitle" th:text ="${l.eventTitle}"></div>
+            <div id="eventNumDate">
+                <span>등록번호:</span>
+                <span th:text ="${#strings.substring(l.eventCode, 8,9)}"></span>
+                <span>등록날짜: </span>
+                <span th:text="${l.eventRegdate}"></span>
+            </div>
+            <div id="contents">
+                <div th:text="${l.eventContents}"></div>
+                <div th:text="${l.eventFileIdx}"></div>
+                <div th:text="|이벤트 시작일 ${l.eventStartDate}|" ></div>
+                <div th:text="|이벤트 종료일 ${l.eventEndDate}|"></div>
+                <!-- 더 좋은 방법 있으면 찾아보기 -->
+            </div>
+                <div id="button">
+                    <button type ="button" class =" btn btn-outline-dark">
+                        <a th:href="@{listBoardEvent}">목록으로</a></button>
+            </div>
+        </div>
+        </body>
+    </th:block>
+</th:block>
+</html>
