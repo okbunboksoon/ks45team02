@@ -42,8 +42,8 @@ public class UserBoardFAQController {
 	
 	/** 
 	 * 상세페이지
-	 * @param noticeCode model
-	 * @return user/board/boardContentsNotice
+	 * @param FAQ_code model
+	 * @return user/board/boardContentsFAQ
 	 */
 	@GetMapping("/ContentsFAQ")
 	public String ContentsUserGuide (@RequestParam(value = "FAQ_code") String FAQ_code, Model model) throws Exception {
