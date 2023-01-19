@@ -63,7 +63,34 @@
 		)
 
 	</insert>
+	<select id="modifyOutgoingRawmaterialsInfo" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 수정 화면 -->
+		SELECT
+			rmo.out_going_code, rmo.raw_materials_code, rmo.business_code
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.out_going_code = #{rawMaterialsOutgoingCode}
+	</select>
+	<select id="checkRawMaterialCode" parameterType="String" resultType="int">
+		SELECT
+			COUNT(rmo.raw_materials_code)
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.raw_materials_code = #{rawMaterialsCode};
+	</select>
+	<update id="modifyOutgoingRawMatrials" parameterType="RawMaterialsOutgoing">
+		<!-- 원자재 출고 수정 -->
+		UPDATE
+			raw_materials_outgoing
+		SET
+			raw_materials_code = #{rawMaterialsCode}
+			, business_code = #{businessCode}
 
+		WHERE
+			out_going_code = #{rawMaterialsOutgoingCode}
+	</update>
 
 	<delete id="deleteRawMaterialsIncomingByRawMaterialsCode">
 		<!-- 원자재 입고 삭제 -->

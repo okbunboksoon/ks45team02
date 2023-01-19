@@ -39,7 +39,7 @@
                                     <td th:text="${l.rawMaterialsCode}"></td>
                                     <td th:text="${l.businessCode}"></td>
                                     <td><a th:href="@{/admin/modifyOutgoingRawmaterials(rawMaterialsOutgoingCode=${l.rawMaterialsOutgoingCode})}">수정</a></td>
-                                    <td><a th:href="@{/admin/deleteOutgoingRawmaterials(rawMaterialsOutgoingCode=${l.rawMaterialsOutgoingCode})}">삭제</a></td>
+                                    <td><a th:href="@{/admin/deleteoutgoingRawmaterials(rawMaterialsOutgoingCode=${l.rawMaterialsOutgoingCode})}">삭제</a></td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(rawMaterialsOutgoingList)}">
                                     <td colspan="6">등록된 원자재 입고가 존재하지 않습니다.</td>
