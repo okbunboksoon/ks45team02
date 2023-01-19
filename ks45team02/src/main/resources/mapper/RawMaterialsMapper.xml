@@ -87,7 +87,6 @@
 		SET
 			raw_materials_code = #{rawMaterialsCode}
 			, business_code = #{businessCode}
-
 		WHERE
 			out_going_code = #{rawMaterialsOutgoingCode}
 	</update>

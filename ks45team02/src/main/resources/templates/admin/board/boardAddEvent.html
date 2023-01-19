@@ -52,25 +52,26 @@
         <br><br>
         <div class ="mb-3">
             <label class ="form-label">이벤트 제목</label>
-            <input type = "text" class ="form-controll" id = "eventTitle" name ="eventTitle" placeholder="제목을 입력해주세요">
+            <input type = "text" class ="form-control" id = "eventTitle"
+                   name ="eventTitle" placeholder="제목을 입력해주세요">
         </div>
         <div class ="mb-3">
-            <label class ="form-label">이벤트 내용</label>
-            <textarea type ="text" id = "eventContents" name = "eventContents"
-                      placeholder = "이벤트 내용을 입력해주세요" maxlength="2048" style = "width: 500px; height: 350px;"> </textarea>
+            <label class ="form-label">내용</label>
+            <input type = "text" class ="form-control" id = "eventContents"
+                   name="eventContents" placeholder="내용을 입력해주세요">
         </div>
         <div class ="mb-3">
                 <label class ="form-label">이벤트 사진</label>
-                <input type="file" class="form-control-file" id="eventImage" name="eventImage" multiple="multiple">
+                <input type="file" class="form-control" id="eventImage" name="eventImage" multiple="multiple">
                 <div class="select_img" style="margin: 20px"><img src="" /></div>
         </div>
         <div class = "mb-3">
             <label class ="form-label">이벤트 시작일</label>
-            <input type ="date" id = "eventStartDate" name = "eventStartDate"/>
+            <input type ="date" class = "form-control" id = "eventStartDate" name = "eventStartDate"/>
         </div>
         <div class = "mb-3">
             <label class ="form-label">이벤트 마감일</label>
-            <input type ="date" id = "eventEndDate" name = "eventEndDate"/>
+            <input type ="date" class = "form-control" id = "eventEndDate" name = "eventEndDate"/>
         </div>
         <div class = "btnGroup">
             <button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
