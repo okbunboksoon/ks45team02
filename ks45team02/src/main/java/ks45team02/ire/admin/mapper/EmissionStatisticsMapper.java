@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
+import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsMonth;
+import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsYear;
 
 @Mapper
 public interface EmissionStatisticsMapper {
@@ -12,8 +14,17 @@ public interface EmissionStatisticsMapper {
 	/**
 	 * 기부받은 의류별 CO2 일별 전체 조회
 	 */
-	public List<RawMaterialsEmissionStatisticsDay>  rawMaterialsDaySearch();
+	public List<RawMaterialsEmissionStatisticsDay> rawMaterialsDaySearch();
 	
+	/**
+	 * 기부받은 의류별 CO2 월별 전체 조회
+	 */
+	public List<RawMaterialsEmissionStatisticsMonth> rawMaterialsMonthSearch();
+	
+	/**
+	 * 기부받은 의류별 CO2 년별 전체 조회
+	 */
+	public List<RawMaterialsEmissionStatisticsYear> rawMaterialsYearhSearch();
 	/**
 	 * 기부받은 의류별 CO2 일별 통계 추가
 	 */
@@ -39,6 +50,8 @@ public interface EmissionStatisticsMapper {
 	 * 기부받은 의류별 CO2 일별 통계 업데이트
 	 */
 	public int rawMaterialsDayUpdate(RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay);
+
+	
 	
 	
 	

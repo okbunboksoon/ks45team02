@@ -112,12 +112,16 @@ public class UserUserController {
 			User user=(User) checkResult.get("userInfo");
 			LoginInfo loginInfo=new LoginInfo(userId,user.getUserName());
 			session.setAttribute("S_MEMBER_INFO",loginInfo);
+			log.info("loginInfo:{}", loginInfo);
 			userService.updateLoginHistory(userId);
 			Cookie cookie=new Cookie("loginKeepId",userId);
 			cookie.setPath("/");
 			cookie.setMaxAge(60 * 60 * 24);
 			response.addCookie(cookie);
-			if(user.getUserId()=="root"){
+			String userName = user.getUserName();
+			log.info("userName:{}", userName);
+			
+			if(user.getUserId()=="김01"){
 				redirectURI="redirect:/admin";
 			}
 		}

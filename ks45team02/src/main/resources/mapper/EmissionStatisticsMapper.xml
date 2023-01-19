@@ -27,18 +27,31 @@
     </resultMap>
     
     <resultMap id="RawMaterialsEmissionStatisticsMonthResultMap" type="RawMaterialsEmissionStatisticsMonth">
-     <id property="rawMaterialsCode"				column="raw_materials_code" />
-        <result property="donationCode"				column="rm_incoming_date" />
-        <result property="rawMaterialsIncomingAmount"	column="carbon_dioxide_emission_sum" />
-        <result property="rawMaterialsIncomingDate"						column="user_id" />
-        <result property="rawMaterialsStatus"						column="reg_date" />
-        <result property="carbonDioxideEmissionLevel"				column="year_and_month" />
-        <result property="rawMaterialsDaygroup"	column="raw_materials_monthgroup" />
-        <result property="donationPointSave"	column="raw_materials_monthgroup" />
-        <result property="donationPointGroup"	column="raw_materials_monthgroup" />
-    		<association property="StatisticsYear" javaType="RawMaterialsEmissionStatisticsYear">
-    		
-    		</association>
+    	<id property="raw_materials_monthgroup"				column="raw_materials_monthgroup" />
+		<result property="carbon_dioxide_emission_sum" 		column="carbon_dioxide_emission_sum"/>
+		<result property="user_id" 							column="user_id"/>
+		<result property="reg_date" 						column="reg_date"/>
+		<result property="year_and_month" 					column="year_and_month"/>
+		<result property="raw_materials_yeargroup" 			column="raw_materials_yeargroup"/>
+    </resultMap>
+    
+    <resultMap id="RawMaterialsEmissionStatisticsDayhResultMap" type="RawMaterialsEmissionStatisticsYear">
+    	<id property="raw_materials_yeargroup" 	column="raw_materials_yeargroup" />
+    	<result property="reg_date" 			column="reg_date"/>
+    	<result property="user_id" 				column="user_id"/>
+    	<result property="year" 				column="year"/>
+    	<result property="Jan" 					column="Jan"/>
+    	<result property="Feb" 					column="Feb"/>
+    	<result property="Mar" 					column="Mar"/>
+    	<result property="Apr" 					column="Apr"/>
+    	<result property="May" 					column="May"/>
+    	<result property="Jun" 					column="Jun"/>
+    	<result property="Jul" 					column="Jul"/>
+    	<result property="Aug" 					column="Aug"/>
+    	<result property="Sept" 				column="Sept"/>
+    	<result property="Oct" 					column="Oct"/>
+    	<result property="Nov" 					column="Nov"/>
+    	<result property="Dec" 					column="Dec"/>
     </resultMap>
     
     
@@ -56,7 +69,29 @@
 	FROM 
 		raw_materials_daygroup_statistics AS rmd
     </select>
+    <!-- 기부받은 의류별 CO2 월별 통계 전체 조회 -->
+    <select id="rawMaterialsMonthSearch" resultMap="RawMaterialsEmissionStatisticsMonthResultMap">
+    	SELECT
+			rmms.raw_materials_monthgroup
+			,rmms.carbon_dioxide_emission_sum
+			,rmms.user_id
+			,rmms.reg_date
+			,rmms.year_and_month
+			,rmms.raw_materials_yeargroup
+		FROM
+		raw_materials_monthgroup_statistics AS rmms
+    </select>
     
+    <!-- 기부받은 의류별 CO2 년별 통계 전체 조회 -->
+    <select id="rawMaterialsYearhSearch" resultMap="RawMaterialsEmissionStatisticsDayhResultMap">
+	    SELECT 
+	    	raw_materials_yeargroup
+	    	,reg_date, user_id, `year`, Jan, 
+	    	Feb, Mar, Apr, May, Jun, Jul, Aug, 
+	    	Sept, `Oct`, Nov, `Dec`
+		FROM 
+			raw_materials_yeargroup_statistics
+    </select>
     <!-- 기부받은 의류별 CO2 일별 통계 등록-->
 	<insert id="rawMaterialsDayAdd" parameterType="RawMaterialsEmissionStatisticsDay">
     INSERT INTO raw_materials_daygroup_statistics

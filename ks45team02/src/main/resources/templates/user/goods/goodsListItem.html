@@ -225,10 +225,8 @@
 									<!-- Block2 -->
 									<x` class="block2">
 										<div class="block2-pic hov-img0">
-											<img th:src="@{|/${gl.fileDto.filePath}|}"  alt="IMG-PRODUCT">
-											<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-												Quick View 
-											</a>
+											<a th:href="@{goodsContents(goodsCode=${gl.goodsCode})}">
+											<img th:src="@{|/${gl.fileDto.filePath}|}"  alt="IMG-PRODUCT" ></a>
 										</div>
 										<div class="block2-txt flex-w flex-t p-t-14">
 											<div class="block2-txt-child1 flex-col-l ">
@@ -335,7 +333,7 @@
 														</div>
 						
 														<div class="flex-w flex-r-m p-b-10">
-															<div class="size-204 flex-w flex-m respon6-next">
+															<div class="size-204 flex-w flex-m respon6-next" >
 																<div class="wrap-num-product flex-w m-r-20 m-tb-10">
 																	<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 																		<i class="fs-16 zmdi zmdi-minus"></i>
@@ -348,7 +346,7 @@
 																	</div>
 																</div>
 						
-																<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+																<button type="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 																	장바구니
 																</button>
 															</div>
