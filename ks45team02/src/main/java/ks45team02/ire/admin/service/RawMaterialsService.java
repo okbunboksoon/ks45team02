@@ -147,6 +147,11 @@ public class RawMaterialsService {
 		int result = rawmaterialsMapper.modifyOutgoingRawMatrials(rawMaterialsOutgoing);
 		return result;
     }
+
+    public int deleteoutgoingRawMatrials(String rawMaterialsOutgoingCode) {
+		int result = rawmaterialsMapper.deleteoutgoingRawMatrials(rawMaterialsOutgoingCode);
+		return result;
+    }
 }
 
 
