@@ -65,6 +65,7 @@ public class UserBoardReviewService {
 		pageMap.put("lastPage", lastPage);
 		pageMap.put("startPageNum", startPageNum);
 		pageMap.put("endPageNum", endPageNum);
+		pageMap.put("currentPage", currentPage);
 		
 		return pageMap;
 	}
