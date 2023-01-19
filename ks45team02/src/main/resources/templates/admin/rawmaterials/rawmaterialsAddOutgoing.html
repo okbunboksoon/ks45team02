@@ -16,7 +16,7 @@
             <br>
             <form th:action="@{/admin/addoutgoingRawmaterials}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
                 <div class="item form-group">
-                    <label for="rawMaterialsOutgoingAmount" class="col-form-label col-md-3 col-sm-3 label-align">원자재 코드</label>
+                    <label for="rawMaterialsCode" class="col-form-label col-md-3 col-sm-3 label-align">원자재 코드</label>
                     <div class="col-md-6 col-sm-6 ">
                         <select id="rawMaterialsCode" name="rawMaterialsCode" class="form-control">
                             <th:block th:if="${not #lists.isEmpty(addoutgoingRawmaterialsInfo)}"
