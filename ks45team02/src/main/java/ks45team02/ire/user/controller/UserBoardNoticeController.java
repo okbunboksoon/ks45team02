@@ -38,6 +38,11 @@ public class UserBoardNoticeController {
 		return "user/board/boardListNotice";
 	}
 	
+	/** 
+	 * 상세페이지
+	 * @param noticeCode model
+	 * @return user/board/boardContentsNotice
+	 */
 	@GetMapping("/ContentsNotice")
 	public String ContentsUserGuide (@RequestParam(value = "noticeCode") String noticeCode, Model model) throws Exception {
 		
