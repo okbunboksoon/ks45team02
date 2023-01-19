@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.GoodsBuyingPaymentMapper">
+ 	<resultMap id="GoodsBuyingPaymentResultMap" type="GoodsBuyingPayment">
+ 	    <id property="goods_buying_code"				column="goods_buying_code" />
+        <result property="business_code"			column="business_code" />
+        <result property="business_name"			column="business_name" />
+        <result property="buy_total"			column="buy_total" />
+        <result property="payment"			column="payment" />
+        <result property="accounts_payable"			column="accounts_payable" />
+        <result property="payment_account_type"			column="payment_account_type" />
+        <result property="payment_bank"			column="payment_bank" />
+        <result property="payment_account_code"			column="payment_account_code" /> 
+        <result property="goods_buy_payment_day"			column="goods_buy_payment_day" /> 
+ 	</resultMap>
+	
+	
+	<!-- 상품 매입 결제 business_code 등록하기 -->
+	<select id="goodsBuyingPaymentCheck" parameterType="String">
+	SELECT
+    	COUNT(1)
+	FROM
+	    goods_buy_payment  AS g
+	WHERE
+	    g.business_code = #{business_code}
+	</select>
+</mapper>

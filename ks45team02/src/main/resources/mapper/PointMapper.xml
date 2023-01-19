@@ -30,6 +30,23 @@
 		<result property="pointMinusDeleteState" 	column="point_minus_delete_state"/>
 	</resultMap>
 	
+	<select id="getPointMinusInfoByPointMinusGroup" parameterType="String" resultMap="pointMinusResultMap">
+		<!-- 포인트 차감 그룹으로 포인트 차감 조회 -->
+		SELECT 
+			 point_minus_code
+			,user_id
+			,point_minus
+			,point_state
+			,point_minus_date
+			,point_minus_reason
+			,point_minus_group
+			,point_minus_delete_state
+		FROM 
+			point_minus
+		WHERE 
+			point_minus_group = #{pointMinusGroup};
+	</select>	
+	
 	<update id="modifyPointMinusGroup" parameterType="PointMinus">
 		<!-- 결제 완료 후 포인트 차감 그룹 수정 -->
 		UPDATE 
@@ -166,7 +183,12 @@
 			,#{userId}
 			,#{pointSave}
 			,#{pointState}
-			,#{pointSaveDate}
+			<if test="pointSaveDate == null">
+				,NOW()
+			</if>
+			<if test="pointSaveDate != null">
+				,#{pointSaveDate}
+			</if>
 			,#{pointSaveReason}
 			,NULLIF(#{pointSaveGroup}, '')
 		);

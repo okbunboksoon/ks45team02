@@ -81,12 +81,8 @@ public class BoardNoticeController {
 		
 		int result = boardNoticeService.deleteBoardNotice(noticeCode);
 		log.info("result : {}", result);
-		if(result == 0) {
-			reAttr.addAttribute("msg", "공지사항이 삭제에 실패하였습니다.");
-			return "redirect:/admin/addBoardNotice";
-		}else {
-			reAttr.addAttribute("msg", "공지사항이 삭제에 성공하였습니다.");
-		}
+		reAttr.addAttribute("msg", "공지사항이 삭제에 성공하였습니다.");
+	
 		
 		return "redirect:/admin/listBoardNotice";
 	}
@@ -158,7 +154,7 @@ public class BoardNoticeController {
 		log.info("result : {}", result);
 		if(result == 0) {
 			reAttr.addAttribute("msg", "공지사항이 수정에 실패하였습니다.");
-			return "redirect:/admin/addBoardNotice";
+			return "redirect:/admin/modifyBoardNotice";
 		}else {
 			reAttr.addAttribute("msg", "공지사항이 수정에 성공하였습니다.");
 		}

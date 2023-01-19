@@ -15,6 +15,7 @@ public class Goods {
 	private String rate;
 	private float upcyclingCarbonDioxideEmissionLevel;
 	private String fileIdx;
+	private String fileSangseIdx;
 	
 	private UnitPrice unitPrice;
 
@@ -122,6 +123,14 @@ public class Goods {
 		this.fileIdx = fileIdx;
 	}
 
+	public String getFileSangseIdx() {
+		return fileSangseIdx;
+	}
+
+	public void setFileSangseIdx(String fileSangseIdx) {
+		this.fileSangseIdx = fileSangseIdx;
+	}
+
 	public UnitPrice getUnitPrice() {
 		return unitPrice;
 	}
@@ -159,6 +168,8 @@ public class Goods {
 		builder.append(upcyclingCarbonDioxideEmissionLevel);
 		builder.append(", fileIdx=");
 		builder.append(fileIdx);
+		builder.append(", fileSangseIdx=");
+		builder.append(fileSangseIdx);
 		builder.append(", unitPrice=");
 		builder.append(unitPrice);
 		builder.append("]");

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+			
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+						
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#modifyDeliveryInfoForm input').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#modifyDeliveryInfoForm').submit();
+				});
+				
+				$('#cancelBtn').click(function(){
+					location.href = '/admin/listDeliveryInfo';
+				})
+			
+				$('#execution_daum_address').click(function(){
+			 		console.log("동작");
+					
+			 		new daum.Postcode({
+				        oncomplete: function(data) {
+
+			                var addr = ''; 
+			                var extraAddr = ''; 
+			 
+
+			                if (data.userSelectedType === 'R') {
+			                    addr = data.roadAddress;
+			                } else {
+			                    addr = data.jibunAddress;
+			                }
+			 
+			                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+			                if(data.userSelectedType === 'R'){
+			                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+			                        extraAddr += data.bname;
+			                    }
+			                    if(data.buildingName !== '' && data.apartment === 'Y'){
+			                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+			                    }
+			                    if(extraAddr !== ''){
+			                        extraAddr = ' (' + extraAddr + ')';
+			                    }
+			                      addr += extraAddr;
+			                
+			                } else {
+			                	addr += ' ';
+			                }
+			 
+			                $(".address1_input").val(data.zonecode);
+			                $(".address2_input").val(addr);				
+			                $(".address3_input").attr("readonly", false);
+			                $(".address3_input").focus();	 
+				            
+				            
+				        }
+				    }).open(); 
+				})
+		});
+		</script>	
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+							<form id= "modifyDeliveryInfoForm" th:action="@{/admin/modifyDeliveryInfo}" method="post">								
+								<th:block th:if="${not #lists.isEmpty(deliveryInfo)}" th:each="bi : ${deliveryInfo}">
+									
+									<div class="item form-group">
+										<label for="delInfoCode" class="col-form-label col-md-3 col-sm-3 label-align">배송정보 코드</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="userId" name="delInfoCode" class="form-control" 
+												   readonly="readonly" th:value="${bi.delInfoCode}"/>
+										</div>
+									</div>	
+									
+									<div class="item form-group">
+										<label for="buynowBasketTotalCode" class="col-form-label col-md-3 col-sm-3 label-align">즉시/장바구니 합계계산 코드</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="userId" name="buynowBasketTotalCode" class="form-control" 
+												   readonly="readonly" th:value="${bi.buynowBasketTotalCode}"/>
+										</div>
+									</div>	
+									
+									<div class="item form-group">
+										<label for="buynowBasketCategory" class="col-form-label col-md-3 col-sm-3 label-align">즉시/장바구니 분류</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="userId" name="buynowBasketCategory" class="form-control" 
+												   readonly="readonly" th:value="${bi.buynowBasketCategory}"/>
+										</div>
+									</div>	
+									
+									<div class="item form-group">
+										<div  class="col-md-6 col-sm-6 offset-md-3">
+											<button type="button" id="execution_daum_address">주소확인</button>
+										</div>
+									</div>
+																
+									<div class="item form-group">
+										<label for="deliveryPostnumAddr" class="col-form-label col-md-3 col-sm-3 label-align">우편번호</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="deliveryPostnumAddr" name="deliveryPostnumAddr"
+									  		      class="form-control address1_input" readonly="readonly" th:value="${bi.deliveryPostnumAddr}"/>
+										</div>
+									</div>	
+																
+									<div class="item form-group">
+										<label for="deliveryAddr" class="col-form-label col-md-3 col-sm-3 label-align">주소</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="deliveryAddr" name="deliveryAddr"
+									  		      class="form-control address2_input" readonly="readonly" th:value="${bi.deliveryAddr}"/>
+										</div>
+									</div>	
+																
+									<div class="item form-group">
+										<label for="deliveryDetailAddr" class="col-form-label col-md-3 col-sm-3 label-align">상세주소</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="deliveryDetailAddr" name="deliveryDetailAddr"
+									  		      class="form-control address3_input" th:value="${bi.deliveryDetailAddr}"/>
+										</div>
+									</div>	
+																
+									<div class="item form-group">
+										<label for="recipientName" class="col-form-label col-md-3 col-sm-3 label-align">수령인 이름</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="recipientName" name="recipientName"
+									  		      class="form-control" th:value="${bi.recipientName}"/>
+										</div>
+									</div>	
+																
+									<div class="item form-group">
+										<label for="recipientPhone" class="col-form-label col-md-3 col-sm-3 label-align">수령인 핸드폰</label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" id="recipientPhone" name="recipientPhone"
+									  		      class="form-control" th:value="${bi.recipientPhone}"/>
+										</div>
+									</div>	
+									
+									<div class="item form-group">
+										<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+											<button class="btn btn-primary" type="button" id="submitBtn">수정</button>
+											<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+										</div>
+									</div>
+									</th:block>
+								</form>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	     <!-- 다음주소 -->
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	</th:block>
+</html>

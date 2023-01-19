@@ -6,8 +6,204 @@
 	<head>
 	</head>
 
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#modifyGoodsForm input,textarea').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#modifyGoodsForm').submit();
+				});
+				
+				  $("#goodsImage").change(function(){
+					   if(this.files && this.files[0]) {
+					    var reader = new FileReader;
+					    reader.onload = function(data) {
+					     $(".select_img img").attr("src", data.target.result).width(300);        
+					    }
+					    reader.readAsDataURL(this.files[0]);
+					   }
+					  });	
+			});
+		</script>
+	</th:block>
+	
+	
+	
 	<th:block layout:fragment="customContents">
-		<h1>상품수정</h1>
+	<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<br><br>
+							<form id= "modifyGoodsForm" th:action="@{/admin/modifyGoods}" method="post" enctype="multipart/form-data">
+							<th:block th:if="${not #lists.isEmpty(GodosUnitPriceInfo)}" th:each="gi : ${GodosUnitPriceInfo}">
+							
+							<div class="item form-group">
+								<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsCode" name="goodsCode"
+							  		       th:value="${gi.goodsCode}" class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goodsName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsName" name="goodsName"
+							  		       th:value="${gi.goodsName}" class="form-control" />
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="mediumCategoryBigCode" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 중</label>
+								<div class="col-md-6 col-sm-6 ">
+									<select id="categoryMediumCode" name="categoryMediumCode" class="form-control">
+										<th:block th:if="${not #lists.isEmpty(listAllCategory)}" th:each="lc : ${listAllCategory}">										
+											<option th:text="${lc.categoryMediumName}" th:value="${lc.categoryMediumCode}" ></option>
+										</th:block>
+										<th:block th:unless="${not #lists.isEmpty(listAllCategory)}">										
+											<option>등록된 카테고리가 없습니다.</option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="unitPrice.factoryGoodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">매입가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="unitPrice.factoryGoodsPrice" name="unitPrice.factoryGoodsPrice"
+							  		       th:value="${gi.unitPrice.factoryGoodsPrice}" class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">상풍가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsPrice" name="goodsPrice"
+							  		       th:value="${gi.goodsPrice}" class="form-control"/>
+								</div>
+							</div>
+							              
+						     <div class="field item form-group">
+	                             <label class="col-form-label col-md-3 col-sm-3  label-align">상품 색상<span class="required"></span></label>
+	                             <div class="col-md-6 col-sm-6">
+	                                 <select id="goodsColor" name="goodsColor" class="form-control" th:value="${gi.goodsColor}">
+	                                 	<option th:selected="${gi.goodsColor}=='black'">black</option>
+	                                 	<option th:selected="${gi.goodsColor}=='gray'">gray</option>
+	                                 	<option th:selected="${gi.goodsColor}=='white'">white</option>
+	                                 	<option th:selected="${gi.goodsColor}=='blue'">blue</option>
+	                                 	<option th:selected="${gi.goodsColor}=='red'">red</option>
+	                                 	<option th:selected="${gi.goodsColor}=='pink'">pink</option>
+	                                 	<option th:selected="${gi.goodsColor}=='beige'">beige</option>
+	                                 	<option th:selected="${gi.goodsColor}=='brown'">brown</option>
+	                                 	<option th:selected="${gi.goodsColor}=='gold'">gold</option>
+	                                 </select>
+	                             </div>
+	                         </div>
+							
+						      <div class="field item form-group">
+	                             <label class="col-form-label col-md-3 col-sm-3  label-align">상품 사이즈<span class="required"></span></label>
+	                             <div class="col-md-6 col-sm-6">
+	                             	<select id="goodsSize" name="goodsSize" class="form-control" th:value="${gi.goodsSize}">
+	                             		<option th:selected="${gi.goodsSize}=='230'">230</option>
+	                             		<option th:selected="${gi.goodsSize}=='240'">240</option>
+	                             		<option th:selected="${gi.goodsSize}=='250'">250</option>
+	                             		<option th:selected="${gi.goodsSize}=='260'">260</option>
+	                             		<option th:selected="${gi.goodsSize}=='270'">270</option>
+	                             		<option th:selected="${gi.goodsSize}=='280'">280</option>
+	                             		<option th:selected="${gi.goodsSize}=='S'">S</option>
+	                             		<option th:selected="${gi.goodsSize}=='M'">M</option>
+	                             		<option th:selected="${gi.goodsSize}=='L'">L</option>
+	                             	</select>
+	                             </div>
+	                         </div>
+							
+							<div class="item form-group">
+								<label for="fabric" class="col-form-label col-md-3 col-sm-3 label-align">원단</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="fabric" name="fabric"
+							  		       th:value="${gi.fabric}" class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="rate" class="col-form-label col-md-3 col-sm-3 label-align">비율</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="rate" name="rate"
+							  		       th:value="${gi.rate}" class="form-control"/>
+								</div>
+							</div>
+							
+				           <div class="field item form-group">
+								<label class="col-form-label col-md-3 col-sm-3  label-align">상품 상세 설명<span class="required"></span></label>
+		                            <div class="col-md-6 col-sm-6">
+		                            	<textarea class="form-control" rows="15" id="goodsSangse" name="goodsSangse" 
+		                            			  th:text="${gi.goodsSangse}" th:value="${gi.goodsSangse}"></textarea>  
+		                           </div>
+		                   </div>
+		                   
+							<!--<div class="item form-group">
+								<label for="uploadfile" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="file" class="form-control-file" id="uploadfile" name="uploadfile" multiple="multiple" >
+									
+									<div class="select_img" style="margin: 20px"><img src="" /></div>
+								</div>
+							</div> -->
+								
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</form>
+               			</div>
+           			</div>
+       			</div>
+   			</div>	     
+	</th:block>
+	
+		
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
 	</th:block>
 
 </html>

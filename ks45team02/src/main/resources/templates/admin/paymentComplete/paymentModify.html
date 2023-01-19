@@ -24,9 +24,9 @@
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="SearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">주문 추가</label>
+						<label for="SearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">주문 변경</label>
 						<div class="col-md-6 col-sm-6 ">
-							<button type="button" class="btn btn-secondary btn-sm" id="SearchBtn">주문 추가</button>
+							<button type="button" class="btn btn-secondary btn-sm" id="SearchBtn">주문 변경</button>
 						</div>
 					</div>
 					<div class="item form-group">
@@ -86,6 +86,13 @@
 						</div>			
 					</div>
 					<div class="item form-group">
+						<label for="pointUseGroup" class="col-form-label col-md-3 col-sm-3 label-align">포인트 사용 그룹</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="pointUseGroup" name="pointUseGroup" th:value="*{pointUseGroup}"
+								   placeholder="공백 허용" class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
 						<label for="productOrderState" class="col-form-label col-md-3 col-sm-3 label-align">결제완료 후 상황</label>
 						<div class="col-md-6 col-sm-6 ">
 							<select id="productOrderState" name="productOrderState"class="form-control">
@@ -94,7 +101,8 @@
 								<option value="배송중" th:selected="*{productOrderState} == '배송중'">배송중</option>
 								<option value="배송완료" th:selected="*{productOrderState} == '배송완료'">배송완료</option>
 								<option value="구매확정" th:selected="*{productOrderState} == '구매확정'">구매확정</option>
-								<option value="구매취소" th:selected="*{productOrderState} == '구매취소'">구매취소</option>
+								<option value="리뷰작성완료" th:selected="*{productOrderState} == '리뷰작성완료'">리뷰작성완료</option>
+								<option value="결제취소" th:selected="*{productOrderState} == '결제취소'">결제취소</option>
 								<option value="교환요청" th:selected="*{productOrderState} == '교환요청'">교환요청</option>
 								<option value="환불요청" th:selected="*{productOrderState} == '환불요청'">환불요청</option>
 								<option value="교환처리" th:selected="*{productOrderState} == '교환처리'">교환처리</option>
@@ -116,7 +124,7 @@
 								   placeholder="공백 허용" class="form-control"/>
 						</div>
 					</div>
-										<div class="item form-group">
+					<div class="item form-group">
 						<label for="paymentCompleteDeleteState" class="col-form-label col-md-3 col-sm-3 label-align">결제내역 삭제여부</label>
 						<div class="col-md-6 col-sm-6 ">
 							<select id="paymentCompleteDeleteState" name="paymentCompleteDeleteState"class="form-control">
@@ -157,18 +165,18 @@
 				let checkFlag = true;
 				$inputEle.forEach(function(item){
 					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
-						if(item.id != 'deliCode' && item.id != 'productOrderPointGroup'){
+						if(item.id != 'deliCode' && item.id != 'productOrderPointGroup' && item.id != 'pointUseGroup'){
 							checkFlag = false;
 							}
 					}
 				})
 				if(checkFlag){
+					alert('포인트 차감 그룹은 직접 수정해주세요.');
 					$submitBtn.setAttribute("type", "submit")
 				}else{
 					alert('값을 전부 입력해주세요.');
 				}
 				
-				alert('포인트 차감 그룹은 직접 수정해주세요.');
 			});
 			
 			$SearchBtn.addEventListener('click', function(){

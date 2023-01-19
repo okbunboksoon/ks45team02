@@ -12,4 +12,9 @@ public interface BoardInquiryMapper {
 
     //1:1문의 추가
     public int addInquiry(BoardInquiry boardInquiry);
+
+    public List<BoardInquiry>contentsInquiry(String inquiryCode);
+    public BoardInquiry getInquiryInfo(String inquiryCode);
+    public int modifyInquiry(BoardInquiry boardInquiry);
+    public int answer(BoardInquiry boardInquiry);
 }

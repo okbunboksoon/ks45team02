@@ -11,12 +11,14 @@ import ks45team02.ire.admin.dto.Buybasket;
 import ks45team02.ire.admin.dto.Buynow;
 import ks45team02.ire.admin.dto.PaymentComplete;
 import ks45team02.ire.admin.dto.PointMinus;
+import ks45team02.ire.admin.dto.PointSave;
 import ks45team02.ire.admin.mapper.BuybasketMapper;
 import ks45team02.ire.admin.mapper.BuynowMapper;
 import ks45team02.ire.admin.mapper.DeliveryMapper;
 import ks45team02.ire.admin.mapper.PaymentCompleteMapper;
 import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.mapper.TypePaymentInfoMapper;
+import ks45team02.ire.admin.mapper.UserMapper;
 
 @Service
 @Transactional
@@ -30,15 +32,47 @@ public class PaymentCompleteService {
 	private final DeliveryMapper deliveryMapper;
 	private final TypePaymentInfoMapper typePaymentInfoMapper;
 	private final PointMapper pointMapper;
+	private final PointService pointService;
 	
 	public PaymentCompleteService(PaymentCompleteMapper paymentCompleteMapper, BuybasketMapper buybasketMapper, BuynowMapper buynowMapper, 
-								  DeliveryMapper deliveryMapper, TypePaymentInfoMapper typePaymentInfoMapper, PointMapper pointMapper) {
+								  DeliveryMapper deliveryMapper, TypePaymentInfoMapper typePaymentInfoMapper, PointMapper pointMapper, 
+								  PointService pointService) {
 		this.paymentCompleteMapper = paymentCompleteMapper;
 		this.buybasketMapper = buybasketMapper;
 		this.buynowMapper = buynowMapper;
 		this.deliveryMapper = deliveryMapper;
 		this.typePaymentInfoMapper = typePaymentInfoMapper;
 		this.pointMapper = pointMapper;
+		this.pointService = pointService;
+	}
+	
+	/**
+	 * 결제 취소
+	 * @param paymentComplete
+	 * @return int
+	 */
+	public int cancelPaymentComplete(PaymentComplete paymentComplete) {
+		
+		int result = 0;
+		
+		//결제 취소 상태로 변경
+		result = paymentCompleteMapper.modifyProductOrderState(paymentComplete.getPaymentCompleteCode(), "결제취소");
+		
+		//포인트 사용 확인
+		String pointUseGroup = paymentComplete.getPointUseGroup();
+		PointMinus pointMinusInfo = pointMapper.getPointMinusInfoByPointMinusGroup(pointUseGroup);
+		if(pointMinusInfo != null) {
+			int pointMinusAmount = pointMinusInfo.getPointMinus();
+
+			//차감했던 포인트 지급
+			PointSave pointSave = new PointSave();
+			pointSave.setUserId(paymentComplete.getUserId());
+			pointSave.setPointSave(pointMinusAmount);
+			pointSave.setPointSaveReason("결제 취소");
+			pointService.addPointSave(pointSave);
+		}
+		
+		return result;
 	}
 	
 	/**

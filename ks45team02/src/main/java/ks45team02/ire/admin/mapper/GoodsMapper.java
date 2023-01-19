@@ -21,9 +21,14 @@ public interface GoodsMapper {
 	// 상품 전체 조회
 	public List<Goods> getListGoods();
 	
+	// 상품코드로 상품 및 단가 검색
+	public List<Goods> getListGoodsAndUnitPrice(String goodsCode);
+	
 	// 상품 등록 처리
 	public int addGoods(Goods goods);
 	
+	// 상품 수정
+	public int modifyGoods(Goods goods);
 	// FirstFabric 가져오기
 	public String getFirstFabic(Goods goods);
 	
@@ -38,5 +43,8 @@ public interface GoodsMapper {
 	
 	// 레벨 등록
 	public int updateEmissionLevel(double emissionLevel);
+	
+	// 상품 삭제
+	public int deleteGoods(String goods);
 
 }

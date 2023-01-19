@@ -1,11 +1,11 @@
 package ks45team02.ire.admin.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
+import ks45team02.ire.admin.dto.RawMaterialsOutgoing;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 @Mapper
 public interface RawMaterialsMapper {
 
@@ -36,4 +36,13 @@ public interface RawMaterialsMapper {
 	
 	 //원자재 목록 조회
 	public List<RawMaterials> rawmaterialsList();	
+	
+	//원자재 입고 일별 기부상품 입고 그룹 확인
+	public String getLastRawMaterialsDaygroup();
+
+    List<RawMaterialsOutgoing> rawMaterialsOutgoingList();
+
+	List<RawMaterialsOutgoing> addoutgoingRawmaterialsInfo();
+
+	int addoutgoingRawmaterials(RawMaterialsOutgoing rawMaterialsOutgoing);
 }

@@ -17,6 +17,8 @@ public class FileService {
 	private FileUtil fileUtil;
 	private FileMapper fileMapper;	
 	
+	private final static String FILE_PATH = "/home/springboot/teamproject/resources/";
+	
 	public FileService(FileUtil fileUtil, FileMapper fileMapper) {
 		
 		this.fileUtil = fileUtil;
@@ -25,7 +27,7 @@ public class FileService {
 
 	public int fileUpload(MultipartFile[] uploadfile, String fileRealPath) {
 		
-		List<FileDto> fileList= fileUtil.parseFileInfo(uploadfile, fileRealPath);
+		List<FileDto> fileList= fileUtil.parseFileInfo(uploadfile, FILE_PATH);
 		
 		System.out.println(fileList);
 		int result = 0;

@@ -10,20 +10,30 @@
 				<!-- Menu desktop -->
 				<div class="menu-desktop">
 					<ul class="main-menu">
-						<li><a href="" style="font-size:40px; margin:40px;">Ire</a></li>
+						<li><a href="/" style="font-size:40px; margin:40px;">Ire</a></li>
 						
-						<li><a href="#">Shop</a></li>
+						<li><a href="listGoods">Shop</a>
+							<ul class="sub-menu">
+								<li><a href="listGoodsItem?item=cate_big_002">BAG</a></li>
+								<li><a href="listGoodsItem?item=cate_big_001">SHOSE</a></li>
+								<li><a href="listGoodsItem?item=cate_big_003">ACC</a></li>
+							</ul>
+						</li>
 						
 						<li><a href="addDonation">Donation</a></li>
 						
-						<li><a href="#">Guide</a></li>
+						<li><a href="listBoardUserGuide">Guide</a></li>
 						
-						<li><a href="#">Event</a></li>
+						<li><a href="listBoardNotice">Notice</a></li>
+						
+						<li><a href="listBoardEvent">Event</a></li>
 
-						<li><a href="#">Contact</a></li>
+						<li><a href="listBoardFAQ">FAQ</a></li>
+						
+						<li><a href="listEmissionRawMaterialsGroupStatistics">CO2 통계</a></li>
 					</ul>
 				</div>
-
+					
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m h-full">
 					<div class="flex-c-m h-full p-r-24">
@@ -35,16 +45,17 @@
 
 					<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart">
+							<a href="/listBasket">
 								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
 						</div>
 					</div>
 
 					<div class="flex-c-m h-full p-lr-19">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
-                                <a href="/admin">
-                                    <i class="bi bi-person-fill"></i>
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar dropdown" >
+                                <a href="/loginUser">
+                                    <i class="bi bi-person-fill dropbtn"></i>
                                 </a>
-
 						</div>
 					</div>
 				</div>

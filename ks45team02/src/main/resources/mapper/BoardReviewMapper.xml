@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.BoardReviewMapper">
+	<resultMap type="BoardReview" 				id="boardReviewResultMap">
+		<id property="reviewCode" 				column="review_code" />
+		<result property="userId" 				column="user_id" />
+		<result property="goodsCode"		 	column="goods_code" />
+		<result property="reviewStarCount" 		column="review_star_count" />
+		<result property="reviewContent" 		column="review_content" />
+		<result property="reviewImageName" 		column="review_image_name" />
+		<result property="reviewImagePath" 		column="review_image_path" />
+		<result property="reviewRegDate"		column="review_reg_date" />
+		<result property="reviewPointSave"		column="review_point_save" />
+		<result property="reviewPointGroup"		column="review_point_group" />
+		<result property="reviewDeleteState"		column="review_delete_state" />
+		<association property="goods" 				javaType="Goods">
+			<id property="goodsCode" 				column="goods_code" />
+			<result property="goodsName"		 	column="goods_name" />
+			<result property="goodsPrice"		 	column="goods_price" />
+			<result property="goodsColor" 			column="goods_color" />
+			<result property="goodsSize" 			column="goods_size" />
+		</association>
+	</resultMap>
+	
+	<update id="modifyBoardReview" parameterType="BoardReview">
+		<!-- 리뷰 글 수정 -->
+		UPDATE 
+			goods_review
+		SET 
+			 user_id = #{userId}
+			,goods_code = #{goodsCode}
+			,review_star_count = #{reviewStarCount}
+			,review_content = #{reviewContent}
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,review_image_name = #{reviewImageName}
+				,review_image_path = #{reviewImagePath}
+			</if>
+			,review_reg_date = #{reviewRegDate}
+			,review_point_save = #{reviewPointSave}
+			,review_point_group = #{reviewPointGroup}
+			,review_delete_state = #{reviewDeleteState}
+		WHERE
+			review_code = #{reviewCode};
+	</update>
+	
+	<insert id="addBoardReview" parameterType="BoardReview">
+		<!-- 리뷰 글 등록 -->
+		INSERT INTO goods_review(
+			 review_code
+			,user_id
+			,goods_code
+			,review_star_count
+			,review_content
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,review_image_name
+				,review_image_path
+			</if>
+			,review_reg_date
+			,review_point_save
+			,review_point_group
+			,review_delete_state
+		)VALUES(
+			 sf_new_goods_review_code()
+			,#{userId}
+			,#{goodsCode}
+			,#{reviewStarCount}
+			,#{reviewContent}
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,#{reviewImageName}
+				,#{reviewImagePath}
+			</if>
+			,#{reviewRegDate}
+			,#{reviewPointSave}
+			,sf_new_point_group_code(#{reviewPointGroup})
+			,'N');
+			<selectKey resultType="String" keyProperty="reviewPointGroup" keyColumn="review_point_group" order="AFTER">
+            	SELECT review_point_group FROM goods_review ORDER BY review_code DESC LIMIT 0, 1;
+        	</selectKey>
+	</insert>
+	
+	<select id="getBoardReviewInfo" parameterType="String" resultMap="boardReviewResultMap">
+		<!-- 리뷰 게시판 상세 보기 -->
+		SELECT 
+			 gr.review_code
+			,gr.user_id
+			,gr.goods_code
+			,g.goods_name
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,gr.review_star_count
+			,gr.review_content
+			,gr.review_image_name
+			,gr.review_image_path
+			,gr.review_reg_date
+			,gr.review_point_save
+			,gr.review_point_group
+			,gr.review_delete_state
+		FROM 
+			goods_review AS gr
+			INNER JOIN 
+			goods AS g
+			ON 
+			gr.goods_code = g.goods_code
+		WHERE 
+			gr.review_code = #{reviewCode};
+	</select>
+	
+	<select id="getBoardReviewList" resultMap="boardReviewResultMap">
+		<!-- 리뷰 게시판 목록 조회 -->
+		SELECT 
+			 gr.review_code
+			,gr.user_id
+			,gr.goods_code
+			,g.goods_name
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,gr.review_star_count
+			,gr.review_content
+			,gr.review_reg_date
+			,gr.review_point_save
+			,gr.review_point_group
+			,gr.review_delete_state
+		FROM 
+			goods_review AS gr
+			INNER JOIN 
+			goods AS g
+			ON 
+			gr.goods_code = g.goods_code;
+	</select>
+	
+</mapper>

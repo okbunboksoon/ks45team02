@@ -9,7 +9,7 @@ public class BusinessOrder {
 	private int businessOrderAmount;
 	private String businessOrderDate;
 	private String businessOrderResult;
-	private String businessManagerName;
+	private String businessManagerName;             
 	private String goodsCode;
 	private int goodsOrderAmount;
 	private int factoryGoodsPrice;

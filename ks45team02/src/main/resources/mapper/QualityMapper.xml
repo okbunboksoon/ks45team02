@@ -18,6 +18,7 @@
 		<result property="checkDate"         column="check_date" />
 		<result property="incomingCode"         column="incoming_code" />
 		<result property="goodsCode"         column="goods_code" />
+		<result property="goodsName"         column="goods_name" />
 		<result property="qualityResult"         column="quality_result" />
 	</resultMap>
 	<select id="getQualityGeneralLevelList" resultMap="qualityResultMap">
@@ -107,4 +108,71 @@
 		WHERE
 		hazadous_quality_level = #{hazadousQualityLevel}
 	</update>
+	<select id="deleteQualityGeneralLevelInfo" resultMap="qualityResultMap">
+		SELECT
+			gql.general_quality_level, gql.durability_test, gql.functional_test, gql.dyeability_test
+		FROM
+			general_quality_level AS gql
+		WHERE
+			gql.general_quality_level = #{generalQualityLevel}
+	</select>
+	<delete id="deleteQualityGeneralLevel" parameterType="String">
+		DELETE
+		FROM
+			general_quality_level AS gql
+		WHERE
+			gql.general_quality_level = #{generalQualityLevel}
+	</delete>
+	<select id="deleteQualityHazadousSubstanceLevelInfo" resultMap="qualityResultMap">
+		SELECT
+			hsl.hazadous_quality_level, hsl.formaldehyde_test, hsl.phenol_chloride_test, hsl.harmful_elements_test
+		FROM
+			hazadous_substance_level AS hsl
+		WHERE
+			hsl.hazadous_quality_level = #{hazadousQualityLevel}
+	</select>
+	<delete id="deleteQualityHazadousSubstanceLevel" parameterType="String">
+		DELETE
+		FROM
+			hazadous_substance_level AS hsl
+		WHERE
+			hsl.hazadous_quality_level =#{hazadousQualityLevel}
+	</delete>
+	<select id="qualityInspectionRequestList" resultMap = "qualityResultMap">
+		SELECT
+			qr.quality_code, qr.check_date, qr.incoming_code
+		FROM
+			quality_request AS qr
+	</select>
+	<select id="qualityInspectionRequestInfo" resultMap="qualityResultMap">
+		SELECT
+			i.incoming_code, g.goods_code
+		FROM
+			incoming AS i
+		INNER JOIN
+			goods AS g
+		ON
+			i.goods_code = g.goods_code
+	</select>
+	<insert id="addRequestQualityInspection" parameterType="Quality">
+		INSERT INTO quality_request
+			(quality_code, incoming_code, check_date)
+		VALUES
+			(sf_new_quality_Code(), #{incomingCode}, "1900-01-01")
+	</insert>
+	<insert id="addInspectionStandard" parameterType="Quality">
+		INSERT INTO quality
+			(quality_code, check_date, incoming_code, goods_code, general_quality_level, hazadous_quality_level, quality_result)
+		VALUES
+			(sf_new_quality_Code(),  "1900-01-01", #{incomingCode}, #{goodsCode}, '미등록', '미등록', '미등록')
+
+	</insert>
+	<select id="InspectionStandardInfo" resultMap="qualityResultMap">
+		SELECT
+			q.quality_code, q.incoming_code, q.goods_code, q.general_quality_level, q.hazadous_quality_level, q.quality_result
+		FROM
+			quality AS q
+		WHERE
+			q.check_date = "1900-01-01"
+	</select>
 </mapper>

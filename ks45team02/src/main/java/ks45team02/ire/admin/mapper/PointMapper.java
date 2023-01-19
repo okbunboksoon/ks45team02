@@ -13,7 +13,10 @@ import ks45team02.ire.admin.dto.User;
 
 @Mapper
 public interface PointMapper {
-
+	
+	//포인트 차감 그룹으로 포인트 차감 조회
+	public PointMinus getPointMinusInfoByPointMinusGroup(String pointMinusGroup);
+	
 	//결제 완료 후 포인트 차감 그룹 수정
 	public int modifyPointMinusGroup(PointMinus pointMinus);
 	

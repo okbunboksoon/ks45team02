@@ -30,6 +30,11 @@ public class UserController {
 	}
 
 
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/";
+	}
 	//	회원 가입
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
@@ -135,8 +140,8 @@ public class UserController {
 	}
 	// 로그인...
 	@PostMapping("/loginUser")
-	public String login(@RequestParam(name = "userId")String userId,
-						@RequestParam(name = "userPw")String userPw,
+	public String login(@RequestParam(name = "userId",required = false)String userId,
+						@RequestParam(name = "userPw",required = false)String userPw,
 						RedirectAttributes reAttr,
 						HttpSession session,
 						HttpServletRequest request,

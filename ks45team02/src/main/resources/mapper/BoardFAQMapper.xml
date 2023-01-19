@@ -7,7 +7,6 @@
         <id property="FAQ_code"			column="FAQ_code" />
         <result property="FAQ_title"			column="FAQ_title" />
         <result property="FAQ_contents"		column="FAQ_contents" />
-        <result property="FAQ_file"		column="FAQ_file" />
         <result property="FAQ_views"		column="FAQ_views" />
         <result property="FAQ_reg_date"	column="FAQ_reg_date" />
     </resultMap>
@@ -20,14 +19,12 @@
     		FAQ_code
 			,FAQ_title
 			,FAQ_contents
-			,FAQ_file
 			,FAQ_views
 			,FAQ_reg_date
 		)VALUES(
 			sf_new_faq_code(), 
 			#{FAQ_title}, 
 			#{FAQ_contents}, 
-			null, 
 			'0', 
 			CURDATE()
 		)
@@ -39,7 +36,6 @@
 		faq.FAQ_code
 		,faq.FAQ_title
 		,faq.FAQ_contents
-		,faq.FAQ_file
 		,faq.FAQ_views
 		,faq.FAQ_reg_date
 	FROM
@@ -52,7 +48,6 @@
 	FAQ_code
 		, FAQ_title
 		, FAQ_contents
-		, FAQ_file
 		, FAQ_views
 		, FAQ_reg_date
 	FROM 
@@ -84,4 +79,13 @@
      	FAQ_code = #{FAQ_code}
     </delete>
     
+    <!-- 조회수 올리기 -->
+    <update id="updateFAQViewsCnt">
+    	UPDATE
+    		faq
+    	SET
+    		FAQ_views = FAQ_views + 1
+    	WHERE
+    		 FAQ_code= #{FAQ_code}
+    </update>
 </mapper>

@@ -36,10 +36,34 @@ public class UnitPriceService {
 		return listUnitPrice;
 	}
 	
+	/**
+	 * 상품코드로 특정 상품 판매단가 및 상품가격 조회
+	 * @param goodsCode
+	 * @return getListUnitPriceByGoodsCode
+	 */
+	public UnitPrice getListUnitPriceByGoodsCode(String goodsCode) {
+		
+		UnitPrice getListUnitPriceByGoodsCode =  unitPriceMapper.getListUnitPriceByGoodsCode(goodsCode);
+		
+		return getListUnitPriceByGoodsCode;
+	}
+	
+	/**
+	 * 상품 판매단가 및 상품가격 등록
+	 * @param goods
+	 * @return result
+	 */
 	public int addUnitPrice(Goods goods) {
 		
-		unitPriceMapper.addUnitPrice(goods);
+		int result = unitPriceMapper.addUnitPrice(goods);
 		
-		return 1;
+		return result;
+	}
+	
+	public int modifyUnitPrice(Goods goods) {
+		int result = 0;
+		log.info("goods111111111111111111111111111 :{}", goods);
+		result = unitPriceMapper.modifyUnitPrice(goods);
+		return result;
 	}
 }

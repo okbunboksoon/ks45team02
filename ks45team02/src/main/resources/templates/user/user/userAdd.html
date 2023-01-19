@@ -1,10 +1,222 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+<head>
+    <style type="text/css">
+        .styleTitle {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Alata', sans-serif;
+        }
+
+        .container-add{
+            width: 70%;
+            border-radius: 0px 10px 10px 0px;
+            padding:40px;
+            background: rgb(255,255,255);
+            background: linear-gradient(287deg, rgba(255,255,255,1) 0%, rgba(243,244,244,1) 0%, rgba(255,255,255,1) 100%);
+        }
+    </style>
+</head>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){ //window.onload(요소가 다 렌더링이 되고 나서 실행)
+            $('#submitBtn').click(function (){
+                let isSubmint =true;
+                $('#addUser input').each(function (idx,item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).parents('div').find('label').text();
+                    if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
+                        alert(`${labelValue}를 입력해 주세여`);
+                        $(item).focus();
+                        isSubmint=false;
+                        return false;
+                    }
+                });
+                if(isSubmint){
+                    $('#addUser').submit();
+                    alert('회원 가입 축하드립니다!');
+                }
+            });
+        });
+
+        $(function(){
+            const $idData = document.getElementById('userId');
+            const $submitBtn = document.getElementById('submitBtn');
+
+            $('#userPw').attr("disabled", true);
+            $('#userBirth').attr("disabled", true);
+            $('#userPwCheck').attr("disabled", true);
+            $('#userAddr').attr("disabled", true);
+            $('#userEmail').attr("disabled", true);
+            $('#userName').attr("disabled", true);
+            $('#userNickName').attr("disabled", true);
+            $('#userPhone').attr("disabled", true);
+
+            function validateValue(checkValue){
+                if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+                    return true;
+                }
+                return false;
+            }
+            $('#checkBtn').click(function(){
+                const $id = $('#userId').val();
+                if(validateValue($id))
+                {
+                    alert('회원 아이디 입력해주세요');
+                    $('#userId').focus();
+                    return false;
+                }
+
+                $('#userId').keypress(function(){
+                    $submitBtn.disabled = true;
+                    $('#addUser input').not('#userId').prop('disabled', true);
+                    $('#addUser button').not('#checkBtn').prop('disabled', true);
+
+                })
+                let idCheckApi = '/admin/idCheck/'+ $id;
+                fetch(idCheckApi)
+                        .then(response => response.json())
+                        .then(data => {
+
+                            if(data !== 0){
+                                alert(`${$id} 아이디 가 있습니다`);
+                                $('#userId').val('');
+                                $submitBtn.disabled = true;
+                                $('#addUser input').not('#userId').prop('disabled', true);
+                                $('#addUser button').not('#checkBtn').prop('disabled', true);
+                                $idData.focus();
+                                return false;
+                            }else {
+                                alert("중복이 아니다 이거야~");
+                                $submitBtn.disabled = false;
+                                $('#addUser input').not('#userId').prop('disabled', false);
+                                $('#addUser button').not('#checkBtn').prop('disabled', false);
+
+                            }
+
+                        })
+                        .catch(err =>console.log(err));
+            });
+        });
+
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <div class="">
+        <div class="page-title"></div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <br><br>
+                        <h3 class="styleTitle">회원가입</h3>
+                        <center>
+                        <form id="addUser" th:action="@{/addUser}" method="post">
+                                <div class="container-add">
+                                <div class="item form-group">
+                                    <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">회원아이디</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userId" name="userId"
+                                               placeholder="회원아이디를 입력해주세요." class="form-control"/>
+                                    </div>
+                                        <button type="button" id="checkBtn" style="background-color: black;color: white;">👌-아이디 중복체크-👌</button>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userPw" class="col-form-label col-md-3 col-sm-3 label-align">회원비밀번호</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userPw" name="userPw"
+                                               placeholder="회원비밀번호를 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userPwCheck" class="col-form-label col-md-3 col-sm-3 label-align">회원비밀번호확인</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userPwCheck" name="userPwCheck"
+                                               placeholder="회원비밀번호를 다시 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userName" class="col-form-label col-md-3 col-sm-3 label-align">회원이름</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userName" name="userName"
+                                               placeholder="회원이름을 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userNickName" class="col-form-label col-md-3 col-sm-3 label-align">닉네임</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userNickName" name="userNickName"
+                                               placeholder="닉네임을 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userAddr" class="col-form-label col-md-3 col-sm-3 label-align">회원주소</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userAddr" name="userAddr"
+                                               placeholder="회원 주소를 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userPhone" class="col-form-label col-md-3 col-sm-3 label-align">회원전화번호</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="userPhone" name="userPhone"
+                                               placeholder="회원전화번호를 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="userEmail" class="col-form-label col-md-3 col-sm-3 label-align">회원이메일</label>
+                                    <div class="col-md-4">
+                                        <input type="text" id="userEmail" name="userEmail"
+                                               placeholder="회원이메일을 입력해주세요.ex)@naver.com" class="form-control"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="item form-group">
+                                    <label for="userBirth" class="col-form-label col-md-3 col-sm-3 label-align">회원생년 월일</label>
+                                    <div class="col-md-4">
+                                        <input type=date id="userBirth" name="userBirth"
+                                               placeholder="회원 생년월일을 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <div  class="col-md-4  " style="text-align: center;">
+                                        <button class="btn btn-primary" type="button" id="submitBtn" style="background-color: black">등록</button>
+                                        <button class="btn btn-danger"style="background-color: black">
+                                            <a href="/" style="color: white">취소</a></button>
+
+                                    </div>
+                                </div>
+                                </div>
+                        </form>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customjs">
+
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    <script th:src="@{/admin/build/js/custom.min.js}"></script>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>

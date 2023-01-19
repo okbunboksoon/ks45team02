@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="ks45team02.ire.user.mapper.UserPointMapper">
+	
+	
+	<select id="getPointCnt" resultType="int" parameterType="String">
+		<!-- 포인트 데이터 개수 -->
+		SELECT 
+			COUNT(pointList.pointCode)
+		FROM 
+			(SELECT 
+				ps.point_save_code AS pointCode
+			FROM
+				point_save AS ps
+			WHERE 
+				ps.user_id = #{loginId}
+			UNION 
+			SELECT 
+				pm.point_minus_code AS pointCode
+			FROM 
+				point_minus AS pm
+			WHERE 
+				pm.user_id = #{loginId})AS pointList;
+	</select> 
+	
+	<select id="getUserPointSaveAndMinusList" resultType="PointSaveAndMinus" parameterType="String">
+		<!-- 포인트 적립/차감 총 조회 -->
+		SELECT 
+			 point_minus_code AS pointCode
+			,user_id AS userId
+			,point_minus AS pointAmount
+			,point_state AS pointState
+			,point_minus_date AS pointDate
+			,point_minus_reason AS pointReason
+			,'차감' AS pointSaveOrMinus
+		FROM 
+			point_minus AS pm
+		WHERE 
+			user_id = #{loginId}
+			AND
+			point_minus_delete_state = 'N'
+		UNION 
+		SELECT 
+			point_save_code AS pointCode
+			,user_id AS userId
+			,point_save AS pointAmount
+			,point_state AS pointState
+			,point_save_date AS pointDate
+			,point_save_reason AS pointReason
+			,'지급' AS pointSaveOrMinus
+		FROM 
+			point_save AS ps
+		WHERE 
+			user_id = #{loginId}
+			AND
+			point_save_delete_state = 'N'
+		ORDER BY pointDate DESC
+		<if test="startRowNum != null and startRowNum > -1">LIMIT #{startRowNum}, #{rowPerPage}</if> 
+	</select>
+	
+</mapper>

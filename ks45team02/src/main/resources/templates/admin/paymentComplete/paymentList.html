@@ -59,7 +59,11 @@
 											<td th:text="${l.productOrderPointGroup}"></td>
 											<td th:text="${l.paymentCompleteDeleteState}"></td>
 											<td><a th:href="@{/admin/modifyPayment(paymentCompleteCode=${l.paymentCompleteCode})}">수정</a></td>
-											<td><a th:href="@{/admin/cancelPayment(paymentCompleteCode=${l.paymentCompleteCode})}">결제 취소</a></td>
+											<td th:if="${l.productOrderState} != '결제취소'">
+												<a th:href="@{/admin/cancelPayment(paymentCompleteCode=${l.paymentCompleteCode})}">결제취소</a>
+											</td>
+											<td th:if="${l.productOrderState} == '결제취소'">
+ 											</td>
 											<td><a th:href="@{/admin/requestExchange(paymentCompleteCode=${l.paymentCompleteCode})}">교환요청</a></td>
 											<td><a th:href="@{/admin/requestRefund(paymentCompleteCode=${l.paymentCompleteCode})}">환불요청</a></td>
 										</tr>

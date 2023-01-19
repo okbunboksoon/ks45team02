@@ -39,9 +39,6 @@
 
     </style>
 </head>
-<th:block layout:fragment="customJs">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-</th:block>
 <th:block layout:fragment="customScript">
     <script>
         $(function (){
@@ -121,7 +118,7 @@
                     <label for="userBirth">회원 생년월일</label>
                 </td>
                 <td>
-                    <input type="text"
+                    <input type="date"
                            id="userBirth"
                            name="userBirth"
                            th:value="*{userBirth}">

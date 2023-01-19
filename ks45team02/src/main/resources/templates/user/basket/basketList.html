@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
 
-</body>
+	<head>
+		<style>
+			a {
+				color:#7a8ad9;
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<form class="bg0 p-b-85">
+			<div class="container">
+				<div class="row">
+						<div>
+							<div class="m-l-25 m-r--38 m-lr-0-xl">
+									<br>
+									<br>
+									<div class="pageTitle">
+										<h1>Cart</h1>
+									</div>
+									<br>
+									<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
+								<div class="wrap-table-shopping-cart" style="overflow-x:hidden">
+									<table class="table-shopping-cart">
+										<tr class="table_head">
+											<th class="column-1">Product</th>
+											<th class="column-2"></th>
+											<th class="column-3">Price</th>
+											<th class="column-4">Amount</th>
+											<th class="column-5">Total</th>
+										</tr>
+										<tr class="table_row" th:unless="${#lists.isEmpty(userBasketList)}" th:each="l : ${userBasketList}">
+											<td style="display:none;">
+												<input type="text" name="basketCode" th:text="${l.basketCode}">
+												<input type="text" name="goodsCode" th:text="${l.goodsCode}">
+												<input type="text" name="basketGroup" th:text="${l.basketGroup}">
+											</td>
+											<td class="column-1" colspan="2">
+												<a th:href="@{/goodsContents(goodsCode=${l.goodsCode})}" th:text="${l.goodsName}"></a>
+											</td>
+											<td class="column-3" id="goodsPrice" th:text="${l.goodsPrice}"></td>
+											<td class="column-4">
+												<div class="wrap-num-product flex-w m-l-auto m-r-0">
+													<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+														<i class="fs-16 zmdi zmdi-minus"></i>
+													</div>
+													<input class="mtext-104 cl3 txt-center num-product" type="number"
+														   th:value="${l.basketAmount}" name="basketAmount" id="basketAmount">
+													<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+														<i class="fs-16 zmdi zmdi-plus"></i>
+													</div>
+												</div>
+											</td>
+											<td class="column-5" id="eachPaymentAmount" th:text="${l.eachPaymentAmount}"></td>
+										</tr>
+									</table>
+								</div>
+								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+									<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+									<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10" 
+										 id="updateBasket">Update Cart</div>
+								</div>
+								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+									<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+									<div>
+										<span class="mtext-101 cl2">Total : </span>
+										<span class="mtext-110 cl2" id="expectedAmount"></span>
+									</div>
+								</div>
+								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+									<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+									<div class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+										 id="updateBasket">BUY</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+			</div>
+		
+		</form>
+				
+			
+			
+		
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			let $expectedAmountEle = document.getElementById('expectedAmount');
+			let $basketAmount = document.querySelectorAll('#basketAmount');
+			let eachPaymentAmountArr = document.querySelectorAll('#eachPaymentAmount');
+			let btnNumUpArr = document.querySelectorAll('.btn-num-product-up');
+			let btnNumDownArr = document.querySelectorAll('.btn-num-product-down');
+			
+			function getExpectedAmount(){
+				let expectedAmount = 0;
+				eachPaymentAmountArr.forEach(function(item){
+					expectedAmount += Number(item.innerText);
+				})
+				$expectedAmountEle.innerText = expectedAmount;
+			}
+			
+			getExpectedAmount();
+			
+			for (const btnNumUp of btnNumUpArr) {
+				btnNumUp.addEventListener('click', function(){
+					let basketAmount = btnNumUp.previousElementSibling.value;
+					let $goodsPriceEle = btnNumUp.parentElement.parentElement.previousElementSibling;
+					let $eachPaymentAmountEle = btnNumUp.parentElement.parentElement.nextElementSibling;
+					$eachPaymentAmountEle.innerText = basketAmount * $goodsPriceEle.innerText;
+					
+					getExpectedAmount();
+				});
+			}
+			for (const btnNumDown of btnNumDownArr) {
+				btnNumDown.addEventListener('click', function(){
+					let basketAmount = btnNumDown.nextElementSibling.value;
+					let $goodsPriceEle = btnNumDown.parentElement.parentElement.previousElementSibling;
+					let $eachPaymentAmountEle = btnNumDown.parentElement.parentElement.nextElementSibling;
+					$eachPaymentAmountEle.innerText = basketAmount * $goodsPriceEle.innerText;
+
+					getExpectedAmount();
+				});
+				
+			}
+		
+		</script>
+
+	</th:block>
 </html>

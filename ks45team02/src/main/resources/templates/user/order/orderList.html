@@ -1,10 +1,138 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
 
-</body>
+	<head>
+		<style>
+			a {
+				color: #7a8ad9;
+			}
+			.userTable td {
+				height : 180px;
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+	
+		<div class="row">
+			<div class="col-md-8 col-lg-9 p-b-80">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-userTable">
+							<br>
+							<br>
+							<div class="pageTitle">
+								<h1>Order</h1>
+							</div>
+							<br>
+							<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
+							<div style="float:right;">
+								<form th:action="@{/listOrder}" method="GET">
+									<input type="date" name="startDate" style="display: inline-block"> 
+									~ 
+									<input type="date" name="endDate" style="display: inline-block">
+									<input type="submit" value="검색" style="display: inline-block">
+								</form>
+							</div>
+							<table class="userTable">
+								<thead>
+									<tr>
+										<th style="display : none">주문코드</th>
+										<th>상품이름</th>
+										<th>주문금액</th>
+										<th>주문일자</th>
+										<th>상태</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:unless="${#lists.isEmpty(userOrderList)}" th:each="l : ${userOrderList}">
+										<td style="display : none" th:text="${l.orderCode}"></td>
+										<td th:if="${l.orderCount} == 1">
+											<a th:text="${l.goodsName}" th:href="@{/contentsOrder(orderCode=${l.orderCode})}"></a>
+										</td>
+										<td th:if="${l.orderCount} > 1">
+											<a th:text="|${l.goodsName} 외 ${l.orderCount-1}개|" th:href="@{/contentsOrder(orderCode=${l.orderCode})}"></a>
+										</td>
+										<td th:text="${l.orderPaymentAmount}"></td>
+										<td th:text="${l.orderDate}"></td>
+										<td th:text="${l.orderState}"></td>
+										<td>
+											<ul>
+												<li th:if="${l.orderState} == '배송완료'"><a>구매확정</a></li>
+												<li th:if="${l.orderState} == '구매확정'"><a>리뷰작성</a></li>
+												<li th:if="${l.orderState} == '결제완료' or ${l.orderState} == '배송준비중'"><a>주문취소</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a>반품</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a>환불</a></li>
+											</ul>
+										</td>	
+									</tr>
+									<tr th:if="${#lists.isEmpty(userOrderList)}">
+										<td colspan="6">주문 내역이 없습니다.</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="6">
+											<a th:href="@{/listOrder}">[맨처음으로]</a>
+											<a th:if="${currentPage > 1}" 
+												 th:href="@{/listOrder(currentPage=${currentPage - 1})}"
+											>[이전]</a>
+											<span th:unless="${currentPage > 1}" >[이전]</span>
+											<th:block th:each="num: ${#numbers.sequence(startPageNum, endPageNum)}">
+												<a th:if="${currentPage != num}"
+													 th:href="@{/listOrder(currentPage=${num})}"
+													 th:text="|[ ${num} ]|">
+												</a>
+												<span th:if="${currentPage == num}">[[${'[' + num + ']'}]]</span>
+											</th:block>
+											<a th:if="${currentPage < lastPage}"
+												 th:href="@{/listOrder(currentPage=${currentPage + 1})}"
+											>[다음]</a>
+											<span th:unless="${currentPage < lastPage}" >[다음]</span>
+											<a th:href="@{/listOrder(currentPage=${lastPage})}">[맨마지막으로]</a>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="side-menu">
+				<div class="p-t-55">
+					<h4 class="mtext-112 cl2 p-b-33">My Page</h4>
+					<ul>
+                        <li class="bor18">
+                            <a href="/modifyUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">정보 수정</a>
+                            <a href="/listPoint" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">포인트 내역</a>
+                            <a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">주문 내역</a>
+                            <a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">취소 내역</a>
+                            <a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">교환/환불 내역</a>
+                            <a href="/listDonation" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">기부 내역</a>
+                            <a href="/admin" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">관리자 페이지</a>
+                            <a href="/logout" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">로그아웃</a>
+                        </li>
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+		
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const loginId = [[${session.S_MEMBER_INFO.loginId}]];
+			if(loginId == null){
+				location.href="/loginUser";
+			}
+
+		</script>
+
+	</th:block>
 </html>
