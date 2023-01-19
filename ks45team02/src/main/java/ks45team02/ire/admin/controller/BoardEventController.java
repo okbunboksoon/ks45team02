@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -64,20 +65,16 @@ public class BoardEventController {
 	}
 
 	@PostMapping("/deleteBoardEvent")
-	public String deleteBoardEvent(){
+	//이벤트 삭제
+	public String deleteBoardEvent(@RequestParam(value = "eventCode")String eventCode,
+								   RedirectAttributes reAttr){
+
+		int result = boardEventService.deleteBoardEvent(eventCode);
+		log.info("result: {}", result);
+		reAttr.addAttribute("msg", "이벤트 삭제에 성공하였습니다.");
 
 		return "redirect:/admin/listBoardEvent";
 	}
-
-	@GetMapping("/deleteBoardEvent")
-	public String deleteBoardEvent(@RequestParam(value = "eventTitle") String eventTitle, Model model) {
-
-		model.addAttribute("title", "회원탈퇴");
-		model.addAttribute("eventTitle", eventTitle);
-
-		return "admin/board/boardDeleteEvent";
-	}
-	
 	@GetMapping("/listBoardEvent")
 	public String listBoardEvent(@RequestParam(value = "eventFileIdx", required = false) String eventFileIdx, Model model) {
 		List<BoardEvent> boardEventList = boardEventService.getBoardEventList();
