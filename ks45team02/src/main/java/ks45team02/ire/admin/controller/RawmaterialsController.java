@@ -122,9 +122,20 @@ public class RawmaterialsController {
 	}
 
 	@GetMapping("/deleteoutgoingRawmaterials")
-	public String deleteoutgoingRawMatrials() {
+	//원자재 출고 삭제 화면
+	public String deleteoutgoingRawMatrials(Model model, @RequestParam(value = "rawMaterialsOutgoingCode") String rawMaterialsOutgoingCode) {
+
+		RawMaterialsOutgoing rawMaterialsOutgoingDeleteInfo = rawmaterialsMapper.rawMaterialsOutgoingDeleteInfo(rawMaterialsOutgoingCode);
+		model.addAttribute("title", "원자재 출고 삭제");
+		model.addAttribute("pageTitle", "원자재 출고 삭제");
+		model.addAttribute("rawMaterialsOutgoingDeleteInfo", rawMaterialsOutgoingDeleteInfo);
 
 		return "admin/rawmaterials/rawmaterialsDeleteOutgoing";
+	}
+	@PostMapping("/deleteoutgoingRawmaterials")
+	public String deleteoutgoingRawMatrials(@RequestParam(value = "rawMaterialsOutgoingCode") String rawMaterialsOutgoingCode){
+		int result = rawmaterialsService.deleteoutgoingRawMatrials(rawMaterialsOutgoingCode);
+		return "redirect:/admin/listOutgoingRawmaterials";
 	}
 
 	//원자재 입고 리스트 페이지

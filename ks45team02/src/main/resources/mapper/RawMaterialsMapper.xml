@@ -25,7 +25,7 @@
 		<result property="donationPointSave" 			column="donation_point_save" />
 		<result property="donationPointGroup" 			column="donation_point_group" />
 	</resultMap>
-	<resultMap  type="RawMaterialsOutgoing" id="rawMaterialsOutgoingResultMap">
+	<resultMap type="RawMaterialsOutgoing" id="rawMaterialsOutgoingResultMap">
 		<id property="rawMaterialsOutgoingCode" column="out_going_code"/>
 		<result property="rawMaterialsOutgoingAmount" column="raw_materials_outgoing_amount"/>
 		<result property="rawMaterialsOutgoingDate" column="raw_materials_outgoing_date"/>
@@ -91,6 +91,23 @@
 		WHERE
 			out_going_code = #{rawMaterialsOutgoingCode}
 	</update>
+	<select id="rawMaterialsOutgoingDeleteInfo" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 삭제 화면 -->
+		SELECT
+			rmo.out_going_code, rmo.raw_materials_code, rmo.raw_materials_outgoing_amount, rmo.raw_materials_outgoing_date, rmo.raw_materials_code, rmo.business_code
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.out_going_code = #{rawMaterialsOutgoingCode}
+	</select>
+	<delete id="deleteoutgoingRawMatrials">
+		DELETE
+			rmo
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.out_going_code = #{rawMaterialsOutgoingCode}
+	</delete>
 
 	<delete id="deleteRawMaterialsIncomingByRawMaterialsCode">
 		<!-- 원자재 입고 삭제 -->
