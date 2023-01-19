@@ -12,6 +12,11 @@
 			.reviewStarCount{
 			    color : #ffd14b;
 			}
+			
+			.pageButton{
+				cursor : pointer;
+				color : #7a8ad9;
+			}
 		</style>
 	</head>
 
@@ -264,14 +269,18 @@
 				let endPageNum = data.endPageNum;
 				for(let i=startPageNum; i<=endPageNum; i++){
 					let spanPageList = document.createElement('span');
-					spanPageList.setAttribute('class', 'pageButton');
-					spanPageList.innerText = '[' + i + ']';
+					if(i != currentPage){
+						spanPageList.setAttribute('class', 'pageButton');
+					}
+					spanPageList.innerText = ' [' + i + '] ';
 					$goodsReviewPage.append(spanPageList);
 				}
 				$goodsReviewPage.append(spanNextPage);
 			}
 			
 			let pageButtonArr = document.querySelectorAll('.pageButton');
+			let currentPage = 0;
+			let lastPage = 0;
 			
 			//리뷰 탭 클릭 이벤트
 			$reviewTab.addEventListener('click', function(){
@@ -284,14 +293,15 @@
 				
 				request.done(function(data){
 					let reviewForGoods = data.reviewForGoods
+					currentPage = data.currentPage;
+					lastPage = data.lastPage;
+					console.log(data);
 					for(let reviewInfo of reviewForGoods){
 						getReviewPage(reviewInfo);
 					}
 					pageList(data);
 					pageButtonArr = document.querySelectorAll('.pageButton');
-					console.log(pageButtonArr);
 					movePage();
-					
 				});
 				request.fail(function(jdXHR, textStatus){
 					console.log("Request failed : " + textStatus);
@@ -299,22 +309,44 @@
 			})
 			
 			//리뷰 페이지 이동
-			//클릭 이벤트 부여가 되지 않은듯
 			function movePage(){
 				for (const pageButton of pageButtonArr) {
 					pageButton.addEventListener('click', function() {
-						console.log(this)
+						 $goodsReviewTab.textContent = '';
+						 $goodsReviewPage.textContent = '';
+						
+						let clickPage = this.innerText.split('[')[1].split(']')[0];
+						if(clickPage == '이전'){
+							currentPage = currentPage - 1;
+							if(currentPage < 1){
+								currentPage = 1;
+							}
+						}else if(clickPage == '다음'){
+							currentPage = currentPage + 1;
+							if(currentPage > lastPage){
+								currentPage = lastPage;
+							}
+						}else{
+							currentPage = clickPage;
+						}
+						console.log(currentPage);
 						let request = $.ajax({
 							url : "/listBoardReview",
 							method : 'GET',
-							data : {'goodsCode' : goodsCode},
+							data : {'goodsCode' : goodsCode, 'currentPage' : currentPage},
 							dataType : 'json'
 						});
 						
 						request.done(function(data){
-							
-							
-							
+							let reviewForGoods = data.reviewForGoods
+							currentPage = data.currentPage;
+							lastPage = data.lastPage;
+							for(let reviewInfo of reviewForGoods){
+								getReviewPage(reviewInfo);
+							}
+							pageList(data);
+							pageButtonArr = document.querySelectorAll('.pageButton');
+							movePage();
 						});
 						request.fail(function(jdXHR, textStatus){
 							console.log("Request failed : " + textStatus);
