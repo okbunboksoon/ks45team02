@@ -4,6 +4,24 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.user.mapper.UserDonationMapper">
 
+	<insert id="addDonation" parameterType="Donation">
+		<!-- 기부 등록 -->
+		INSERT INTO donation (
+		 	 donation_code
+			,user_id
+			,raw_materials_co2_code
+			,donation_amount
+			,donation_date
+			,donation_status
+		)VALUES(
+			 sf_new_donation_code()
+			,#{userId}
+			,#{rawMaterialsCo2Code}
+			,#{donationAmount}
+			,NOW()
+			,'입고 전');
+	</insert>
+
 	<select id="getDonationCnt" parameterType="String" resultType="int">
 		<!-- 기부 내역 개수 조회 -->
 		SELECT 

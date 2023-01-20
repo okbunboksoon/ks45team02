@@ -106,7 +106,10 @@
 	
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
-
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
 		</script>
 
 	</th:block>

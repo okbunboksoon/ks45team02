@@ -3,12 +3,9 @@ package ks45team02.ire.user.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import ks45team02.ire.admin.dto.BoardReview;
-import ks45team02.ire.user.dto.UserOrder;
 import ks45team02.ire.user.mapper.UserBoardReviewMapper;
 
 @Service
