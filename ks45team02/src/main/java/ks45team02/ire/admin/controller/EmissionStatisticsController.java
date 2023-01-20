@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsMonth;
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsYear;
+import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.EmissionStatisticsMapper;
 import ks45team02.ire.admin.service.EmissionStatisticsService;
 
@@ -80,10 +82,13 @@ public class EmissionStatisticsController {
 		return "admin/emissionstatistics/emissionListRawMaterialsGroupStatisticsYear";
 	}
 	
-	@GetMapping("/listEmissionC02Total")
-	public String listEmissionC02Total() {
+	
+	public void addRawMaterialsEmissionStatisticsDay(RawMaterialsIncoming rawMaterialsIncoming) {
 		
-		return "admin/emissionstatistics/emissionListCO2Total";
+		RawMaterialsEmissionStatisticsDay dayList = emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
+
+		RawMaterialsEmissionStatisticsMonth monthList = emissionStatisticsService.addRawMaterialsEmissionStatisticsMonth(dayList);
+		emissionStatisticsService.addRawMaterialsEmissionStatisticsYear(monthList);
 	}
 	
 	
