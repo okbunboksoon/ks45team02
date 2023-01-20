@@ -101,4 +101,40 @@
         inquiry_contents=#{inquiryContents}
         WHERE inquiry_code=#{inquiryCode}
     </update>
+    <select id="userInquiryList" resultMap="BoardInquiryResultMap">
+        SELECT
+            inquiry_code,
+            i.user_id,
+            inquiry_cate,
+            inquiry_title,
+            inquiry_contents,
+            inquiry_reg_date,
+            inquiry_re_ref
+        FROM
+            inquiry AS i
+            INNER join
+            user AS u
+            on
+            u.user_id=i.user_id
+        WHERE u.user_id=#{userId}
+    </select>
+    <select id="answerList" resultMap="BoardInquiryResultMap">
+        <!--이건 수정해야한다 진심 ㄹㅇ-->
+        SELECT
+            inquiry_code,
+            i.user_id,
+            inquiry_cate,
+            inquiry_title,
+            inquiry_contents,
+            inquiry_reg_date,
+            inquiry_re_ref
+
+        FROM
+            inquiry AS i
+        WHERE inquiry_re_ref=(  SELECT
+                                    inquiry_re_ref
+                                FROM
+                                    inquiry
+                                WHERE inquiry_code=#{inquiryCode} AND inquiry_cate='답변')
+    </select>
 </mapper>
