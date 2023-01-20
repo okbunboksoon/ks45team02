@@ -4,23 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:commonJs제거 밑 회원가입 취소 버튼 수정 admin쪽 1:1문의 게시판 완성&#10;변경시간: 1월 18일 15시 36분">
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/interceptor/LoginInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardContentsInquiry.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardListInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/BoardInquiryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/BoardInquiryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/interceptor/CommonInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/interceptor/CommonInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserBoardInquiryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserBoardInquiryController.java" afterDir="false" />
+    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분">
       <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/BoardInquiryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/BoardInquiryMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardAddInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardAddInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardContentsInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardContentsInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardListInquery.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardListInquiryAnswer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardListInqueryAnswer.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardModifyInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/board/boardModifyInquery.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/fragment/navi.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/fragment/navi.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +151,7 @@
       <workItem from="1674029032365" duration="644000" />
       <workItem from="1674089975772" duration="3047000" />
       <workItem from="1674108951190" duration="9853000" />
-      <workItem from="1674173234018" duration="7511000" />
+      <workItem from="1674173234018" duration="7945000" />
     </task>
     <task id="LOCAL-00001" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분">
       <created>1672216122635</created>
@@ -371,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674023778278</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분">
+      <created>1674181716452</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1674181716452</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,6 +413,7 @@
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 로그인,수정 교환 환불옆에 페이징,로그아웃 추가&#10;변경시간: 1월 17일 15시10분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 등록&#10;변경시간: 1월 17일 16시 56분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:commonJs제거 밑 회원가입 취소 버튼 수정 admin쪽 1:1문의 게시판 완성&#10;변경시간: 1월 18일 15시 36분" />
-    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항:commonJs제거 밑 회원가입 취소 버튼 수정 admin쪽 1:1문의 게시판 완성&#10;변경시간: 1월 18일 15시 36분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분" />
+    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분" />
   </component>
 </project>

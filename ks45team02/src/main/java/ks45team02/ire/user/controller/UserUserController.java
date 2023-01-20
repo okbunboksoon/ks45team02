@@ -37,10 +37,10 @@ public class UserUserController {
 	}
 	@GetMapping("/myPage")
 	public String myPage(Model model) {
-		
+
 		return "user/user/myPage";
 	}
-	
+
 	@GetMapping("/addUser")
 	public String addUser(Model model) {
 		model.addAttribute("pageTitle","회원 등록");
@@ -55,30 +55,30 @@ public class UserUserController {
 	}
 	@GetMapping("/deleteUser")
 	public String deleteUser() {
-		
+
 		return "user/user/userDelete";
 	}
-	
-	
+
+
 	@GetMapping("/deliveryUser")
 	public String deliveryUser() {
-		
+
 		return "user/user/userDelivery";
 	}
-	
+
 	@GetMapping("/findIdUser")
 	public String findIdUser() {
-		
+
 		return "user/user/userFindId";
 	}
-	
+
 	@GetMapping("/findPwUser")
 	public String findPwUser() {
-		
+
 		return "user/user/userFindPw";
 	}
 
-	
+
 	@GetMapping("/loginUser")
 	public String loginUser(Model model,
 							@RequestParam(value = "msg",required = false)String msg,
@@ -114,13 +114,12 @@ public class UserUserController {
 			LoginInfo loginInfo=new LoginInfo(userId,user.getUserName());
 			System.out.println(loginInfo);
 			session.setAttribute("S_MEMBER_INFO",loginInfo);
-			log.info("loginInfo:{}", loginInfo);
 			userService.updateLoginHistory(userId);
 			Cookie cookie=new Cookie("loginKeepId",userId);
 			cookie.setPath("/");
 			cookie.setMaxAge(60 * 60 * 24);
 			response.addCookie(cookie);
-			if(user.getUserId()=="root"){
+			if(loginInfo.getLoginName().equals("관리자")){
 				redirectURI="redirect:/admin";
 			}
 		}
@@ -142,7 +141,7 @@ public class UserUserController {
 	}
 	@GetMapping("/usePointSaveUser")
 	public String usePointSaveUser() {
-		
+
 		return "user/user/userPointSave";
 	}
 
