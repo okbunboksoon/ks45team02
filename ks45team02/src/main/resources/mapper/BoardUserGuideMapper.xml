@@ -83,7 +83,6 @@
 			guide_views = guide_views + 1 
 		WHERE 
 			guide_code = #{guide_code}
-		
 	</update>
 
 </mapper>
