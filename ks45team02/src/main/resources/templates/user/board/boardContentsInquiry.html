@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/adminDefault}">
+	  layout:decorate="~{user/layout/userDefault}">
 
+
+	
 	<head>
+
+	
 		<style type="text/css">
+		@font-face {
+	    font-family: 'IBMPlexSansKR-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;}
+					
 			div {
 				color : black;
 			}
@@ -14,53 +24,68 @@
 				font-size: 25px;
 				text-align : center;
 				padding: 10px;
+				font-family: 'IBMPlexSansKR-Regular';
 			}
-			#inquiryCodeDate {
+			#inquiryDate {
 				border-bottom: solid 1px gray;
-				background-color : ivory;
+				background-color : white;
 				font-size: 13px;
 				text-align : right;
 				padding: 10px;
+				font-family: 'IBMPlexSansKR-Regular';
 			}
-			#inquiryContents {
+			#noticeContents {
 				border-bottom: solid 3px black;
+				margin: 20px;
+				line-height: 3em;
 				font-size: 15px;
+				text-align: center;
 				white-space:pre-line;
-				height: 500px;
+				height: 400px;
+				font-family: 'IBMPlexSansKR-Regular';
+
 			}
 			#button {
 				text-align : right;	
-				padding: 10px;		
+				padding: 10px;	
+				font-family: 'IBMPlexSansKR-Regular';	
 			}
 		</style>
 	</head>
 
+
+					
 	<th:block layout:fragment="customContents">
+	
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Inquiry
+		</h2>
+	</section>	
+	
+	
 		<br><br>
 		<th:block th:if="${not #lists.isEmpty(contentsInquiry)}" th:each="c : ${contentsInquiry}">
 			<body>
-				<div  class="container">
+				<div class="container">
 					<div id="inquiryTitle" th:text="${c.inquiryTitle}"></div>
-					<div id="inquiryCodeDate">
-						<span>등록번호</span>
-						<span th:text="${c.inquiryCode}"></span>
+					<div id="inquiryDate">
+						<span>작성자</span>
+						<span th:text="${c.userId}"></span>
 						<span>등록날짜</span>
 						<span th:text="${c.inquiryRegDate}"></span>
 					</div>
-					<div id="inquiryContents">
+					<div id="noticeContents">
 						<div th:text="${c.inquiryContents}"></div>
 					</div>
 					<div id="button">
 						<button type="button" class="btn btn-outline-dark">
-								<a th:href="@{/admin/listBoardInquiry}">목록으로</a></button>
-						<button type="button" class="btn btn-outline-dark">
-								<a th:href="@{/admin/modifyBoardInquiry(inquiryCode=${c.inquiryCode})}">편집</a></button>
-						<button type="button" class="btn btn-outline-dark">
-                            <a th:href="@{/admin/answerBoardInquiry(inquiryCode=${c.inquiryCode})}">답변 가즈아</a></button>
+								<a th:href="@{listBoardInquiry}" style="color: black">목록으로</a></button>
 					</div>	
 				</div>
 			</body>
 		</th:block>
 	</th:block>
+
 
 </html>
