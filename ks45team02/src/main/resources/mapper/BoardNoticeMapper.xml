@@ -56,7 +56,7 @@
 			,notice_date
 			,notice_contents)
 			VALUES 
-			(sf_new_notice_code(), 'id001', #{noticeTitle}, #{noticeCate}, CURDATE(), #{noticeContents})
+			(sf_new_notice_code(), #{userId}, #{noticeTitle}, #{noticeCate}, CURDATE(), #{noticeContents})
     </insert>
     
     <!-- 공지사항 상세페이지 -->

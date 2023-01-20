@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
+import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsMonth;
+import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsYear;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
 import ks45team02.ire.admin.mapper.EmissionStatisticsMapper;
 import ks45team02.ire.admin.mapper.RawMaterialsMapper;
@@ -34,6 +36,25 @@ public class EmissionStatisticsService {
 		List<RawMaterialsEmissionStatisticsDay> rawMaterialsEmissionStatisticsDayList = emissionStatisticsMapper.rawMaterialsDaySearch();
 		
 		return rawMaterialsEmissionStatisticsDayList;
+	}
+	/**
+	 * 기부받은 의류별 CO2 월별 통계 전체 조회
+	 */
+	public List<RawMaterialsEmissionStatisticsMonth> rawMaterialsMonthSearch(){
+		
+		List<RawMaterialsEmissionStatisticsMonth> rmmsList = emissionStatisticsMapper.rawMaterialsMonthSearch();
+		
+		return rmmsList;
+	}
+	
+	/**
+	 * 기부받은 의류별 CO2 년별 통계 전체 조회
+	 */
+	public List<RawMaterialsEmissionStatisticsYear> rawMaterialsYearhSearch(){
+		
+		List<RawMaterialsEmissionStatisticsYear> rmysList = emissionStatisticsMapper.rawMaterialsYearhSearch();
+		
+		return rmysList;
 	}
 	
 	/**

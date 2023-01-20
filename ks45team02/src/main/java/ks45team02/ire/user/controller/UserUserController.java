@@ -114,12 +114,13 @@ public class UserUserController {
 			LoginInfo loginInfo=new LoginInfo(userId,user.getUserName());
 			System.out.println(loginInfo);
 			session.setAttribute("S_MEMBER_INFO",loginInfo);
+			log.info("loginInfo:{}", loginInfo);
 			userService.updateLoginHistory(userId);
 			Cookie cookie=new Cookie("loginKeepId",userId);
 			cookie.setPath("/");
 			cookie.setMaxAge(60 * 60 * 24);
 			response.addCookie(cookie);
-			if(loginInfo.getLoginName().equals("관리자")){
+			if(user.getUserId()=="root"){
 				redirectURI="redirect:/admin";
 			}
 		}

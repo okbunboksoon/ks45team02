@@ -77,6 +77,7 @@ public class BoardEventController {
 	}
 	@GetMapping("/listBoardEvent")
 	public String listBoardEvent(@RequestParam(value = "eventFileIdx", required = false) String eventFileIdx, Model model) {
+		//이벤트 목록
 		List<BoardEvent> boardEventList = boardEventService.getBoardEventList();
 		log.info("이벤트 목록 조회: {}", boardEventList);
 
@@ -91,6 +92,7 @@ public class BoardEventController {
 	@GetMapping("/viewBoardEvent")
 	public String viewBoardEvent(@RequestParam(value = "eventTitle", required = false)String eventTitle,
 								 @RequestParam(value = "eventFileIdx", required = false) String eventFileIdx, Model model){
+		//이벤트 조회
 
 		List<BoardEvent> boardEventContents = boardEventService.viewBoardEvent(eventTitle);
 		List<BoardEventFile> boardEventFile = boardEventfileService.getBoardEventFileInfoByIdx(eventFileIdx);
