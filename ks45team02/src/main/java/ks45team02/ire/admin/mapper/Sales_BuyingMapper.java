@@ -19,6 +19,4 @@ public interface Sales_BuyingMapper {
 	 * 상품 매입 등록 처리
 	 */
 	public int addGoodsBuying(GoodsBuying goodsBuying);
-	
-
 }
