@@ -49,11 +49,14 @@
 	</select>
 	
 	<!-- 상품 매입 등록 처리 -->
-<!-- 	<insert id="addGoodsBuying" parameterType="GoodsBuying">
+	<insert id="addGoodsBuying" parameterType="GoodsBuying">
 	INSERT INTO goods_buy_search
 	(goods_buying_code, business_code, business_name, goods_code, buy_count, goods_price, buy_price, buy_vat, buy_total)
 	VALUES (sf_new_goods_buying_code(), #{businessCode}, #{businessName}, #{goodsCode}, #{goodsOrderAmount}, #{factoryGoodsPrice}, #{buy_price}, #{buy_vat}, #{buy_total})
-	</insert> -->
+	</insert>
 
 
+	
+	
+	
     </mapper>

@@ -57,7 +57,7 @@
 	 business_order_date, business_order_result, business_manager_name, goods_code, 
 	 goods_order_amount, factory_goods_price)
 	VALUES (sf_new_businessorder_code(), 'id001', #{contractCode}, #{businessCode}, 
-			#{businessOrderAmount}, NOW(), #{businessOrderResult}, #{businessManagerName}, #{goodsCode}, 0, 0)
+			#{businessOrderAmount}, NOW(), #{businessOrderResult}, #{businessManagerName}, #{goodsCode}, 0, #{factoryGoodsPrice})
 	</insert>
 	
 	<!-- 발주 삭제 처리 -->
