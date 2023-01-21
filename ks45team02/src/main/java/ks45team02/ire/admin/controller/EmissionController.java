@@ -222,7 +222,6 @@ public class EmissionController {
 	public String listGoodsEmission(Model model) {
 		
 		List<GoodsEmission> goodsEmissionList = emissionService.getGoodsEmissionList();
-		log.info("goodsEmissionList1111111111: {}", goodsEmissionList);
 		model.addAttribute("goodsEmissionList", goodsEmissionList);
 		model.addAttribute("title", "원단별 탄소 배출량 기준 리스트");
 		

@@ -14,7 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.BusinessOrder;
 import ks45team02.ire.admin.dto.GoodsBuying;
+import ks45team02.ire.admin.dto.GoodsBuyingPayment;
 import ks45team02.ire.admin.service.BusinessOrderService;
+import ks45team02.ire.admin.service.GoodsBuyingPaymentService;
 import ks45team02.ire.admin.service.Sales_BuyingService;
 
 @Controller
@@ -25,10 +27,14 @@ public class Sales_BuyingController {
 
 	private Sales_BuyingService sales_BuyingService;
 	private BusinessOrderService businessOrderService;
+	private final GoodsBuyingPaymentService goodsBuyingPaymentService;
 
-	public Sales_BuyingController(Sales_BuyingService sales_BuyingService, BusinessOrderService businessOrderService) {
+	public Sales_BuyingController(Sales_BuyingService sales_BuyingService, BusinessOrderService businessOrderService
+								 ,GoodsBuyingPaymentService goodsBuyingPaymentService) {
+		
 		this.sales_BuyingService = sales_BuyingService;
 		this.businessOrderService = businessOrderService;
+		this.goodsBuyingPaymentService = goodsBuyingPaymentService;
 	}
 
 	/**
@@ -49,7 +55,23 @@ public class Sales_BuyingController {
 
 		return "admin/sales_buying/GoodsBuyingList";
 	}
-
+	
+	/**
+	 * 상품 매입 결제 조회
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/listGoodsBuyingPaymentList")
+	public String listGoodsBuyingPayment(Model model) {
+		
+		List<GoodsBuyingPayment> goodsbuyingList = goodsBuyingPaymentService.getGoodsBuyingPaymentList();
+		log.info("goodsbuyingList: {}", goodsbuyingList);
+		model.addAttribute("title", "상품 매입 결제");
+		model.addAttribute("pageTitle", "상품 매입 결제");
+		model.addAttribute("goodsbuyingList", goodsbuyingList);
+		
+		return "admin/sales_buying/GoodsBuyingPaymentList";
+	}
 
 	@GetMapping("/listGoodsSales")
 	public String listGoodsSales() {

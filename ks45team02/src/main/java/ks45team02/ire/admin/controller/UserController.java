@@ -157,7 +157,7 @@ public class UserController {
 		}else {
 			User user=(User) checkResult.get("userInfo");
 			LoginInfo loginInfo=new LoginInfo(userId,user.getUserName());
-			session.setAttribute("S_MEMBER_INFO",loginInfo);
+			session.setAttribute("S_USER_INFO",loginInfo);
 			userService.updateLoginHistory(userId);
 			Cookie cookie=new Cookie("loginKeepId",userId);
 			cookie.setPath("/");

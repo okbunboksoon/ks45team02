@@ -54,6 +54,13 @@ public class Sales_BuyingService {
 		  int buy_vat = (int) ((getGoodsOrderAmount * getFactoryGoodsPrice) * 0.1); 
 		  int buy_total = buy_price + buy_vat;
 		  
+		  log.info("businessOrder :{}", businessOrder);
+		  log.info("getGoodsOrderAmount :{}", getGoodsOrderAmount);
+		  log.info("getFactoryGoodsPrice :{}", getFactoryGoodsPrice);
+		  log.info("buy_price :{}", buy_price);
+		  log.info("buy_vat :{}", buy_vat);
+		  log.info("buy_total :{}", buy_total);
+		  
 		  goodsBuying.setBusinessCode(Business.getBusinessCode());
 		  goodsBuying.setBusinessName(Business.getBusinessName());
 		  goodsBuying.setGoodsCode(businessOrder.getGoodsCode());

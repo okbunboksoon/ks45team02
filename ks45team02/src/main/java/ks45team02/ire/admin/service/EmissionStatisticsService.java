@@ -37,6 +37,7 @@ public class EmissionStatisticsService {
 		
 		return rawMaterialsEmissionStatisticsDayList;
 	}
+	
 	/**
 	 * 기부받은 의류별 CO2 월별 통계 전체 조회
 	 */
@@ -58,70 +59,153 @@ public class EmissionStatisticsService {
 	}
 	
 	/**
-	 * 기부받은 의류별 CO2 일별 통계
+	 * 기부받은 의류별 CO2 일별 통계 등록
+	 * @return rawMaterialsEmissionStatisticsDay
 	 */
-	public void addRawMaterialsEmissionStatisticsDay (RawMaterialsIncoming rawMaterialsIncoming) {
-		log.info("기부받은 의류별 CO2 일별 통계 / rawMaterialsIncoming :{}", rawMaterialsIncoming);
-		
-		int result = 0;
-		
+	public RawMaterialsEmissionStatisticsDay addRawMaterialsEmissionStatisticsDay (RawMaterialsIncoming rawMaterialsIncoming) {
 		RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay = new RawMaterialsEmissionStatisticsDay();
+		log.info("일별 통계 등록 / rawMaterialsIncoming : {}", rawMaterialsIncoming); //삭제가능 확인
 		
 		String rawMaterialsDaygroup = rawMaterialsMapper.getLastRawMaterialsDaygroup();
-		log.info("기부받은 의류별 CO2 일별 통계 / rawMaterialsDaygroup :{}", rawMaterialsDaygroup);
+		log.info("일별 통계 등록 / rawMaterialsDaygroup :{}", rawMaterialsDaygroup); //삭제가능 확인
 		
-		// 일별 기부상품 입고 그룹 존재 확인
-		int resultCheck = emissionStatisticsMapper.rawMaterialsDayCheck(rawMaterialsDaygroup);
-		log.info("기부받은 의류별 CO2 일별 통계 / resultCheck :{}", resultCheck);
+		// 통계 등록 확인
+		int dayGroupCodeCheck = emissionStatisticsMapper.rawMaterialsDayCheck(rawMaterialsDaygroup);
+		log.info("일별 통계 등록 / dayGroupCodeCheck :{}", dayGroupCodeCheck); //삭제가능 확인
 		
-		// 기부받은 의류별 CO2 일별 등록날짜 생성
-		String addYearAndMonth = emissionStatisticsMapper.addYearAndMonth(rawMaterialsIncoming.getRawMaterialsCode());
-		log.info("기부받은 의류별 CO2 일별 통계 / addYearAndMonth :{}", addYearAndMonth);
-		
-		// 고객으로부터 받은 기부의류 입고날짜
-		rawMaterialsEmissionStatisticsDay.setRm_incoming_date(rawMaterialsIncoming.getRawMaterialsIncomingDate());
-		
-		// 고객으로부터 받은 기부의류 일반 상품별 이산화탄소 배출량
-		rawMaterialsEmissionStatisticsDay.setCarbon_dioxide_emission_sum(rawMaterialsIncoming.getCarbonDioxideEmissionLevel());
-		
-		rawMaterialsEmissionStatisticsDay.setRaw_materials_daygroup(rawMaterialsDaygroup);
-			
-		// 고객으로부터 받은 기부의류 일반 상품별 이산화탄소 배출량 x 원자재 입고 수량
+		String rawMaterialsIncomingDate = emissionStatisticsMapper.getRawMaterialsIncomingDate(rawMaterialsIncoming.getRawMaterialsCode());
+		rawMaterialsIncoming.setRawMaterialsIncomingDate(rawMaterialsIncomingDate);
+		rawMaterialsIncoming.setRawMaterialsDaygroup(rawMaterialsDaygroup);
+		log.info("일별 통계 등록 / rawMaterialsIncomingDate :{}", rawMaterialsIncomingDate); //삭제가능 확인
+		String yearMonth = emissionStatisticsMapper.addYearAndMonth(rawMaterialsIncoming.getRawMaterialsCode());
 		float carbonDioxideEmissionSum = (rawMaterialsIncoming.getCarbonDioxideEmissionLevel() * rawMaterialsIncoming.getRawMaterialsIncomingAmount());
-		log.info("기부받은 의류별 CO2 일별 통계 / carbonDioxideEmissionSum: {}", carbonDioxideEmissionSum);	
-			
-		// 일별 기부상품 입고 없으면 -> 인서트 / 있으면 -> 업데이트 // *아이디는 나중 세션활성화 될 시 셋팅해줘야함
-		if(resultCheck != 0) {
-			// 기존 기부받은 의류별 CO2 일별 통계 / 일별 이산화탄소 배출량 합계  
-			int sumThing = emissionStatisticsMapper.rawMaterialsDaySumSelect(rawMaterialsDaygroup);
-			log.info("기부받은 의류별 CO2 일별 통계 / sumThing: {}", sumThing);
-			
-			// 기존 기부받은 의류별 CO2 일별 통계 / 일별 이산화탄소 배출량 합계 + 고객으로부터 받은 기부의류 일반 상품별 이산화탄소 배출량
-			float sumSpeicalThing = sumThing + carbonDioxideEmissionSum;
-			log.info("기부받은 의류별 CO2 일별 통계 / sumSpeicalThing: {}", sumSpeicalThing);
-			
-			rawMaterialsEmissionStatisticsDay.setCarbon_dioxide_emission_sum(sumSpeicalThing);
-			log.info("기부받은 의류별 CO2 일별 통계 / update : {}", rawMaterialsEmissionStatisticsDay);
-			result = emissionStatisticsMapper.rawMaterialsDayUpdate(rawMaterialsEmissionStatisticsDay);
-			
+		int sumThing = emissionStatisticsMapper.rawMaterialsDaySumSelect(rawMaterialsDaygroup);
+		float sumSpeicalThing = sumThing + carbonDioxideEmissionSum;
+		
+		rawMaterialsEmissionStatisticsDay.setRm_incoming_date(rawMaterialsIncomingDate);
+		rawMaterialsEmissionStatisticsDay.setYear_and_month(yearMonth);
+		rawMaterialsEmissionStatisticsDay.setCarbon_dioxide_emission_sum(carbonDioxideEmissionSum);
+		rawMaterialsEmissionStatisticsDay.setRaw_materials_daygroup(rawMaterialsDaygroup);
+
+
+		if(dayGroupCodeCheck == 0) {
+			emissionStatisticsMapper.rawMaterialsDayAdd(rawMaterialsEmissionStatisticsDay);
 		}else {
-			rawMaterialsEmissionStatisticsDay.setCarbon_dioxide_emission_sum(carbonDioxideEmissionSum);
-			rawMaterialsEmissionStatisticsDay.setYear_and_month(addYearAndMonth);
-			log.info("기부받은 의류별 CO2 일별 통계 / insert : {}", rawMaterialsEmissionStatisticsDay);
-			result = emissionStatisticsMapper.rawMaterialsDayAdd(rawMaterialsEmissionStatisticsDay);
+			rawMaterialsEmissionStatisticsDay.setCarbon_dioxide_emission_sum(sumSpeicalThing);
+			emissionStatisticsMapper.rawMaterialsDayUpdate(rawMaterialsEmissionStatisticsDay);
 		}
 		
-		// 등록, 업데이트 완료시 -> 월_마감그룹, user_id, 년월, 월별 이산화탄소 배출량 합계 셋팅 후 보낸다. 
-		if(result != 0) {
-			addRawMaterialsEmissionStatisticsMonth(result);
-		}
+		return rawMaterialsEmissionStatisticsDay;
 	}
-	
 	
 	/**
 	 * 기부받은 의류별 CO2 월별 통계
+	 * @return rawMaterialsEmissionStatisticsMonth
 	 */
-	public void addRawMaterialsEmissionStatisticsMonth(int result) {
-		log.info("기부받은 의류별 CO2 월별 통계 / result : {}", result);
+	public RawMaterialsEmissionStatisticsMonth addRawMaterialsEmissionStatisticsMonth(RawMaterialsEmissionStatisticsDay rawMaterialsEmissionStatisticsDay) {
+		RawMaterialsEmissionStatisticsMonth rawMaterialsEmissionStatisticsMonth = new RawMaterialsEmissionStatisticsMonth();
+		
+		String monthCode = rawMaterialsEmissionStatisticsDay.getRaw_materials_monthgroup();
+		int codeCheck = emissionStatisticsMapper.rawMaterialsMonthCheck(rawMaterialsEmissionStatisticsDay.getRaw_materials_monthgroup());
+		
+		int MonthEmissionSum = emissionStatisticsMapper.getMonthEmissionSum(monthCode);
+		
+		rawMaterialsEmissionStatisticsMonth.setCarbon_dioxide_emission_sum((float) MonthEmissionSum);
+		rawMaterialsEmissionStatisticsMonth.setRaw_materials_monthgroup(monthCode);
+		rawMaterialsEmissionStatisticsMonth.setYear_and_month(rawMaterialsEmissionStatisticsDay.getYear_and_month());
+		
+		if(codeCheck == 0) {
+			emissionStatisticsMapper.addrawMaterialsMonth(rawMaterialsEmissionStatisticsMonth);
+			
+		}else {
+			emissionStatisticsMapper.updaterawMaterialsMonth(rawMaterialsEmissionStatisticsMonth);
+		}		
+		
+		rawMaterialsEmissionStatisticsMonth.setRaw_materials_monthgroup(rawMaterialsEmissionStatisticsDay.getRaw_materials_monthgroup());
+		
+		return rawMaterialsEmissionStatisticsMonth;
+	}
+	
+	public void addRawMaterialsEmissionStatisticsYear(RawMaterialsEmissionStatisticsMonth rawMaterialsEmissionStatisticsMonth) {
+		RawMaterialsEmissionStatisticsYear rawMaterialsEmissionStatisticsYear = new RawMaterialsEmissionStatisticsYear();
+		String yearCode = rawMaterialsEmissionStatisticsMonth.getRaw_materials_yeargroup();
+		int codeCheck = emissionStatisticsMapper.rawMaterialsYearCheck(yearCode);
+		String year = emissionStatisticsMapper.getYear(yearCode);
+		String month = emissionStatisticsMapper.getMonth(yearCode);
+		rawMaterialsEmissionStatisticsYear.setYear(year);
+		rawMaterialsEmissionStatisticsYear.setRaw_materials_yeargroup(rawMaterialsEmissionStatisticsMonth.getRaw_materials_yeargroup());
+		
+		int EmissionSum = emissionStatisticsMapper.getEmissionSum(yearCode);
+		
+		if(codeCheck == 0) {
+			emissionStatisticsMapper.addrawMaterialsYear(rawMaterialsEmissionStatisticsYear);
+		}
+			if(month.equals("01월")) {
+				rawMaterialsEmissionStatisticsYear.setJan(EmissionSum);
+				emissionStatisticsMapper.updateJan(rawMaterialsEmissionStatisticsYear);
+			}else if(month.equals("02월")) {
+				rawMaterialsEmissionStatisticsYear.setFeb(EmissionSum);
+				emissionStatisticsMapper.updateFeb(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("03월")) {
+				rawMaterialsEmissionStatisticsYear.setMar(EmissionSum);
+				emissionStatisticsMapper.updateMar(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("04월")) {
+				rawMaterialsEmissionStatisticsYear.setApr(EmissionSum);
+				emissionStatisticsMapper.updateApr(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("05월")) {
+				rawMaterialsEmissionStatisticsYear.setMay(EmissionSum);
+				emissionStatisticsMapper.updateMay(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("06월")) {
+				rawMaterialsEmissionStatisticsYear.setJun(EmissionSum);
+				emissionStatisticsMapper.updateJun(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("07월")) {
+				rawMaterialsEmissionStatisticsYear.setJul(EmissionSum);
+				emissionStatisticsMapper.updateJul(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("08월")) {
+				rawMaterialsEmissionStatisticsYear.setAug(EmissionSum);
+				emissionStatisticsMapper.updateAug(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("09월")) {
+				rawMaterialsEmissionStatisticsYear.setSept(EmissionSum);
+				emissionStatisticsMapper.updateSept(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("10월")) {
+				rawMaterialsEmissionStatisticsYear.setOct(EmissionSum);
+				emissionStatisticsMapper.updateOct(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("11월")) {
+				rawMaterialsEmissionStatisticsYear.setNov(EmissionSum);
+				emissionStatisticsMapper.updateNov(rawMaterialsEmissionStatisticsYear);				
+			}else if(month.equals("12월")) {
+				rawMaterialsEmissionStatisticsYear.setDec(EmissionSum);
+				emissionStatisticsMapper.updateDec(rawMaterialsEmissionStatisticsYear);						
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }

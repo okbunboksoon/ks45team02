@@ -76,6 +76,16 @@
 			goods AS g
 	</select>
 	
+	<!-- 상품 이름 중복 체크 -->
+	<select id="checkGoodsName" parameterType="String" resultType="boolean">
+	SELECT
+		IF(COUNT(*)=1, 1, 0)
+	FROM
+		goods AS g
+	WHERE
+		g.goods_name = #{goodsName}
+	</select>
+	
 	<!-- 상품 및 단가 검색 -->
     <select id="searchGoodsUnitprice" resultMap="GoodsResultMap" parameterType="String">
         SELECT 

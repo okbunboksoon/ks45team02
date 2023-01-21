@@ -12,6 +12,7 @@ public class GoodsBuyingPayment {
 	private String payment_bank;
 	private String payment_account_code;
 	private String goods_buy_payment_day;
+	
 	public String getGoods_buy_payment_code() {
 		return goods_buy_payment_code;
 	}

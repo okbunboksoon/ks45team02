@@ -1,5 +1,7 @@
 package ks45team02.ire.admin.service;
 
+import ks45team02.ire.admin.controller.EmissionController;
+import ks45team02.ire.admin.controller.EmissionStatisticsController;
 import ks45team02.ire.admin.dto.PointSaveStandard;
 import ks45team02.ire.admin.dto.RawMaterials;
 import ks45team02.ire.admin.dto.RawMaterialsIncoming;
@@ -21,13 +23,15 @@ public class RawMaterialsService {
 	private final DonationMapper donationMapper ;
 	private final PointMapper pointMapper ;
 	private final EmissionStatisticsService emissionStatisticsService;
+	private final EmissionStatisticsController emissionStatisticsController;
 	
 	public int result;
-	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointMapper pointMapper, EmissionStatisticsService emissionStatisticsService) {
+	public RawMaterialsService(RawMaterialsMapper rawmaterialsMapper, DonationMapper donationMapper, PointMapper pointMapper, EmissionStatisticsService emissionStatisticsService, EmissionStatisticsController emissionStatisticsController) {
 		this.rawmaterialsMapper = rawmaterialsMapper;
 		this.donationMapper = donationMapper;
 		this.pointMapper = pointMapper;
 		this.emissionStatisticsService = emissionStatisticsService;
+		this.emissionStatisticsController = emissionStatisticsController;
 	}
 	
 	
@@ -112,7 +116,7 @@ public class RawMaterialsService {
 			result += rawmaterialsMapper.addIncomingRawmaterials(rawMaterialsIncoming);
 		}
 		
-		emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
+		emissionStatisticsController.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
 		
 		
 		return result;
