@@ -4,6 +4,16 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ks45team02.ire.user.mapper.UserOrderMapper">
 	
+	<update id="updateReviewComplete" parameterType="String">
+		<!-- 리뷰 작성 완료 상태로 변경 -->
+		UPDATE 
+			payment_complete
+		SET 
+			product_order_state = '리뷰작성완료'
+		WHERE 
+			buynow_basket_total_code = #{orderCode};
+	</update>	
+	
 	<select id="getUserOrderInfo" parameterType="String" resultType="UserOrder">
 		<!-- 주문상세 -->
 		SELECT

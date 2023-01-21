@@ -59,10 +59,11 @@
 										<td th:text="${l.orderPaymentAmount}"></td>
 										<td th:text="${l.orderDate}"></td>
 										<td th:text="${l.orderState}"></td>
+										<td th:text="${l.orderCode}" style="display:none"></td>
 										<td>
 											<ul>
-												<li th:if="${l.orderState} == '배송완료'"><a>구매확정</a></li>
-												<li th:if="${l.orderState} == '구매확정'"><a>리뷰작성</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a href='javascript:void(0);' id="paymentConfirmLink">구매확정</a></li>
+												<li th:if="${l.orderState} == '구매확정'"><a th:href="@{/addBoardReview(orderCode=${l.orderCode})}">리뷰작성</a></li>
 												<li th:if="${l.orderState} == '결제완료' or ${l.orderState} == '배송준비중'"><a>주문취소</a></li>
 												<li th:if="${l.orderState} == '배송완료'"><a>반품</a></li>
 												<li th:if="${l.orderState} == '배송완료'"><a>환불</a></li>
@@ -126,12 +127,19 @@
 	
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
-
-			const loginId = [[${session.S_MEMBER_INFO.loginId}]];
-			if(loginId == null){
-				location.href="/loginUser";
+			const $paymentConfirmLink = document.getElementById('paymentConfirmLink');
+			if($paymentConfirmLink != null){
+				let orderCode = $paymentConfirmLink.parentElement.parentElement.parentElement.previousElementSibling.innerText;
+				$paymentConfirmLink.addEventListener('click', function(){
+					if(confirm('구매확정 하시겠습니까?')){
+						location.href='/paymentConfirm?orderCode=' + orderCode;
+					}
+				})
 			}
-
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
 		</script>
 
 	</th:block>

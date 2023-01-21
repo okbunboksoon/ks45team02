@@ -23,6 +23,78 @@
 			<result property="goodsSize" 			column="goods_size" />
 		</association>
 	</resultMap>
+
+	<insert id="addBoardReview" parameterType="BoardReview">
+		<!-- 리뷰 글 등록 -->
+		INSERT INTO goods_review(
+			 review_code
+			,user_id
+			,goods_code
+			,review_star_count
+			,review_content
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,review_image_name
+				,review_image_path
+			</if>
+			,review_reg_date
+			,review_point_save
+			,review_point_group
+			,review_delete_state
+		)VALUES(
+			 sf_new_goods_review_code()
+			,#{userId}
+			,#{goodsCode}
+			,#{reviewStarCount}
+			,#{reviewContent}
+			<if test="reviewImageName != null and reviewImagePath != null">
+				,#{reviewImageName}
+				,#{reviewImagePath}
+			</if>
+			,NOW()
+			,#{reviewPointSave}
+			,sf_new_point_group_code(#{reviewPointGroup})
+			,'N');
+			<selectKey resultType="String" keyProperty="reviewPointGroup" keyColumn="review_point_group" order="AFTER">
+            	SELECT review_point_group FROM goods_review ORDER BY review_code DESC LIMIT 0, 1;
+        	</selectKey>
+	</insert>
+
+	<select id="getNoReviewGoodsCode" parameterType="String" resultType="String">
+		<!-- 구매확정 상태에 리뷰를 작성하지 않은 상품 조회 -->
+		SELECT 
+			b.goods_code
+		FROM
+			payment_complete AS pc
+			INNER JOIN 
+			basket AS b
+			ON 
+			pc.buynow_basket_total_code = b.basket_group
+			INNER JOIN 
+			goods_review AS gr
+			ON 
+			b.goods_code = gr.goods_code
+		WHERE 
+			pc.product_order_state = '구매확정'
+			AND 
+			b.basket_group = #{orderCode}
+		UNION 
+		SELECT 
+			bn.goods_code
+		FROM
+			payment_complete AS pc
+			INNER JOIN 
+			buynow AS bn
+			ON 
+			pc.buynow_basket_total_code = bn.buynow_code
+			INNER JOIN 
+			goods_review AS gr
+			ON 
+			bn.goods_code = gr.goods_code
+		WHERE 
+			pc.product_order_state = '구매확정'
+			AND 
+			bn.buynow_code = #{orderCode};
+	</select>	
 	
 	<select id="getReviewCnt" resultType="int" parameterType="String">
 		<!-- 리뷰 데이터 개수 -->

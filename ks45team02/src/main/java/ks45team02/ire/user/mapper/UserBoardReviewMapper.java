@@ -9,7 +9,13 @@ import ks45team02.ire.admin.dto.BoardReview;
 
 @Mapper
 public interface UserBoardReviewMapper {
-
+	
+	//리뷰 등록
+	public int addBoardReview(BoardReview boardReview);
+	
+	//구매확정 상태에 리뷰를 작성하지 않은 상품 조회
+	public List<String> getNoReviewGoodsCode(String orderCode);
+	
 	//리뷰 데이터 개수 조회
 	public int getReviewCnt(String goodsCode);
 	

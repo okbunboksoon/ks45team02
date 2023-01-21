@@ -10,6 +10,9 @@ import ks45team02.ire.user.dto.UserOrder;
 @Mapper
 public interface UserOrderMapper {
 
+	//리뷰 작성 완료 상태로 변경
+	public int updateReviewComplete(String orderCode);
+	
 	//주문상세
 	public List<UserOrder> getUserOrderInfo(String loginId, String orderCode);
 	
