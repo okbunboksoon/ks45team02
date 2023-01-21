@@ -12,94 +12,90 @@
 	</head>
 
 	<th:block layout:fragment="customContents">
-		<form class="bg0 p-t-75 p-b-85">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-lg-9 p-b-80">
-						<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-							<div class="m-l-25 m-r--38 m-lr-0-xl">
-								<div class="wrap-userTable">
-									<br>
-									<br>
-									<div class="pageTitle">
-										<h1>Donation</h1>
-									</div>
-									<br>
-									<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
-									<table class="userTable">
-										<thead>
-											<tr>
-												<th>기부 상품 카테고리</th>
-												<th>기부 상품 사이즈</th>
-												<th>기부 개수</th>
-												<th>기부 일자</th>
-												<th>상태</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:unless="${#lists.isEmpty(userDonationList)}" th:each="l : ${userDonationList}">
-												<td th:text="${l.rawMaterialsCategory}"></td>
-												<td th:text="${l.rawMaterialsSize}"></td>
-												<td th:text="${l.donationAmount}"></td>
-												<td th:text="${l.donationDate}"></td>
-												<td th:text="${l.donationStatus}"></td>
-											</tr>
-											<tr th:if="${#lists.isEmpty(userDonationList)}">
-												<td colspan="5">기부 내역이 없습니다.</td>
-											</tr>
-										</tbody>
-										<tfoot>
-											<tr>
-												<td colspan="6">
-													<a th:href="@{/listDonation}">[맨처음으로]</a>
-													<a th:if="${currentPage > 1}" 
-														 th:href="@{/listDonation(currentPage=${currentPage - 1})}"
-													>[이전]</a>
-													<span th:unless="${currentPage > 1}" >[이전]</span>
-													<th:block th:each="num: ${#numbers.sequence(startPageNum, endPageNum)}">
-														<a th:if="${currentPage != num}"
-															 th:href="@{/listDonation(currentPage=${num})}"
-															 th:text="|[ ${num} ]|">
-														</a>
-														<span th:if="${currentPage == num}">[[${'[' + num + ']'}]]</span>
-													</th:block>
-													<a th:if="${currentPage < lastPage}"
-														 th:href="@{/listDonation(currentPage=${currentPage + 1})}"
-													>[다음]</a>
-													<span th:unless="${currentPage < lastPage}" >[다음]</span>
-													<a th:href="@{/listDonation(currentPage=${lastPage})}">[맨마지막으로]</a>
-												</td>
-											</tr>
-										</tfoot>
-									</table>
-								</div>
+	
+		<div class="row">
+			<div class="col-md-8 col-lg-9 p-b-80">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-userTable">
+							<br>
+							<br>
+							<div class="pageTitle">
+								<h1>Donation</h1>
 							</div>
-						</div>
-					</div>
-						
-					<div class="side-menu">
-						<div class="p-t-55">
-							<h4 class="mtext-112 cl2 p-b-33">My Page</h4>
-							<ul>
-								<li class="bor18">
-									<a href="/modifyUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">정보 수정</a>
-									<a href="/listPoint" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">포인트 내역</a>
-									<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">주문 내역</a>
-									<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">취소 내역</a>
-									<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">교환/환불 내역</a>
-									<a href="/listDonation" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">기부 내역</a>
-									<a href="/admin" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">관리자 페이지</a>
-									<a href="/logout" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">로그아웃</a>
-								</li>
-							</ul>
+							<br>
+							<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
+							<table class="userTable">
+								<thead>
+									<tr>
+										<th>기부 상품 카테고리</th>
+										<th>기부 상품 사이즈</th>
+										<th>기부 개수</th>
+										<th>기부 일자</th>
+										<th>상태</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:unless="${#lists.isEmpty(userDonationList)}" th:each="l : ${userDonationList}">
+										<td th:text="${l.rawMaterialsCategory}"></td>
+										<td th:text="${l.rawMaterialsSize}"></td>
+										<td th:text="${l.donationAmount}"></td>
+										<td th:text="${l.donationDate}"></td>
+										<td th:text="${l.donationStatus}"></td>
+									</tr>
+									<tr th:if="${#lists.isEmpty(userDonationList)}">
+										<td colspan="5">기부 내역이 없습니다.</td>
+									</tr>
+								</tbody>
+								<tfoot th:unless="${#lists.isEmpty(userDonationList)}">
+									<tr>
+										<td colspan="6">
+											<a th:href="@{/listDonation}">[맨처음으로]</a>
+											<a th:if="${currentPage > 1}" 
+												 th:href="@{/listDonation(currentPage=${currentPage - 1})}"
+											>[이전]</a>
+											<span th:unless="${currentPage > 1}" >[이전]</span>
+											<th:block th:each="num: ${#numbers.sequence(startPageNum, endPageNum)}">
+												<a th:if="${currentPage != num}"
+													 th:href="@{/listDonation(currentPage=${num})}"
+													 th:text="|[ ${num} ]|">
+												</a>
+												<span th:if="${currentPage == num}">[[${'[' + num + ']'}]]</span>
+											</th:block>
+											<a th:if="${currentPage < lastPage}"
+												 th:href="@{/listDonation(currentPage=${currentPage + 1})}"
+											>[다음]</a>
+											<span th:unless="${currentPage < lastPage}" >[다음]</span>
+											<a th:href="@{/listDonation(currentPage=${lastPage})}">[맨마지막으로]</a>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
 						</div>
 					</div>
 				</div>
-			
-			
 			</div>
+						
+			<div class="side-menu">
+				<div class="p-t-55">
+					<h4 class="mtext-112 cl2 p-b-33">My Page</h4>
+					<ul>
+						<li class="bor18">
+							<a href="/modifyUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">정보 수정</a>
+							<a href="/listPoint" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">포인트 내역</a>
+							<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">주문 내역</a>
+							<a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">교환/환불 내역</a>
+							<a href="/listDonation" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">기부 내역</a>
+							<a href="/admin" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">관리자 페이지</a>
+							<a href="/logout" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">로그아웃</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+			
+			
 		
-		</form>
 	
 		
 	</th:block>
