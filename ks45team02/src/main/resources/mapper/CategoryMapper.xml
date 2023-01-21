@@ -84,6 +84,24 @@
 		VALUES 
 		(sf_new_categoryMedium_code(), #{mediumCategoryBigCode}, #{categoryMediumName})
 	</insert>
+
+	<!-- 카테고리 대코드로 중코드 조회 -->
+	<select id="getmediumCodeByBigCode" parameterType="String" resultMap="AllcategoryResultMap">
+		SELECT
+			 cm.category_medium_code
+			,cm.category_big_code
+			,cm.category_medium_name
+			,cb.category_big_name
+			,cb.category_big_code
+		FROM
+			category_medium AS cm
+			INNER join
+			category_big AS cb
+			on
+			cm.category_big_code = cb.category_big_code
+		WHERE
+			cm.category_big_code = #{categoryBigCode}	
+	</select>
 	
 	<!-- 카테고리 대 특정코드 조회 -->
 	<select id="getBigCategoryByCode" parameterType="String" resultMap="categoryResultMap">

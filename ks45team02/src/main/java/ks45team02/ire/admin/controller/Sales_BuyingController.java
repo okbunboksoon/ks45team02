@@ -61,7 +61,7 @@ public class Sales_BuyingController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/listGoodsBuyingPayment")
+	@GetMapping("/listGoodsBuyingPaymentList")
 	public String listGoodsBuyingPayment(Model model) {
 		
 		List<GoodsBuyingPayment> goodsbuyingList = goodsBuyingPaymentService.getGoodsBuyingPaymentList();
@@ -70,7 +70,7 @@ public class Sales_BuyingController {
 		model.addAttribute("pageTitle", "상품 매입 결제");
 		model.addAttribute("goodsbuyingList", goodsbuyingList);
 		
-		return "admin/sales_buying/GoodsBuyingPayment";
+		return "admin/sales_buying/GoodsBuyingPaymentList";
 	}
 
 	@GetMapping("/listGoodsSales")
