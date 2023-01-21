@@ -56,6 +56,22 @@ public class CategoryController {
 	}
 	
 	/**
+	 * 상품 등록시 카테고리 분류
+	 * @param categoryBigCode
+	 * @return listMedium
+	 */
+	@GetMapping("/checkGoodsValue")
+	@ResponseBody
+	public List<CategoryMedium> checkGoodsValue(@RequestParam(value = "categoryBigCode")String categoryBigCode) {
+		
+		List<CategoryMedium> listMedium = categoryService.getmediumCodeByBigCode(categoryBigCode);
+
+		log.info("categoryBigCode : {}", categoryBigCode);
+		log.info("listMedium : {}", listMedium);
+		return listMedium;
+	}
+	
+	/**
 	 * 카테고리 대 등록 처리
 	 * @param categoryBig
 	 * @return redirect:/admin/listCategory

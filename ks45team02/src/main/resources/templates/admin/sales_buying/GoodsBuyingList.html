@@ -49,7 +49,7 @@
 											<th class="buy_price">매입금액</th>
 											<th class="buy_vat">매입 부가세액</th>
 											<th class="buy_total">매입 합계</th>
-
+											<th>업데이트</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -63,6 +63,8 @@
 											<td th:text="${gbs.buy_price}" />
 											<td th:text="${gbs.buy_vat}" />
 											<td th:text="${gbs.buy_total}" />
+											<td><button type="button" class="btn btn-secondary btn-sm"><a style ="color:white" 
+														th:href="@{/admin/businessOrderUpdate(goods_buying_code=${gbs.goods_buying_code})}">업데이트</a></button></td>
 										<tr th:unless="${not #lists.isEmpty(goodsBuyingList)}">
 											<td colspan="4">등록된 카테고리가 없습니다.</td>
 										</tr>

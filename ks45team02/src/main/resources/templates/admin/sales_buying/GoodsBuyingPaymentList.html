@@ -47,8 +47,7 @@
 											<th class="payment_account_type">결제 종류</th>
 											<th class="payment_bank">결제 은행종류</th>
 											<th class="payment_account_code">계좌이체, 무통장 계좌번호</th>
-											<th class="goods_buy_payment_day">결제 날짜1</th>
-
+											<th class="goods_buy_payment_day">결제 날짜</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -63,8 +62,6 @@
 											<td th:text="${gbl.payment_bank}" />
 											<td th:text="${gbl.payment_account_code}" />
 											<td th:text="${gbl.goods_buy_payment_day}" />
-										<tr th:unless="${not #lists.isEmpty(goodsBuyingList)}">
-											<td colspan="10">등록된 카테고리가 없습니다.</td>
 										</tr>
 									</tbody>
 								</table>

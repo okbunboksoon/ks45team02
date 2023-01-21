@@ -21,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import ks45team02.ire.admin.dto.CategoryBig;
 import ks45team02.ire.admin.dto.CategoryMedium;
 import ks45team02.ire.admin.dto.Goods;
+import ks45team02.ire.admin.mapper.GoodsMapper;
 import ks45team02.ire.admin.service.CategoryService;
 import ks45team02.ire.admin.service.FileService;
 import ks45team02.ire.admin.service.GoodsService;
@@ -35,13 +37,16 @@ public class GoodsController {
 	
 	private final GoodsService goodsService;
 	private final CategoryService categoryService;
+	private final GoodsMapper goodsMapper;
 	private FileService fileService;
 	
 	public GoodsController(GoodsService goodsService, 
 						   CategoryService categoryService,
-						   FileService fileService) {
+						   FileService fileService,
+						   GoodsMapper goodsMapper) {
 		this.categoryService = categoryService;
 		this.goodsService = goodsService;
+		this.goodsMapper = goodsMapper;
 		this.fileService = fileService;
 		
 		
@@ -69,10 +74,28 @@ public class GoodsController {
 	public String addGoods(Model model) {
 		
 		List<CategoryMedium> listAllCategory = categoryService.getMediumCategory();
+		List<CategoryBig> listBigCategory = categoryService.getListBigCategory();
+		log.info("listBigCategory : {}", listBigCategory);
 		model.addAttribute("title", "상품등록");
 		model.addAttribute("pageTitle", "상품등록");
 		model.addAttribute("listAllCategory", listAllCategory);
+		model.addAttribute("listBigCategory", listBigCategory);
 		return "admin/goods/goodsAdd";
+	}
+	
+	/**
+	 * 상품이름 확인
+	 * @param GoodsName
+	 * @return isChecked
+	 */
+	@GetMapping("/checkGoodsName")
+	@ResponseBody
+	public boolean checkGoodsName(@RequestParam(value = "goodsName")String GoodsName) {
+		boolean isChecked = false;
+		
+		isChecked = goodsMapper.checkGoodsName(GoodsName);
+		log.info("isChecked : {}", isChecked);
+		return isChecked;
 	}
 	
 	/**
@@ -83,10 +106,6 @@ public class GoodsController {
 	@PostMapping("/addGoods")
 	public String addGoods(Goods goods,@RequestParam MultipartFile[] uploadfile
 						  ,Model model, HttpServletRequest request) {
-
-		log.info("goods : {}", goods);
-		log.info("uploadfile : {}", uploadfile);
-		
 		
 		String serverName = request.getServerName();
 		String fileRealPath = "";
