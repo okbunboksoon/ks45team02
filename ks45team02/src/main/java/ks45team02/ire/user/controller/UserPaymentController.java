@@ -38,17 +38,29 @@ public class UserPaymentController {
 		}
 		int result = userPaymentService.updatePaymentConfirm(orderCode);
 		if(result == 0) {
-			reAttr.addAttribute("msg", "구매확정에 실패하였습니다.");
+			reAttr.addAttribute("msg", "구매 확정에 실패하였습니다.");
 		}else if(result == 1) {
-			reAttr.addAttribute("msg", "구매를 확정하였습니다.");
+			reAttr.addAttribute("msg", "구매 확정이 완료되었습니다.");
 		}
 		return "redirect:/listOrder";
 	}
 	
+	//결제 취소 처리
 	@GetMapping("/cancelPayment")
-	public String cancelPayment() {
+	public String cancelPayment(Model model, HttpSession session, RedirectAttributes reAttr
+			,@RequestParam(value="orderCode") String orderCode) {
 		
-		return "user/payment/paymentCancel";
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		int result = userPaymentService.cancelPayment(orderCode);
+		if(result == 0) {
+			reAttr.addAttribute("msg", "결제 취소에 실패하였습니다.");
+		}else if(result == 1) {
+			reAttr.addAttribute("msg", "결제 취소가 완료되었습니다.");
+		}
+		return "redirect:/listOrder";
 	}
 
 }
