@@ -67,7 +67,8 @@ public class UserOrderController {
 	public String listOrder(Model model, HttpSession session
 						   ,@RequestParam(value="currentPage", required = false, defaultValue = "1") int currentPage
 						   ,@RequestParam(value="startDate", required = false) String startDate
-						   ,@RequestParam(value="endDate", required = false) String endDate) {
+						   ,@RequestParam(value="endDate", required = false) String endDate
+						   ,@RequestParam(value="msg", required = false) String msg) {
 		
 		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
 		if(loginInfo == null) {
@@ -89,6 +90,9 @@ public class UserOrderController {
 		model.addAttribute("userOrderList", userOrderList);
 		model.addAttribute("startPageNum", startPageNum);
 		model.addAttribute("endPageNum", endPageNum);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "user/order/orderList";
 	}

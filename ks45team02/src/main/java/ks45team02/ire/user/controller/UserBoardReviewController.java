@@ -1,17 +1,22 @@
 package ks45team02.ire.user.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.BoardReview;
-import ks45team02.ire.user.dto.UserOrder;
+import ks45team02.ire.admin.dto.Goods;
+import ks45team02.ire.admin.dto.LoginInfo;
 import ks45team02.ire.user.service.UserBoardReviewService;
 
 @Controller
@@ -24,8 +29,49 @@ public class UserBoardReviewController {
 		this.userBoardReviewService = userBoardReviewService;
 	}
 	
+	//리뷰 작성 처리
+	@PostMapping("/addBoardReview")
+	public String addBoardReview(BoardReview boardReview, MultipartFile reviewImage, HttpSession session, RedirectAttributes reAttr
+								,@RequestParam(value="orderCode") String orderCode) throws IllegalStateException, IOException {
+		
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		String loginId = loginInfo.getLoginId();
+		boardReview.setUserId(loginId);
+		
+		int result = userBoardReviewService.addBoardReview(boardReview, reviewImage, orderCode);
+
+		if(result == 1) {
+			reAttr.addAttribute("msg", "리뷰 등록에 성공하였습니다.");
+		}else {
+			reAttr.addAttribute("msg", "리뷰 등록에 실패하였습니다.");
+			return "redirect:/addBoardReview";
+		}
+		
+		return "redirect:/listOrder";
+	}
+	
+	//리뷰 작성
 	@GetMapping("/addBoardReview")
-	public String addBoardReview(Model model) {
+	public String addBoardReview(Model model
+								,@RequestParam(value="orderCode") String orderCode, HttpSession session
+								,@RequestParam(value="msg", required = false) String msg) {
+		
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		
+		List<Goods> noReviewGoods = userBoardReviewService.getNoReviewGoods(orderCode);
+		
+		model.addAttribute("title", "리뷰 작성");
+		model.addAttribute("noReviewGoods", noReviewGoods);
+		model.addAttribute("orderCode", orderCode);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "user/board/boardAddReview";
 	}

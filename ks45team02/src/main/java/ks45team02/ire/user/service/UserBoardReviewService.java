@@ -1,26 +1,129 @@
 package ks45team02.ire.user.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import ks45team02.ire.admin.dto.BoardReview;
-import ks45team02.ire.user.dto.UserOrder;
+import ks45team02.ire.admin.dto.Goods;
+import ks45team02.ire.admin.dto.PointSave;
+import ks45team02.ire.admin.dto.PointSaveStandard;
+import ks45team02.ire.admin.mapper.GoodsMapper;
+import ks45team02.ire.admin.mapper.PointMapper;
+import ks45team02.ire.admin.service.PointService;
 import ks45team02.ire.user.mapper.UserBoardReviewMapper;
+import ks45team02.ire.user.mapper.UserOrderMapper;
 
 @Service
 @Transactional
 public class UserBoardReviewService {
 
 	private final UserBoardReviewMapper userBoardReviewMapper;
+	private final GoodsMapper goodsMapper;
+	private final PointMapper pointMapper;
+	private final PointService pointService;
+	private final UserOrderMapper userOrderMapper;
 	
-	public UserBoardReviewService(UserBoardReviewMapper userBoardReviewMapper) {
+	public UserBoardReviewService(UserBoardReviewMapper userBoardReviewMapper, GoodsMapper goodsMapper, PointMapper pointMapper, 
+								  PointService pointService, UserOrderMapper userOrderMapper) {
 		this.userBoardReviewMapper = userBoardReviewMapper;
+		this.goodsMapper = goodsMapper;
+		this.pointMapper = pointMapper;
+		this.pointService = pointService;
+		this.userOrderMapper = userOrderMapper;
 	}
 	
+	public int addBoardReview(BoardReview boardReview, MultipartFile reviewImage, String orderCode) throws IllegalStateException, IOException {
+		
+		int result = 0;
+		
+		if(!reviewImage.isEmpty()) {
+			
+			//저장될 프로젝트 경로 지정
+			String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/reviewImages";
+			
+			//랜덤 식별자
+			UUID uuid = UUID.randomUUID();
+			
+			//파일 이름 생성
+			String fileName = uuid + "_" + reviewImage.getOriginalFilename();
+			
+			File saveFile = new File(projectPath, fileName);
+			
+			reviewImage.transferTo(saveFile);
+			
+			boardReview.setReviewImageName(fileName);
+			boardReview.setReviewImagePath("/reviewImages/" + fileName);
+		 }
+		int pointSaveAmount = 0;
+		PointSave pointSave = new PointSave();
+		if(reviewImage.isEmpty()) {
+			//텍스트 리뷰 적립금
+			PointSaveStandard pointSaveStandardInfo = pointMapper.getPointSaveStandardInfo("point_save_standard_002");
+			pointSaveAmount = pointSaveStandardInfo.getPointSave();
+			boardReview.setReviewPointSave(pointSaveAmount);
+			
+			pointSave.setPointSaveReason("텍스트 리뷰 등록");
+			
+			//포인트 그룹 추가
+			boardReview.setReviewPointGroup("text_review");
+		}else {
+			//포토 리뷰 적립금
+			PointSaveStandard pointSaveStandardInfo = pointMapper.getPointSaveStandardInfo("point_save_standard_003");
+			pointSaveAmount = pointSaveStandardInfo.getPointSave();
+			boardReview.setReviewPointSave(pointSaveAmount);
+			
+			pointSave.setPointSaveReason("포토 리뷰 등록");
+			
+			//포인트 그룹 추가
+			boardReview.setReviewPointGroup("photo_review");
+		}
+		result = userBoardReviewMapper.addBoardReview(boardReview);
+		
+		//포인트 적립 처리
+		pointSave.setUserId(boardReview.getUserId());
+		pointSave.setPointSave(pointSaveAmount);
+		pointSave.setPointSaveGroup(boardReview.getReviewPointGroup());
+		pointService.addPointSave(pointSave);
+		
+		//주문 상태 변경
+		List<String> noReviewGoodsCodeList = userBoardReviewMapper.getNoReviewGoodsCode(orderCode);
+		if(noReviewGoodsCodeList.size() == 1) {
+			userOrderMapper.updateReviewComplete(orderCode);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 구매확정 상태에 리뷰를 작성하지 않은 상품 조회
+	 * @param orderCode
+	 * @return List<Goods>
+	 */
+	public List<Goods> getNoReviewGoods(String orderCode){
+		
+		List<String> noReviewGoodsCodeList = userBoardReviewMapper.getNoReviewGoodsCode(orderCode);
+		List<Goods> noReviewGoodsInfo = new ArrayList<Goods>();
+		for(String noReviewGoods : noReviewGoodsCodeList) {
+			noReviewGoodsInfo = goodsMapper.getListGoodsAndUnitPrice(noReviewGoods);
+		}
+		return noReviewGoodsInfo;
+	}
+	
+	/**
+	 * 리뷰 조회
+	 * @param goodsCode
+	 * @param currentPage
+	 * @return Map<String, Object>
+	 */
 	public Map<String, Object> getReviewForGoods(String goodsCode, int currentPage){
 		
 		//보여질 행의 갯수
@@ -69,4 +172,5 @@ public class UserBoardReviewService {
 		
 		return pageMap;
 	}
+
 }

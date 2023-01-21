@@ -295,13 +295,14 @@
 					let reviewForGoods = data.reviewForGoods
 					currentPage = data.currentPage;
 					lastPage = data.lastPage;
-					console.log(data);
-					for(let reviewInfo of reviewForGoods){
-						getReviewPage(reviewInfo);
+					if(reviewForGoods.length =! 0){
+						for(let reviewInfo of reviewForGoods){
+							getReviewPage(reviewInfo);
+						}
+						pageList(data);
+						pageButtonArr = document.querySelectorAll('.pageButton');
+						movePage();
 					}
-					pageList(data);
-					pageButtonArr = document.querySelectorAll('.pageButton');
-					movePage();
 				});
 				request.fail(function(jdXHR, textStatus){
 					console.log("Request failed : " + textStatus);
