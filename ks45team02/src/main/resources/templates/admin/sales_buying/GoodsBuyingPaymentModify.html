@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+	</head>
+
+	<th:block layout:fragment="customScript">
+		<script>
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				}
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#modifyGoodsBuyingPaymentForm input').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#modifyGoodsBuyingPaymentForm').submit();
+				});
+				
+				$('#payment').change(function(){
+					let paymentValue = parseInt($('#payment').val());
+					let goodsBuyPaymentCodeValue = $('#goods_buy_payment_code').val();
+					
+					let request = $.ajax({
+						  url: '/admin/modifyPaymentCheck',
+						  method: 'GET',
+						  data: { 'paymentValue' : paymentValue,'goodsBuyPaymentCodeValue' : goodsBuyPaymentCodeValue},
+						  dataType: 'json'
+					});
+					
+					request.done(function( result ) {
+						console.log(result, 'result 확인');
+						let accountsPayable = result;
+						if(result == 0){
+							alert('결제금액보다 큽니다.');
+						}else{
+							$('#accounts_payable').attr("value", result);
+						};
+					});
+					request.fail(function( jqXHR, textStatus ) {
+					  	  console.log('Request failed: ' + textStatus );
+					  	alert('잘못된 금액 입니다.');
+					});
+				});
+			});
+		</script>
+	</th:block>
+	
+	
+	
+	<th:block layout:fragment="customContents">
+	<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<br><br>
+							<form id= "modifyGoodsBuyingPaymentForm" th:action="@{/admin/modifyGoodsBuyingPayment}" method="post">
+							<th:block th:if="${not #lists.isEmpty(GoodsBuyingPayment)}" th:each="gbp : ${GoodsBuyingPayment}">
+							
+							<div class="item form-group">
+								<label for="goods_buy_payment_code" class="col-form-label col-md-3 col-sm-3 label-align">상품결제 코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goods_buy_payment_code" name="goods_buy_payment_code"
+							  		       th:value="${gbp.goods_buy_payment_code}" class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="business_code" class="col-form-label col-md-3 col-sm-3 label-align">거래처 코드</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="business_code" name="business_code"
+							  		       th:value="${gbp.business_code}" class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="business_name" class="col-form-label col-md-3 col-sm-3 label-align">거래처 이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="business_name" name="business_name"
+							  		       th:value="${gbp.business_name}" class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="buy_total" class="col-form-label col-md-3 col-sm-3 label-align">매입합계</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="buy_total" name="buy_total"
+							  		       th:value="${gbp.buy_total}" class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="payment" class="col-form-label col-md-3 col-sm-3 label-align">지급액</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="payment" name="payment"
+							  		       placeholder="금액를 입력해주세요." class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="accounts_payable" class="col-form-label col-md-3 col-sm-3 label-align">외상매입금 잔액</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="accounts_payable" name="accounts_payable"
+							  		       th:value="${gbp.accounts_payable}" class="form-control" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="payment_account_type" class="col-form-label col-md-3 col-sm-3 label-align">결제 종류</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="payment_account_type" name="payment_account_type"
+							  		       th:value="${gbp.payment_account_type}" class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="payment_bank" class="col-form-label col-md-3 col-sm-3 label-align">결제 은행종류</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="payment_bank" name="payment_bank"
+							  		       th:value="${gbp.payment_bank}" class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="payment_account_code" class="col-form-label col-md-3 col-sm-3 label-align">계좌이체</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="payment_account_code" name="payment_account_code"
+							  		       th:value="${gbp.payment_account_code}" class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goods_buy_payment_day" class="col-form-label col-md-3 col-sm-3 label-align">계좌이체</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goods_buy_payment_day" name="goods_buy_payment_day"
+							  		       th:value="${gbp.goods_buy_payment_day}" class="form-control"/>
+								</div>
+							</div>
+
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">결제</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</form>
+               			</div>
+           			</div>
+       			</div>
+   			</div>	     
+	</th:block>
+	
+		
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+	</th:block>
+
+</html>
