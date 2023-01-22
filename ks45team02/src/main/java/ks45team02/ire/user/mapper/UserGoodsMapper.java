@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.user.dto.UserGoods;
 
 @Mapper
 public interface UserGoodsMapper {
 
+	//상품코드로 상품 조회
+	public UserGoods getGoodsInfoByGoodsCode(String goodsCode);
+	
 	// 상품 및 이미지 경로 불러오기
 	public List<UserGoods> getUserGoodsList();
 	

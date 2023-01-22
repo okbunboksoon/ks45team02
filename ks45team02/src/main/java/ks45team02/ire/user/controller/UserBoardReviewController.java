@@ -3,6 +3,9 @@ package ks45team02.ire.user.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +18,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.BoardReview;
-import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.dto.LoginInfo;
+import ks45team02.ire.user.dto.UserGoods;
 import ks45team02.ire.user.service.UserBoardReviewService;
 
 @Controller
 @RequestMapping("/")
 public class UserBoardReviewController {
+
+	private static final Logger log = LoggerFactory.getLogger(UserBoardReviewController.class);
 
 	private final UserBoardReviewService userBoardReviewService;
 	
@@ -64,7 +69,7 @@ public class UserBoardReviewController {
 			return "redirect:/loginUser";
 		}
 		
-		List<Goods> noReviewGoods = userBoardReviewService.getNoReviewGoods(orderCode);
+		List<UserGoods> noReviewGoods = userBoardReviewService.getNoReviewGoods(orderCode);
 		
 		model.addAttribute("title", "리뷰 작성");
 		model.addAttribute("noReviewGoods", noReviewGoods);
@@ -90,7 +95,6 @@ public class UserBoardReviewController {
 		List<BoardReview> reviewForGoods = (List<BoardReview>) pageMap.get("reviewForGoods");
 		int startPageNum = (int) pageMap.get("startPageNum");
 		int endPageNum = (int) pageMap.get("endPageNum");
-		
 		model.addAttribute("title", "주문 내역");
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);

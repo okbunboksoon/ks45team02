@@ -23,6 +23,7 @@
 	<th:block layout:fragment="customContents">
 		<!-- Product Detail -->
 	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<form th:action="@{/}" method="post">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-lg-7 p-b-30">
@@ -47,74 +48,79 @@
 				
 				<!-- 특정 상세페이지  -->
 				<th:block th:if="${not #lists.isEmpty(getGoodsList)}" th:each="gl : ${getGoodsList}">
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14" th:text="${gl.goodsName}"></h4>
-							<span class="mtext-106 cl2" th:text="${#numbers.formatInteger(gl.goodsPrice, 3, 'COMMA') + '원'}" ></span>
-							<p class="stext-102 cl3 p-t-23" th:text="${gl.goodsSangse}"></p>
-							<div class="p-t-33">
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Size</div>
-									<!-- 해당 상품 사이즈 -->
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select id="goodsSize" name="goodsSize" class="form-control" th:value="${gl.goodsSize}">
-												<option th:selected="${gl.goodsSize}=='230'">230</option>
-			                             		<option th:selected="${gl.goodsSize}=='240'">240</option>
-			                             		<option th:selected="${gl.goodsSize}=='250'">250</option>
-			                             		<option th:selected="${gl.goodsSize}=='260'">260</option>
-			                             		<option th:selected="${gl.goodsSize}=='270'">270</option>
-			                             		<option th:selected="${gl.goodsSize}=='280'">280</option>
-			                             		<option th:selected="${gl.goodsSize}=='S'">S</option>
-			                             		<option th:selected="${gl.goodsSize}=='M'">M</option>
-			                             		<option th:selected="${gl.goodsSize}=='L'">L</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-	
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Color</div>
-									<!-- 상품 컬러 -->
-									<div class="size-204 respon6-next">
-										<div class="rs1-select2 bor8 bg0">
-											<select id="goodsColor" name="goodsColor" class="form-control" th:value="${gl.goodsColor}">
-												<option th:selected="${gl.goodsColor}=='black'">black</option>
-			                                 	<option th:selected="${gl.goodsColor}=='gray'">gray</option>
-			                                 	<option th:selected="${gl.goodsColor}=='white'">white</option>
-			                                 	<option th:selected="${gl.goodsColor}=='blue'">blue</option>
-			                                 	<option th:selected="${gl.goodsColor}=='red'">red</option>
-			                                 	<option th:selected="${gl.goodsColor}=='pink'">pink</option>
-			                                 	<option th:selected="${gl.goodsColor}=='beige'">beige</option>
-			                                 	<option th:selected="${gl.goodsColor}=='brown'">brown</option>
-			                                 	<option th:selected="${gl.goodsColor}=='gold'">gold</option>
-											</select>
-											<div class="dropDownSelect2"></div>
-										</div>
-									</div>
-								</div>
-	
-								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-204 flex-w flex-m respon6-next">
-										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
+					
+						<div class="col-md-6 col-lg-5 p-b-30">
+							<div class="p-r-50 p-t-5 p-lr-0-lg">
+								<h4 class="mtext-105 cl2 js-name-detail p-b-14" th:text="${gl.goodsName}"></h4>
+								<span class="mtext-106 cl2" th:text="${#numbers.formatInteger(gl.goodsPrice, 3, 'COMMA') + '원'}" ></span>
+								<p class="stext-102 cl3 p-t-23" th:text="${gl.goodsSangse}"></p>
+								<div class="p-t-33">
+									<div class="flex-w flex-r-m p-b-10">
+									<input type="text" th:value="${gl.goodsCode}" name="goodsCode" style="display:none;">
+										<div class="size-203 flex-c-m respon6">Size</div>
+										<!-- 해당 상품 사이즈 -->
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<select id="goodsSize" name="goodsSize" class="form-control" th:value="${gl.goodsSize}">
+													<option th:selected="${gl.goodsSize}=='230'">230</option>
+				                             		<option th:selected="${gl.goodsSize}=='240'">240</option>
+				                             		<option th:selected="${gl.goodsSize}=='250'">250</option>
+				                             		<option th:selected="${gl.goodsSize}=='260'">260</option>
+				                             		<option th:selected="${gl.goodsSize}=='270'">270</option>
+				                             		<option th:selected="${gl.goodsSize}=='280'">280</option>
+				                             		<option th:selected="${gl.goodsSize}=='S'">S</option>
+				                             		<option th:selected="${gl.goodsSize}=='M'">M</option>
+				                             		<option th:selected="${gl.goodsSize}=='L'">L</option>
+												</select>
+												<div class="dropDownSelect2"></div>
 											</div>
 										</div>
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-											장바구니
-										</button>
 									</div>
-								</div>	
+		
+									<div class="flex-w flex-r-m p-b-10">
+										<div class="size-203 flex-c-m respon6">Color</div>
+										<!-- 상품 컬러 -->
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<select id="goodsColor" name="goodsColor" class="form-control" th:value="${gl.goodsColor}">
+													<option th:selected="${gl.goodsColor}=='black'">black</option>
+				                                 	<option th:selected="${gl.goodsColor}=='gray'">gray</option>
+				                                 	<option th:selected="${gl.goodsColor}=='white'">white</option>
+				                                 	<option th:selected="${gl.goodsColor}=='blue'">blue</option>
+				                                 	<option th:selected="${gl.goodsColor}=='red'">red</option>
+				                                 	<option th:selected="${gl.goodsColor}=='pink'">pink</option>
+				                                 	<option th:selected="${gl.goodsColor}=='beige'">beige</option>
+				                                 	<option th:selected="${gl.goodsColor}=='brown'">brown</option>
+				                                 	<option th:selected="${gl.goodsColor}=='gold'">gold</option>
+												</select>
+												<div class="dropDownSelect2"></div>
+											</div>
+										</div>
+									</div>
+		
+									<div class="flex-w flex-r-m p-b-10">
+										<div class="size-204 flex-w flex-m respon6-next">
+											<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+												<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+													<i class="fs-16 zmdi zmdi-minus"></i>
+												</div>
+												<input class="mtext-104 cl3 txt-center num-product" type="number" name="basketAmount" value="1">
+												<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+													<i class="fs-16 zmdi zmdi-plus"></i>
+												</div>
+											</div>
+											<button type="button" id="addBasketBtn" 
+													class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+												Cart
+											</button>
+										</div>
+									</div>	
+								</div>
 							</div>
 						</div>
-					</div>
+					
 				</th:block>
+				</form>
 			</div>
 
 			<div class="bor10 m-t-50 p-t-43 p-b-40">
@@ -181,12 +187,26 @@
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
 
+			const $addBasketBtn = document.getElementById('addBasketBtn');
 			const $reviewTab = document.getElementById('reviewTab');
 			const $goodsReviewTab = document.getElementById('goodsReviewTab');
 			const $goodsReviewDiv = document.getElementById('goodsReviewDiv');
 			const $reviewStarCountEle = document.getElementById('reviewStarCount');
 			const $goodsReviewPage = document.getElementById('goodsReviewPage');
 			const goodsCode = [[${getGoodsList}]][0].goodsCode;
+			
+			//장바구니 담기 경로
+			function updateBasketFormFn(frm) { 
+			    frm.action='/addBasket'; 
+			    frm.submit(); 
+			    return true; 
+			  } 
+			
+			$addBasketBtn.addEventListener('click', function(){
+				$addBasketBtn.setAttribute("type", "submit")
+				updateBasketFormFn(this.form);
+			})
+			
 			
 			//동적 페이지 생성 함수
 			function getReviewPage(reviewInfo){
@@ -284,6 +304,9 @@
 			
 			//리뷰 탭 클릭 이벤트
 			$reviewTab.addEventListener('click', function(){
+				$goodsReviewTab.textContent = '';
+				$goodsReviewPage.textContent = '';
+				 
 				let request = $.ajax({
 					url : "/listBoardReview",
 					method : 'GET',
@@ -295,10 +318,10 @@
 					let reviewForGoods = data.reviewForGoods
 					currentPage = data.currentPage;
 					lastPage = data.lastPage;
-					if(reviewForGoods.length =! 0){
-						for(let reviewInfo of reviewForGoods){
-							getReviewPage(reviewInfo);
-						}
+					for(let reviewInfo of reviewForGoods){
+						getReviewPage(reviewInfo);
+					}
+					if(reviewForGoods.length > 0){
 						pageList(data);
 						pageButtonArr = document.querySelectorAll('.pageButton');
 						movePage();
@@ -354,6 +377,11 @@
 						});
 					}
 				)};
+				
+			}
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
 			}
 			
 		</script>
