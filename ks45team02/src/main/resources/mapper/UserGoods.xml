@@ -27,6 +27,25 @@
 	            <result property="fileSize"              column="file_size"/>
 	            </association>
 	    </resultMap>
+	   
+	 <select id="getGoodsInfoByGoodsCode" parameterType="String" resultMap="UserGoodsResultMap">
+	 	<!-- 상품 코드로 상품 정보 조회 -->
+	 	SELECT
+			g.goods_code
+			,g.goods_name
+			,g.category_medium_code
+			,g.goods_price
+			,g.goods_color
+			,g.goods_size
+			,g.goods_reg_date
+			,g.goods_sangse
+			,g.fabric
+			,g.rate
+		FROM
+			goods AS g
+		WHERE
+			g.goods_code = #{goodsCode}
+	 </select>
 	    
 	<!-- 상품 및 이미지 경로 불러오기 -->
 	<select id="getUserGoodsList" resultMap="UserGoodsResultMap">

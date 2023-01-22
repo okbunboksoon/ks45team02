@@ -77,6 +77,8 @@
 			pc.product_order_state = '구매확정'
 			AND 
 			b.basket_group = #{orderCode}
+			AND 
+			review_state IS NULL
 		UNION 
 		SELECT 
 			bn.goods_code

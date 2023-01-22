@@ -13,13 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import ks45team02.ire.admin.dto.BoardReview;
-import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.dto.PointSave;
 import ks45team02.ire.admin.dto.PointSaveStandard;
-import ks45team02.ire.admin.mapper.GoodsMapper;
 import ks45team02.ire.admin.mapper.PointMapper;
 import ks45team02.ire.admin.service.PointService;
+import ks45team02.ire.user.dto.UserGoods;
+import ks45team02.ire.user.mapper.UserBasketMapper;
 import ks45team02.ire.user.mapper.UserBoardReviewMapper;
+import ks45team02.ire.user.mapper.UserGoodsMapper;
 import ks45team02.ire.user.mapper.UserOrderMapper;
 
 @Service
@@ -27,20 +28,31 @@ import ks45team02.ire.user.mapper.UserOrderMapper;
 public class UserBoardReviewService {
 
 	private final UserBoardReviewMapper userBoardReviewMapper;
-	private final GoodsMapper goodsMapper;
+	private final UserGoodsMapper userGoodsMapper;
 	private final PointMapper pointMapper;
 	private final PointService pointService;
 	private final UserOrderMapper userOrderMapper;
+	private final UserBasketMapper userBasketMapper;
 	
-	public UserBoardReviewService(UserBoardReviewMapper userBoardReviewMapper, GoodsMapper goodsMapper, PointMapper pointMapper, 
-								  PointService pointService, UserOrderMapper userOrderMapper) {
+	public UserBoardReviewService(UserBoardReviewMapper userBoardReviewMapper, UserGoodsMapper userGoodsMapper, PointMapper pointMapper, 
+								  PointService pointService, UserOrderMapper userOrderMapper, UserBasketMapper userBasketMapper) {
 		this.userBoardReviewMapper = userBoardReviewMapper;
-		this.goodsMapper = goodsMapper;
+		this.userGoodsMapper = userGoodsMapper;
 		this.pointMapper = pointMapper;
 		this.pointService = pointService;
 		this.userOrderMapper = userOrderMapper;
+		this.userBasketMapper = userBasketMapper;
 	}
 	
+	/**
+	 * 리뷰 작성
+	 * @param boardReview
+	 * @param reviewImage
+	 * @param orderCode
+	 * @return int
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public int addBoardReview(BoardReview boardReview, MultipartFile reviewImage, String orderCode) throws IllegalStateException, IOException {
 		
 		int result = 0;
@@ -100,6 +112,9 @@ public class UserBoardReviewService {
 			userOrderMapper.updateReviewComplete(orderCode);
 		}
 		
+		//장바구니 리뷰 작성 상태 처리
+		userBasketMapper.updateReviewState(orderCode, boardReview.getGoodsCode());
+		
 		return result;
 	}
 	
@@ -108,12 +123,13 @@ public class UserBoardReviewService {
 	 * @param orderCode
 	 * @return List<Goods>
 	 */
-	public List<Goods> getNoReviewGoods(String orderCode){
+	public List<UserGoods> getNoReviewGoods(String orderCode){
 		
 		List<String> noReviewGoodsCodeList = userBoardReviewMapper.getNoReviewGoodsCode(orderCode);
-		List<Goods> noReviewGoodsInfo = new ArrayList<Goods>();
+		List<UserGoods> noReviewGoodsInfo = new ArrayList<UserGoods>();
 		for(String noReviewGoods : noReviewGoodsCodeList) {
-			noReviewGoodsInfo = goodsMapper.getListGoodsAndUnitPrice(noReviewGoods);
+			UserGoods goodsInfo =  userGoodsMapper.getGoodsInfoByGoodsCode(noReviewGoods);
+			noReviewGoodsInfo.add(goodsInfo);
 		}
 		return noReviewGoodsInfo;
 	}

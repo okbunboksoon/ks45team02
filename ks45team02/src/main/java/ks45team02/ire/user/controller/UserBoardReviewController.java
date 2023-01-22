@@ -15,8 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.BoardReview;
-import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.dto.LoginInfo;
+import ks45team02.ire.user.dto.UserGoods;
 import ks45team02.ire.user.service.UserBoardReviewService;
 
 @Controller
@@ -64,7 +64,7 @@ public class UserBoardReviewController {
 			return "redirect:/loginUser";
 		}
 		
-		List<Goods> noReviewGoods = userBoardReviewService.getNoReviewGoods(orderCode);
+		List<UserGoods> noReviewGoods = userBoardReviewService.getNoReviewGoods(orderCode);
 		
 		model.addAttribute("title", "리뷰 작성");
 		model.addAttribute("noReviewGoods", noReviewGoods);

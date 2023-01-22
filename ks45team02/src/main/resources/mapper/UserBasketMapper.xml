@@ -19,6 +19,37 @@
 		<result property="basketDeleteState"	column="basket_delete_state" />
 	</resultMap>
 	
+	<delete id="deleteBasket" parameterType="String">
+		<!-- 장바구니 삭제 -->
+		DELETE 
+		FROM 
+			basket
+		WHERE 
+			basket_code = #{basketCode};
+	</delete>
+	
+	<update id="modifyBasketAmount" parameterType="String">
+		<!-- 장바구니 수량 수정 -->
+		UPDATE 
+			basket 
+		SET 
+			basket_amount = #{basketAmount}
+		WHERE 
+			basket_code = #{basketCode};
+	</update>
+	
+	<update id="updateReviewState" parameterType="String">
+		<!-- 리뷰 작성 상태로 수정 -->
+		UPDATE 
+			basket 
+		SET 
+			review_state = 'Y'
+		WHERE 
+			basket_group = #{basketGroup}
+			AND 
+			goods_code = #{goodsCode};
+	</update>
+	
 	<select id="getUserBasketList" parameterType="String" resultMap="basketResultMap">
 		<!-- 회원의 장바구니 조회 -->
 		SELECT 
