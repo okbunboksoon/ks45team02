@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.Basket;
@@ -28,10 +29,32 @@ public class UserBasketController {
 		this.userBasketService = userBasketService;
 	}
 	
-	@GetMapping("/addBasket")
-	public String addBasket(Model model) {
+	//장바구니 추가
+	@PostMapping("/addBasket")
+	public String addBasket(Model model, HttpSession session, RedirectAttributes reAttr
+						   ,@RequestParam(value="goodsCode") String goodsCode
+						   ,@RequestParam(value="basketAmount") int basketAmount) {
 		
-		return "user/basket/basketAdd";
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		String loginId = loginInfo.getLoginId();
+		
+		Basket basket = new Basket();
+		basket.setGoodsCode(goodsCode);
+		basket.setUserId(loginId);
+		basket.setBasketAmount(basketAmount);
+		
+		int result = userBasketService.addBasket(basket);
+		if(result == 10){
+			reAttr.addAttribute("msg", "이미 장바구니에 등록된 상품입니다.");
+		}else if(result == 1) {
+			reAttr.addAttribute("msg", "장바구니에 등록되었습니다.");
+		}
+		
+		reAttr.addAttribute("goodsCode", goodsCode);
+		return "redirect:/goodsContents"; 
 	}
 	
 	@GetMapping("/deleteBasket")

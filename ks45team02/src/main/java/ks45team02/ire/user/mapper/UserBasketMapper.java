@@ -9,6 +9,18 @@ import ks45team02.ire.admin.dto.Basket;
 @Mapper
 public interface UserBasketMapper {
 
+	//장바구니에 동일한 상품이 존재하는지 검사
+	public int checkSameGoodsCode(String userId, String goodsCode);
+	
+	//회원의 장바구니 그룹 찾기
+	public String getBasketGroup(String userId);
+	
+	//장바구니 등록
+	public int addBasket(Basket basket);
+	
+	//장바구니 그룹 존재 검사
+	public int checkBasketGroup(String userId);
+	
 	//장바구니 삭제
 	public int deleteBasket(String basketCode);
 	

@@ -56,12 +56,16 @@ public class UserGoodsController {
 	 * @param model, goodsCode
 	 */
 	@GetMapping("/goodsContents")
-	public String goodsContents(Model model,
-								@RequestParam(value = "goodsCode")String goodsCode) {
+	public String goodsContents(Model model
+							   ,@RequestParam(value = "goodsCode")String goodsCode
+							   ,@RequestParam(value="msg", required = false) String msg){
 		log.info("goodsCode : {}", goodsCode);
 		List<UserGoods> getGoodsList = userGoodsService.getGoodsFileByCode(goodsCode);
 		model.addAttribute("title", "Ire");
 		model.addAttribute("getGoodsList", getGoodsList);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "user/goods/goodsContents";
 	}
