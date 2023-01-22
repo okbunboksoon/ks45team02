@@ -88,7 +88,8 @@
             </div>
             <div id="contents">
                 <div th:text="${l.eventContents}"></div>
-                <div th:text="${l.eventFileIdx}"></div>
+                <img id = "eventImagePath" th:if="*{l.eventImagePath != null}" th:src="*{l.eventImagePath}"
+                     alt = "이벤트 이미지" width = "200px" height = "200px"/>
                 <div id="button">
                     <button type ="button" class =" btn btn-outline-dark">
                         <a th:href="@{/admin/listBoardEvent}">목록으로</a></button>

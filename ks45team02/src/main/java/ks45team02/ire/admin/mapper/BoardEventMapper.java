@@ -10,11 +10,11 @@ public interface BoardEventMapper {
 
     List<BoardEvent> getBoardEventList();
 
-    public void addBoardEvent(BoardEvent boardEvent);
+    public int addBoardEvent(BoardEvent boardEvent);
 
     List<BoardEvent> getBoardEventTitleList();
 
-    List<BoardEvent> viewBoardEvent(String eventTitle);
+    BoardEvent viewBoardEvent(String eventTitle);
 
     //이벤트 수정 화면
 

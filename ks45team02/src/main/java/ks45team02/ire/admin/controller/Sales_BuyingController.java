@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ks45team02.ire.admin.dto.BusinessOrder;
@@ -72,7 +73,47 @@ public class Sales_BuyingController {
 		
 		return "admin/sales_buying/GoodsBuyingPaymentList";
 	}
+	
+	/**
+	 * 상품매입결제 업데이트
+	 * @return
+	 */
+	@GetMapping("/modifyGoodsBuyingPayment")
+	public String modifyGoodsBuyingPayment(@RequestParam(value = "goods_buy_payment_code")String goods_buy_payment_code,Model model) {
+		log.info("goods_buy_payment_code: {}", goods_buy_payment_code);
+		
+		GoodsBuyingPayment GoodsBuyingPayment = sales_BuyingService.getGoodsBuyingPaymentByCode(goods_buy_payment_code);
+		log.info("GoodsBuyingPayment: {}", GoodsBuyingPayment);
+		
+		model.addAttribute("title", "상품 매입 결제");
+		model.addAttribute("pageTitle", "상품 매입 결제");
+		model.addAttribute("GoodsBuyingPayment", GoodsBuyingPayment);
+		
+		return"admin/sales_buying/GoodsBuyingPaymentModify";
+	}
+	
+	@PostMapping("/modifyGoodsBuyingPayment")
+	public String modifyGoodsBuyingPayment(GoodsBuyingPayment GoodsBuyingPayment) {
+		log.info("GoodsBuyingPayment: {}", GoodsBuyingPayment);
+		sales_BuyingService.modifyGoodsBuyingPayment(GoodsBuyingPayment);
+		return "redirect:/admin/listGoodsBuyingPaymentList";
+	}
+	/**
+	 * 결제금액 계산
+	 * @param paymentValue, goodsBuyPaymentCodeValue
+	 * @return result
+	 */
+	@GetMapping("/modifyPaymentCheck")
+	@ResponseBody
+	public int modifyPayment(@RequestParam(value = "paymentValue")int paymentValue,
+							 @RequestParam(value = "goodsBuyPaymentCodeValue")String goodsBuyPaymentCodeValue) {
 
+		int result = sales_BuyingService.getPayment(paymentValue, goodsBuyPaymentCodeValue);
+		log.info("result: {}", result);	
+		
+		return result;
+	}
+	
 	@GetMapping("/listGoodsSales")
 	public String listGoodsSales() {
 

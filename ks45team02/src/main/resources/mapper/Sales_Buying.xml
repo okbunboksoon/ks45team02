@@ -31,6 +31,19 @@
     		</association>
     </resultMap>
     
+    <resultMap id="GoodsBuyingPaymentResultMap" type="GoodsBuyingPayment">
+    	<id property="goods_buy_payment_code" column="goods_buy_payment_code" />
+    	<result property="business_code" column="business_code"/>
+    	<result property="business_name" column="business_name"/>
+    	<result property="buy_total" column="buy_total"/>
+    	<result property="payment" column="payment"/>
+    	<result property="accounts_payable" column="accounts_payable"/>
+    	<result property="payment_account_type" column="payment_account_type"/>
+    	<result property="payment_bank" column="payment_bank"/>
+    	<result property="payment_account_code" column="payment_account_code"/>
+    	<result property="goods_buy_payment_day" column="goods_buy_payment_day"/>
+    </resultMap>
+    
 	<!-- 상품 매입 리스트  -->
 	<select id="getListGoodsBuying" resultMap="GoodsBuyingResultMap">
 	SELECT 
@@ -54,9 +67,144 @@
 	(goods_buying_code, business_code, business_name, goods_code, buy_count, goods_price, buy_price, buy_vat, buy_total)
 	VALUES (sf_new_goods_buying_code(), #{businessCode}, #{businessName}, #{goodsCode}, #{goodsOrderAmount}, #{factoryGoodsPrice}, #{buy_price}, #{buy_vat}, #{buy_total})
 	</insert>
-
-
 	
+	<!-- 비즈니스코드로 상품매입결제 조회 -->
+	<select id="goodsBuyPaymentCheck" parameterType="GoodsBuying" resultType="int">
+		SELECT
+			IF(COUNT(*)=1, 1, 0)
+		FROM
+			goods_buy_payment AS p
+		WHERE
+			p.business_code = #{businessCode}
+	</select>
 	
+	<!-- 비니즈니스코드로 상품매입 합계 -->
+	<select id="getSumBuySearchPriceByBusinessCode" parameterType="GoodsBuying" resultType="int">
+		SELECT
+			SUM(s.buy_price)
+		FROM
+			goods_buy_search AS s
+		WHERE
+			s.business_code = #{businessCode}
+	</select>
 	
+	<!-- 상품매입결제 등록 -->
+	<insert id="addGoodsBuyingPayment" parameterType="GoodsBuyingPayment">
+		INSERT INTO goods_buy_payment
+			(goods_buy_payment_code, 
+			 business_code, business_name, 
+			 buy_total, payment,
+			 accounts_payable, 
+			 payment_account_type, 
+			 payment_bank, 
+			 payment_account_code, 
+			 goods_buy_payment_day)
+		VALUES 
+		(sf_new_goodsbuypayment_code(),
+		 #{business_code},
+		 #{business_name},
+		 ${buy_total},
+		 0, 0, '', '', '', NOW())
+	</insert>
+	
+	<!-- 상품매입결제 코드있을 시 업데이트 -->
+	<update id="updateGoodsBuyingPayment" parameterType="GoodsBuyingPayment">
+		UPDATE goods_buy_payment
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="buy_total != null and buy_total != '' ">
+				,buy_total = ${buy_total}
+				</if>
+				<if test="accounts_payable != null and accounts_payable != '' ">
+				,accounts_payable = ${accounts_payable}
+				</if>
+			</trim>
+		WHERE 
+			business_code= #{business_code}
+	</update>
+	
+	<!-- 상품매입결제코드 특정 조회 -->
+	<select id="getGoodsBuyingPaymentByCode" parameterType="String" resultMap="GoodsBuyingPaymentResultMap">
+		SELECT
+			p.goods_buy_payment_code
+			,p.business_code
+			,p.business_name
+			,p.buy_total
+			,p.payment
+			,p.accounts_payable
+			,p.payment_account_type
+			,p.payment_bank
+			,p.payment_account_code
+			,p.goods_buy_payment_day
+		FROM
+			goods_buy_payment	AS p
+		WHERE
+			p.goods_buy_payment_code = #{goods_buy_payment_code}
+	</select>
+	
+	<!-- 비즈니스코드 외상 조회 -->
+	<select id="getPaymentByBusinessCode" parameterType="GoodsBuying" resultType="int">
+		SELECT
+			p.accounts_payable
+		FROM
+			goods_buy_payment	AS p
+		WHERE
+			p.business_code = #{businessCode}
+	</select>
+	
+	<!-- 특정코드 외상조회 -->
+	<select id="getPayment" parameterType="String" resultMap="GoodsBuyingPaymentResultMap">
+		SELECT
+			 p.buy_total
+			,p.accounts_payable
+		FROM
+			goods_buy_payment	AS p
+		WHERE
+			p.goods_buy_payment_code = #{goods_buy_payment_code}
+	</select>
+	
+	<!-- 특정코드 금액조회 -->
+	<select id="getPaymentCheck" parameterType="String" resultType="int">
+		SELECT
+			 p.payment
+		FROM
+			goods_buy_payment	AS p
+		WHERE
+			p.goods_buy_payment_code = #{goods_buy_payment_code}
+	</select>
+	
+	<!-- 상품매입결제 수정 -->
+	<update id="modifyGoodsBuyingPayment" parameterType="GoodsBuyingPayment">
+		UPDATE goods_buy_payment
+			<trim prefix="SET" prefixOverrides=",">
+				<if test="business_code != null and business_code != '' ">
+				,business_code= #{business_code}
+				</if>
+				<if test="business_name != null and business_name != '' ">
+				,business_name= #{business_name}
+				</if>
+				<if test="buy_total != null and buy_total != '' ">
+				,buy_total= ${buy_total}	
+				</if>
+				<if test="payment != null and payment != '' ">
+				,payment= ${payment}
+				</if>
+				<if test="accounts_payable != null and accounts_payable != '' ">
+				,accounts_payable= ${accounts_payable}
+				</if>
+				<if test="payment_account_type != null and payment_account_type != '' ">
+				,payment_account_type= #{payment_account_type}
+				</if>
+				<if test="payment_bank != null and payment_bank != '' ">
+				,payment_bank= #{payment_bank}
+				</if>
+				<if test="payment_account_code != null and payment_account_code != '' ">
+				,payment_account_code= #{payment_account_code}
+				</if>
+				<if test="goods_buy_payment_day != null and goods_buy_payment_day != '' ">
+				,goods_buy_payment_day=NOW()
+				</if>
+			</trim>
+		WHERE 
+			goods_buy_payment_code=#{goods_buy_payment_code}
+	</update>
     </mapper>
