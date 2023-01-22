@@ -284,6 +284,9 @@
 			
 			//리뷰 탭 클릭 이벤트
 			$reviewTab.addEventListener('click', function(){
+				$goodsReviewTab.textContent = '';
+				$goodsReviewPage.textContent = '';
+				 
 				let request = $.ajax({
 					url : "/listBoardReview",
 					method : 'GET',
@@ -295,10 +298,10 @@
 					let reviewForGoods = data.reviewForGoods
 					currentPage = data.currentPage;
 					lastPage = data.lastPage;
-					if(reviewForGoods.length =! 0){
-						for(let reviewInfo of reviewForGoods){
-							getReviewPage(reviewInfo);
-						}
+					for(let reviewInfo of reviewForGoods){
+						getReviewPage(reviewInfo);
+					}
+					if(reviewForGoods.length > 0){
 						pageList(data);
 						pageButtonArr = document.querySelectorAll('.pageButton');
 						movePage();
