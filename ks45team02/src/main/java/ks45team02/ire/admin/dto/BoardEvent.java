@@ -4,10 +4,11 @@ public class BoardEvent {
     private String eventCode;
     private String eventTitle;
     private String eventContents;
-    private String eventFileIdx;
     private String eventStartDate;
     private String eventEndDate;
     private String eventRegdate;
+    private String eventImageName;
+    private String eventImagePath;
 
     private BoardEventFile boardEventFile;
 
@@ -17,10 +18,11 @@ public class BoardEvent {
                 "eventCode='" + eventCode + '\'' +
                 ", eventTitle='" + eventTitle + '\'' +
                 ", eventContents='" + eventContents + '\'' +
-                ", eventFileIdx='" + eventFileIdx + '\'' +
                 ", eventStartDate='" + eventStartDate + '\'' +
                 ", eventEndDate='" + eventEndDate + '\'' +
                 ", eventRegdate='" + eventRegdate + '\'' +
+                ", eventImageName='" + eventImageName + '\'' +
+                ", eventImagePath='" + eventImagePath + '\'' +
                 ", boardEventFile=" + boardEventFile +
                 '}';
     }
@@ -49,14 +51,6 @@ public class BoardEvent {
         this.eventContents = eventContents;
     }
 
-    public String getEventFileIdx() {
-        return eventFileIdx;
-    }
-
-    public void setEventFileIdx(String eventFileIdx) {
-        this.eventFileIdx = eventFileIdx;
-    }
-
     public String getEventStartDate() {
         return eventStartDate;
     }
@@ -79,6 +73,22 @@ public class BoardEvent {
 
     public void setEventRegdate(String eventRegdate) {
         this.eventRegdate = eventRegdate;
+    }
+
+    public String getEventImageName() {
+        return eventImageName;
+    }
+
+    public void setEventImageName(String eventImageName) {
+        this.eventImageName = eventImageName;
+    }
+
+    public String getEventImagePath() {
+        return eventImagePath;
+    }
+
+    public void setEventImagePath(String eventImagePath) {
+        this.eventImagePath = eventImagePath;
     }
 
     public BoardEventFile getBoardEventFile() {
