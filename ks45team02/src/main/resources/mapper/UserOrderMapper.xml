@@ -33,6 +33,8 @@
 				buynow AS bn
 			WHERE 
 				bn.buynow_delete_state = 'N'
+				AND
+				bn.user_id = #{loginId}
 			UNION 
 			SELECT 
 				bb.basket_group AS 'orderCode'
@@ -50,16 +52,15 @@
 				ON 
 				bb.basket_group = b.basket_group
 			WHERE bb.buybasket_delete_state = 'N'
-					AND b.basket_delete_state = 'N') AS goods_order
-			INNER JOIN 
+					AND 
+					b.basket_delete_state = 'N'
+					AND 
+					bb.user_id = #{loginId}) AS goods_order
+			LEFT JOIN 
 			payment_complete AS pc	ON 
 			pc.buynow_basket_total_code = orderCode
 		WHERE 
-			pc.user_id = #{loginId}
-			AND
-			pc.buynow_basket_total_code = #{orderCode}
-			AND 
-			pc.payment_complete_delete_state = 'N'
+			orderCode = #{orderCode}
 		ORDER BY orderDate DESC;
 	</select>
 	

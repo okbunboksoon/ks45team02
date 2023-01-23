@@ -26,7 +26,7 @@ public class UserBasketController {
 	}
 	
 	//장바구니 추가
-	@PostMapping("/addBasket")
+	@GetMapping("/addBasket")
 	public String addBasket(Model model, HttpSession session, RedirectAttributes reAttr
 						   ,@RequestParam(value="goodsCode") String goodsCode
 						   ,@RequestParam(value="basketAmount") int basketAmount) {

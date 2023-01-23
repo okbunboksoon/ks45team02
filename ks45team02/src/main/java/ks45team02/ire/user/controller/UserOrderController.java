@@ -33,8 +33,6 @@ public class UserOrderController {
 		this.userOrderService = userOrderService;
 		this.userOrderMapper = userOrderMapper;
 	}
-
-	
 	
 	@GetMapping("/deleteOrder")
 	public String deleteOrder() {
@@ -57,6 +55,7 @@ public class UserOrderController {
 		
 		model.addAttribute("title", "주문 상세");
 		model.addAttribute("userOrderInfo", userOrderInfo);
+		log.info("userOrderInfo : {}", userOrderInfo);
 		
 		return "user/order/orderContents";
 	}

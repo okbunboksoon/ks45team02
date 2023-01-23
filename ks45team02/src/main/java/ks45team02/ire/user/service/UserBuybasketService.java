@@ -61,18 +61,12 @@ public class UserBuybasketService {
 		}
 		
 		if(usePoint > 0) {
-			userPointState -= buybasket.getUsePoint();
-			userInfo.setPointState(userPointState);
-			
-			//회원 포인트 수정
-			pointMapper.modifyUserPointState(userInfo);
 			
 			//포인트 차감 등록
 			PointMinus pointMinus = new PointMinus(); 
 			pointMinus.setUserId(buybasket.getUserId());
 			pointMinus.setPointMinus(buybasket.getUsePoint());
 			pointMinus.setPointState(userPointState);
-			pointMinus.setPointMinusDate(buybasket.getRegDate());
 			pointMinus.setPointMinusReason("상품 주문(결제 전)");
 			pointService.addPointMinus(pointMinus);
 		}
