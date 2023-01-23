@@ -60,7 +60,7 @@ public class CategoryController {
 	 * @param categoryBigCode
 	 * @return listMedium
 	 */
-	@GetMapping("/checkGoodsValue")
+	@GetMapping("/checkGoodsCategoryValue")
 	@ResponseBody
 	public List<CategoryMedium> checkGoodsValue(@RequestParam(value = "categoryBigCode")String categoryBigCode) {
 		
