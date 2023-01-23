@@ -2,8 +2,6 @@ package ks45team02.ire.user.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +19,6 @@ import ks45team02.ire.user.service.UserBasketService;
 @RequestMapping("/")
 public class UserBasketController {
 	
-	private static final Logger log = LoggerFactory.getLogger(UserBasketController.class);
-
 	private final UserBasketService userBasketService;
 	
 	public UserBasketController(UserBasketService userBasketService) {
@@ -82,7 +78,7 @@ public class UserBasketController {
 	}
 	
 	//장바구니 수정 처리
-	@PostMapping("/modifyBasket")
+	@GetMapping("/modifyBasket")
 	public String modifyBasket(HttpSession session
 							  ,@RequestParam(value="basketCode") String basketCode
 							  ,@RequestParam(value="basketAmount") String basketAmount) {

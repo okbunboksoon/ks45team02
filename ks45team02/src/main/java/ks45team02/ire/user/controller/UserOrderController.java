@@ -8,11 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.LoginInfo;
+import ks45team02.ire.admin.dto.User;
+import ks45team02.ire.admin.mapper.UserMapper;
 import ks45team02.ire.user.dto.UserOrder;
 import ks45team02.ire.user.mapper.UserOrderMapper;
 import ks45team02.ire.user.service.UserOrderService;
@@ -31,11 +34,7 @@ public class UserOrderController {
 		this.userOrderMapper = userOrderMapper;
 	}
 
-	@GetMapping("/addOrder")
-	public String addOrder(Model model) {
-		
-		return "user/order/orderAdd";
-	}
+	
 	
 	@GetMapping("/deleteOrder")
 	public String deleteOrder() {

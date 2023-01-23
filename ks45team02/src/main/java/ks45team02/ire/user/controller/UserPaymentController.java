@@ -21,7 +21,8 @@ public class UserPaymentController {
 		this.userPaymentService = userPaymentService;
 	}
 	
-	@GetMapping("/listPayment")
+	//결제 페이지
+	@GetMapping("/addPaymentComplete")
 	public String listPayment() {
 		
 		return "user/payment/paymentList";

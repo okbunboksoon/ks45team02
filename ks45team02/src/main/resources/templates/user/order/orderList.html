@@ -58,7 +58,10 @@
 										</td>
 										<td th:text="${l.orderPaymentAmount}"></td>
 										<td th:text="${l.orderDate}"></td>
-										<td th:text="${l.orderState}"></td>
+										<td th:if="${l.orderState} == null">
+											<a th:href="@{/addPaymentComplete(orderCode=${l.orderCode})}">결제 대기중</a>
+										</td>
+										<td th:unless="${l.orderState} == null" th:text="${l.orderState}"></td>
 										<td th:text="${l.orderCode}" style="display:none"></td>
 										<td>
 											<ul>
