@@ -104,7 +104,12 @@
 			,#{orderDate}
 			,NULLIF(#{deliCode}, '') 
 			,#{paymentTypeCode}
-			,#{paymentDate}
+			<if test="paymentDate == null">
+				,NOW();
+			</if>
+			<if test="paymentDate != null">
+				,#{paymentDate}
+			</if>
 			<if test="pointUseGroup == 'point_use'">
 			,sf_new_point_group_code(#{pointUseGroup})
 			</if>

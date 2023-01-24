@@ -67,11 +67,25 @@
 	<select id="getOrderCnt" resultType="int" parameterType="String">
 		<!-- 주문 데이터 개수 -->
 		SELECT 
-			COUNT(1) 
+			SUM(orderCount)
 		FROM 
-			payment_complete
-		WHERE 
-			user_id = #{loginId};
+			(SELECT 
+				COUNT(1) AS orderCount
+			FROM 
+				buynow AS bn
+				WHERE 
+					bn.buynow_delete_state = 'N'
+					AND
+					bn.user_id = #{loginId}
+			UNION 
+			SELECT 
+				COUNT(1) AS orderCount
+			FROM 
+				buybasket AS bb
+			WHERE 
+				bb.buybasket_delete_state = 'N'
+				AND
+				bb.user_id = #{loginId}) AS goods_order;
 	</select> 
 
 	

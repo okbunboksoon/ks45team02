@@ -23,9 +23,16 @@ public class UserPaymentController {
 	
 	//결제 페이지
 	@GetMapping("/addPaymentComplete")
-	public String listPayment() {
+	public String addPaymentComplete(HttpSession session, @RequestParam(value="orderCode") String orderCode) {
 		
-		return "user/payment/paymentList";
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		
+		userPaymentService.addPaymentComplete(orderCode);
+		
+		return "redirect:/listOrder";
 	}
 	
 	//구매 확정 처리
