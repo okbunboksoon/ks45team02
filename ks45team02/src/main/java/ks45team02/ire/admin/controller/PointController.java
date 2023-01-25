@@ -284,11 +284,5 @@ public class PointController {
 		
 		return "admin/point/pointModifyMinus";
 	}
-	@GetMapping("/deletePoint")
-	public String deletePoint() {
-		
-		return "admin/point/pointDelete";
-	}
-	
 }
 

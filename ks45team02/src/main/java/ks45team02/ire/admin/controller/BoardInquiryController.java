@@ -44,11 +44,6 @@ public class BoardInquiryController {
 		return "redirect:/admin/listBoardInquiry";
 	}
 	
-	@GetMapping("/deleteBoardInquiry")
-	public String deleteBoardInquiry() {
-		
-		return "admin/board/boardDeleteInquiry";
-	}
 	@GetMapping("/answerBoardInquiry")
 	public String answerBoardInquiry(Model model,
 									 @RequestParam(value = "inquiryCode",required = false)String inquiryCode) {
