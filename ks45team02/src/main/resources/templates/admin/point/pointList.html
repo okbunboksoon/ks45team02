@@ -1,10 +1,103 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-listPoint
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="pointSaveAndMinusList" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="pointSaveOrMinus">포인트 지급/차감</th>
+											<th class="pointCode">포인트 지급/차감 코드</th>
+											<th class="userId">회원 아이디</th>
+											<th class="pointAmount">포인트 지급/차감 금액</th>
+											<th class="pointState">포인트 적립금</th>
+											<th class="pointDate">포인트 지급/차감 날짜</th>
+											<th class="pointReason">포인트 지급/차감 사유</th>
+											<th class="pointGroup">포인트 그룹코드</th>
+											<th class="pointDeleteState">포인트 삭제 여부</th>
+											<th>수정</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:unless="${#lists.isEmpty(pointSaveAndMinusList)}" th:each="l : ${pointSaveAndMinusList}">
+											<td th:text="${l.pointSaveOrMinus}"></td>
+											<td th:text="${l.pointCode}"></td>
+											<td th:text="${l.userId}"></td>
+											<td th:text="${l.pointAmount}"></td>
+											<td th:text="${l.pointState}"></td>
+											<td th:text="${l.pointDate}"></td>
+											<td th:text="${l.pointReason}"></td>
+											<td th:text="${l.pointGroup}"></td>
+											<td th:text="${l.pointDeleteState}"></td>
+											<td>
+												<a th:if="${l.pointSaveOrMinus} == '지급'"
+												   th:href="@{/admin/modifySavePoint(pointSaveCode=${l.pointCode})}">수정</a>
+												<a th:if="${l.pointSaveOrMinus} == '차감'"
+												   th:href="@{/admin/modifyMinusPoint(pointMinusCode=${l.pointCode})}">수정</a>
+											</td>
+										</tr>
+										<tr th:if="${#lists.isEmpty(pointSaveAndMinusList)}">
+											<td colspan="13">포인트 내역이 존재하지 않습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
+	
+		<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+
+			$('#pointSaveAndMinusList').DataTable();
+		</script>
+
+	</th:block>
+
 </html>

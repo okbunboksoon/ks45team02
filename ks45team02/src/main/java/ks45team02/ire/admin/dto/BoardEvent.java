@@ -1,35 +1,38 @@
 package ks45team02.ire.admin.dto;
 
 public class BoardEvent {
-    private String eventNum;
+    private String eventCode;
     private String eventTitle;
     private String eventContents;
-    private String eventImage;
     private String eventStartDate;
     private String eventEndDate;
     private String eventRegdate;
-//아 왜 안돼
-    private BoardEvent boardEvent;
+    private String eventImageName;
+    private String eventImagePath;
+
+    private BoardEventFile boardEventFile;
 
     @Override
     public String toString() {
         return "BoardEvent{" +
-                "eventNum='" + eventNum + '\'' +
+                "eventCode='" + eventCode + '\'' +
                 ", eventTitle='" + eventTitle + '\'' +
                 ", eventContents='" + eventContents + '\'' +
-                ", eventImage='" + eventImage + '\'' +
                 ", eventStartDate='" + eventStartDate + '\'' +
                 ", eventEndDate='" + eventEndDate + '\'' +
                 ", eventRegdate='" + eventRegdate + '\'' +
+                ", eventImageName='" + eventImageName + '\'' +
+                ", eventImagePath='" + eventImagePath + '\'' +
+                ", boardEventFile=" + boardEventFile +
                 '}';
     }
 
-    public String getEventNum() {
-        return eventNum;
+    public String getEventCode() {
+        return eventCode;
     }
 
-    public void setEventNum(String eventNum) {
-        this.eventNum = eventNum;
+    public void setEventCode(String eventCode) {
+        this.eventCode = eventCode;
     }
 
     public String getEventTitle() {
@@ -46,14 +49,6 @@ public class BoardEvent {
 
     public void setEventContents(String eventContents) {
         this.eventContents = eventContents;
-    }
-
-    public String getEventImage() {
-        return eventImage;
-    }
-
-    public void setEventImage(String eventImage) {
-        this.eventImage = eventImage;
     }
 
     public String getEventStartDate() {
@@ -78,5 +73,29 @@ public class BoardEvent {
 
     public void setEventRegdate(String eventRegdate) {
         this.eventRegdate = eventRegdate;
+    }
+
+    public String getEventImageName() {
+        return eventImageName;
+    }
+
+    public void setEventImageName(String eventImageName) {
+        this.eventImageName = eventImageName;
+    }
+
+    public String getEventImagePath() {
+        return eventImagePath;
+    }
+
+    public void setEventImagePath(String eventImagePath) {
+        this.eventImagePath = eventImagePath;
+    }
+
+    public BoardEventFile getBoardEventFile() {
+        return boardEventFile;
+    }
+
+    public void setBoardEventFile(BoardEventFile boardEventFile) {
+        this.boardEventFile = boardEventFile;
     }
 }

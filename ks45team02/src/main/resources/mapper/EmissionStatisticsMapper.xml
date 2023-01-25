@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.EmissionStatisticsMapper">
+
+	    
+    <resultMap id="RawMaterialsEmissionStatisticsDayResultMap" type="RawMaterialsEmissionStatisticsDay">
+    <id property="raw_materials_daygroup"				column="raw_materials_daygroup" />
+        <result property="rm_incoming_date"				column="rm_incoming_date" />
+        <result property="carbon_dioxide_emission_sum"	column="carbon_dioxide_emission_sum" />
+        <result property="user_id"						column="user_id" />
+        <result property="reg_date"						column="reg_date" />
+        <result property="year_and_month"				column="year_and_month" />
+        <result property="raw_materials_monthgroup"	column="raw_materials_monthgroup" />
+        	<association property="rawMaterialsIncoming"    javaType="RawMaterialsIncoming">
+			<id property="rawMaterialsCode" 				column="raw_materials_code" />
+			<result property="donationCode" 				column="donation_code" />
+			<result property="rawMaterialsIncomingAmount" 	column="raw_materials_incoming_amount" />
+			<result property="rawMaterialsIncomingDate" 	column="raw_materials_incoming_date" />
+			<result property="rawMaterialsStatus"			column="raw_materials_status" />
+			<result property="carbonDioxideEmissionLevel" 	column="carbon_dioxide_emission_level" />
+			<result property="rawMaterialsDaygroup" 		column="raw_materials_daygroup" />
+			<result property="donationPointSave" 			column="donation_point_save" />
+			<result property="donationPointGroup" 			column="donation_point_group" />
+    		</association>
+    </resultMap>
+    
+    <resultMap id="RawMaterialsEmissionStatisticsMonthResultMap" type="RawMaterialsEmissionStatisticsMonth">
+    	<id property="raw_materials_monthgroup"				column="raw_materials_monthgroup" />
+		<result property="carbon_dioxide_emission_sum" 		column="carbon_dioxide_emission_sum"/>
+		<result property="user_id" 							column="user_id"/>
+		<result property="reg_date" 						column="reg_date"/>
+		<result property="year_and_month" 					column="year_and_month"/>
+		<result property="raw_materials_yeargroup" 			column="raw_materials_yeargroup"/>
+    </resultMap>
+    
+    <resultMap id="RawMaterialsEmissionStatisticsDayhResultMap" type="RawMaterialsEmissionStatisticsYear">
+    	<id property="raw_materials_yeargroup" 	column="raw_materials_yeargroup" />
+    	<result property="reg_date" 			column="reg_date"/>
+    	<result property="user_id" 				column="user_id"/>
+    	<result property="year" 				column="year"/>
+    	<result property="Jan" 					column="Jan"/>
+    	<result property="Feb" 					column="Feb"/>
+    	<result property="Mar" 					column="Mar"/>
+    	<result property="Apr" 					column="Apr"/>
+    	<result property="May" 					column="May"/>
+    	<result property="Jun" 					column="Jun"/>
+    	<result property="Jul" 					column="Jul"/>
+    	<result property="Aug" 					column="Aug"/>
+    	<result property="Sept" 				column="Sept"/>
+    	<result property="Oct" 					column="Oct"/>
+    	<result property="Nov" 					column="Nov"/>
+    	<result property="Dec" 					column="Dec"/>
+    </resultMap>
+    
+    
+    
+    <!-- 기부받은 의류별 CO2 일별 통계 전체 조회 -->
+    <select id="rawMaterialsDaySearch" resultMap="RawMaterialsEmissionStatisticsDayResultMap">
+    SELECT 
+		rmd.raw_materials_daygroup
+		, rmd.rm_incoming_date
+		, rmd.carbon_dioxide_emission_sum
+		, rmd.user_id
+		, rmd.reg_date
+		, rmd.year_and_month
+		, rmd.raw_materials_monthgroup
+	FROM 
+		raw_materials_daygroup_statistics AS rmd
+    </select>
+    <!-- 기부받은 의류별 CO2 월별 통계 전체 조회 -->
+    <select id="rawMaterialsMonthSearch" resultMap="RawMaterialsEmissionStatisticsMonthResultMap">
+    	SELECT
+			rmms.raw_materials_monthgroup
+			,rmms.carbon_dioxide_emission_sum
+			,rmms.user_id
+			,rmms.reg_date
+			,rmms.year_and_month
+			,rmms.raw_materials_yeargroup
+		FROM
+		raw_materials_monthgroup_statistics AS rmms
+    </select>
+    
+    <!-- 기부받은 의류별 CO2 년별 통계 전체 조회 -->
+    <select id="rawMaterialsYearhSearch" resultMap="RawMaterialsEmissionStatisticsDayhResultMap">
+	    SELECT 
+	    	raw_materials_yeargroup
+	    	,reg_date, user_id, `year`, Jan, 
+	    	Feb, Mar, Apr, May, Jun, Jul, Aug, 
+	    	Sept, `Oct`, Nov, `Dec`
+		FROM 
+			raw_materials_yeargroup_statistics
+    </select>
+    
+    <!-- 기부받은 의류별 CO2 일별 통계 등록-->
+	<insert id="rawMaterialsDayAdd" parameterType="RawMaterialsEmissionStatisticsDay">
+    INSERT INTO raw_materials_daygroup_statistics
+		(raw_materials_daygroup
+		, rm_incoming_date
+		, carbon_dioxide_emission_sum
+		, user_id
+		, reg_date
+		, year_and_month
+		, raw_materials_monthgroup)
+	VALUES 
+		(sf_new_raw_materials_daygroup()
+		, #{rm_incoming_date}
+		, ${carbon_dioxide_emission_sum}
+		, 'id001'
+		, CURDATE()
+		, #{year_and_month}
+		, sf_new_raw_materials_monthgroup())
+		<selectKey resultType="String" keyProperty="raw_materials_monthgroup" keyColumn="raw_materials_monthgroup" order="AFTER">
+	        SELECT raw_materials_monthgroup FROM raw_materials_daygroup_statistics ORDER BY raw_materials_monthgroup DESC LIMIT 0, 1
+	    </selectKey> 
+    </insert> 
+    
+    
+    <!-- CO2 통계 입고 그룹코드 존재 여부 확인 --> 
+    <select id="rawMaterialsDayCheck" parameterType="String" resultType="int" >
+    SELECT
+    COUNT(1)
+	FROM
+	    raw_materials_incoming AS r
+	    INNER JOIN
+	    raw_materials_daygroup_statistics AS d
+	    on
+	    r.raw_materials_daygroup = d.raw_materials_daygroup
+	WHERE
+	    r.raw_materials_daygroup = #{rawMaterialsDaygroup}
+    </select>
+    
+    <!-- CO2 통계 월별 존재 확인 --> 
+    <select id="rawMaterialsMonthCheck" parameterType="String" resultType="int" >
+		SELECT
+			COUNT(1)
+		FROM
+			raw_materials_monthgroup_statistics AS m
+		WHERE
+			m.raw_materials_monthgroup = #{raw_materials_monthgroup};
+    </select>
+    
+    <!-- co2 통계 년별 존재 확인 -->
+    <select id="rawMaterialsYearCheck"  parameterType="String" resultType="int">
+    	SELECT
+			COUNT(1)
+		FROM
+			raw_materials_yeargroup_statistics AS y
+		WHERE
+			y.raw_materials_yeargroup = #{raw_materials_yeargroup}
+    </select>
+    
+    <!-- 기부받은 의류별 CO2 일별 일반 상품별 이산화탄소 배출량 조회 -->
+    <select id="rawMaterialsDaySumSelect" parameterType="String" resultType="int" >
+		SELECT
+			d.carbon_dioxide_emission_sum
+		FROM
+		    raw_materials_daygroup_statistics AS d
+		WHERE
+		    d.raw_materials_daygroup = #{rawMaterialsDaygroup}
+	</select>
+	
+	<!-- 기부받은 의류별 co2 등록날짜 -->
+	<select id="getRawMaterialsIncomingDate" resultType="String">
+		SELECT
+			r.raw_materials_incoming_date	
+		FROM
+			raw_materials_incoming AS r
+		WHERE
+			r.raw_materials_code = #{rawMaterialsCode}
+	</select>
+	
+	<!-- 기부받은 의류별 CO2 일별 등록날짜 생성 -->
+	<select id="addYearAndMonth" parameterType="String" resultType="String">
+		SELECT
+			concat(concat(SUBSTRING(r.raw_materials_incoming_date, 1,4),'년')
+			, ' ', concat(SUBSTRING(r.raw_materials_incoming_date, 6,2),'월') )
+		FROM
+			raw_materials_incoming AS r
+		WHERE
+			r.raw_materials_code = #{rawMaterialsIncomingDate}
+	</select>
+	
+	
+	<!-- 업데이트 처리 -->
+	<update id="rawMaterialsDayUpdate" parameterType="RawMaterialsEmissionStatisticsDay">
+		UPDATE raw_materials_daygroup_statistics
+		SET
+			carbon_dioxide_emission_sum = ${carbon_dioxide_emission_sum}
+		WHERE 
+			raw_materials_daygroup = #{raw_materials_daygroup}
+			<selectKey resultType="String" keyProperty="raw_materials_monthgroup" keyColumn="raw_materials_monthgroup" order="AFTER">
+	        SELECT raw_materials_monthgroup FROM raw_materials_daygroup_statistics ORDER BY raw_materials_monthgroup DESC LIMIT 0, 1
+	    </selectKey> 
+	</update>
+	
+
+	<!-- 월별 등록 이산화탄소 합계 -->
+	<select id="getMonthEmissionSum" parameterType="String" resultType="int">
+		SELECT
+			sum(d.carbon_dioxide_emission_sum)
+		FROM
+			raw_materials_daygroup_statistics AS d
+		WHERE
+			d.raw_materials_monthgroup = #{raw_materials_monthgroup};
+	</select>
+	
+	<!-- 월별 등록 -->
+	<insert id="addrawMaterialsMonth" parameterType="RawMaterialsEmissionStatisticsMonth">
+		INSERT INTO raw_materials_monthgroup_statistics
+			(raw_materials_monthgroup, 
+			 carbon_dioxide_emission_sum, 
+			 user_id, 
+			 reg_date, 
+			 year_and_month, 
+			 raw_materials_yeargroup)
+		VALUES 
+			(sf_new_raw_materials_monthgroup_code(), ${carbon_dioxide_emission_sum}, 'id001', NOW(), #{year_and_month}, sf_new_raw_materials_yeargroup())
+		<selectKey resultType="String" keyProperty="raw_materials_yeargroup" keyColumn="raw_materials_yeargroup" order="AFTER">
+	        SELECT raw_materials_yeargroup FROM raw_materials_monthgroup_statistics ORDER BY raw_materials_yeargroup DESC LIMIT 0, 1
+	    </selectKey>
+	</insert>
+	
+	<!-- 월별 업데이트 -->
+	<update id="updaterawMaterialsMonth" parameterType="RawMaterialsEmissionStatisticsMonth">
+		UPDATE raw_materials_monthgroup_statistics
+			SET
+				carbon_dioxide_emission_sum= ${carbon_dioxide_emission_sum}
+		WHERE 
+			raw_materials_monthgroup = #{raw_materials_monthgroup}
+		<selectKey resultType="String" keyProperty="raw_materials_yeargroup" keyColumn="raw_materials_yeargroup" order="AFTER">
+	        SELECT raw_materials_yeargroup FROM raw_materials_monthgroup_statistics ORDER BY raw_materials_yeargroup DESC LIMIT 0, 1
+	    </selectKey>
+	</update>
+	
+	<!-- 년별 year 추출 -->
+	<select id="getYear" parameterType="String" resultType="String">
+		SELECT
+			SUBSTRING(m.year_and_month, 3, 3)
+		FROM
+			raw_materials_monthgroup_statistics AS m
+		WHERE
+		m.raw_materials_yeargroup = #{raw_materials_yeargroup}
+		ORDER BY reg_date desc
+		LIMIT 1;
+	</select>
+	
+	<!-- 년별 월 추출 -->
+	<select id="getMonth" parameterType="String" resultType="String">
+		SELECT
+			SUBSTRING(m.year_and_month, 7, 3)
+		FROM
+			raw_materials_monthgroup_statistics AS m
+		WHERE
+		m.raw_materials_yeargroup = #{raw_materials_yeargroup}
+		ORDER BY reg_date desc
+		LIMIT 1;	
+	</select>
+	
+	<!-- 년별 등록 -->
+	<insert id="addrawMaterialsYear" parameterType="RawMaterialsEmissionStatisticsYear">
+		INSERT INTO raw_materials_yeargroup_statistics
+			(raw_materials_yeargroup, reg_date, user_id, `year`, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sept, `Oct`, Nov, `Dec`)
+		VALUES (sf_new_raw_materials_yeargroup_code(), NOW(), 'id001', #{year}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+	</insert>
+	
+	<!-- 년별 월 코드 합계 추출 -->
+	<select id="getEmissionSum" parameterType="String" resultType="int">
+		SELECT 
+			SUM(d.carbon_dioxide_emission_sum)
+		FROM
+			raw_materials_monthgroup_statistics AS d
+		WHERE 
+			year(reg_date) = year(NOW()) AND MONTH(reg_date) = MONTH(NOW()) 
+			AND d.raw_materials_yeargroup = #{raw_materials_yeargroup}
+	</select>
+	
+	<!-- 1월 업데이트 -->
+	<update id="updateJan" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Jan = ${Jan}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 2월 업데이트 -->
+	<update id="updateFeb" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Feb = ${Feb}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 3월 업데이트 -->
+	<update id="updateMar" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Mar = ${Mar}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 4월 업데이트 -->
+	<update id="updateApr" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Apr = ${Apr}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 5월 업데이트 -->
+	<update id="updateMay" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				May = ${May}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 6월 업데이트 -->
+	<update id="updateJun" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Jun = ${Jun}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 7월 업데이트 -->
+	<update id="updateJul" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Jul = ${Jul}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 8월 업데이트 -->
+	<update id="updateAug" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Aug = ${Aug}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 9월 업데이트 -->
+	<update id="updateSept" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Sept = ${Sept}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 10월 업데이트 -->
+	<update id="updateOct" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Oct = ${Oct}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 11월 업데이트 -->
+	<update id="updateNov" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Nov = ${Nov}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+	
+	<!-- 12월 업데이트 -->
+	<update id="updateDec" parameterType="RawMaterialsEmissionStatisticsYear">
+		UPDATE raw_materials_yeargroup_statistics
+			SET
+				Dec = ${Dec}
+		WHERE
+			raw_materials_yeargroup = #{raw_materials_yeargroup} 
+	</update>
+
+</mapper>

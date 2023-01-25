@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.user.mapper.UserBasketMapper">
+	<resultMap type="Basket" 					id="basketResultMap">
+		<id property="basketCode" 				column="basket_code" />
+		<result property="goodsCode" 			column="goods_code" />
+		<result property="basketGroup"		 	column="basket_group" />
+		<result property="userId" 				column="user_id" />
+		<result property="goodsName" 			column="goods_name" />
+		<result property="categoryMediumCode"	column="category_medium_code" />
+		<result property="categoryMediumName"	column="category_medium_name" />
+		<result property="goodsPrice"			column="goods_price" />
+		<result property="basketAmount"			column="basket_amount" />
+		<result property="eachPaymentAmount"	column="each_payment_amount" />
+		<result property="regDate"				column="reg_date" />
+		<result property="basketState"			column="basket_state" />
+		<result property="basketDeleteState"	column="basket_delete_state" />
+	</resultMap>
+	
+	<select id="checkSameGoodsCode" parameterType="String" resultType="int">
+		<!-- 장바구니에 동일한 상품이 존재하는지 검사 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			basket
+		WHERE 
+			user_id = #{userId}
+			AND 
+			basket_state = '주문 전'
+			AND 
+			goods_code = #{goodsCode};
+	</select>
+	
+	<select id="getBasketGroup" parameterType="String" resultType="String">
+	 	<!-- 회원의 장바구니 그룹 찾기 -->
+		SELECT 
+			basket_group 
+		FROM 
+			basket
+		WHERE 
+			user_id = #{userId}
+			AND 
+			basket_state = '주문 전'
+		LIMIT 1;
+	</select>
+	
+	<insert id="addBasket" parameterType="Basket">
+		<!-- 장바구니 등록 -->
+		INSERT INTO basket (
+			 basket_code
+			,goods_code
+			,basket_group
+			,user_id
+			,goods_name
+			,category_medium_code
+			,goods_price
+			,basket_amount
+			,each_payment_amount
+			,reg_date
+			,basket_state
+			,basket_delete_state
+		)VALUES(
+			 sf_new_basket_code()
+			,#{goodsCode}
+			<if test="basketGroup == null">
+				,sf_new_basket_group()
+			</if>
+			<if test="basketGroup != null">
+				,#{basketGroup}
+			</if>
+			,#{userId}
+			,#{goodsName}
+			,#{categoryMediumCode}
+			,#{goodsPrice}
+			,#{basketAmount}
+			,#{eachPaymentAmount}
+			,NOW()
+			,'주문 전'
+			,'N'
+		);
+	</insert>	
+	
+	<select id="checkBasketGroup" parameterType="String" resultType="int">
+		<!-- 장바구니 그룹 존재 검사 -->
+		SELECT 
+			COUNT(1)
+		FROM
+			basket 
+		WHERE 
+			user_id = #{userId}
+			AND 
+			basket_state = '주문 전';	
+	</select>
+	
+	<delete id="deleteBasket" parameterType="String">
+		<!-- 장바구니 삭제 -->
+		DELETE 
+		FROM 
+			basket
+		WHERE 
+			basket_code = #{basketCode};
+	</delete>
+	
+	<update id="modifyBasketAmount" parameterType="String">
+		<!-- 장바구니 수량 수정 -->
+		UPDATE 
+			basket 
+		SET 
+			basket_amount = #{basketAmount}
+		WHERE 
+			basket_code = #{basketCode};
+	</update>
+	
+	<update id="updateReviewState" parameterType="String">
+		<!-- 리뷰 작성 상태로 수정 -->
+		UPDATE 
+			basket 
+		SET 
+			review_state = 'Y'
+		WHERE 
+			basket_group = #{basketGroup}
+			AND 
+			goods_code = #{goodsCode};
+	</update>
+	
+	<select id="getUserBasketList" parameterType="String" resultMap="basketResultMap">
+		<!-- 회원의 장바구니 조회 -->
+		SELECT 
+			 basket_code
+			,basket_group
+			,user_id
+			,goods_code
+			,goods_name
+			,goods_price
+			,basket_amount
+			,each_payment_amount
+		FROM
+			basket 
+		WHERE 
+			user_id = #{loginId}
+			AND 
+			basket_state = '주문 전'
+			AND 
+			basket_delete_state = 'N'
+			;
+	</select>
+	
+	
+</mapper>

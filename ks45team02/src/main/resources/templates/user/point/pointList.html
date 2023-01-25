@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
 
-</body>
+	<head>
+		<style>
+			a {
+				color:#7a8ad9;
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+	
+		<div class="row">
+			<div class="col-md-8 col-lg-9 p-b-80">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-userTable">
+							<br>
+							<br>
+							<div class="pageTitle">
+								<h1>Point</h1>
+							</div>
+							<br>
+							<div th:text="|아이디: ${session.S_MEMBER_INFO.loginId}|" style="display: inline-block"></div>
+							<div style="float:right;"><a href="/listStandardPoint">포인트 지급 기준</a></div>
+							<table class="userTable">
+								<thead>
+									<tr>
+										<th>포인트 지급/차감</th>
+										<th>포인트 변동액</th>
+										<th>포인트 적립금</th>
+										<th>포인트 변동 날짜</th>
+										<th>사유</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:unless="${#lists.isEmpty(userPointSaveAndMinusList)}" th:each="l : ${userPointSaveAndMinusList}">
+										<td th:text="${l.pointSaveOrMinus}"></td>
+										<td th:text="${l.pointAmount}"></td>
+										<td th:text="${l.pointState}"></td>
+										<td th:text="${l.pointDate}"></td>
+										<td th:text="${l.pointReason}"></td>
+									</tr>
+									<tr th:if="${#lists.isEmpty(userPointSaveAndMinusList)}">
+										<td colspan="5">포인트 내역이 없습니다.</td>
+									</tr>
+								</tbody>
+								<tfoot th:unless="${#lists.isEmpty(userPointSaveAndMinusList)}">
+									<tr>
+										<td colspan="6">
+											<a th:href="@{/listPoint}">[맨처음으로]</a>
+											<a th:if="${currentPage > 1}" 
+												 th:href="@{/listPoint(currentPage=${currentPage - 1})}"
+											>[이전]</a>
+											<span th:unless="${currentPage > 1}" >[이전]</span>
+											<th:block th:each="num: ${#numbers.sequence(startPageNum, endPageNum)}">
+												<a th:if="${currentPage != num}"
+													 th:href="@{/listPoint(currentPage=${num})}"
+													 th:text="|[ ${num} ]|">
+												</a>
+												<span th:if="${currentPage == num}">[[${'[' + num + ']'}]]</span>
+											</th:block>
+											<a th:if="${currentPage < lastPage}"
+												 th:href="@{/listPoint(currentPage=${currentPage + 1})}"
+											>[다음]</a>
+											<span th:unless="${currentPage < lastPage}" >[다음]</span>
+											<a th:href="@{/listPoint(currentPage=${lastPage})}">[맨마지막으로]</a>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="side-menu">
+				<div class="p-t-55">
+					<h4 class="mtext-112 cl2 p-b-33">My Page</h4>
+					<ul>
+                        <li class="bor18">
+                            <a href="/modifyUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">정보 수정</a>
+                            <a href="/listPoint" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">포인트 내역</a>
+                            <a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">주문 내역</a>
+                            <a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">교환/환불 내역</a>
+                            <a href="/listDonation" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">기부 내역</a>
+                            <a href="/admin" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">관리자 페이지</a>
+                            <a href="/logout" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">로그아웃</a>
+                        </li>
+					</ul>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+
+		</script>
+
+	</th:block>
 </html>

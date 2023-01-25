@@ -1,10 +1,64 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
 
-</body>
+	<head>
+	<style type="text/css">
+		@font-face {
+	    font-family: 'IBMPlexSansKR-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;}
+		
+		div{
+			color: black;
+		}
+		
+		*{
+		font-family: 'IBMPlexSansKR-Regular';
+		}
+		
+		</style>
+		</head>
+	
+<th:block layout:fragment="customContents">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Event
+		</h2>
+	</section>	
+
+    <section class="bg0 p-t-75 p-b-120">
+        <div class="container">
+            <div class="row p-b-148">
+                <div class="col-md-7 col-lg-2"></div>
+                <div class="col-md-7 col-lg-8">
+                    <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
+                            <table id="listEvent" class="table" cellspacing="0" width="1000"  style="margin-left: auto; margin-right: auto;">
+                                <thead>
+                                <tr>
+                                    <th class = "eventCode">이벤트 번호</th>
+                                    <th class = "eventTitle" colspan="5">이벤트 제목</th>
+                                    <th class = "eventRegdate" style= "text-align: right">이벤트 등록날짜</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if ="${not #lists.isEmpty(boardEventList)}" th:each="l : ${boardEventList}">
+                                    <td th:text ="${#strings.substring(l.eventCode, 8,9)}"/>
+                                    <td colspan = "5"><a th:text ="${l.eventTitle}" th:href="@{viewBoardEvent(eventTitle=${l.eventTitle})}" style="color: black"></a></td>
+                                    <td style ="text-align: right" th:text = "${l.eventRegdate}"/>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-2"></div>
+            </div>
+        </div>
+    </section>
+
+
+</th:block>
 </html>

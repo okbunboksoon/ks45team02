@@ -6,8 +6,281 @@
 	<head>
 	</head>
 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				function validateValue(checkValue) {
+					if(typeof checkValue == 'undefined' || checkValue == null || checkValue == ''){
+						return true;
+					}
+					return false;	
+				};
+				
+				$('#goodsName').on('input', function(){
+					$('#addGoodsForm input').not('#goodsName').prop('disabled', true);
+				  	$('#addGoodsForm select').prop('disabled', true);
+				  	$('#addGoodsForm button').not('#checkBtn').prop('disabled', true);
+				});
+				
+				$('#checkBtn').click(function(){
+					let goodsName = $('#goodsName').val();
+					console.log(goodsName);
+					
+					if(validateValue(goodsName)){
+						alert('상품의 이름를 입력해주세요');
+						$('#goodsName').focus();
+						return false;					
+					}	
+					let request = $.ajax({
+						  url: '/admin/checkGoodsName',
+						  method: 'GET',
+						  data: { 'goodsName' : goodsName },
+						  dataType: 'json'
+					});
+					
+					request.done(function( isChecked ) {
+						console.log(isChecked, '데이터타입 확인');
+					  	  
+						if(isChecked){
+					  	  	alert('중복된 상품의 이름가 존재합니다.');
+					  	  	$('#goodsName').val('');
+						  	$('#addGoodsForm input').not('#goodsName').prop('disabled', true);
+						  	$('#addGoodsForm select').prop('disabled', true);
+						  	$('#addGoodsForm button').not('#checkBtn').prop('disabled', true);
+							$('#goodsName').focus();
+							return false;		
+						}else{
+						  	$('#addGoodsForm input').not('#goodsName').prop('disabled', false);
+						  	$('#addGoodsForm select').prop('disabled', false);
+						  	$('#addGoodsForm button').not('#checkBtn').prop('disabled', false);
+						}
+					});
+					request.fail(function( jqXHR, textStatus ) {
+					  	  console.log('Request failed: ' + textStatus );
+					});
+				});
+				
+				$('#categoryBigCode').change(function(){
+					let goodsValue = $('#categoryBigCode').val();
+					console.log(goodsValue);
+					
+					let request = $.ajax({
+						  url: '/admin/checkGoodsValue',
+						  method: 'GET',
+						  data: { 'categoryBigCode' : goodsValue },
+						  dataType: 'json'
+					});
+					
+					request.done(function( listMedium ) {
+						console.log(listMedium, '카테고리 확인');
+						
+						 $("#categoryMediumCode option").remove()
+						 $.each(listMedium, function (index, value) {
+							 $('#categoryMediumCode').append('<option value="' + value.categoryMediumCode + '">' + value.categoryMediumName + '</option>'); 
+						 })
+					});
+					request.fail(function( jqXHR, textStatus ) {
+					  	  console.log('Request failed: ' + textStatus );
+					});
+				});
+				
+				$('#submitBtn').click(function(){
+					let isSubmit = true;
+					
+					$('#addGoodsForm input,textarea').each(function(idx, item){
+						let checkValue = $(item).val();
+						let labelValue = $(item).parent('div').parent('div').find('label').text();
+						if(validateValue(checkValue)){
+							
+							alert(`${labelValue}를 입력해주세요`);
+							$(item).focus();
+							isSubmit = false;
+							
+							return false;
+						}
+					});
+					if(isSubmit) $('#addGoodsForm').submit();
+				});
+				 $("#goodsImage").change(function(){
+				   if(this.files && this.files[0]) {
+				    var reader = new FileReader;
+				    reader.onload = function(data) {
+				     $(".select_img img").attr("src", data.target.result).width(300);        
+				    }
+				    reader.readAsDataURL(this.files[0]);
+				   }
+				  });		
+			});
+		</script>
+	</th:block>
+	
+	
+	
 	<th:block layout:fragment="customContents">
-		<h1>상품등록</h1>
+	<div class="">
+			<div class="page-title"></div>
+	     	<div class="clearfix"></div>
+	     	<div class="row">
+	     		<div class="col-md-12 col-sm-12">
+					<div class="x_panel">
+						<div class="x_content">
+							<br><br>
+							<form id= "addGoodsForm" th:action="@{/admin/addGoods}" method="post" enctype="multipart/form-data">
+							<div class="item form-group">
+								<label for="goodsName" class="col-form-label col-md-3 col-sm-3 label-align">상품이름</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsName" name="goodsName"
+							  		       placeholder="상품 이름을 입력해주세요." class="form-control"/>
+							  		       
+								</div>
+							</div>
+							<div class="item form-group">
+								<label for="categoryBigName" class="col-form-label col-md-3 col-sm-3 label-align"></label>
+								<div class="col-md-6 col-sm-6 ">
+									<button type="button" id="checkBtn">상품이름 중복체크</button>	       
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="CategoryBigCode" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 대</label>
+								<div class="col-md-6 col-sm-6 ">
+									<select id="categoryBigCode" name="categoryBigCode" class="form-control" disabled="disabled">
+										<th:block th:if="${not #lists.isEmpty(listBigCategory)}" th:each="lb : ${listBigCategory}">										
+											<option th:text="${lb.categoryBigName}" th:value="${lb.categoryBigCode}" ></option>
+										</th:block>
+										<th:block th:unless="${not #lists.isEmpty(listBigCategory)}">										
+											<option>등록된 카테고리가 없습니다.</option>
+										</th:block>
+									</select>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="mediumCategoryCode" class="col-form-label col-md-3 col-sm-3 label-align">카테고리 중</label>
+								<div class="col-md-6 col-sm-6 ">
+									<select id="categoryMediumCode" name="categoryMediumCode" class="form-control" disabled="disabled">
+							<!-- 			<th:block th:if="${not #lists.isEmpty(listMedium)}" th:each="lc : ${listMedium}">										
+											<option th:text="${lc.categoryMediumName}" th:value="${lc.categoryMediumCode}" ></option>
+										</th:block>
+										<th:block th:unless="${not #lists.isEmpty(listMedium)}">										
+											<option>등록된 카테고리가 없습니다.</option>
+										</th:block> -->
+									</select>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="factoryGoodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">매입가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="factoryGoodsPrice" name="unitPrice.factoryGoodsPrice"
+							  		       placeholder="매입가격를 입력해주세요." class="form-control" disabled="disabled"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="goodsPrice" class="col-form-label col-md-3 col-sm-3 label-align">상풍가격</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="goodsPrice" name="goodsPrice"
+							  		       placeholder="판매가격를 입력해주세요." class="form-control" disabled="disabled"/>
+								</div>
+							</div>
+							              
+						     <div class="field item form-group">
+	                             <label class="col-form-label col-md-3 col-sm-3  label-align">상품 색상<span class="required"></span></label>
+	                             <div class="col-md-6 col-sm-6">
+	                                 <select id="goodsColor" name="goodsColor" class="form-control" disabled="disabled">
+	                                 	<option value="black">black</option>
+	                                 	<option value="gray">gray</option>
+	                                 	<option value="white">white</option>
+	                                 	<option value="blue">blue</option>
+	                                 	<option value="red">red</option>
+	                                 	<option value="pink">pink</option>
+	                                 	<option value="beige">beige</option>
+	                                 	<option value="brown">brown</option>
+	                                 	<option value="gold">gold</option>
+	                                 </select>
+	                             </div>
+	                         </div>
+							
+						      <div class="field item form-group">
+	                             <label class="col-form-label col-md-3 col-sm-3  label-align">상품 사이즈<span class="required"></span></label>
+	                             <div class="col-md-6 col-sm-6">
+	                             	<select id="goodsSize" name="goodsSize" class="form-control" disabled="disabled">
+	                             		<option value="230">230</option>
+	                             		<option value="240">240</option>
+	                             		<option value="250">250</option>
+	                             		<option value="260">260</option>
+	                             		<option value="270">270</option>
+	                             		<option value="280">280</option>
+	                             		<option value="S">S</option>
+	                             		<option value="M">M</option>
+	                             		<option value="L">L</option>
+	                             	</select>
+	                             </div>
+	                         </div>
+							
+							<div class="item form-group">
+								<label for="fabric" class="col-form-label col-md-3 col-sm-3 label-align">원단</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="fabric" name="fabric"
+							  		       placeholder="상품원단을 : 넣어주세요." class="form-control" disabled="disabled"/>
+								</div>
+							</div>
+							
+							<div class="item form-group">
+								<label for="rate" class="col-form-label col-md-3 col-sm-3 label-align">비율</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="text" id="rate" name="rate"
+							  		       placeholder="원단비율을 : 넣어주세요." class="form-control" disabled="disabled"/>
+								</div>
+							</div>
+							
+				           <div class="field item form-group">
+								<label for="goodsSangse" class="col-form-label col-md-3 col-sm-3  label-align">상품 상세 설명<span class="required"></span></label>
+		                            <div class="col-md-6 col-sm-6">
+		                            	<textarea class="form-control" rows="15" id="goodsSangse" name="goodsSangse" 
+		                            			  placeholder="내용을 입력해주세요"  ></textarea>  
+		                           </div>
+		                   </div>
+		                   
+							<div class="item form-group">
+								<label for="uploadfile" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
+								<div class="col-md-6 col-sm-6 ">
+									<input type="file" class="form-control-file" id="uploadfile" name="uploadfile" multiple="multiple">
+									<div class="select_img" style="margin: 20px"><img src="" /></div>
+								</div>
+							</div>
+								
+							<div class="item form-group">
+								<div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+									<button class="btn btn-primary" type="button" id="submitBtn">등록</button>
+									<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+								</div>
+							</div>
+							</form>
+               			</div>
+           			</div>
+       			</div>
+   			</div>	     
+	</th:block>
+	
+		
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customjs">
+	<!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+    
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+    
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
 	</th:block>
 
 </html>

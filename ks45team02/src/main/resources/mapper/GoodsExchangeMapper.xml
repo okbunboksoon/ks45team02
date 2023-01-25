@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.GoodsExchangeMapper">
+    <resultMap id="GoodsExchangeResultMap" type="GoodsExchange">
+        <id property="goodsExchangeCode" column="goods_exchange_code"/>
+        <result property="exchangeStandardCode" column="exchange_standard_code"/>
+        <result property="paymentCompleteCode" column="payment_complete_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="goodsExchangeCount" column="goods_exchange_count"/>
+        <result property="goodsExchangePrice" column="goods_exchange_price"/>
+        <result property="goodsExchangeDate" column="goods_exchange_date"/>
+        <result property="goodsExchangeContent" column="goods_exchange_content"/>
+        <result property="exchangeProcessState" column="exchange_process_state"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="exchangeDate" column="exchange_date"/>
+        <result property="exchangeReject" column="exchange_reject"/>
+        <result property="exchangeApproval" column="exchange_approval"/>
+    </resultMap>
+    <select id="listGoodsExchange" resultMap="GoodsExchangeResultMap">
+        SELECT
+        goods_exchange_code,
+        exchange_standard_code,
+        payment_complete_code,
+        user_id, goods_code,
+        goods_exchange_count,
+        goods_exchange_price,
+        goods_exchange_date,
+        goods_exchange_content,
+        exchange_process_state,
+        manager_id,
+        exchange_date,
+        exchange_reject,
+        exchange_approval
+        FROM
+        goods_exchange
+    </select>
+    <update id="modifyGoodsExchange" parameterType="GoodsExchange">
+        UPDATE goods_exchange
+        set
+            goods_exchange_code=#{goodsExchangeCode}
+            ,exchange_standard_code=#{exchangeStandardCode}
+            ,payment_complete_code=#{paymentCompleteCode}
+            ,user_id=#{userId}
+            ,goods_code=#{goodsCode}
+            ,goods_exchange_count=#{goodsExchangeCount}
+            ,goods_exchange_price=#{goodsExchangePrice}
+            ,goods_exchange_date=#{goodsExchangeDate}
+            ,goods_exchange_content=#{goodsExchangeContent}
+            ,exchange_process_state=#{exchangeProcessState}
+            ,manager_id=#{managerId}
+            ,exchange_date=NOW()
+            ,exchange_reject=#{exchangeReject}
+            ,exchange_approval=#{exchangeApproval}
+        WHERE goods_exchange_code=#{goodsExchangeCode}
+    </update>
+    <select id="getGoodsExchange" resultMap="GoodsExchangeResultMap">
+        SELECT
+            goods_exchange_code,
+            exchange_standard_code,
+            payment_complete_code,
+            user_id, goods_code,
+            goods_exchange_count,
+            goods_exchange_price,
+            goods_exchange_date,
+            goods_exchange_content,
+            exchange_process_state,
+            manager_id,
+            exchange_date,
+            exchange_reject,
+            exchange_approval
+        FROM
+            goods_exchange
+        WHERE goods_exchange_code=#{goodsExchangeCode}
+    </select>
+    <insert id="addGoodsExchange" parameterType="GoodsExchange">
+        INSERT INTO goods_exchange
+            (goods_exchange_code,
+            exchange_standard_code,
+            payment_complete_code,
+            user_id, goods_code,
+            goods_exchange_count,
+            goods_exchange_price,
+            goods_exchange_date,
+            goods_exchange_content,
+            exchange_process_state,
+            manager_id,
+            exchange_date,
+            exchange_reject,
+            exchange_approval)
+        VALUES
+        (sf_new_goods_exchange(),
+        #{exchangeStandardCode}, #{paymentCompleteCode}, #{userId},#{goodsCode},#{goodsExchangeCount},#{goodsExchangePrice},
+        NOW(), #{goodsExchangeContent},'교환요청중', #{managerId},#{exchangeDate},#{exchangeReject},#{exchangeApproval})
+    </insert>
+</mapper>

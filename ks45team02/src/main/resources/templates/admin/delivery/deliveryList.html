@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-listDelivery
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				$('#listDelivey').DataTable();
+				
+				const msg = [[${msg}]];
+				if(msg != null){
+					alert(msg);
+				}
+				
+				$('.updateBtn').click(function(){
+					let updateValue = $(this).val();
+					console.log(updateValue);
+						$.ajax({
+							type: "post",
+							url: '/admin/updateDelivery',
+							data: {"deliveryCode": updateValue},
+							dataType: "json",
+							success:function(data){
+								var result = data.result
+								var redirect = data.redirect
+								if(result == "성공"){
+									location.href = redirect
+									alert('배송상태가 변경되었습니다.')
+								}else{
+									alert('배송완료된 상품입니다.')
+									location.href = redirect
+								}
+							}
+						});	
+				});
+		});
+		</script>	
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="listDelivey" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="deliveryCode">배송코드</th>
+											<th class="delInfoCode">배송 정보 코드</th>
+											<th class="userId">아이디</th>
+											<th class="deliveryNum">운송장번호</th>
+											<th class="businessCode">거래처 코드</th>
+											<th class="deliveryState">배송상태</th>
+											<th class="paymentCompleteCode">결제완료_코드(결제완료 연결해야함)</th>
+											<th>업데이트</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(listDelivey)}" th:each="di : ${listDelivey}">
+											<td th:text="${di.deliveryCode}" />
+											<td th:text="${di.delInfoCode}" />
+											<td th:text="${di.userId}" />
+											<td th:text="${di.deliveryNum}" />
+											<td th:text="${di.businessCode}" />
+											<td th:text="${di.deliveryState}" />
+											<td th:text="${di.paymentCompleteCode}" />
+											<td><button type="button" class="btn btn-secondary btn-sm updateBtn" 
+														th:value="${di.deliveryCode}">업데이트</button></td>
+										</tr>
+										<tr th:unless="${not #lists.isEmpty(listDelivey)}">
+											<td colspan="9">등록된 배송지가 없습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
 </html>

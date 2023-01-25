@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.TypePaymentInfoMapper">
+	<resultMap type="TypePaymentInfo" 				id="typePaymentInfoResultMap">
+		<id property="paymentTypeCode" 				column="payment_type_code" />
+		<result property="userId" 					column="user_id" />
+		<result property="paymentType" 				column="payment_type" />
+		<result property="paymentBank" 				column="payment_bank" />
+		<result property="paymentCardNumber" 		column="payment_card_number" />
+		<result property="paymentAccountCode" 		column="payment_account_code" />
+		<result property="paymentPhoneTelco" 		column="payment_phone_telco" />
+		<result property="paymentPhoneNum" 			column="payment_phone_num" />
+		<result property="paymentTypeDeleteState" 	column="payment_type_delete_state" />
+	</resultMap>
+	
+	<select id="checkPaymentTypeCodeAndUserId" parameterType="String" resultType="int">
+		<!-- paymentTypeCode와 UserId 일치 확인 -->
+		SELECT 
+			COUNT(1)
+		FROM 
+			type_payment_info
+		WHERE 
+			payment_type_code = #{paymentTypeCode}
+			AND 
+			user_id = #{userId};
+	</select>
+	
+	<update id="modifyTypePaymentInfo" parameterType="TypePaymentInfo">
+		<!-- 구매자별 결제 종류 수정 -->
+		UPDATE type_payment_info
+		SET 
+			 user_id = #{userId}
+			,payment_type = #{paymentType}
+			,payment_bank = #{paymentBank}
+			,payment_card_number = NULLIF(#{paymentCardNumber}, '') 
+			,payment_account_code = NULLIF(#{paymentAccountCode}, '')
+			,payment_phone_telco = #{paymentPhoneTelco}
+			,payment_phone_num = NULLIF(#{paymentPhoneNum}, '')
+			,payment_type_delete_state = #{paymentTypeDeleteState}
+		WHERE 
+			payment_type_code = #{paymentTypeCode};
+	</update>
+	
+	<select id="getTypePaymentInfoByPaymentTypeCode" parameterType="String" resultMap="typePaymentInfoResultMap">
+		<!-- 결제 종류 코드로 구매자별 결제 종류 조회 -->
+		SELECT 
+			 payment_type_code
+			,user_id
+			,payment_type
+			,payment_bank
+			,payment_card_number
+			,payment_account_code
+			,payment_phone_telco
+			,payment_phone_num
+			,payment_type_delete_state
+		FROM	
+			type_payment_info 
+		WHERE 
+			payment_type_code = #{paymentTypeCode};
+	</select>
+	
+	<insert id="addTypePaymentInfo" parameterType="TypePaymentInfo">
+		<!-- 구매자별 결제 종류 등록 -->
+		INSERT INTO type_payment_info(
+			 payment_type_code
+			,user_id
+		 	,payment_type
+			,payment_bank
+			,payment_card_number
+			,payment_account_code
+			,payment_phone_telco
+			,payment_phone_num	
+		)VALUES(
+			 sf_new_type_payment_info_code()
+			,#{userId}
+			,#{paymentType}
+			,#{paymentBank}
+			,NULLIF(#{paymentCardNumber}, '') 
+			,NULLIF(#{paymentAccountCode}, '')
+			,#{paymentPhoneTelco}
+			,NULLIF(#{paymentPhoneNum}, '')
+		);
+	</insert>
+	
+	<select id="getTypePaymentInfoList" resultMap="typePaymentInfoResultMap">
+		<!-- 구매자별 결제 종류 조회 -->
+		SELECT 
+			 payment_type_code
+			,user_id
+			,payment_type
+			,payment_bank
+			,payment_card_number
+			,payment_account_code
+			,payment_phone_telco
+			,payment_phone_num
+			,payment_type_delete_state
+		FROM	
+			type_payment_info;
+	</select>
+
+	<select id="checkIdWithPaymentType" parameterType="String" resultType="int">
+		<!-- 회원 아이디와 결제종류가 일치하는지 확인 -->
+    	SELECT 
+			COUNT(1)
+		FROM 
+			payment_complete
+		WHERE 
+			user_id = #{userId}
+			AND 
+			payment_type_code = #{paymentTypeCode};
+   </select>
+
+</mapper>

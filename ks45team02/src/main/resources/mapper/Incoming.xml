@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.IncomingMapper">
+    <resultMap id="IncomingResultMap" type="Incoming">
+        <id property="incomingCode" column="incoming_code"/>
+        <result property="goodsCode" column="goods_code"/>
+        <result property="incomingAmount" column="incoming_amount"/>
+        <result property="incomingDate" column="incoming_date"/>
+        <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>
+        <result property="totalCo2" column="total_co2"/>
+<!--        <association property="goodsCode" javaType="Goods" foreignColumn="Goods">-->
+<!--            <id property="goodsCode" 					column="goods_code" />-->
+<!--            <result property="goodsName" 				column="goods_name"/>-->
+<!--            <result property="categoryMediumCode"		column="category_medium_code"/>-->
+<!--            <result property="categoryMediumName"		column="category_medium_name"/>-->
+<!--            <result property="goodsPrice" 				column="goods_price"/>-->
+<!--            <result property="goodsColor" 				column="goods_color"/>-->
+<!--            <result property="goodsSize" 				column="goods_size"/>-->
+<!--            <result property="goodsRegDate" 			column="goods_reg_date"/>-->
+<!--            <result property="goodsSangse" 			column="goods_sangse"/>-->
+<!--            <result property="goodsImage" 				column="goods_image"/>-->
+<!--            <result property="fabric" 					column="fabric"/>-->
+<!--            <result property="rate" 					column="rate"/>-->
+<!--            <result property="upcyclingCarbonDioxideEmissionLevel" column="upcycling_carbon_dioxide_emission_level"/>-->
+<!--            <association property="goodsCode" javaType="Outgoing">-->
+<!--                <id property="outgoingCode" column="outgoing_code"/>-->
+<!--                <result property="goodsCode" column="goods_code"/>-->
+<!--                <result property="outgoingAmount" column="outgoing_amount"/>-->
+<!--                <result property="stockAmount" column="stock_amount"/>-->
+<!--                <result property="outgoingDate" column="outgoing_date"/>-->
+<!--                <result property="paymentCompleteCode" column="payment_complete_code"/>-->
+<!--                <result property="deliveryCode" column="delivery_code"/>-->
+<!--            </association>-->
+<!--        </association>-->
+    </resultMap>
+    <select id="getStockAmount" resultType="map">
+        SELECT
+        sub_g.goods_code AS goodsCode
+        ,sub_g.incomingAmount
+        ,sub_o.outgoingAmount
+        ,(sub_g.incomingAmount-sub_o.outgoingAmount) AS currentAmount
+        FROM
+        (SELECT
+        g.goods_code
+        ,sum(i.incoming_amount) AS incomingAmount
+        FROM
+        goods AS g
+        INNER JOIN
+        incoming AS i
+        ON g.goods_code = i.goods_code
+        GROUP BY g.goods_code) AS sub_g
+        INNER JOIN
+        (SELECT
+        o.goods_code
+        ,SUM(o.outgoing_amount) AS outgoingAmount
+        FROM
+        outgoing AS o
+        GROUP BY o.goods_code) sub_o
+        ON sub_g.goods_code = sub_o.goods_code
+
+    </select>
+
+
+    <select id="getInfoByIncoming" resultMap="IncomingResultMap">
+        SELECT
+            incoming_code,
+            goods_code,
+            incoming_amount,
+            incoming_date,
+            upcycling_carbon_dioxide_emission_level,
+            total_co2
+        FROM
+            incoming
+        WHERE
+        incoming_code=#{incomingCode}
+    </select>
+    <insert id="addIncoming" parameterType="Incoming">
+        INSERT INTO incoming
+        (incoming_code,
+        goods_code,
+        incoming_amount,
+        incoming_date,
+        upcycling_carbon_dioxide_emission_level,
+        total_co2)
+        VALUES
+        (
+        sf_new_incoming_code(),
+        #{goodsCode},
+        #{incomingAmount},
+        NOW(),
+        #{upcyclingCarbonDioxideEmissionLevel},
+        #{totalCo2}
+        )
+    </insert>
+    <select id="listIncoming" resultMap="IncomingResultMap">
+        <!--상품 입고 조회-->
+        SELECT
+            incoming_code,
+            goods_code,
+            incoming_amount,
+            incoming_date,
+            upcycling_carbon_dioxide_emission_level,
+            total_co2
+        FROM
+            incoming
+    </select>
+</mapper>

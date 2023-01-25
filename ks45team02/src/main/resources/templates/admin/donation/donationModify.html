@@ -1,10 +1,131 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-modifyDonation
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:object="${donationInfo}">
+				<br>
+				<form th:action="@{/admin/modifyGoodsEmission}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+					
+					<div class="item form-group">
+						<label for="donationCode" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 번호</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="donationCode" name="donationCode" th:value="*{donationCode}"
+							 readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">기부 신청자 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{userId}"
+								   placeholder="기부 신청자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="rawMaterialsCo2Code" class="col-form-label col-md-3 col-sm-3 label-align">상품별 co2배출 기준코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="rawMaterialsCo2Code" name="rawMaterialsCo2Code" class="form-control">
+								<option value="co2_001">상의:S</option>
+								<option value="co2_002">상의:M</option>
+								<option value="co2_003">상의:L</option>
+								<option value="co2_004">하의:S</option>
+								<option value="co2_005">하의:M</option>
+								<option value="co2_006">하의:L</option>
+								<option value="co2_007">아우터:S</option>
+								<option value="co2_008">아우터:M</option>
+								<option value="co2_009">아우터:L</option>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="donationAmount" class="col-form-label col-md-3 col-sm-3 label-align">중고매입상품 개수</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="donationAmount" name="donationAmount" th:with="numArr=${#numbers.sequence(1, 50)}" class="form-control">
+								<th:block th:each="num : ${numArr}">
+									<option th:value="${num}" th:text="${num}"></option>
+								</th:block>
+							</select>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="donationDate" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 날짜</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="donationDate" name="donationDate" th:value="*{donationDate}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="donationStatus" class="col-form-label col-md-3 col-sm-3 label-align">기부신청 상태</label>
+							<div class="col-md-6 col-sm-6 ">
+								<input type="text" id="donationDate" name="donationDate" th:value="*{donationStatus}"
+									   class="form-control"/>
+							</div>				
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listDonation';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>

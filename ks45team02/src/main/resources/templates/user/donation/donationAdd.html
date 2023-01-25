@@ -1,10 +1,120 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
+	
 
-</body>
+	<th:block layout:fragment="customContents">
+		
+		<form class="bg0 p-t-75 p-b-85" th:action="@{/addDonation}" method="post">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-lg-9 p-b-80">
+						<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+							<div class="m-l-25 m-r--38 m-lr-0-xl">
+								<div class="wrap-userTable">
+									<br>
+									<br>
+									<div class="pageTitle">
+										<h1>Donation</h1>
+									</div>
+									<br>
+									<table style="margin:50px; margin-left:40%; margin-right:auto; border-collapse: separate; border-spacing: 0 10px;">
+										<tbody>
+											<tr>
+												<td style="text-align: right">기부 상품 : </td>
+												<td style="padding-left:30px;">
+													<select id="rawMaterialsCo2Code" name="rawMaterialsCo2Code">
+														<option value="co2_001">상의 : S</option>
+														<option value="co2_002">상의 : M</option>
+														<option value="co2_003">상의 : L</option>
+														<option value="co2_004">하의 : S</option>
+														<option value="co2_005">하의 : M</option>
+														<option value="co2_006">하의 : L</option>
+														<option value="co2_007">아우터 : S</option>
+														<option value="co2_008">아우터 : M</option>
+														<option value="co2_009">아우터 : L</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align: right">개수 : </td>
+												<td style="padding-left:77px">
+													<select id="donationAmount" name="donationAmount" th:with="numArr=${#numbers.sequence(1, 50)}">
+														<th:block th:each="num : ${numArr}">
+															<option th:value="${num}" th:text="${num}"></option>
+														</th:block>
+													</select>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div style="border: 1px solid black; width:600px;  line-height:30pt; text-align: center;">
+									<p>
+										Ire는 기부 받은 물품을 업사이클링해 새로운 상품으로 재탄생시키고 있습니다.
+									</p>
+									<p>
+										Ire에 기부 상품이 도착하면, 상품 상태 확인 후 한 벌 당 500 포인트가 증정됩니다.
+									</p>
+									<p>
+										Ire에 택배 도착 후엔 상품을 돌려받을 수 없는 점 유의 부탁드립니다.
+									</p>
+									<p>
+										아래 주소로 착불 택배를 배송해주시기 바랍니다.
+									</p>
+									<p>
+										     
+									</p>
+									<p>
+										아이레 063-717-1008
+									</p>
+									<p>
+										전라북도 전주시 덕진구 기린대로 446
+									</p>
+								</div>
+								<table style="margin:10px; margin-left:30%; margin-right:auto;">
+									<tr>
+										<td style="padding:5px;"><input type="checkbox" id="donationCheck"></td>
+										<td>기부 안내문을 읽었고 이에 동의합니다.</td>
+									</tr>
+								</table>
+								<div class="flex-c-m flex-w w-full p-t-45" style="margin-left:5%">
+									<button type="button" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" id="submitBtn">
+										기부 신청
+									</button>
+								</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $donationCheck = document.getElementById('donationCheck');
+			const $submitBtn = document.getElementById('submitBtn');
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				
+				if($donationCheck.checked == false){
+					alert('동의란에 체크해주세요.');
+					return false;
+				}else{
+					$submitBtn.setAttribute("type", "submit")
+				}
+			});
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
 </html>

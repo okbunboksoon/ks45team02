@@ -1,10 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <style type="text/css">
+        table {
+            border: 1px solid black;
+            width: 100%;
+            table-layout: auto;
+            text-align: center;
+        }
+        th {
+            border: 1px solid black;
+            background-color: cornflowerblue;
+            color: azure;
+            height: 30px;
+        }
+        td {
+            border: 1px solid black;
+            height: 30px;
+        }
+        #submitBtn{
+            margin-right: 30px;
+        }
+        input {
+            width: 98%;
+            height: 80%;
+        }
+        select {
+            width: 99%;
+            height: 90%;
+        }
+        button {
+            width: 47%;
+            height: 90%;
+        }
+
+    </style>
 </head>
-<body>
-modifyIncoming
-</body>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function (){
+            $('resetBtn').click(function (){
+                location.href='/admin/listIncoming';
+            })
+        })
+        $(function (){
+            $('#submitBtn').click(function (){
+                let isSubmint =true;
+                $('#modifyIncoming input').each(function (idx,item){
+                    let checkValue = $(item).val();
+                    let labelValue = $(item).parents('tr').find('label').text();
+                    if(typeof checkValue =='undefined'||checkValue==null||checkValue==''){
+                        alert(`${labelValue}를 입력해 주세여`);
+                        $(item).focus();
+                        isSubmint=false;
+                        return false;
+                    }
+                });
+                if(isSubmint) $('#modifyIncoming').submit();
+            });
+            $('#incomingAmount, #upcyclingCarbonDioxideEmissionLevel').on('change', function() {
+
+                $('#totalCo2').val( Number($('#incomingAmount').val()) * Number($('#upcyclingCarbonDioxideEmissionLevel').val()) )
+
+            });
+        });
+    </script>
+</th:block>
+<th:block layout:fragment="customContents">
+    <h1>회원수정</h1>
+    <form id="modifyContract" th:action="@{/admin/modifyIncoming}" method="post">
+        <table th:object="${getInfoByIncoming}">
+            <tbody>
+            <tr>
+                <td>
+                    <label for="incomingCode">입고코드</label>
+                </td>
+                <td>
+                    <input type="text" id="incomingCode"
+                           name="incomingCode"
+                           th:value="*{incomingCode}"
+                           readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="goodsCode">상품코드</label>
+                </td>
+                <td>
+                    <select id="goodsCode" name="goodsCode" class="form-control">
+                        <th:block th:if="${not #lists.isEmpty(goodsList)}"
+                                  th:each="g : ${goodsList}">
+                            <option th:value="${g.goodsCode}">[[${g.goodsCode}]]</option>
+                        </th:block>
+                        <th:block th:unless="${not #lists.isEmpty(goodsList)}">
+                            <option>등록된 상품코드가없습니다.</option>
+                        </th:block>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="incomingAmount">입고수량</label>
+                </td>
+                <td >
+                    <input type="text"
+                           id="incomingAmount"
+                           name="incomingAmount"
+                           th:value="*{incomingAmount}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="incomingDate">입고날짜</label>
+                </td>
+                <td>
+                    <input type="date"
+                           id="incomingDate"
+                           name="incomingDate"
+                           th:value="*{incomingDate}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="upcyclingCarbonDioxideEmissionLevel">전체 업사이클링 상품별 이산화탄소 총배출량(kg)</label>
+                </td>
+                <td>
+                    <select id="upcyclingCarbonDioxideEmissionLevel" name="upcyclingCarbonDioxideEmissionLevel" class="form-control">
+                        <th:block th:if="${not #lists.isEmpty(goodsList)}"
+                                  th:each="g : ${goodsList}">
+                            <option th:value="${g.upcyclingCarbonDioxideEmissionLevel}">[[${g.upcyclingCarbonDioxideEmissionLevel}]]</option>
+                        </th:block>
+                        <th:block th:unless="${not #lists.isEmpty(goodsList)}">
+                            <option>전체 업사이클링 상품별 이산화탄소 총배출량(kg)이 없습니다.</option>
+                        </th:block>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="totalCo2">총 탄소 배출량</label>
+                </td>
+                <td>
+                    <input type="text"
+                           id="totalCo2"
+                           name="totalCo2"
+                           th:value="*{totalCo2}">
+                </td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">
+                    <button type="button" id="submitBtn">회원수정</button>
+                    <button type="reset" id="resetBtn">취소</button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</th:block>
+
 </html>

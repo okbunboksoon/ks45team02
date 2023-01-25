@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.ExchangeStandardMapper">
+    <resultMap id="ExchangeStandardResultMapper" type="ExchangeStandard">
+        <id property="exchangeStandardCode" column="exchange_standard_code"/>
+        <result property="goodsExchangeCondition" column="goods_exchange_condition"/>
+        <result property="exchangeInfo" column="exchange_info"/>
+    </resultMap>
+    <select id="listExchangeStandard" resultMap="ExchangeStandardResultMapper">
+        SELECT
+            exchange_standard_code,
+            goods_exchange_condition,
+            exchange_Info
+        FROM
+            exchange_standard
+    </select>
+    <insert id="addExchangeStandard" parameterType="ExchangeStandard">
+        INSERT INTO exchange_standard
+        (exchange_standard_code,
+        goods_exchange_condition,
+        exchange_Info)
+        VALUES
+        (sf_new_exchange_standard_code(), #{goodsExchangeCondition}, #{exchangeInfo})
+    </insert>
+</mapper>

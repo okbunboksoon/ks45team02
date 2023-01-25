@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				$('#listYear').DataTable();
+				});
+		</script>	
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<div class="col-md-12 col-sm-12 ">
+			<div class="x_panel">
+				<div class="x_content">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card-box table-responsive">
+								<table id="listYear" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th class="raw_materials_yeargroup">년_마감그룹</th>
+											<th class="reg_date">등록날짜</th>
+											<th class="user_id">등록자아이디</th>
+											<th class="year">년도</th>
+											<th class="Jan">1월</th>
+											<th class="Feb">2월</th>
+											<th class="Mar">3월</th>
+											<th class="Apr">4월</th>
+											<th class="May">5월</th>
+											<th class="Jun">6월</th>
+											<th class="Jul">7월</th>
+											<th class="Aug">8월</th>
+											<th class="Sept">9월</th>
+											<th class="Oct">10월</th>
+											<th class="Nov">11월</th>
+											<th class="Dec">12월</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(rmysList)}" th:each="year : ${rmysList}">
+											<td th:text="${year.raw_materials_yeargroup}" />
+											<td th:text="${year.reg_date}" />
+											<td th:text="${year.user_id}" />
+											<td th:text="${year.year}" />
+											<td th:text="${year.Jan}" />
+											<td th:text="${year.Feb}" />
+											<td th:text="${year.Mar}" />
+											<td th:text="${year.Apr}" />
+											<td th:text="${year.May}" />
+											<td th:text="${year.Jun}" />
+											<td th:text="${year.Jul}" />
+											<td th:text="${year.Aug}" />
+											<td th:text="${year.Sept}" />
+											<td th:text="${year.Oct}" />
+											<td th:text="${year.Nov}" />
+											<td th:text="${year.Dec}" />
+											
+										</tr>
+										<tr th:unless="${not #lists.isEmpty(rmysList)}">
+											<td colspan="4">등록된 카테고리가 없습니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
+</html>

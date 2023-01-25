@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+
+	<head>
+		<style>
+			#reviewStarCount{
+			    display: inline-block;
+			    direction: rtl;
+			    border:0;
+			}
+			#reviewStarCount input[type=radio]{
+			    display: none;
+			}
+			#reviewStarCount label{
+			    font-size: 2em;
+			    color: transparent;
+			    text-shadow: 0 0 0 #f0f0f0;
+			}
+			#reviewStarCount input[type=radio]:checked ~ label{
+			    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+			}
+		</style>
+	
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<span></span>
+		<div>
+			<div class="col-md-13" th:unless="${#lists.isEmpty(boardReviewInfo)}" th:each="l : ${boardReviewInfo}">
+				<div class="x_panel" th:each="gl : ${l.goods}">
+					<div class="x_title">
+						<h2 th:text="|작성자 : ${l.userId}|">
+						</h2>
+						<h2>
+							<small th:text="|등록날짜: ${l.reviewRegDate}|"></small>
+						</h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li th:text="|${l.goodsCode}|"></li>
+							<li th:text="|, ${gl.goodsName}|"></li>
+							<li th:text="|, ${gl.goodsColor}|"></li>
+							<li th:text="|, ${gl.goodsSize}|"></li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div class="col-md-8 col-lg-8 col-sm-7">
+							<blockquote>
+								<div class="item form-group">
+									<div class="col-md-6 col-sm-6" id="reviewStarCount">
+										<input type="radio" name="reviewStarCount" value="5" id="rate1" th:checked="*{l.reviewStarCount} == '5'" disabled>
+											<label for="rate1">★</label>
+										<input type="radio" name="reviewStarCount" value="4" id="rate2" th:checked="*{l.reviewStarCount} == '4'" disabled>
+											<label for="rate2">★</label>
+										<input type="radio" name="reviewStarCount" value="3" id="rate3" th:checked="*{l.reviewStarCount} == '3'" disabled>
+											<label for="rate3">★</label>
+										<input type="radio" name="reviewStarCount" value="2" id="rate4" th:checked="*{l.reviewStarCount} == '2'" disabled>
+											<label for="rate4">★</label>
+										<input type="radio" name="reviewStarCount" value="1" id="rate5" th:checked="*{l.reviewStarCount} == '1'" disabled>
+											<label for="rate5">★</label>
+									</div>
+								</div>
+								<p th:text="${l.reviewContent}" style="white-space: pre-line;">
+								</p>
+								<img id="reviewImagePath" th:if="*{l.reviewImagePath != null}" th:src="*{l.reviewImagePath}" 
+									 alt="리뷰 이미지" width="200px" height="200px"/>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+				<div class="item form-group pull-right">
+					<div>
+						<button class="btn btn-primary" type="button" id="listBtn">목록</button>
+						<button class="btn btn-success" type="button" id="modifyBtn">수정</button>
+					</div>
+				</div>
+			</div>
+			
+			<div th:if="${#lists.isEmpty(boardReviewInfo)}">
+				<div class="x_panel">
+					<div class="x_content">
+						<div class="col-md-8 col-lg-8 col-sm-7">
+							<blockquote>
+								<p>
+									게시글이 존재하지 않습니다.
+								</p>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+				<div class="item form-group pull-right">
+					<div>
+						<button class="btn btn-primary" type="button" id="listBtn">목록</button>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</th:block>
+
+		<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
+	
+		<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+		
+			const $listBtn = document.getElementById('listBtn');
+			const $modifyBtn = document.getElementById('modifyBtn');
+			const reviewCode = [[${reviewCode}]];
+			
+			$listBtn.addEventListener('click', function(){
+				location.href="/admin/listBoardReview";
+			});
+			
+			$modifyBtn.addEventListener('click', function(){
+				location.href="/admin/modifyBoardReview?reviewCode=" + reviewCode;
+			});
+
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+
+			
+		</script>
+
+	</th:block>
+
+</html>

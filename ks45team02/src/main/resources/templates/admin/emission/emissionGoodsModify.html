@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+	</head>
+	
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content">
+				<br>
+				<form th:action="@{/admin/modifyGoodsEmisison}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+	<th:block th:if="${not #lists.isEmpty(modifyGoodsEmission)}" th:each="g : ${modifyGoodsEmission}">	
+					<div class="item form-group">
+						<label for="fabric" class="col-form-label col-md-3 col-sm-3 label-align">원단</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="fabric" name="fabric" th:value="${g.fabric}"
+								   class="form-control"/>
+							
+						</div>
+					</div>
+					
+					<div class="item form-group">
+						<label for="carbon_dioxide_emission_level" class="col-form-label col-md-3 col-sm-3 label-align">일반 원단별 이산화탄소 배출량(Kg)</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="carbon_dioxide_emission0_level" name="carbon_dioxide_emission_level" th:value="${g.carbon_dioxide_emission_level}"
+								   class="form-control"/>
+							
+						</div>
+					</div>
+					
+					<div class="item form-group">
+						<label for="upcycling_carbon_dioxide_emission_level" class="col-form-label col-md-3 col-sm-3 label-align">업사이클링 원단별 이산화탄소 배출량(Kg)</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="upcycling_carbon_dioxide_emission_level" name="upcycling_carbon_dioxide_emission_level" th:value="${g.upcycling_carbon_dioxide_emission_level}"
+								   class="form-control"/>
+							
+						</div>
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-danger" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-success" type="submit" id="submitBtn">수정</button>
+						</div>
+					</div>
+					</th:block>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			console.log($inputEle);
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listGoodsEmission';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				$inputEle.forEach(function(item){
+					item.value = '';
+				})
+
+			});
+	/* 		
+		$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						checkFlag = false;
+					}
+				})
+				if(checkFlag){
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+				$submitBtn.submit();
+			});  */
+			
+			
+		</script>
+
+	</th:block>
+	
+</html>

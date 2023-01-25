@@ -1,10 +1,188 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-modifyBoardReview
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{admin/layout/adminDefault}">
+	<head>
+		<style>
+			#reviewStarCount{
+			    display: inline-block;
+			    direction: rtl;
+			    border:0;
+			}
+			#reviewStarCount input[type=radio]{
+			    display: none;
+			}
+			#reviewStarCount label{
+			    font-size: 2em;
+			    color: transparent;
+			    text-shadow: 0 0 0 #f0f0f0;
+			}
+			#reviewStarCount input[type=radio]:checked ~ label{
+			    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+			}
+		</style>
+	</head>
+	
+	
+	<th:block layout:fragment="customContents">
+		<div class="x_panel">
+			<div class="x_title">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="x_content" th:each="l : ${boardReviewInfo}">
+				<br>
+				<form th:action="@{/admin/modifyBoardReview}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate
+					  enctype="multipart/form-data">
+					
+					<div class="item form-group">
+						<label for="reviewCode" class="col-form-label col-md-3 col-sm-3 label-align">리뷰 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="reviewCode" name="reviewCode" th:value="*{l.reviewCode}"
+								   readonly="readonly" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">작성자 아이디</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="userId" name="userId" th:value="*{l.userId}"
+								   placeholder="작성자 아이디" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsSearchBtn" class="col-form-label col-md-3 col-sm-3 label-align">상품 검색</label>
+						<div class="col-md-6 col-sm-6 ">
+							<button type="button" class="btn btn-secondary btn-sm" id="goodsSearchBtn">상품 검색</button>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품 코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="goodsCode" name="goodsCode" th:value="*{l.goodsCode}"
+								   readonly="readonly" placeholder="상품코드" class="form-control"/>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="reviewStarCount" class="col-form-label col-md-3 col-sm-3 label-align">별점</label>
+						<div class="col-md-6 col-sm-6" id="reviewStarCount">
+							<input type="radio" name="reviewStarCount" value="5" id="rate1" th:checked="*{l.reviewStarCount} == '5'"><label for="rate1">★</label>
+							<input type="radio" name="reviewStarCount" value="4" id="rate2" th:checked="*{l.reviewStarCount} == '4'"><label for="rate2">★</label>
+							<input type="radio" name="reviewStarCount" value="3" id="rate3" th:checked="*{l.reviewStarCount} == '3'"><label for="rate3">★</label>
+							<input type="radio" name="reviewStarCount" value="2" id="rate4" th:checked="*{l.reviewStarCount} == '2'"><label for="rate4">★</label>
+							<input type="radio" name="reviewStarCount" value="1" id="rate5" th:checked="*{l.reviewStarCount} == '1'"><label for="rate5">★</label>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="reviewContent" class="col-form-label col-md-3 col-sm-3 label-align">내용</label>
+						<div class="col-md-6 col-sm-6">
+							<textarea id="reviewContent" name="reviewContent" th:text="*{l.reviewContent}"
+									  class="form-control" style="height: 120px;"></textarea>
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="reviewImage" class="col-form-label col-md-3 col-sm-3 label-align">이미지</label>
+						<div class="col-md-6 col-sm-6">
+							<input type="file" id="reviewImage" name="reviewImage"> 
+						</div>
+					</div>
+					<div class="item form-group">
+						<label for="reviewRegDate" class="col-form-label col-md-3 col-sm-3 label-align">등록일자</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="date" id="reviewRegDate" name="reviewRegDate" th:value="*{l.reviewRegDate}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="reviewPointSave" class="col-form-label col-md-3 col-sm-3 label-align">포인트 적립금액</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="reviewPointSave" name="reviewPointSave" th:value="*{l.reviewPointSave}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="reviewPointGroup" class="col-form-label col-md-3 col-sm-3 label-align">포인트 그룹코드</label>
+						<div class="col-md-6 col-sm-6 ">
+							<input type="text" id="reviewPointGroup" name="reviewPointGroup" th:value="*{l.reviewPointGroup}"
+								   class="form-control"/>
+						</div>			
+					</div>
+					<div class="item form-group">
+						<label for="reviewRegDate" class="col-form-label col-md-3 col-sm-3 label-align">삭제 여부</label>
+						<div class="col-md-6 col-sm-6 ">
+							<select id="reviewDeleteState" name="reviewDeleteState"class="form-control" >
+								<option value="N" th:selected="*{l.reviewDeleteState} == 'N'">N</option>
+								<option value="Y" th:selected="*{l.reviewDeleteState} == 'Y'">Y</option>
+							</select>
+						</div>			
+					</div>
+					
+					<div class="item form-group">
+						<div class="col-md-6 col-sm-6 offset-md-3">
+							<button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+							<button class="btn btn-primary" type="button" id="resetBtn">리셋</button>
+							<button class="btn btn-success" type="button" id="submitBtn">수정</button>
+						</div>
+					</div>
+				</form>
+			
+			</div>
+		
+		
+		</div>
+	</th:block>
+	
+	
+	<!-- 사용자 지정 js script -->
+	 
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			const $cancelBtn = document.getElementById('cancelBtn');
+			const $resetBtn = document.getElementById('resetBtn');
+			const $submitBtn = document.getElementById('submitBtn');
+			
+			const $goodsSearchBtn = document.getElementById('goodsSearchBtn');
+			
+			const $inputEle = document.querySelectorAll('.item > div > input');
+			
+			$cancelBtn.addEventListener('click', function(){
+				location.href = '/admin/listBoardReview';
+			});
+			
+			$resetBtn.addEventListener('click', function(){
+				location.reload();
+
+			});
+			
+			$submitBtn.addEventListener('click', function(){
+				let checkFlag = true;
+				$inputEle.forEach(function(item){
+					if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+						if(item.id != 'reviewImage'){
+							checkFlag = false;
+						}
+					}
+				})
+				if(checkFlag){
+					alert('포인트 데이터는 직접 수정해주세요.');
+					$submitBtn.setAttribute("type", "submit")
+				}else{
+					alert('값을 전부 입력해주세요.');
+				}
+			});
+			
+			$goodsSearchBtn.addEventListener('click', function(){
+				window.name = "basketAdd";
+				let openWin = window.open('/admin/goodsSearch', '상품검색', 'width=1000, height=600, top=100, left=100 scrollbar = yes');
+			});
+			
+			
+			const msg = [[${msg}]];
+			if(msg != null){
+				alert(msg);
+			}
+			
+		</script>
+
+	</th:block>
+	
 </html>

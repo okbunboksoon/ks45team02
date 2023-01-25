@@ -5,16 +5,240 @@
     
     
 <mapper namespace="ks45team02.ire.admin.mapper.RawMaterialsMapper">
-<resultMap type="RawMaterials" id="rawmaterialsResultMap">
-<id property="userId"               column="user_id" />
-<result property="rawmaterialsIncomingDate"    column="raw_materials_incoming_date" />
-<result property="rawmaterialsOutcomingDate"   column="raw_materials_outcoming_date" />
-<result property="rawmaterialsNum"         column="raw_materials_num" />
-<result property="goodsCo2Code"         		   column="goods_co2_code" />
-<result property="rawmaterialsAmount"         column="raw_materials_amount" />
+	<resultMap type="RawMaterials" id="rawmaterialsResultMap">
+		<id property="userId"               column="user_id" />
+		<result property="rawmaterialsIncomingDate"    column="raw_materials_incoming_date" />
+		<result property="rawmaterialsOutcomingDate"   column="raw_materials_outcoming_date" />
+		<result property="rawmaterialsNum"         column="raw_materials_num" />
+		<result property="goodsCo2Code"         		   column="goods_co2_code" />
+		<result property="rawmaterialsAmount"         column="raw_materials_amount" />
+	</resultMap>
+	   
+	<resultMap type="RawMaterialsIncoming" 				id="rawMaterialsIncomingResultMap">
+		<id property="rawMaterialsCode" 				column="raw_materials_code" />
+		<result property="donationCode" 				column="donation_code" />
+		<result property="rawMaterialsIncomingAmount" 	column="raw_materials_incoming_amount" />
+		<result property="rawMaterialsIncomingDate" 	column="raw_materials_incoming_date" />
+		<result property="rawMaterialsStatus"			column="raw_materials_status" />
+		<result property="carbonDioxideEmissionLevel" 	column="carbon_dioxide_emission_level" />
+		<result property="rawMaterialsDaygroup" 		column="raw_materials_daygroup" />
+		<result property="donationPointSave" 			column="donation_point_save" />
+		<result property="donationPointGroup" 			column="donation_point_group" />
+	</resultMap>
+	<resultMap type="RawMaterialsOutgoing" id="rawMaterialsOutgoingResultMap">
+		<id property="rawMaterialsOutgoingCode" column="out_going_code"/>
+		<result property="rawMaterialsOutgoingAmount" column="raw_materials_outgoing_amount"/>
+		<result property="rawMaterialsOutgoingDate" column="raw_materials_outgoing_date"/>
+		<result property= "rawMaterialsCode" column="raw_materials_code"/>
+		<result property="businessCode" column="business_code"/>
+	</resultMap>
+	<select id="rawMaterialsOutgoingList" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 내역 -->
+		SELECT
+			rmo.out_going_code, rmo.raw_materials_outgoing_amount, rmo.raw_materials_outgoing_date, rmo.raw_materials_code, rmo.business_code
+		FROM
+			raw_materials_outgoing AS rmo
+	</select>
+	<select id="addoutgoingRawmaterialsInfo" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 정보 출력 -->
+		SELECT
+			r.raw_materials_code
+		FROM
+			raw_materials AS r
+		WHERE r.raw_materials_code NOT in
+		(
+		SELECT
+			rmo.raw_materials_code
+		FROM
+			raw_materials_outgoing AS rmo
+		)
+	</select>
+	<insert id="addoutgoingRawmaterials" parameterType="RawMaterialsOutgoing">
+		<!-- 원자재 출고 등록 -->
+		INSERT INTO raw_materials_outgoing(
+			out_going_code, raw_materials_outgoing_amount, raw_materials_outgoing_date, raw_materials_code, business_code
+			)
+		VALUES(
+			sf_new_rawmaterials_outgoing_code(), #{rawMaterialsOutgoingAmount}, curdate(), #{rawMaterialsCode}, #{businessCode}
+		)
 
-    </resultMap>
-<select id="rawmaterialsList" resultMap="rawmaterialsResultMap">
+	</insert>
+	<select id="modifyOutgoingRawmaterialsInfo" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 수정 화면 -->
+		SELECT
+			rmo.out_going_code, rmo.raw_materials_code, rmo.business_code
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.out_going_code = #{rawMaterialsOutgoingCode}
+	</select>
+	<select id="checkRawMaterialCode" parameterType="String" resultType="int">
+		SELECT
+			COUNT(rmo.raw_materials_code)
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.raw_materials_code = #{rawMaterialsCode};
+	</select>
+	<update id="modifyOutgoingRawMatrials" parameterType="RawMaterialsOutgoing">
+		<!-- 원자재 출고 수정 -->
+		UPDATE
+			raw_materials_outgoing
+		SET
+			raw_materials_code = #{rawMaterialsCode}
+			, business_code = #{businessCode}
+		WHERE
+			out_going_code = #{rawMaterialsOutgoingCode}
+	</update>
+	<select id="rawMaterialsOutgoingDeleteInfo" resultMap="rawMaterialsOutgoingResultMap">
+		<!-- 원자재 출고 삭제 화면 -->
+		SELECT
+			rmo.out_going_code, rmo.raw_materials_code, rmo.raw_materials_outgoing_amount, rmo.raw_materials_outgoing_date, rmo.raw_materials_code, rmo.business_code
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.out_going_code = #{rawMaterialsOutgoingCode}
+	</select>
+	<delete id="deleteoutgoingRawMatrials">
+		DELETE
+			rmo
+		FROM
+			raw_materials_outgoing AS rmo
+		WHERE
+			rmo.out_going_code = #{rawMaterialsOutgoingCode}
+	</delete>
+
+	<delete id="deleteRawMaterialsIncomingByRawMaterialsCode">
+		<!-- 원자재 입고 삭제 -->
+		DELETE 
+			rmi
+		FROM 	
+			raw_materials_incoming AS rmi
+		WHERE 
+			rmi.raw_materials_code = #{rawMaterialsCode};
+	</delete>
+	
+	<delete id="deleteRawMaterialsOutgoingByRawMaterialsCode">
+		<!-- 원자재 입고 코드로 raw_materials_outgoing 삭제 -->
+		DELETE 
+			rmo
+		FROM 	
+			raw_materials_outgoing AS rmo
+			INNER JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			rmo.raw_materials_code = rmi.raw_materials_code
+		WHERE 
+			rmi.raw_materials_code = #{rawMaterialsCode};
+	</delete>
+	
+	<delete id="deleteRawMaterialsByRawMaterialsCode">
+		<!-- 원자재 입고 코드로 raw_materials 삭제 -->
+		DELETE 
+			rm
+		FROM 
+			raw_materials AS rm
+			INNER JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			rm.raw_materials_code = rmi.raw_materials_code
+		WHERE 
+			rm.raw_materials_code = #{rawMaterialsCode};
+	</delete>
+	
+	<update id="modifyIncomingRawMatrials" parameterType="RawMaterialsIncoming">
+		<!-- 원자재 입고 수정 -->
+		UPDATE 
+			raw_materials_incoming
+		SET 
+			 donation_code = #{donationCode}
+			,raw_materials_incoming_date = #{rawMaterialsIncomingDate}
+			,raw_materials_status = #{rawMaterialsStatus}
+			,carbon_dioxide_emission_level = #{carbonDioxideEmissionLevel}
+			,raw_materials_daygroup = #{rawMaterialsDaygroup}
+			,donation_point_save = #{donationPointSave}
+			,donation_point_group = #{donationPointGroup}
+		WHERE 
+			raw_materials_code = #{rawMaterialsCode};
+	</update>
+	
+	<select id="getRawMaterialsIncomingInfo" parameterType="String" resultMap="rawMaterialsIncomingResultMap">
+		<!-- 원자재 입고 코드로 원자재 입고 조회 -->
+		SELECT 
+			 raw_materials_code
+			,donation_code
+			,raw_materials_incoming_amount
+			,raw_materials_incoming_date
+			,raw_materials_status
+			,carbon_dioxide_emission_level
+			,raw_materials_daygroup
+			,donation_point_save
+			,donation_point_group
+		FROM 
+			raw_materials_incoming
+		WHERE 
+			raw_materials_code = #{rawMaterialsCode};
+	</select>
+		   
+	<insert id="addIncomingRawmaterials" parameterType="RawMaterialsIncoming">
+		<!-- 원자재 입고 등록 -->
+		INSERT INTO raw_materials_incoming (
+			 raw_materials_code
+			,donation_code
+			,raw_materials_incoming_amount
+			,raw_materials_incoming_date
+			,raw_materials_status
+			,carbon_dioxide_emission_level
+			,raw_materials_daygroup
+			,donation_point_save
+			,donation_point_group
+		)VALUES(
+			 sf_new_raw_materials_incoming_code()
+			,#{donationCode}
+			,1
+			,NOW()
+			,#{rawMaterialsStatus}
+			,#{carbonDioxideEmissionLevel}
+			,sf_raw_materials_incoming_daygroup()
+			,#{donationPointSave}
+			,sf_raw_materials_incoming_point_group(#{donationCode}));
+			
+		<selectKey resultType="String" keyProperty="rawMaterialsCode" keyColumn="raw_materials_code" order="AFTER">
+            SELECT raw_materials_code FROM raw_materials_incoming ORDER BY raw_materials_code DESC LIMIT 0, 1;
+        </selectKey>
+	</insert>
+	
+	<select id="getDonationCodeNotIncoming" resultType="String">
+		<!-- 원자재 입고 등록되지 않은 기부 코드 조회 -->
+		SELECT 
+			  d.donation_code AS donationCode
+		FROM 
+			donation AS d
+			LEFT JOIN 
+			raw_materials_incoming AS rmi
+			ON 
+			d.donation_code = rmi.donation_code
+		WHERE 
+			rmi.raw_materials_code IS NULL;
+	</select>
+	   
+	<select id="getRawMaterialsIncomingList" resultMap="rawMaterialsIncomingResultMap">
+		<!-- 원자재 입고 조회 -->
+		SELECT 
+			 rmi.raw_materials_code
+			,rmi.donation_code
+			,rmi.raw_materials_incoming_amount
+			,rmi.raw_materials_incoming_date
+			,rmi.raw_materials_status
+			,rmi.carbon_dioxide_emission_level
+			,rmi.raw_materials_daygroup
+			,rmi.donation_point_save
+			,rmi.donation_point_group
+		FROM 
+			raw_materials_incoming AS rmi;
+	</select>
+
+	<select id="rawmaterialsList" resultMap="rawmaterialsResultMap">
         SELECT
            	r.user_id
             ,r.raw_materials_incoming_date
@@ -26,5 +250,16 @@
         FROM
           	raw_materials as r
 
+    </select>
+    
+    <!-- 원자재 입고 일별 기부상품 입고 그룹 확인 -->
+    <select id="getLastRawMaterialsDaygroup" resultType="String">
+    	SELECT 
+			raw_materials_daygroup 
+		FROM 
+			raw_materials_incoming 
+		ORDER BY 
+			raw_materials_daygroup DESC 
+		LIMIT 0, 1;
     </select>
 </mapper>
