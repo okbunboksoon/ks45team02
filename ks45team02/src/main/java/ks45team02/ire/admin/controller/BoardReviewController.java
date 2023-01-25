@@ -66,12 +66,6 @@ public class BoardReviewController {
 		return "admin/board/boardAddReview";
 	}
 	
-	@GetMapping("/deleteBoardReview")
-	public String deleteBoardReview() {
-		
-		return "admin/board/boardDeleteReview";
-	}
-	
 	//리뷰 글 상세보기 페이지
 	@GetMapping("/contentsBoardReview")
 	public String contentsBoardReview(Model model

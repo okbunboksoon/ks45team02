@@ -53,12 +53,6 @@ public class UserBasketController {
 		return "redirect:/goodsContents"; 
 	}
 	
-	@GetMapping("/deleteBasket")
-	public String deleteBasket() {
-		
-		return "user/basket/basketDelete";
-	}
-	
 	//회원의 장바구니 조회
 	@GetMapping("/listBasket")
 	public String listBasket(Model model, HttpSession session) {
