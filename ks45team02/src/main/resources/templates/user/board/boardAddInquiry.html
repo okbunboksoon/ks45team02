@@ -1,10 +1,107 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+<head>
+    <style type="text/css">
+        @font-face {
+            font-family: 'IBMPlexSansKR-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;}
+
+        div {
+            color : black;
+        }
+        #inquiryTitle {
+            border-top: solid 3px black;
+            border-bottom: solid 1px gray;
+            font-size: 25px;
+            text-align : center;
+            padding: 10px;
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+        #inquiryCate {
+            border-bottom: solid 1px gray;
+            background-color : white;
+            font-size: 25px;
+            text-align : right;
+            padding: 10px;
+            height: auto;
+            text-align: center;
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+        #inquiryContents {
+            border-bottom: solid 3px black;
+            margin: 20px;
+            line-height: 3em;
+            font-size: 25px;
+            text-align: center;
+            white-space:pre-line;
+            height: 400px;
+            font-family: 'IBMPlexSansKR-Regular';
+
+        }
+        #submitBtn, #resetBtn {
+            text-align : center;
+            padding: 10px;
+            margin-bottom: 10px;
+            height: 40px;
+            font-size: 20px;
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+
+    </style>
+</head>
+<th:block layout:fragment="customScript">
+    <script type="text/javascript">
+        $(function(){
+
+            $('#resetBtn').click(function (){
+                $(location).attr("href", "/");
+            })
+            $('#submitBtn').click(function(){
+                let isSubmit = true;
+
+
+
+                if(isSubmit) $('#addBoardInquiry').submit();
+            });
+        });
+    </script>
+</th:block>
+
+<th:block layout:fragment="customContents">
+    <form id="addBoardInquiry" th:action="@{/addBoardInquiry}" method="post">
+        <br><br>
+        <div class="mb-3">
+            <label class="form-label">작성자</label>
+            <input  class="form-control" id="userId" name="userId"
+                    th:value="${loginInfo.getLoginId()}"
+                    readonly="readonly">
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">제목</label>
+            <input type="text" class="form-control" id="inquiryTitle" name="inquiryTitle" placeholder="제목을 입력해주세요">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">카테고리</label>
+            <select class="form-control" id="inquiryCate" name="inquiryCate">
+                <option>질문</option>
+            </select>
+        </div>
+        <div class="mb-3" >
+            <label class="form-label">내용</label>
+            <textarea class="form-control" rows="30"
+                      id="inquiryContents"name="inquiryContents" placeholder="내용을 입력해주세요"></textarea>
+        </div>
+
+        <div class="btnGroup" style="text-align: center">
+            <button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
+            <button type="button" class="btn btn-outline-danger" id="resetBtn">취소</button>
+        </div>
+    </form>
+</th:block>
 </html>
