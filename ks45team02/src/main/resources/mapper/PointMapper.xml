@@ -52,7 +52,8 @@
 		UPDATE 
 			point_minus 
 		SET 
-			point_minus_group = #{pointMinusGroup}
+			 point_minus_group = #{pointMinusGroup}
+			,point_minus_reason = '상품 구매 시 사용'
 		WHERE 
 			user_id = #{userId}
 			AND 
@@ -60,7 +61,7 @@
 			AND 
 			point_minus_date = #{pointMinusDate}
 			AND 
-			point_minus_reason = '상품 구매 시 사용';
+			point_minus_reason = '상품 주문(결제 전)'
 	</update>
 	
 	<update id="modifyPointMinus" parameterType="PointMinus">
