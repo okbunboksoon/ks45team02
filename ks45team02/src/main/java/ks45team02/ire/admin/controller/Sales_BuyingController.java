@@ -1,24 +1,19 @@
 package ks45team02.ire.admin.controller;
 
-import java.util.List;
-
+import ks45team02.ire.admin.dto.GoodsBuying;
+import ks45team02.ire.admin.dto.GoodsBuyingPayment;
+import ks45team02.ire.admin.dto.SalesBuying;
+import ks45team02.ire.admin.mapper.Sales_BuyingMapper;
+import ks45team02.ire.admin.service.BusinessOrderService;
+import ks45team02.ire.admin.service.GoodsBuyingPaymentService;
+import ks45team02.ire.admin.service.Sales_BuyingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
-import ks45team02.ire.admin.dto.BusinessOrder;
-import ks45team02.ire.admin.dto.GoodsBuying;
-import ks45team02.ire.admin.dto.GoodsBuyingPayment;
-import ks45team02.ire.admin.service.BusinessOrderService;
-import ks45team02.ire.admin.service.GoodsBuyingPaymentService;
-import ks45team02.ire.admin.service.Sales_BuyingService;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,17 +21,19 @@ public class Sales_BuyingController {
 
 	private static final Logger log = LoggerFactory.getLogger(Sales_BuyingController.class);
 
-	private Sales_BuyingService sales_BuyingService;
-	private BusinessOrderService businessOrderService;
+	private final Sales_BuyingService sales_BuyingService;
+	private final BusinessOrderService businessOrderService;
 	private final GoodsBuyingPaymentService goodsBuyingPaymentService;
 
-	public Sales_BuyingController(Sales_BuyingService sales_BuyingService, BusinessOrderService businessOrderService
-								 ,GoodsBuyingPaymentService goodsBuyingPaymentService) {
-		
-		this.sales_BuyingService = sales_BuyingService;
+	private final Sales_BuyingMapper sales_buyingMapper;
+
+	public Sales_BuyingController(Sales_BuyingService sales_buyingService, BusinessOrderService businessOrderService, GoodsBuyingPaymentService goodsBuyingPaymentService, Sales_BuyingMapper sales_buyingMapper) {
+		sales_BuyingService = sales_buyingService;
 		this.businessOrderService = businessOrderService;
 		this.goodsBuyingPaymentService = goodsBuyingPaymentService;
+		this.sales_buyingMapper = sales_buyingMapper;
 	}
+
 
 	/**
 	 * 상품 매입 조회
@@ -117,11 +114,17 @@ public class Sales_BuyingController {
 	@GetMapping("/listGoodsSales")
 	public String listGoodsSales() {
 
+
 		return "admin/sales_buying/GoodsSalesList";
 	}
 
 	@GetMapping("/goodsSalesBuyingGroup")
-	public String goodsSalesBuyingGroup() {
+	public String goodsSalesBuyingGroup(Model model) {
+		// 매입매출목록(일단위)
+		List<SalesBuying> goodsSalesBuyingGroup = sales_buyingMapper.goodsSalesBuyingGroup();
+
+		model.addAttribute("title", "매입매출목록");
+		model.addAttribute("goodsSalesBuyingGroup", goodsSalesBuyingGroup);
 
 		return "admin/sales_buying/GoodsSalesBuyingGroup";
 	}

@@ -1,15 +1,21 @@
 package ks45team02.ire.admin.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import ks45team02.ire.admin.dto.GoodsBuying;
 import ks45team02.ire.admin.dto.GoodsBuyingPayment;
+import ks45team02.ire.admin.dto.SalesBuying;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface Sales_BuyingMapper {
 
+
+	/**일단위 매입매출 조회
+	 *
+	 * @return
+	 */
+	List<SalesBuying> goodsSalesBuyingGroup();
 
 	/**
 	 * 상품 매입 전체 조회
