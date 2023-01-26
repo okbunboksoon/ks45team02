@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -97,15 +98,17 @@ public class Sales_BuyingController {
 	}
 	/**
 	 * 결제금액 계산
+	 *
 	 * @param paymentValue, goodsBuyPaymentCodeValue
 	 * @return result
 	 */
 	@GetMapping("/modifyPaymentCheck")
 	@ResponseBody
-	public int modifyPayment(@RequestParam(value = "paymentValue")int paymentValue,
-							 @RequestParam(value = "goodsBuyPaymentCodeValue")String goodsBuyPaymentCodeValue) {
+	public HashMap<String, Integer> modifyPayment(@RequestParam(value = "paymentValue")int paymentValue,
+												  @RequestParam(value = "goodsBuyPaymentCodeValue")String goodsBuyPaymentCodeValue) {
 
-		int result = sales_BuyingService.getPayment(paymentValue, goodsBuyPaymentCodeValue);
+		HashMap<String, Integer> result = sales_BuyingService.getPayment(paymentValue, goodsBuyPaymentCodeValue);
+
 		log.info("result: {}", result);	
 		
 		return result;
