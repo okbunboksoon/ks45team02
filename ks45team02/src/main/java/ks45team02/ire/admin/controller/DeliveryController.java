@@ -30,7 +30,11 @@ public class DeliveryController {
 		
 		this.deliveryService = deliveryService;
 	}
-	
+	/**
+	 * 배송목록 조회
+	 * @param model, msg
+	 * @return listDelivey
+	 */
 	@GetMapping("/listDelivery")
 	public String listDelivery(Model model,
 							  @RequestParam(value="msg", required=false) String msg) {
@@ -49,7 +53,7 @@ public class DeliveryController {
 	}
 	
 	/**
-	 * 배송 추가
+	 * 배송 상태변경
 	 * @param param, reAttr
 	 * @return reResult
 	 */

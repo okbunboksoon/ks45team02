@@ -1,5 +1,6 @@
 package ks45team02.ire.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -122,23 +123,38 @@ public class Sales_BuyingService {
 	 * 외상매입금 잔액 계산
 	 * @param paymentValue
 	 * @param goods_buy_payment_code, paymentValue
-	 * @return returnResult
+	 * @return reResult
 	 */
-	public int getPayment(int paymentValue, String goods_buy_payment_code) {
-
+	public HashMap<String, Integer> getPayment(int paymentValue, String goods_buy_payment_code) {
+		HashMap<String, Integer> reResult = new HashMap<String, Integer>(); 
+		
 		int returnResult = 0;
 		
 		GoodsBuyingPayment payment = sales_BuyingMapper.getPayment(goods_buy_payment_code);
+		
 		int resultTotal = payment.getBuy_total();
-		int resultAccountsPayable = payment.getAccounts_payable();
-		int Sumresult = paymentValue + resultAccountsPayable;
+		int paymentDB = payment.getPayment();
+		int AccountsDB = payment.getAccounts_payable();
+		int Sumresult = paymentValue + paymentDB;
 		int result = resultTotal - Sumresult;
-		if(result < 0) {
-			returnResult = 0;
-		}else {
+		int TotalAccounts = resultTotal - AccountsDB;
+		
+		if(result == 0) {
+			reResult.put("value", result);
+			reResult.put("result", 10);
 			returnResult = result;
-		}	
-		return returnResult;
+		}else if(result < 0){
+			result = 0;
+			reResult.put("value", result);
+			reResult.put("payment", AccountsDB);
+			reResult.put("result", 0);
+		}else {
+			reResult.put("value", result);
+			reResult.put("result", 10);
+		}
+		
+		log.info(" reResult :{}", reResult);
+		return reResult;
 	}
 	
 	/**

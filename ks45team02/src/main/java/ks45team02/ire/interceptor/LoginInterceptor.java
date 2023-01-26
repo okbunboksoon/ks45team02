@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object handler)throws Exception{
         HttpSession session=request.getSession();
-        LoginInfo loginInfo= (LoginInfo) session.getAttribute("S_USER_INFO");
+        LoginInfo loginInfo= (LoginInfo) session.getAttribute("S_MEMBER_INFO");
         Cookie cookie= WebUtils.getCookie(request,"loginKeepId");
         if(cookie !=null && loginInfo==null){
             String loginKeepId=cookie.getValue();
@@ -31,7 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             if(user != null){
                 loginInfo=new LoginInfo(loginKeepId,
                         user.getUserName());
-                session.setAttribute("S_USER_INFO",loginInfo);
+                session.setAttribute("S_MEMBER_INFO",loginInfo);
             }
         }
         if(loginInfo==null){

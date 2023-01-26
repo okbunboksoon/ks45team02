@@ -30,6 +30,7 @@ public class ContractController {
 		this.userService = userService;
 	}
 
+	//계약추가
 	@GetMapping("/addContract")
 	public String addContract(Model model) {
 		model.addAttribute("title","addContract");
@@ -38,18 +39,13 @@ public class ContractController {
 		model.addAttribute("listBusiness",listBusiness);
 		return "admin/contract/contractAdd";
 	}
+	//계약추가 처리
 	@PostMapping("/addContract")
 	public String addContract(Contract contract){
 		contractService.addContract(contract);
 		return "redirect:/admin/listContract";
 	}
-	
-	@GetMapping("/deleteContract")
-	public String deleteContract() {
-		
-		return "admin/contract/contractDelete";
-	}
-	
+	//계약조회페이지
 	@GetMapping("/listContract")
 	public String listContract(Model model) {
 		// 계약조회
@@ -59,8 +55,7 @@ public class ContractController {
 		model.addAttribute("contractList",contractList);
 		return "admin/contract/contractList";
 	}
-	
-	
+	//계약수정페이지
 	@GetMapping("/modifyContract")
 	public String modifyContract(Model model,
 								 @RequestParam(value = "contractCode",required = false)String contractCode) {
@@ -70,6 +65,7 @@ public class ContractController {
 		model.addAttribute("contractInfo",contractInfo);
 		return "admin/contract/contractModify";
 	}
+	//계약수정 처리
 	@PostMapping("/modifyContract")
 	public String modifyContract(Contract contract){
 		contractService.modifyContract(contract);

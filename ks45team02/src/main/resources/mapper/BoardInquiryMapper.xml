@@ -13,6 +13,19 @@
     <result property="inquiryReRef" column="inquiry_re_ref"/>
 </resultMap>
 
+    <select id="answerAdminList" resultMap="BoardInquiryResultMap">
+        SELECT
+            inquiry_code,
+            user_id,
+            inquiry_cate,
+            inquiry_title,
+            inquiry_contents,
+            inquiry_reg_date,
+            inquiry_re_ref
+        FROM
+            inquiry AS i
+        WHERE i.inquiry_cate='답변';
+    </select>
     <insert id="addInquiry" parameterType="BoardInquiry">
         INSERT INTO inquiry
         (inquiry_code,
@@ -119,7 +132,6 @@
         WHERE u.user_id=#{userId}
     </select>
     <select id="answerList" resultMap="BoardInquiryResultMap">
-        <!--이건 수정해야한다 진심 ㄹㅇ-->
         SELECT
             inquiry_code,
             i.user_id,
