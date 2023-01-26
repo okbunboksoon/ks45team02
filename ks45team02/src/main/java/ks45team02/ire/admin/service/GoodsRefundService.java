@@ -14,9 +14,11 @@ public class GoodsRefundService {
         this.goodsRefundMapper = goodsRefundMapper;
     }
     public int addGoodsRefund(GoodsRefund goodsRefund){
+        //환불등록
         return goodsRefundMapper.addGoodsRefund(goodsRefund);
     }
     public int modifyRefund(GoodsRefund goodsRefund){
+        //환불수정
         return goodsRefundMapper.modifyRefund(goodsRefund);
     }
 }

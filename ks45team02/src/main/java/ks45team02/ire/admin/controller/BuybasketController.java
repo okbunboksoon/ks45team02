@@ -61,11 +61,6 @@ public class BuybasketController {
 		
 		return "admin/buybasket/buybasketAdd";
 	}
-	@GetMapping("/deleteBuyBasket")
-	public String deleteBuyBasket(Model model) {
-		
-		return "admin/buybasket/buybasketDelete";
-	}
 	
 	//장바구니 구매 조회
 	@GetMapping("/listBuyBasket")

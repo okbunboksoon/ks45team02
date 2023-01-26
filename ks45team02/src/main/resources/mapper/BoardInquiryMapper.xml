@@ -13,7 +13,22 @@
     <result property="inquiryReRef" column="inquiry_re_ref"/>
 </resultMap>
 
+    <select id="answerAdminList" resultMap="BoardInquiryResultMap">
+        <!-- 1:1문의 답변조회 -->
+        SELECT
+            inquiry_code,
+            user_id,
+            inquiry_cate,
+            inquiry_title,
+            inquiry_contents,
+            inquiry_reg_date,
+            inquiry_re_ref
+        FROM
+            inquiry AS i
+        WHERE i.inquiry_cate='답변';
+    </select>
     <insert id="addInquiry" parameterType="BoardInquiry">
+        <!--1:1문의 추가-->
         INSERT INTO inquiry
         (inquiry_code,
          user_id,
@@ -35,6 +50,7 @@
 
     </insert>
     <insert id="answer" parameterType="BoardInquiry">
+        <!--1:1문의 답변-->
         INSERT INTO inquiry
         (inquiry_code,
         user_id,
@@ -66,6 +82,7 @@
             inquiry
     </select>
     <select id="getInquiryInfo" resultMap="BoardInquiryResultMap">
+        <!--특정 문의 조회-->
         SELECT
             inquiry_code,
             user_id,
@@ -79,6 +96,7 @@
         WHERE inquiry_code=#{inquiryCode};
     </select>
     <select id="contentsInquiry" resultMap="BoardInquiryResultMap">
+        <!--1:1문의 상세페이지-->
         SELECT
             inquiry_code,
             user_id,
@@ -92,6 +110,7 @@
         WHERE inquiry_code=#{inquiryCode}
     </select>
     <update id="modifyInquiry" parameterType="BoardInquiry">
+        <!--1:1문의 수정-->
         UPDATE inquiry
         SET
         inquiry_code=#{inquiryCode},
@@ -102,6 +121,7 @@
         WHERE inquiry_code=#{inquiryCode}
     </update>
     <select id="userInquiryList" resultMap="BoardInquiryResultMap">
+        <!--1:1문의 유저별 조회-->
         SELECT
             inquiry_code,
             i.user_id,
@@ -118,23 +138,5 @@
             u.user_id=i.user_id
         WHERE u.user_id=#{userId}
     </select>
-    <select id="answerList" resultMap="BoardInquiryResultMap">
-        <!--이건 수정해야한다 진심 ㄹㅇ-->
-        SELECT
-            inquiry_code,
-            i.user_id,
-            inquiry_cate,
-            inquiry_title,
-            inquiry_contents,
-            inquiry_reg_date,
-            inquiry_re_ref
 
-        FROM
-            inquiry AS i
-        WHERE inquiry_re_ref=(  SELECT
-                                    inquiry_re_ref
-                                FROM
-                                    inquiry
-                                WHERE inquiry_code=#{inquiryCode} AND inquiry_cate='답변')
-    </select>
 </mapper>

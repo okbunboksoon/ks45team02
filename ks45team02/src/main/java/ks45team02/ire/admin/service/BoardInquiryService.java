@@ -25,16 +25,20 @@ public class BoardInquiryService {
         return boardInquiryList;
     }
     public int addInquiry(BoardInquiry boardInquiry){
+        //1:1문의 등록
         return boardInquiryMapper.addInquiry(boardInquiry);
     }
     public List<BoardInquiry>ContentInquiry(String inquiryCode){
+        //1:1문의 상세 페이지
         List<BoardInquiry>contentsInquiry=boardInquiryMapper.contentsInquiry(inquiryCode);
         return contentsInquiry;
     }
     public int modifyInquiry(BoardInquiry boardInquiry){
+        //1:1문의 수정
         return boardInquiryMapper.modifyInquiry(boardInquiry);
     }
     public int answer(BoardInquiry boardInquiry){
+        //1:1문의 답변
         return boardInquiryMapper.answer(boardInquiry);
     }
 

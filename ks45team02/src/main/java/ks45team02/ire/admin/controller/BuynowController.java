@@ -57,11 +57,6 @@ public class BuynowController {
 		
 		return "admin/buynow/buynowAdd";
 	}
-	@GetMapping("/deleteBuyNow")
-	public String deleteBuyNow(Model model) {
-		
-		return "admin/buynow/buynowDelete";
-	}
 	
 	//즉시구매 조회 페이지
 	@GetMapping("/listBuyNow")

@@ -126,6 +126,10 @@ public class EmissionStatisticsService {
 		return rawMaterialsEmissionStatisticsMonth;
 	}
 	
+	/**
+	 * 기부받은 의류별 CO2 년별 통계
+	 * @param rawMaterialsEmissionStatisticsMonth
+	 */
 	public void addRawMaterialsEmissionStatisticsYear(RawMaterialsEmissionStatisticsMonth rawMaterialsEmissionStatisticsMonth) {
 		RawMaterialsEmissionStatisticsYear rawMaterialsEmissionStatisticsYear = new RawMaterialsEmissionStatisticsYear();
 		String yearCode = rawMaterialsEmissionStatisticsMonth.getRaw_materials_yeargroup();

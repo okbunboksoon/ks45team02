@@ -43,6 +43,33 @@
     	<result property="payment_account_code" column="payment_account_code"/>
     	<result property="goods_buy_payment_day" column="goods_buy_payment_day"/>
     </resultMap>
+	<resultMap id="SalesBuyingResultMap" type="SalesBuying" >
+		<id property="salesBuyingDayGroupCode" 			column="sales_buying_daygroup"/>
+		<result property="salesBuyingDayCategory"		column="sales_buying_day_category"/>
+		<result property="productOrderPointGroup"		column="product_order_point_group"/>
+		<result property="incomingCode"					column="incoming_code"/>
+		<result property="regDate"						column="reg_date"/>
+		<result property="goodsCode"					column="goodsCode"/>
+		<result property="userId"						column="user_id"/>
+		<result property="finalPaymentAmount" 			column="final_payment_amount"/>
+		<result property="buyTotal"						column="buy_total"/>
+		<result property="monthAndYear"					column="month&amp;year"/>
+		<result property="salesBuyingMonthGroupCode" 	column="sales_buying_monthgroup"/>
+		<result property="salesBuyingYearGroupCode" 	column="sales_buying_yeargroup"/>
+		<result property="year" 	column="year"/>
+		<result property="jan" 	column="Jan"/>
+		<result property="feb" 	column="Feb"/>
+		<result property="mar" 	column="Mar"/>
+		<result property="apr" 	column="Apr"/>
+		<result property="may" 	column="May"/>
+		<result property="jun" 	column="Jun"/>
+		<result property="jul" 	column="Jul"/>
+		<result property="aug" 	column="Aug"/>
+		<result property="sept" 	column="Sept"/>
+		<result property="oct" 	column="Oct"/>
+		<result property="nov" 	column="Nov"/>
+		<result property="dec" 	column="Dec"/>
+	</resultMap>
     
 	<!-- 상품 매입 리스트  -->
 	<select id="getListGoodsBuying" resultMap="GoodsBuyingResultMap">
@@ -156,6 +183,7 @@
 		SELECT
 			 p.buy_total
 			,p.accounts_payable
+			,p.payment
 		FROM
 			goods_buy_payment	AS p
 		WHERE
@@ -174,37 +202,26 @@
 	
 	<!-- 상품매입결제 수정 -->
 	<update id="modifyGoodsBuyingPayment" parameterType="GoodsBuyingPayment">
-		UPDATE goods_buy_payment
-			<trim prefix="SET" prefixOverrides=",">
-				<if test="business_code != null and business_code != '' ">
-				,business_code= #{business_code}
-				</if>
-				<if test="business_name != null and business_name != '' ">
-				,business_name= #{business_name}
-				</if>
-				<if test="buy_total != null and buy_total != '' ">
-				,buy_total= ${buy_total}	
-				</if>
-				<if test="payment != null and payment != '' ">
-				,payment= ${payment}
-				</if>
-				<if test="accounts_payable != null and accounts_payable != '' ">
-				,accounts_payable= ${accounts_payable}
-				</if>
-				<if test="payment_account_type != null and payment_account_type != '' ">
-				,payment_account_type= #{payment_account_type}
-				</if>
-				<if test="payment_bank != null and payment_bank != '' ">
-				,payment_bank= #{payment_bank}
-				</if>
-				<if test="payment_account_code != null and payment_account_code != '' ">
-				,payment_account_code= #{payment_account_code}
-				</if>
-				<if test="goods_buy_payment_day != null and goods_buy_payment_day != '' ">
-				,goods_buy_payment_day=NOW()
-				</if>
-			</trim>
+		 UPDATE goods_buy_payment
+		 SET 
+		 	 business_code= #{business_code}
+			,business_name= #{business_name}
+			,buy_total= ${buy_total}
+			,payment= ${payment}
+			,accounts_payable= ${accounts_payable}
+			,payment_account_type= #{payment_account_type}
+			,payment_bank= #{payment_bank}
+			,payment_account_code= #{payment_account_code}
+			,goods_buy_payment_day=NOW() 
 		WHERE 
-			goods_buy_payment_code=#{goods_buy_payment_code}
+			goods_buy_payment_code= #{goods_buy_payment_code}
 	</update>
+	<select id="goodsSalesBuyingGroup" resultMap="SalesBuyingResultMap">
+		<!--일단위 매입매출 조회 -->
+		SELECT
+			sbd.sales_buying_daygroup, sbd.sales_buying_day_category, sbd.product_order_point_group, sbd.incoming_code, sbd.reg_date
+			, sbd.goods_code, sbd.user_id, sbd.final_payment_amount, sbd.buy_total, sbd.`month&amp;year`, sbd.sales_buying_monthgroup
+		FROM
+			sales_buying_daygroup AS sbd
+	</select>
     </mapper>

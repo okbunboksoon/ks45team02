@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ks45team02.ire.admin.mapper.VatMapper">
+		<resultMap id="VatResultMap" type="Vat">
+	        <id property="vat_calculation_quarter"				column="vat_calculation_quarter" />
+	        <result property="sales_buying_monthgroup"			column="sales_buying_monthgroup" />
+	        <result property="final_payment_amount"			column="final_payment_amount" />
+	        <result property="buy_total"			column="buy_total" />
+	        <result property="vat_calculation"			column="vat_calculation" />
+	        <result property="pay_vat"			column="pay_vat" />
+        </resultMap>
+        
+        
+        <select id="getListVat" resultMap="VatResultMap">
+        SELECT 
+			vat.vat_calculation_quarter
+			, vat.sales_buying_monthgroup
+			, vat.final_payment_amount
+			, vat.buy_total
+			, vat.vat_calculation
+			, vat.pay_vat
+	
+		FROM 
+			vat_calculation AS vat
+        </select>
+</mapper>

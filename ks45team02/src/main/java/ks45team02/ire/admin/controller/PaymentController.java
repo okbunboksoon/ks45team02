@@ -112,12 +112,7 @@ public class PaymentController {
 		
 		return "admin/paymentComplete/paymentAdd";
 	}
-	@GetMapping("/deletePayment")
-	public String deletePayment(Model model) {
-		
-		return "admin/paymentComplete/paymentDelete";
-	}
-	
+
 	//결제내역 조회 페이지
 	@GetMapping("/listPayment")
 	public String listPayment(Model model

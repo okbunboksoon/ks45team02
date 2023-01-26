@@ -38,6 +38,7 @@
 
                         <table id="listBoardInquiry" class="table" cellspacing="0" width="1000"  style="margin-left: auto; margin-right: auto;">
                             <thead>
+
                             <tr>
                                 <th class="userId">회원아이디</th>
                                 <th class="inquiryCate">구분</th>
@@ -46,10 +47,14 @@
                                 <th class="inquiryReRef">게시글 그룹번호</th>
                                 <th>
                                     <button type="button" class="btn btn-info">
-                                        <a style ="color:white" th:href="@{/admin/answerBoardInquiry}">등록</a>
+                                        <a style ="color:white" th:href="@{/addBoardInquiry}">등록</a>
+                                    </button>
+                                    <button type="button" class="btn btn-info">
+                                        <a style ="color:white" th:href="@{/listAnswerBoardInquiry}">답변보기</a>
                                     </button>
                                 </th>
                             </tr>
+
                             </thead>
 
                             <tbody>
@@ -65,13 +70,6 @@
                             </tr>
                             <tr th:unless="${not #lists.isEmpty(boardInquiryList)}">
                                 <td colspan="5">등록된 1:1문의가 없습니다.</td>
-                            </tr>
-                            <tr>
-                                <th class="userId">답변아이디</th>
-                                <th class="inquiryCate">구분</th>
-                                <th class="inquiryTitle">제목</th>
-                                <th class="inquiryRegDate">등록날짜</th>
-                                <th class="inquiryReRef">게시글 그룹번호</th>
                             </tr>
                             </tbody>
 

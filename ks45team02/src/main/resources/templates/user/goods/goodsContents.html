@@ -23,7 +23,7 @@
 	<th:block layout:fragment="customContents">
 		<!-- Product Detail -->
 	<section class="sec-product-detail bg0 p-t-65 p-b-60">
-		<form th:action="@{/}" method="post">
+		<form th:action="@{/addBuyNow}" method="get">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-lg-7 p-b-30">
@@ -113,6 +113,13 @@
 													class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 												Cart
 											</button>
+											<div class="wrap-num-product flex-w m-r-20 m-tb-10" style="visibility: hidden">
+	
+											</div>
+											<button type="button" id="addBuynowBtn" 
+													class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+												Buynow
+											</button>
 										</div>
 									</div>	
 								</div>
@@ -188,6 +195,8 @@
 		<script type="text/javascript" th:inline="javascript">
 
 			const $addBasketBtn = document.getElementById('addBasketBtn');
+			const $addBuynowBtn = document.getElementById('addBuynowBtn');
+			
 			const $reviewTab = document.getElementById('reviewTab');
 			const $goodsReviewTab = document.getElementById('goodsReviewTab');
 			const $goodsReviewDiv = document.getElementById('goodsReviewDiv');
@@ -205,6 +214,10 @@
 			$addBasketBtn.addEventListener('click', function(){
 				$addBasketBtn.setAttribute("type", "submit")
 				updateBasketFormFn(this.form);
+			})
+			
+			$addBuynowBtn.addEventListener('click', function(){
+				$addBuynowBtn.setAttribute("type", "submit")
 			})
 			
 			

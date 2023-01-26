@@ -1,10 +1,126 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-buynowAdd
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
+
+	<head>
+		<style>
+			a {
+				color:#7a8ad9;
+			}
+		</style>
+	</head>
+
+	<th:block layout:fragment="customContents">
+		<form th:action="@{/addBuyNow}" method="post" >
+		<div class="row">
+			<div class="col-md-8 col-lg-9 p-b-80" th:object="${buynowInfo}">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-userTable">
+							<br>
+							<br>
+							<div class="pageTitle">
+								<h1>Order</h1>
+							</div>
+							<br>
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1">Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Amount</th>
+									<th class="column-5">Total</th>
+								</tr>
+								<tr class="table_row">
+									<td style="display:none;">
+										<input type="text" name="goodsCode" th:value="*{goodsCode}"> 
+										<input type="text" name="buynowAmount" th:value="*{buynowAmount}"> 
+									</td>
+									<td class="column-1" colspan="2">
+										<a th:href="@{/goodsContents(goodsCode=*{goodsCode})}" th:text="*{goodsName}"></a>
+									</td>
+									<td class="column-3" id="goodsPrice" th:text="*{goodsPrice}"></td>
+									<td class="column-4" th:text="*{buynowAmount}">
+									</td>
+									<td class="column-5" id="expectedAmount" th:text="*{expectedAmount}"></td>
+								</tr>
+							</table>
+						</div>
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+							<div>
+								<span class="mtext-101 cl2">Expect : </span>
+								<span class="mtext-110 cl2" id="expectedAmountSpan" th:text="*{expectedAmount}"></span>
+								<input type="text" name="expectedAmount" id="expectedAmount" th:value="*{expectedAmount}" style="display:none">
+							</div>
+
+						</div>
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+							<div>
+								<span class="mtext-101 cl2">포인트 사용</span>
+							</div>
+							<div>
+								<input type="number" th:placeholder="|사용 가능 포인트 : ${userPointState}|" id="usePoint" name="usePoint">
+							</div>
+						</div>
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+							<div>
+								<span class="mtext-101 cl2">Total : </span>
+								<span class="mtext-110 cl2" id="finalPaymentAmountSpan" th:text="*{expectedAmount}"></span>
+								<input type="text" name="finalPaymentAmount" id="finalPaymentAmount" th:value="*{expectedAmount}" style="display:none">
+							</div>
+						</div>
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5"></div>
+							<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								 id="buynowBtn">BUY
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+		
+			let $expectedAmountSpan = document.getElementById('expectedAmountSpan');
+			let $expectedAmount = document.getElementById('expectedAmount');
+			let $finalPaymentAmountSpan = document.getElementById('finalPaymentAmountSpan');
+			let $finalPaymentAmount = document.getElementById('finalPaymentAmount');
+			let $usePoint = document.getElementById('usePoint');
+			
+			let $buynowBtn = document.getElementById('buynowBtn');
+			
+			$usePoint.addEventListener('input', function(){
+				let userPointState = [[${userPointState}]];
+				if($usePoint.value > userPointState){
+					alert('보유 포인트를 초과하였습니다.');
+					$usePoint.value = userPointState;
+				}
+				let finalPaymentAmount = $expectedAmountSpan.innerText - $usePoint.value;
+				if(finalPaymentAmount < 0){
+					$usePoint.value = finalPaymentAmount;
+					$finalPaymentAmountSpan.innerText = 0;
+					$finalPaymentAmount.value= 0;
+					return false;
+				}
+				$finalPaymentAmountSpan.innerText = finalPaymentAmount;
+				$finalPaymentAmount.value= finalPaymentAmount;
+			})
+			
+			$buynowBtn.addEventListener('click', function(){
+				if($usePoint.value == '' || typeof $usePoint.value == 'undefined' || $usePoint.value == null){
+					$usePoint.value = 0;
+				}
+				$buynowBtn.setAttribute("type", "submit")
+			})
+		</script>
+
+	</th:block>
 </html>
