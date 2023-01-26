@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class UserExchange_RefundController {
 
-	
 	@GetMapping("/searchExchange_Refund")
 	public String searchExchange_Refund() {
 		
@@ -27,11 +26,7 @@ public class UserExchange_RefundController {
 		
 		return "user/exchange_refund/exchangeModify";
 	}
-	@GetMapping("/requestExchange")
-	public String requestExchange() {
-		
-		return "user/exchange_refund/exchangeRequest";
-	}
+
 
 	@GetMapping("/listRefundStandard")
 	public String listRefundStandard() {
@@ -44,10 +39,19 @@ public class UserExchange_RefundController {
 		
 		return "user/exchange_refund/refundModify";
 	}
+	//환불 요청
 	@GetMapping("/requestRefund")
-	public String requestRefund() {
-		
+	public String requestRefund(Model model) {
+		model.addAttribute("pageTitle","환불 요청");
 		return "user/exchange_refund/refundRequest";
 	}
+	//교환 요청
+	@GetMapping("/requestExchange")
+	public String requestExchange(Model model) {
+		model.addAttribute("pageTitle","교환 요청");
+
+		return "user/exchange_refund/exchangeRequest";
+	}
+
 }
 

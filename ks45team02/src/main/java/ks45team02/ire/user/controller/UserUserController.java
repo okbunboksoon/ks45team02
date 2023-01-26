@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -34,10 +31,16 @@ public class UserUserController {
 
 	//로그아웃처리
 	@GetMapping("/logout")
-	public String logout(HttpSession session){
+	public String logout(HttpSession session, HttpServletResponse response, @CookieValue(value = "loginKeepId", required = false) Cookie cookie){
 		session.invalidate();
+		if(cookie != null) {
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+		}
+
 		return "redirect:/";
 	}
+	//마이페이지
 	@GetMapping("/myPage")
 	public String myPage(Model model) {
 
