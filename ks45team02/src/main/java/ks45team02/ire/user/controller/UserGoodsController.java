@@ -70,6 +70,11 @@ public class UserGoodsController {
 		return "user/goods/goodsContents";
 	}
 	
+	/**
+	 * 상품 카테고리별 목록
+	 * @param model, item
+	 * @return listGoods
+	 */
 	@GetMapping("/listGoodsItem")
 	public String listGoodsItem(Model model, @RequestParam(value = "item") String item ) {
 		log.info("item : {}", item);

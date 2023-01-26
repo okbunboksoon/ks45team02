@@ -37,7 +37,8 @@
 				$('#payment').change(function(){
 					let paymentValue = parseInt($('#payment').val());
 					let goodsBuyPaymentCodeValue = $('#goods_buy_payment_code').val();
-					
+					console.log(paymentValue)
+					console.log(goodsBuyPaymentCodeValue)
 					let request = $.ajax({
 						  url: '/admin/modifyPaymentCheck',
 						  method: 'GET',
@@ -47,15 +48,19 @@
 					
 					request.done(function( result ) {
 						console.log(result, 'result 확인');
-						let accountsPayable = result;
-						if(result == 0){
+						let value = result.value;
+						let payment = result.payment;
+						let result1 = result.result;
+						if(result1 == 10){
+							$('#accounts_payable').val(value);;
+						}else if(result1 == 0){
 							alert('결제금액보다 큽니다.');
-						}else{
-							$('#accounts_payable').attr("value", result);
+							$('#payment').val(payment);
+							$('#accounts_payable').val(value);
 						};
 					});
 					request.fail(function( jqXHR, textStatus ) {
-					  	  console.log('Request failed: ' + textStatus );
+					  	console.log('Request failed: ' + textStatus );
 					  	alert('잘못된 금액 입니다.');
 					});
 				});
@@ -112,7 +117,7 @@
 							<div class="item form-group">
 								<label for="payment" class="col-form-label col-md-3 col-sm-3 label-align">지급액</label>
 								<div class="col-md-6 col-sm-6 ">
-									<input type="text" id="payment" name="payment"
+									<input type="text" id="payment" name="payment" value="0";
 							  		       placeholder="금액를 입력해주세요." class="form-control"/>
 								</div>
 							</div>
