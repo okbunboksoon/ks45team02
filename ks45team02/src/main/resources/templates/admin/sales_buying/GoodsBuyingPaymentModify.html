@@ -37,7 +37,8 @@
 				$('#payment').change(function(){
 					let paymentValue = parseInt($('#payment').val());
 					let goodsBuyPaymentCodeValue = $('#goods_buy_payment_code').val();
-					
+					console.log(paymentValue)
+					console.log(goodsBuyPaymentCodeValue)
 					let request = $.ajax({
 						  url: '/admin/modifyPaymentCheck',
 						  method: 'GET',
@@ -59,7 +60,7 @@
 						};
 					});
 					request.fail(function( jqXHR, textStatus ) {
-					  	  console.log('Request failed: ' + textStatus );
+					  	console.log('Request failed: ' + textStatus );
 					  	alert('잘못된 금액 입니다.');
 					});
 				});
