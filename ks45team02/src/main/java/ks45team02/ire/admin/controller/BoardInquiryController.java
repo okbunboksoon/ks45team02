@@ -39,19 +39,16 @@ public class BoardInquiryController {
 		return "admin/board/boardAddInquiry";
 	}
 	@PostMapping("/addBoardInquiry")
+	//1:1문의 등록처리
 	public String addBoardInquiry(BoardInquiry boardInquiry){
 		boardInquiryService.addInquiry(boardInquiry);
 		return "redirect:/admin/listBoardInquiry";
 	}
 	
-	@GetMapping("/deleteBoardInquiry")
-	public String deleteBoardInquiry() {
-		
-		return "admin/board/boardDeleteInquiry";
-	}
 	@GetMapping("/answerBoardInquiry")
 	public String answerBoardInquiry(Model model,
 									 @RequestParam(value = "inquiryCode",required = false)String inquiryCode) {
+		//1:1문의 답변
 		model.addAttribute("pageTitle","1:1문의 답변");
 		List<User> userList=userMapper.listUser();
 		model.addAttribute("userList",userList);
@@ -61,6 +58,7 @@ public class BoardInquiryController {
 	}
 	@PostMapping("/answerBoardInquiry")
 	public String answerBoardInquiry(BoardInquiry boardInquiry){
+		//1:1문의 답변 처리
 		boardInquiryService.answer(boardInquiry);
 		return "redirect:/admin/listBoardInquiry";
 	}
@@ -75,7 +73,7 @@ public class BoardInquiryController {
 	@GetMapping("/ContentsInquiry")
 	public String ContentsNotice(@RequestParam(value = "inquiryCode") String inquiryCode
 								, Model model) {
-
+		//1:1문의 상세
 		List<BoardInquiry> contentsInquiry =boardInquiryService.ContentInquiry(inquiryCode);
 		model.addAttribute("title", "1:1문의 상세페이지");
 		model.addAttribute("pageTitle", "상세페이지");
@@ -84,14 +82,18 @@ public class BoardInquiryController {
 	}
 
 	@GetMapping("/listAnswerBoardInquiry")
-	public String listAnswerBoardInquiry() {
-		
+	public String listAnswerBoardInquiry(Model model) {
+		//1:1문의 답변 조회
+		List<BoardInquiry>answerList=boardInquiryMapper.answerAdminList();
+		model.addAttribute("pageTitle","1:1문의 답변 페이지");
+		model.addAttribute("answerList",answerList);
 		return "admin/board/boardListInquiryAnswer";
 	}
 
 	@GetMapping("/modifyBoardInquiry")
 	public String modifyBoardInquiry(Model model,
 									 @RequestParam(value = "inquiryCode",required = false)String InquiryCode) {
+		//1:1문의 수정
 		model.addAttribute("title","modifyBoardInquiry");
 		model.addAttribute("pageTitle","1:1문의 수정");
 		BoardInquiry InquiryInfo= boardInquiryMapper.getInquiryInfo(InquiryCode);
@@ -100,6 +102,7 @@ public class BoardInquiryController {
 	}
 	@PostMapping("/modifyBoardInquiry")
 	public String modifyBoardInquiry(BoardInquiry boardInquiry){
+		//1:1문의 수정처리
 		boardInquiryService.modifyInquiry(boardInquiry);
 		return "redirect:/admin/listBoardInquiry";
 	}

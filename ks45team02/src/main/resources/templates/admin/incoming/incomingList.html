@@ -36,7 +36,6 @@
                                     <th>전체 업사이클링 상품별 이산화탄소 총배출량(kg) </th>
                                     <th>총 탄소 배출량</th>
                                     <th>수정</th>
-                                    <th>삭제</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,9 +49,6 @@
                                     <td th:text ="${i.totalCo2}"/></td>
                                     <td>
                                         <a th:href="@{/admin/modifyIncoming(incomingCode=${i.incomingCode})}">수정</a>
-                                    </td>
-                                    <td>
-                                        <a th:href ="@{/admin/modifyIncoming/{incomingCode}(incomingCode=${i.incomingCode})}">삭제</a>
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(incomingList)}">

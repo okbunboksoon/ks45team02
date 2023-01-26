@@ -44,11 +44,6 @@ public class BusinessController {
 		return "redirect:/admin/listBusiness";
 	}
 	
-	@GetMapping("/deleteBusiness")
-	public String deleteBusiness() {
-		
-		return "admin/business/businessDelete";
-	}
 	//거래처 조회
 	@GetMapping("/listBusiness")
 	public String listBusiness(Model model) {

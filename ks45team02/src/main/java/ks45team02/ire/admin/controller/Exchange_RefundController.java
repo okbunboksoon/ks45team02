@@ -48,6 +48,7 @@ public class Exchange_RefundController {
 	}
 
 
+	//교환 승인
 	@GetMapping("/approvalExchange")
 	public String approvalExchange(Model model) {
 		model.addAttribute("title","approvalExchange_Refund");
@@ -57,6 +58,7 @@ public class Exchange_RefundController {
 		log.info("goodsExchangeList:{}",goodsExchangeList);
 		return "admin/exchange_refund/exchangeApproval";
 	}
+	//환불 승인
 	@GetMapping("/approvalRefund")
 	public String approvalRefund(Model model) {
 		model.addAttribute("title","approvalRefund");
@@ -67,18 +69,20 @@ public class Exchange_RefundController {
 	}
 
 
-	
+	//교환 기준 등록페이지
 	@GetMapping("/addExchangeStandard")
 	public String addExchangeStandard(Model model) {
 		model.addAttribute("title","addExchangeStandard");
 		model.addAttribute("pageTitle","교환 기준 등록");
 		return "admin/exchange_refund/exchangeAddStandard";
 	}
+	//교환기준등록처리
 	@PostMapping("/addExchangeStandard")
 	public String addExchangeStandard(ExchangeStandard exchangeStandard){
 		exchangeStandardService.addExchangeStandard(exchangeStandard);
 		return "redirect:/admin/listExchangeStandard";
 	}
+	//교환기준페이지
 	@GetMapping("/listExchangeStandard")
 	public String listExchangeStandard(Model model) {
 		model.addAttribute("title","listExchangeStandard");
@@ -88,7 +92,8 @@ public class Exchange_RefundController {
 
 		return "admin/exchange_refund/exchangeListStandard";
 	}
-		
+
+	//교환수정페이지
 	@GetMapping("/modifyExchange")
 	public String modifyExchange(Model model,
 								 @RequestParam(value = "goodsExchangeCode",required = false)String goodsExchangeCode) {
@@ -101,11 +106,13 @@ public class Exchange_RefundController {
 
 		return "admin/exchange_refund/exchangeModify";
 	}
+	//교환수정처리
 	@PostMapping("/modifyExchange")
 	public String modifyExchange(GoodsExchange goodsExchange){
 		goodsExchangeService.modifyGoodsExchange(goodsExchange);
 		return "redirect:/admin/approvalExchange";
 	}
+	//교환요청페이지
 	@GetMapping("/requestExchange")
 	public String requestExchange(Model model,
 								  @RequestParam(value = "paymentCompleteCode",required = false)String paymentCompleteCode) {
@@ -121,23 +128,27 @@ public class Exchange_RefundController {
 		model.addAttribute("exchangeStandardList",exchangeStandardList);
 		return "admin/exchange_refund/exchangeRequest";
 	}
+	//교환요청처리
 	@PostMapping("/requestExchange")
 	public String requestExchange(GoodsExchange goodsExchange){
 		goodsExchangeService.addGoodsExchange(goodsExchange);
 		return "redirect:/admin/approvalExchange_Refund";
 	}
 
+	//환불기중등록페이지
 	@GetMapping("/addRefundStandard")
 	public String addRefundStandard(Model model) {
 		model.addAttribute("title","addRefundStandard");
 		model.addAttribute("pageTitle","환불기준등록");
 		return "admin/exchange_refund/refundAddStandard";
 	}
+	//환불기준등록처리
 	@PostMapping("/addRefundStandard")
 	public String addRefundStandard(RefundStandard refundStandard){
 		refundStandardService.addRefundStandard(refundStandard);
 		return "redirect:/admin/listRefundStandard";
 	}
+	//환불기준조회페이지
 	@GetMapping("/listRefundStandard")
 	public String listRefundStandard(Model model) {
 		model.addAttribute("title","listRefundStandard");
@@ -147,7 +158,7 @@ public class Exchange_RefundController {
 
 		return "admin/exchange_refund/refundListStandard";
 	}
-		
+	//환불수정페이지
 	@GetMapping("/modifyRefund")
 	public String modifyRefund(Model model,
 							   @RequestParam(value = "goodsRefundCode",required = false)String goodsRefundCode) {
@@ -159,11 +170,13 @@ public class Exchange_RefundController {
 		model.addAttribute("userList",userList);
 		return "admin/exchange_refund/refundModify";
 	}
+	//환불수정처리
 	@PostMapping("/modifyRefund")
 	public String modifyRefund(GoodsRefund goodsRefund){
 		goodsRefundService.modifyRefund(goodsRefund);
 		return "redirect:/admin/approvalRefund";
 	}
+	//환불요청페이지
 	@GetMapping("/requestRefund")
 	public String requestRefund(Model model,
 								@RequestParam(value = "paymentCompleteCode",required = false)String paymentCompleteCode) {
@@ -180,6 +193,7 @@ public class Exchange_RefundController {
 		log.info("refundStandardList:{}",refundStandardList);
 		return "admin/exchange_refund/refundRequest";
 	}
+	//환불요청처리
 	@PostMapping("/requestRefund")
 	public String requestRefund(GoodsRefund goodsRefund){
 		goodsRefundService.addGoodsRefund(goodsRefund);

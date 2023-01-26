@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분">
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/Sales_BuyingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/Sales_BuyingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/Sales_BuyingMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/Sales_BuyingMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/Sales_Buying.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/Sales_Buying.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardListEvent.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardListEvent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/sales_buying/GoodsSalesBuyingGroup.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/sales_buying/GoodsSalesBuyingGroup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230111/화면캡처2022-12-2922341312183266795600.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230111/화면캡처2022-12-292234135148663887300.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230111/화면캡처2023-01-1110510511765748320100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230112/스크린샷(130)4330241990400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230112/스크린샷(130)4450655980700.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230112/스크린샷(130)7916078850300.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230112/스크린샷(132)8382285611400.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230112/스크린샷_20230111_1051023070227041100.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/20230112/스크린샷_20230111_1051029272716525600.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,32 +73,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/templates/user/board",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "SDK",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "File.Encoding",
-    "spring.configuration.checksum": "da3c4ddd569f0853e8e84ca1845e1277"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/templates/user/board&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;da3c4ddd569f0853e8e84ca1845e1277&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ks45team02.src.main.java.ks45team02.ire" />
@@ -151,7 +167,14 @@
       <workItem from="1674029032365" duration="644000" />
       <workItem from="1674089975772" duration="3047000" />
       <workItem from="1674108951190" duration="9853000" />
-      <workItem from="1674173234018" duration="7945000" />
+      <workItem from="1674173234018" duration="8084000" />
+      <workItem from="1674182053749" duration="28000" />
+      <workItem from="1674182084866" duration="254000" />
+      <workItem from="1674612762620" duration="36000" />
+      <workItem from="1674612856815" duration="8568000" />
+      <workItem from="1674650724604" duration="1896000" />
+      <workItem from="1674652637242" duration="3719000" />
+      <workItem from="1674691767993" duration="3621000" />
     </task>
     <task id="LOCAL-00001" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분">
       <created>1672216122635</created>
@@ -363,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674181716452</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분">
+      <created>1674181875429</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1674181875429</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,5 +445,9 @@
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:commonJs제거 밑 회원가입 취소 버튼 수정 admin쪽 1:1문의 게시판 완성&#10;변경시간: 1월 18일 15시 36분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분" />
     <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

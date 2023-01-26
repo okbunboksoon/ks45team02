@@ -53,20 +53,20 @@ public class UserBoardUserGuideController {
 			 * @param guide_code model
 			 * @return user/board/boardContentsUserGuide
 			 */
-				  @GetMapping("/ContentsUserGuide") public String ContentsUserGuide
-				  (@RequestParam(value = "guide_code") String guide_code, Model model) throws
-				  Exception {
-				  
-				  userBoardUserGuideService.updateViewsCnt(guide_code);
-				  
-				  List<BoardUserGuide> contentsUserGuide =
-				  userBoardUserGuideService.ContentsUserGuide(guide_code);
-				  model.addAttribute("title", "이용가이드 상세페이지"); model.addAttribute("pageTitle",
-				  "이용가이드 상세페이지"); model.addAttribute("contentsUserGuide", contentsUserGuide);
-				  
-				  return "user/board/boardContentsUserGuide";
-				  
-				  }
+	  @GetMapping("/ContentsUserGuide") 
+	  public String ContentsUserGuide (@RequestParam(value = "guide_code") String guide_code, Model model) throws
+	  Exception {
+	  
+	  userBoardUserGuideService.updateViewsCnt(guide_code);
+	  
+	  List<BoardUserGuide> contentsUserGuide =
+	  userBoardUserGuideService.ContentsUserGuide(guide_code);
+	  model.addAttribute("title", "이용가이드 상세페이지"); model.addAttribute("pageTitle",
+	  "이용가이드 상세페이지"); model.addAttribute("contentsUserGuide", contentsUserGuide);
+	  
+	  return "user/board/boardContentsUserGuide";
+	  
+	  }
 				 
 
 }
