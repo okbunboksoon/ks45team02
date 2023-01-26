@@ -1,5 +1,6 @@
 package ks45team02.ire.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -76,7 +77,6 @@ public class Sales_BuyingController {
 	
 	/**
 	 * 상품매입결제 업데이트
-	 * @return
 	 */
 	@GetMapping("/modifyGoodsBuyingPayment")
 	public String modifyGoodsBuyingPayment(@RequestParam(value = "goods_buy_payment_code")String goods_buy_payment_code,Model model) {
@@ -92,6 +92,10 @@ public class Sales_BuyingController {
 		return"admin/sales_buying/GoodsBuyingPaymentModify";
 	}
 	
+	/**
+	 * 상품매입결제 업데이트
+	 * @param GoodsBuyingPayment
+	 */
 	@PostMapping("/modifyGoodsBuyingPayment")
 	public String modifyGoodsBuyingPayment(GoodsBuyingPayment GoodsBuyingPayment) {
 		log.info("GoodsBuyingPayment: {}", GoodsBuyingPayment);
@@ -105,10 +109,10 @@ public class Sales_BuyingController {
 	 */
 	@GetMapping("/modifyPaymentCheck")
 	@ResponseBody
-	public int modifyPayment(@RequestParam(value = "paymentValue")int paymentValue,
+	public HashMap<String, Integer> modifyPayment(@RequestParam(value = "paymentValue")int paymentValue,
 							 @RequestParam(value = "goodsBuyPaymentCodeValue")String goodsBuyPaymentCodeValue) {
 
-		int result = sales_BuyingService.getPayment(paymentValue, goodsBuyPaymentCodeValue);
+		HashMap<String, Integer> result = sales_BuyingService.getPayment(paymentValue, goodsBuyPaymentCodeValue);
 		log.info("result: {}", result);	
 		
 		return result;

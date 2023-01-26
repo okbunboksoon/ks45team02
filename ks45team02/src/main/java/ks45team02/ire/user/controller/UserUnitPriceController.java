@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class UserUnitPriceController {
 
-	
+	/**
+	 * 판매단가 및 상품가격 조회
+	 * @return
+	 */
 	@GetMapping("/listUnitPrice")
 	public String listUnitPrice() {
 		

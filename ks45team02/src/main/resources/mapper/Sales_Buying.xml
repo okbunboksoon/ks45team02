@@ -156,6 +156,7 @@
 		SELECT
 			 p.buy_total
 			,p.accounts_payable
+			,p.payment
 		FROM
 			goods_buy_payment	AS p
 		WHERE
@@ -174,37 +175,18 @@
 	
 	<!-- 상품매입결제 수정 -->
 	<update id="modifyGoodsBuyingPayment" parameterType="GoodsBuyingPayment">
-		UPDATE goods_buy_payment
-			<trim prefix="SET" prefixOverrides=",">
-				<if test="business_code != null and business_code != '' ">
-				,business_code= #{business_code}
-				</if>
-				<if test="business_name != null and business_name != '' ">
-				,business_name= #{business_name}
-				</if>
-				<if test="buy_total != null and buy_total != '' ">
-				,buy_total= ${buy_total}	
-				</if>
-				<if test="payment != null and payment != '' ">
-				,payment= ${payment}
-				</if>
-				<if test="accounts_payable != null and accounts_payable != '' ">
-				,accounts_payable= ${accounts_payable}
-				</if>
-				<if test="payment_account_type != null and payment_account_type != '' ">
-				,payment_account_type= #{payment_account_type}
-				</if>
-				<if test="payment_bank != null and payment_bank != '' ">
-				,payment_bank= #{payment_bank}
-				</if>
-				<if test="payment_account_code != null and payment_account_code != '' ">
-				,payment_account_code= #{payment_account_code}
-				</if>
-				<if test="goods_buy_payment_day != null and goods_buy_payment_day != '' ">
-				,goods_buy_payment_day=NOW()
-				</if>
-			</trim>
+		 UPDATE goods_buy_payment
+		 SET 
+		 	 business_code= #{business_code}
+			,business_name= #{business_name}
+			,buy_total= ${buy_total}
+			,payment= ${payment}
+			,accounts_payable= ${accounts_payable}
+			,payment_account_type= #{payment_account_type}
+			,payment_bank= #{payment_bank}
+			,payment_account_code= #{payment_account_code}
+			,goods_buy_payment_day=NOW() 
 		WHERE 
-			goods_buy_payment_code=#{goods_buy_payment_code}
+			goods_buy_payment_code= #{goods_buy_payment_code}
 	</update>
     </mapper>
