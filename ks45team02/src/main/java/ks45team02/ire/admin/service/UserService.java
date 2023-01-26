@@ -25,9 +25,6 @@ public class UserService {
     public int addUser(User user){
         // 김재범 -회원가입 처리
         int result=userMapper.addUser(user);
-        System.out.println(result);
-        System.out.println("올릴려고 적음");
-        System.out.println(user);
         return result;
 
     }

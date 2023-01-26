@@ -18,6 +18,7 @@ public class ExchangeStandardService {
     }
 
     public int addExchangeStandard(ExchangeStandard exchangeStandard){
+        //교환기준등록
         return exchangeStandardMapper.addExchangeStandard(exchangeStandard);
     }
 }
