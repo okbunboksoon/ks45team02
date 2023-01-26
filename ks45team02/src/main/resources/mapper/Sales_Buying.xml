@@ -43,6 +43,33 @@
     	<result property="payment_account_code" column="payment_account_code"/>
     	<result property="goods_buy_payment_day" column="goods_buy_payment_day"/>
     </resultMap>
+	<resultMap id="SalesBuyingResultMap" type="SalesBuying" >
+		<id property="salesBuyingDayGroupCode" 			column="sales_buying_daygroup"/>
+		<result property="salesBuyingDayCategory"		column="sales_buying_day_category"/>
+		<result property="productOrderPointGroup"		column="product_order_point_group"/>
+		<result property="incomingCode"					column="incoming_code"/>
+		<result property="regDate"						column="reg_date"/>
+		<result property="goodsCode"					column="goodsCode"/>
+		<result property="userId"						column="user_id"/>
+		<result property="finalPaymentAmount" 			column="final_payment_amount"/>
+		<result property="buyTotal"						column="buy_total"/>
+		<result property="monthAndYear"					column="month&amp;year"/>
+		<result property="salesBuyingMonthGroupCode" 	column="sales_buying_monthgroup"/>
+		<result property="salesBuyingYearGroupCode" 	column="sales_buying_yeargroup"/>
+		<result property="year" 	column="year"/>
+		<result property="jan" 	column="Jan"/>
+		<result property="feb" 	column="Feb"/>
+		<result property="mar" 	column="Mar"/>
+		<result property="apr" 	column="Apr"/>
+		<result property="may" 	column="May"/>
+		<result property="jun" 	column="Jun"/>
+		<result property="jul" 	column="Jul"/>
+		<result property="aug" 	column="Aug"/>
+		<result property="sept" 	column="Sept"/>
+		<result property="oct" 	column="Oct"/>
+		<result property="nov" 	column="Nov"/>
+		<result property="dec" 	column="Dec"/>
+	</resultMap>
     
 	<!-- 상품 매입 리스트  -->
 	<select id="getListGoodsBuying" resultMap="GoodsBuyingResultMap">
@@ -189,4 +216,12 @@
 		WHERE 
 			goods_buy_payment_code= #{goods_buy_payment_code}
 	</update>
+	<select id="goodsSalesBuyingGroup" resultMap="SalesBuyingResultMap">
+		<!--일단위 매입매출 조회 -->
+		SELECT
+			sbd.sales_buying_daygroup, sbd.sales_buying_day_category, sbd.product_order_point_group, sbd.incoming_code, sbd.reg_date
+			, sbd.goods_code, sbd.user_id, sbd.final_payment_amount, sbd.buy_total, sbd.`month&amp;year`, sbd.sales_buying_monthgroup
+		FROM
+			sales_buying_daygroup AS sbd
+	</select>
     </mapper>
