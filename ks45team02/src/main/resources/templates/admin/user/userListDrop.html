@@ -45,16 +45,16 @@
                                 <tbody>
                                 <tr th:if ="${not #lists.isEmpty(userDropList)}"
                                     th:each="u : ${userDropList}">
-                                    <td th:text ="${u.userDropId}"/></td>
-                                    <td th:text ="${u.userDropPw}"/></td>
-                                    <td th:text ="${u.userDropName}"/></td>
-                                    <td th:text ="${u.userDropNickName}"/></td>
-                                    <td th:text ="${u.userDropAddr}"/></td>
-                                    <td th:text ="${u.userDropPhone}"/></td>
-                                    <td th:text ="${u.userDropEmail}"/></td>
-                                    <td th:text ="${u.userDropBirth}"/></td>
+                                    <td th:text ="${u.userId}"/></td>
+                                    <td th:text ="${u.userPw}"/></td>
+                                    <td th:text ="${u.userName}"/></td>
+                                    <td th:text ="${u.userNickName}"/></td>
+                                    <td th:text ="${u.userAddr}"/></td>
+                                    <td th:text ="${u.userPhone}"/></td>
+                                    <td th:text ="${u.userEmail}"/></td>
+                                    <td th:text ="${u.userBirth}"/></td>
                                     <td th:text ="${u.pointState}"/></td>
-                                    <td th:text ="${u.userDropJoinDate}"/></td>
+                                    <td th:text ="${u.userJoinDate}"/></td>
                                     <td th:text ="${u.userDropState}"/></td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(userDropList)}">
