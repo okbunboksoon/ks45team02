@@ -92,7 +92,7 @@ public class EmissionStatisticsController {
 	}
 	
 	/**
-	 * 일반상품 / 업사이클링 상품 CO2 비교 통계 dddd
+	 * 일반상품 / 업사이클링 상품 CO2 비교 통계 
 	 */
 	@GetMapping("/listEmissionCO2Total")
 	

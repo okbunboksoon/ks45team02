@@ -25,6 +25,11 @@ public class VatController {
 		this.vatService = vatService;
 	}
 
+	/**
+	 * 부가세 계산 조회
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/listVat")
 	public String listVat(Model model) {
 		
@@ -35,6 +40,7 @@ public class VatController {
 		log.info("vatList:{} ", vatList);
 		return "admin/vat/vatList";
 	}
+	
 
 
 }

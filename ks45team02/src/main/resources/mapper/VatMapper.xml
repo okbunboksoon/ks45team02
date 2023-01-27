@@ -12,7 +12,17 @@
 	        <result property="pay_vat"			column="pay_vat" />
         </resultMap>
         
+      <!--   <resultMap id="SalesBuyingMonthGroupResultMap" type="SalesBuyingMonthGroup">
+	        <id property="sales_buying_monthgroup"				column="sales_buying_monthgroup" />
+			<result property="final_payment_amount" 		column="final_payment_amount"/>
+			<result property="buy_total" 							column="buy_total"/>
+			<result property="user_id" 						column="user_id"/>
+			<result property="reg_date" 					column="reg_date"/>
+			<result property="month_year" 			column="month_year"/>
+			<result property="sales_buying_yeargroup" 			column="sales_buying_yeargroup"/>
+        </resultMap> -->
         
+        <!-- 부가세 계산 리스트 조회 -->
         <select id="getListVat" resultMap="VatResultMap">
         SELECT 
 			vat.vat_calculation_quarter
@@ -25,4 +35,50 @@
 		FROM 
 			vat_calculation AS vat
         </select>
+        
+        
+        
+<!--         CO2 월 마감그룹 그룹코드 존재 여부 확인
+        <select id="salesBuyingMonthCheck" parameterType="String" resultType="int">
+        	SELECT
+        	COUNT(1)
+        	FROM
+        		 vat_calculation AS vat
+        		 INNER JOIN
+        		 sales_buying_monthgroup AS m
+        		 ON
+        		 vat.sales_buying_monthgroup = m.sales_buying_monthgroup
+        	WHERE
+        		vat.sales_buying_monthgroup = #{sales_buying_monthgroup}
+        </select>
+        
+        
+        등록
+        <insert id="addVat" parameterType="Vat">
+        	INSERT INTO vat_calculation
+				(vat_calculation_quarter
+				, sales_buying_monthgroup
+				, final_payment_amount
+				, buy_total
+				, vat_calculation
+				, pay_vat)
+			VALUES (#{vat_calculation_quarter}, #{sales_buying_monthgroup}, ${final_payment_amount}, ${buy_total}, ${vat_calculation}, ${pay_vat})
+        </insert>
+        
+        
+        
+        업데이트
+        <update id="" parameterType="Vat">
+        	UPDATE 
+        		vat_calculation
+			SET
+				buy_total= ${buy_total},
+				vat_calculation=${vat_calculation},
+				pay_vat=${pay_vat}
+			WHERE 
+				vat_calculation_quarter= #{vat_calculation_quarter}
+        </update>
+         -->
+    
+        
 </mapper>

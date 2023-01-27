@@ -14,4 +14,7 @@ public interface VatMapper {
 	 * 부가세 조회
 	 */
 	public List<Vat> getListVat();
+	
+	
+
 }
