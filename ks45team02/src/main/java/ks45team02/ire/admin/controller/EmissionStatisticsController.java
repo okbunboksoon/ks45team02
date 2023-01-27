@@ -82,7 +82,7 @@ public class EmissionStatisticsController {
 		return "admin/emissionstatistics/emissionListRawMaterialsGroupStatisticsYear";
 	}
 	
-	
+	 
 	public void addRawMaterialsEmissionStatisticsDay(RawMaterialsIncoming rawMaterialsIncoming) {
 		
 		RawMaterialsEmissionStatisticsDay dayList = emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
@@ -91,6 +91,14 @@ public class EmissionStatisticsController {
 		emissionStatisticsService.addRawMaterialsEmissionStatisticsYear(monthList);
 	}
 	
+	/**
+	 * 일반상품 / 업사이클링 상품 CO2 비교 통계 dddd
+	 */
+	@GetMapping("/listEmissionCO2Total")
 	
+	public String listEmissionCO2Total() {
+		
+		return "admin/emissionstatistics/emissionListCO2Total";
+	}
 	
 }
