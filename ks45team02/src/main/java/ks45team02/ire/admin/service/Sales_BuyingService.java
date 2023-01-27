@@ -1,17 +1,16 @@
 package ks45team02.ire.admin.service;
 
-import java.util.HashMap;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import ks45team02.ire.admin.dto.Business;
 import ks45team02.ire.admin.dto.BusinessOrder;
 import ks45team02.ire.admin.dto.GoodsBuying;
 import ks45team02.ire.admin.dto.GoodsBuyingPayment;
 import ks45team02.ire.admin.mapper.Sales_BuyingMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class Sales_BuyingService {
@@ -140,7 +139,7 @@ public class Sales_BuyingService {
 			reResult.put("value", result);
 			reResult.put("result", 10);
 			returnResult = result;
-		}else if(result < 0){0 
+		}else if(result < 0){
 			result = 0;
 			reResult.put("value", result);
 			reResult.put("payment", AccountsDB);

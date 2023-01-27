@@ -30,15 +30,16 @@
 </th:block>
 <th:block layout:fragment="customContents">
     <div class="col-md-12 col-sm-12 ">
-        <div class="x_panel">
-            <div class="x_content">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card-box table-responsive">
+        <button type = "button" class ="btn btn-secondary btn-s" id = "goodsSalesBuyingMonthGroup">월 단위 조회</button>
+            <div class="x_panel">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
 
-                            <table id="goodsSalesBuyingGroup" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                <tr>
+                                <table id="goodsSalesBuyingGroup" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
                                     <th>일_마감그룹</th>
                                     <th>분류</th>
                                     <th>시간별 수령 후 구매확정코드</th>
@@ -99,4 +100,15 @@
     <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
     <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 </th:block>
+
+    <th:block layout:fragment="customScript">
+        <script type = "text/javascript" th:inline="javascript">
+            const $goodsSalesBuyingMonthGroup = document.getElementById('goodsSalesBuyingMonthGroup');
+
+            $goodsSalesBuyingMonthGroup.addEventListener('click', function(){
+                window.name = "MonthGroupInfo";
+                let openWin = window.open('/admin/goodsSalesBuyingMonthGroup', '월단위 조회',  'width=1000, height=600, top=100, left=100 scrollbar = yes');
+            })
+        </script>
+    </th:block>
 </html>

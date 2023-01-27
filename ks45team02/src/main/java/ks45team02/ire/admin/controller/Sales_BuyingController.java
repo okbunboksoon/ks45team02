@@ -132,6 +132,15 @@ public class Sales_BuyingController {
 		return "admin/sales_buying/GoodsSalesBuyingGroup";
 	}
 
+	@GetMapping("/goodsSalesBuyingMonthGroup")
+	public String goodsSalesBuyingMonthGroup(Model model){
+		List<SalesBuying> goodsSalesBuyingMonthGroup = sales_buyingMapper.goodsSalesBuyingMonthGroup();
+
+		model.addAttribute("title", "월단위 매입매출목록");
+		model.addAttribute("goodsSalesBuyingMonthGroup", goodsSalesBuyingMonthGroup);
+		return "admin/sales_buying/GoodsSalesBuyingMonthGroup";
+	}
+
 	@GetMapping("/goodsSalesTotalSearch")
 	public String goodsSalesTotalSearch() {
 
