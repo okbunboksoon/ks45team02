@@ -15,9 +15,11 @@ public class GoodsExchangeService {
     }
 
     public int addGoodsExchange(GoodsExchange goodsExchange){
+        //교환등록
         return goodsExchangeMapper.addGoodsExchange(goodsExchange);
     }
     public int modifyGoodsExchange(GoodsExchange goodsExchange){
+        //교환수정
         return goodsExchangeMapper.modifyGoodsExchange(goodsExchange);
     }
 }

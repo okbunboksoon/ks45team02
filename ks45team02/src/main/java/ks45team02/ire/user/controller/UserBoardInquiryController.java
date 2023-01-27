@@ -63,8 +63,7 @@ public class UserBoardInquiryController {
 			try {
 				response.setContentType("text/html;charset=utf-8;");
 				PrintWriter writer = response.getWriter();
-				writer.write("<script>alert('로그인하고 이용하세요');" +
-						"location.href='/';</script>");
+				writer.write("<script>alert('로그인하고 이용하세요'); location.href='/';</script>");
 				writer.flush();
 				writer.close();
 			} catch (IOException e) {
@@ -77,12 +76,16 @@ public class UserBoardInquiryController {
 		return redirectURI;
 	}
 
+	//1:1문의 답변조회
 	@GetMapping("/listAnswerBoardInquiry")
-	public String listAnswerBoardInquiry() {
-		
+	public String listAnswerBoardInquiry(Model model) {
+		model.addAttribute("pageTitle","1:1문의 답변조회");
+		List<BoardInquiry>boardInquiryList=boardInquiryMapper.answerAdminList();
+		model.addAttribute("boardInquiryList",boardInquiryList);
 		return "user/board/boardListInquiryAnswer";
 	}
 
+	//1:1문의 수정
 	@GetMapping("/modifyBoardInquiry")
 	public String modifyBoardInquiry() {
 		
