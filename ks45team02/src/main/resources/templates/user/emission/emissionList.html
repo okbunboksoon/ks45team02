@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
 
-</body>
+<head>
+	<style type="text/css">
+		@font-face {
+	    font-family: 'IBMPlexSansKR-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;}
+		
+		div{
+			color: black;
+		}
+		
+		*{
+		font-family: 'IBMPlexSansKR-Regular';
+		}
+		
+		</style>
+		</head>
+	
+<th:block layout:fragment="customContents">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			CO2 통계
+		</h2>
+	</section>
+	
+
+
+
 </html>
+	  
