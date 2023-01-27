@@ -126,15 +126,18 @@ public class Sales_BuyingService {
 	 */
 	public HashMap<String, Integer> getPayment(int paymentValue, String goods_buy_payment_code) {
 		HashMap<String, Integer> reResult = new HashMap<String, Integer>(); 
+		
 		int returnResult = 0;
 		
 		GoodsBuyingPayment payment = sales_BuyingMapper.getPayment(goods_buy_payment_code);
+		
 		int resultTotal = payment.getBuy_total();
 		int paymentDB = payment.getPayment();
 		int AccountsDB = payment.getAccounts_payable();
 		int Sumresult = paymentValue + paymentDB;
 		int result = resultTotal - Sumresult;
 		int TotalAccounts = resultTotal - AccountsDB;
+		
 		if(result == 0) {
 			reResult.put("value", result);
 			reResult.put("result", 10);
@@ -148,6 +151,8 @@ public class Sales_BuyingService {
 			reResult.put("value", result);
 			reResult.put("result", 10);
 		}
+		
+		log.info(" reResult :{}", reResult);
 		return reResult;
 	}
 	

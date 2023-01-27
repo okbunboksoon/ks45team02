@@ -69,8 +69,8 @@
 												<li th:if="${l.orderState} == '배송완료'"><a href='javascript:void(0);' id="paymentConfirmLink">구매확정</a></li>
 												<li th:if="${l.orderState} == '구매확정'"><a th:href="@{/addBoardReview(orderCode=${l.orderCode})}">리뷰작성</a></li>
 												<li th:if="${l.orderState} == '결제완료' or ${l.orderState} == '배송준비중'"><a href='javascript:void(0);' id="paymentCancelLink">주문취소</a></li>
-												<li th:if="${l.orderState} == '배송완료'"><a>반품</a></li>
-												<li th:if="${l.orderState} == '배송완료'"><a>환불</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a th:href="@{/requestExchange(orderCode=${l.orderCode})}">교환요청</a></li>
+												<li th:if="${l.orderState} == '배송완료'"><a th:href="@{/requestRefund(orderCode=${l.orderCode})}">환불요청</a></li>
 											</ul>
 										</td>	
 									</tr>

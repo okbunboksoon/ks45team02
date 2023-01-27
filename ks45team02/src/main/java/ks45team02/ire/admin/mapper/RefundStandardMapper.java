@@ -7,7 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface RefundStandardMapper {
+    //환불기준조회
     public List<RefundStandard>listRefundStandard();
-
+    //환불기준등록
     public int addRefundStandard(RefundStandard refundStandard);
 }
