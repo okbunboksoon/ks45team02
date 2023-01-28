@@ -4,6 +4,14 @@
 	  layout:decorate="~{user/layout/userDefault}">
 
 <head>
+
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	
 	<style type="text/css">
 		@font-face {
 	    font-family: 'IBMPlexSansKR-Regular';
@@ -21,16 +29,83 @@
 		
 		</style>
 		</head>
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				const emissionTotalArr = [[${rmmsList}]];
+				const labelArr = emissionTotalArr.map(function(item){
+					return item['carbon_dioxide_emission_sum'];
+				});
+				const labelArr2 = emissionTotalArr.map(function(item){
+					return item['year_and_month'];
+				});
+	
+				console.log(emissionTotalArr);
+				console.log(labelArr);
+				console.log(labelArr2);
+	
+			    if ($('#emissionChart').length) {
+			        var ctx = document.getElementById("emissionChart");
+			        var mybarChart = new Chart(ctx, {
+			            type: 'bar',
+			            data: {
+			                labels: labelArr2,
+			                datasets: [{
+			                    label: '# of Votes',
+			                    backgroundColor: "#26B99A",
+			                    data: labelArr
+			                }]
+			            },
+			            options: {
+			                scales: {
+			                    yAxes: [{
+			                        ticks: {
+			                            beginAtZero: true
+			                        }
+			                    }]
+			                }
+			            }
+			        });
+			  	  }
+				});
+		</script>	
+	</th:block>
 	
 <th:block layout:fragment="customContents">
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
 			CO2 통계
 		</h2>
-	</section>
-	
+	</section> 
+			<div class="col-md-12 col-sm-12" stlye="margin: auto">
+	                <div class="x_title">
+	                  <div class="row x_title">
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <canvas id="emissionChart"></canvas>
+                  </div>
+                </div>
+              </div>
+</th:block>
 
-
-
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
 </html>
-	  
