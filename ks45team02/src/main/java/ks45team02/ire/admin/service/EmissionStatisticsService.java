@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import ks45team02.ire.admin.dto.EmissionTotal;
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsMonth;
 import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsYear;
@@ -180,36 +181,18 @@ public class EmissionStatisticsService {
 			}else if(month.equals("12월")) {
 				rawMaterialsEmissionStatisticsYear.setDec(EmissionSum);
 				emissionStatisticsMapper.updateDec(rawMaterialsEmissionStatisticsYear);						
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
 	}
+	
+	/**
+	 * 일반상품 / 업사이클링상품 CO2 비교 조회
+	 * return emissionTotal
+	 */
+	public List<EmissionTotal> getEmissionListCo2Total(){
+		
+		List<EmissionTotal> emissionTotal = emissionStatisticsMapper.getEmissionListCo2Total();
+		
+		return emissionTotal;
+	}
+		
 }
