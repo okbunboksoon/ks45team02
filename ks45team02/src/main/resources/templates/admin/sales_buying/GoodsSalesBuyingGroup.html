@@ -14,15 +14,10 @@
 <th:block layout:fragment="customScript">
     <script>
         $(function(){
-            // $('#deleteBtn').click(function(){
-            //     let deleteValue = $('#deleteBtn').val();
-            //     let deleteCheck = confirm("정말 삭제하시겠습니까?")
-            //     if(!deleteCheck){
-            //         return false;
-            //     }else{
-            //         location.href = '/admin/deleteBoardNotice?noticeCode='+deleteValue;
-            //     }
-            // });
+			function vatUpdate(code){
+				let obj;
+				obj = document.createElement('');
+			}
 
             $('#goodsSalesBuyingGroup').DataTable();
         });
@@ -34,12 +29,14 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-sm-12">
+                    	
                         <div class="card-box table-responsive">
 
                             <table id="goodsSalesBuyingGroup" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
                                     <th>일_마감그룹</th>
+                                    <th>부가세 계산</th>
                                     <th>분류</th>
                                     <th>시간별 수령 후 구매확정코드</th>
                                     <th>입고 코드</th>
@@ -56,6 +53,7 @@
                                 <tr th:if ="${not #lists.isEmpty(goodsSalesBuyingGroup)}"
                                     th:each="c : ${goodsSalesBuyingGroup}">
                                     <td th:text ="${c.salesBuyingDayGroupCode}"/></td>
+                                    <td><a href="javascript.vatUpdate('${c.salesBuyingMonthGroupCode}'))"></a></td>
                                     <td th:text ="${c.salesBuyingDayCategory}"/></td>
                                     <td th:text ="${c.productOrderPointGroup}"/></td>
                                     <td th:text ="${c.incomingCode}"/></td>

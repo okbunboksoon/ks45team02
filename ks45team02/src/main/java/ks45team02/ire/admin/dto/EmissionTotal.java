@@ -6,6 +6,7 @@ public class EmissionTotal {
 	private float carbon_dioxide_emission_level;
 	private float upcycling_carbon_dioxide_emission_level;
 	private String decrease_rate;
+	private Goods goods;
 	public String getGoods_code() {
 		return goods_code;
 	}
@@ -30,6 +31,12 @@ public class EmissionTotal {
 	public void setDecrease_rate(String decrease_rate) {
 		this.decrease_rate = decrease_rate;
 	}
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -41,6 +48,8 @@ public class EmissionTotal {
 		builder.append(upcycling_carbon_dioxide_emission_level);
 		builder.append(", decrease_rate=");
 		builder.append(decrease_rate);
+		builder.append(", goods=");
+		builder.append(goods);
 		builder.append("]");
 		return builder.toString();
 	}
