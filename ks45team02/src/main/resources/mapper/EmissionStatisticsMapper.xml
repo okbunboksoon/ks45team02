@@ -54,7 +54,28 @@
     	<result property="Dec" 					column="Dec"/>
     </resultMap>
     
-    
+    <resultMap id="EmissionTotalResultMap" type="EmissionTotal">
+        <id property="goods_code"                                     column="goods_code" />
+        <result property="carbon_dioxide_emission_level"             column="carbon_dioxide_emission_level"/>
+        <result property="upcycling_carbon_dioxide_emission_level"     column="upcycling_carbon_dioxide_emission_level"/>
+        <result property="decrease_rate"                             column="decrease_rate"/>
+            <association property="goods"    javaType="Goods">
+            <id property="goodsCode"                                column="goods_code" />
+            <result property="goodsName"                             column="goods_name"/>
+            <result property="categoryMediumCode"                    column="category_medium_code"/>
+            <result property="categoryMediumName"                    column="category_medium_name"/>
+            <result property="goodsPrice"                             column="goods_price"/>
+            <result property="goodsColor"                             column="goods_color"/>
+            <result property="goodsSize"                             column="goods_size"/>
+            <result property="goodsRegDate"                         column="goods_reg_date"/>
+            <result property="goodsSangse"                             column="goods_sangse"/>
+            <result property="fileIdx"                                 column="file_idx"/>
+            <result property="fabric"                                 column="fabric"/>
+            <result property="rate"                                 column="rate"/>
+            <result property="upcyclingCarbonDioxideEmissionLevel"     column="upcycling_carbon_dioxide_emission_level"/>
+            <result property="fileSangseIdx"                         column="file_sangse_idx"/>
+            </association>
+    </resultMap>
     
     <!-- 기부받은 의류별 CO2 일별 통계 전체 조회 -->
     <select id="rawMaterialsDaySearch" resultMap="RawMaterialsEmissionStatisticsDayResultMap">
@@ -384,4 +405,21 @@
 			raw_materials_yeargroup = #{raw_materials_yeargroup} 
 	</update>
 
+	
+
+	<!-- 일반상품 / 업사이클링상품 CO2 비교 조회 -->
+	<select id="getEmissionListCo2Total" resultMap="EmissionTotalResultMap">
+		SELECT	
+			 e.goods_code
+			,e.carbon_dioxide_emission_level
+			,e.upcycling_carbon_dioxide_emission_level
+			,e.decrease_rate
+			,g.goods_name
+		FROM
+			co2_emissions_total AS e
+			INNER JOIN
+			goods AS g
+			ON
+			e.goods_code = g.goods_code
+	</select>
 </mapper>

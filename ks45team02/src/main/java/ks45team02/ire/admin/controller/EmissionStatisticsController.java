@@ -1,21 +1,15 @@
 package ks45team02.ire.admin.controller;
 
-import java.util.List;
-
+import ks45team02.ire.admin.dto.*;
+import ks45team02.ire.admin.service.EmissionStatisticsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsDay;
-import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsMonth;
-import ks45team02.ire.admin.dto.RawMaterialsEmissionStatisticsYear;
-import ks45team02.ire.admin.dto.RawMaterialsIncoming;
-import ks45team02.ire.admin.mapper.EmissionStatisticsMapper;
-import ks45team02.ire.admin.service.EmissionStatisticsService;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -82,7 +76,7 @@ public class EmissionStatisticsController {
 		return "admin/emissionstatistics/emissionListRawMaterialsGroupStatisticsYear";
 	}
 	
-	
+	 
 	public void addRawMaterialsEmissionStatisticsDay(RawMaterialsIncoming rawMaterialsIncoming) {
 		
 		RawMaterialsEmissionStatisticsDay dayList = emissionStatisticsService.addRawMaterialsEmissionStatisticsDay(rawMaterialsIncoming);
@@ -92,5 +86,20 @@ public class EmissionStatisticsController {
 	}
 	
 	
+	/**
+	 * 일반상품 / 업사이클링 상품 CO2 비교 통계 
+	 */
+	@GetMapping("/listEmissionCO2Total")
+	
+	public String listEmissionCO2Total(Model model) {
+		List<EmissionTotal> emissionTotal = emissionStatisticsService.getEmissionListCo2Total();
+		log.info("emissionTotal: {}", emissionTotal);
+		model.addAttribute("title", "일반상품 / 업사이클링 상품 CO2 비교");
+		model.addAttribute("pageTitle", "일반상품 / 업사이클링 상품 CO2 비교");		
+		model.addAttribute("emissionTotal", emissionTotal);		
+		
+		
+		return "admin/emissionstatistics/emissionListCO2Total";
+	}
 	
 }

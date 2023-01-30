@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{admin/layout/adminDefault}">
+	  layout:decorate="~{user/layout/userDefault}">
 
-	<head>
+<head>
+
 		<!-- Datatables -->
 	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
 	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
-	</head>
+	
+	<style type="text/css">
+		@font-face {
+	    font-family: 'IBMPlexSansKR-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;}
+		
+		div{
+			color: black;
+		}
+		
+		*{
+		font-family: 'IBMPlexSansKR-Regular';
+		}
+		
+		</style>
+		</head>
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
 			$(function(){
@@ -66,13 +84,20 @@
 				});
 		</script>	
 	</th:block>
-		<th:block layout:fragment="customContents">
+	
+<th:block layout:fragment="customContents">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			CO2 통계
+		</h2>
+	</section>
+	
+
 
             
 			<div class="col-md-12 col-sm-12" stlye="margin: auto">
 	                <div class="x_title">
 	                  <div class="row x_title">
-                    <h2>업사이클링 상품 CO2 비교</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -112,11 +137,9 @@
 					</th:block>
 		            </div>
 	            </div>
-	
-	   
-	           
-	</th:block>
-	
+
+</th:block>
+
 	<!-- 사용자 지정 js 파일 -->
 	<th:block layout:fragment="customJs">
 		<!-- Datatables -->

@@ -73,4 +73,6 @@ public interface Sales_BuyingMapper {
 	public int modifyGoodsBuyingPayment(GoodsBuyingPayment goodsBuyingPayment);
 
 	List<SalesBuying> goodsSalesBuyingMonthGroup();
+	//월단위
+
 }

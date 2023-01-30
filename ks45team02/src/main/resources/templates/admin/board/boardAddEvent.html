@@ -95,4 +95,101 @@
     <script th:src="@{admin/vendors/validator/multifield.js}"></script>
     <script th:src="@{admin/vendors/validator/validator.js}"></script>
 </th:block>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
+
+<head>
+    <style type="text/css">
+        div {
+            color: black;
+        }
+        #inputTitle {
+            width: 100%
+        }
+        #inputContent {
+            width: 100%
+        }
+        .btnGroup {
+            text-align : center;
+        }
+        button {
+            width: 20%
+        }
+        label {
+            font-size: 20px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<th:block layout:fragment="customScript">
+    <script type="text/javascript" th:inline="javascript">
+    /* 유효성검사를 구현하시오. (#submitBtn 를 클릭 시) */
+    $('#submitBtn').click(function(){
+        if(true) $('#boardAddEvent').submit();
+    });
+
+    $("#eventImage").change(function(){
+        if(this.files && this.files[0]) {
+            var reader = new FileReader;
+            reader.onload = function(data) {
+                $(".select_img img").attr("src", data.target.result).width(300);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+</script>
+</th:block>
+
+<th:block layout:fragment="customContents">
+    <form id = "boardAddEvent" th:action = "@{/admin/addBoardEvent}" method = "post" enctype="multipart/form-data">
+        <h1>이벤트 등록</h1>
+        <br><br>
+        <div class ="mb-3">
+            <label class ="form-label">이벤트 제목</label>
+            <input type = "text" class ="form-control" id = "eventTitle"
+                   name ="eventTitle" placeholder="제목을 입력해주세요">
+        </div>
+        <div class ="mb-3">
+            <label class ="form-label">내용</label>
+            <input type = "text" class ="form-control" id = "eventContents"
+                   name="eventContents" placeholder="내용을 입력해주세요">
+        </div>
+        <div class ="mb-3">
+                <label class ="form-label">이벤트 사진</label>
+                <input type="file" class="form-control" id="eventImage" name="eventImage" multiple="multiple">
+                <div class="select_img" style="margin: 20px"><img src="" /></div>
+        </div>
+        <div class = "mb-3">
+            <label class ="form-label">이벤트 시작일</label>
+            <input type ="date" class = "form-control" id = "eventStartDate" name = "eventStartDate"/>
+        </div>
+        <div class = "mb-3">
+            <label class ="form-label">이벤트 마감일</label>
+            <input type ="date" class = "form-control" id = "eventEndDate" name = "eventEndDate"/>
+        </div>
+        <div class = "btnGroup">
+            <button type="button" class="btn btn-outline-primary" id="submitBtn">등록</button>
+            <button type="button" class="btn btn-outline-danger" id="resetBtn">취소</button>
+        </div>
+    </form>
+</th:block>
+<th:block layout:fragment="customjs">
+    <!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+
+    <script th:src="@{/admin/build/js/custom.min.js"></script>
+
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>
