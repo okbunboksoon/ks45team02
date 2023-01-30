@@ -82,6 +82,12 @@ public class IncomingController {
 		model.addAttribute("goodsList",goodsList);
 		return "admin/incoming/incomingModify";
 	}
+	//상품 입고 수정처리
+	@PostMapping("/modifyIncoming")
+	public String modifyIncoming(Incoming incoming){
+		incomingService.modifyIncoming(incoming);
+		return "redirect:/admin/listIncoming";
+	}
 
 }
 

@@ -70,8 +70,8 @@
     </script>
 </th:block>
 <th:block layout:fragment="customContents">
-    <h1>회원수정</h1>
-    <form id="modifyContract" th:action="@{/admin/modifyIncoming}" method="post">
+    <h1>입고수정</h1>
+    <form id="modifyIncoming" th:action="@{/admin/modifyIncoming}" method="post">
         <table th:object="${getInfoByIncoming}">
             <tbody>
             <tr>
@@ -155,7 +155,7 @@
             <tfoot>
             <tr>
                 <td colspan="3">
-                    <button type="button" id="submitBtn">회원수정</button>
+                    <button type="button" id="submitBtn">수정</button>
                     <button type="reset" id="resetBtn">취소</button>
                 </td>
             </tr>
