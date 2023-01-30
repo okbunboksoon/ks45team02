@@ -53,8 +53,9 @@
                 <input type="text" class="form-control" id="eventContents" name="eventContents" th:value="${mn.eventContents}">
             </div>
             <div class="mb-3">
-                <label class="form-label">이벤트 이미지</label>
-                <input type ="file" id = "eventFileIdx" name = "eventFileIdx" th:text="${mn.eventFileIdx}" th:value="${mn.eventImage}" alt="제출" style = "width: 250px; height: 175px;" />
+                <label class ="form-label">이벤트 사진</label>
+                <input type="file" class="form-control" id="eventImage" name="eventImage" multiple="multiple">
+                <div class="select_img" style="margin: 20px"><img src="" /></div>
             </div>
             <div class = "mb-3">
                 <label class = "form-label">이벤트 시작일</label>

@@ -224,4 +224,16 @@
 		FROM
 			sales_buying_daygroup AS sbd
 	</select>
+	<select id="goodsSalesBuyingMonthGroup" resultMap="SalesBuyingResultMap">
+		SELECT
+			sbm.sales_buying_monthgroup
+			, sbm.final_payment_amount
+			, sbm.buy_total
+			, sbm.user_id
+			, sbm.reg_date
+			, sbm.`month&amp;year`
+			, sbm.sales_buying_yeargroup
+		FROM
+			sales_buying_monthgroup AS sbm
+	</select>
     </mapper>

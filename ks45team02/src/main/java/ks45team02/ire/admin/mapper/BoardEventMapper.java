@@ -16,8 +16,6 @@ public interface BoardEventMapper {
 
     BoardEvent viewBoardEvent(String eventTitle);
 
-    //이벤트 수정 화면
-
     //이벤트 수정 처리
     public int modifyBoardEventInfo(BoardEvent boardEvent);
 
