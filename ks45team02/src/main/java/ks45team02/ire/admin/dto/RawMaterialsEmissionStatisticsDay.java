@@ -8,7 +8,9 @@ public class RawMaterialsEmissionStatisticsDay {
 	private String reg_date;
 	private String year_and_month;
 	private String raw_materials_monthgroup;
+	
 	private RawMaterialsIncoming rawMaterialsIncoming;
+	
 	public String getRaw_materials_daygroup() {
 		return raw_materials_daygroup;
 	}

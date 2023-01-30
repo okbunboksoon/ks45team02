@@ -20,6 +20,7 @@ public class RefundStandardService {
 
 
     public int addRefundStandard(RefundStandard refundStandard){
+        //환불기준 등록
         return refundStandardMapper.addRefundStandard(refundStandard);
     }
 }

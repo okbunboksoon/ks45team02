@@ -69,6 +69,13 @@
         )
 
     </insert>
+    <update id="logoutHistory" parameterType="String">
+        <!--로그아웃시 로그아웃 시간 기록-->
+        UPDATE loginout_history
+        SET
+        logout_time=NOW()
+        WHERE user_id=#{userId}
+    </update>
     <select id="getLoginHistory" resultMap="UserResultMap">
         <!--로그인 내역 확인(중복 제거 기능.....?)-->
         SELECT
@@ -177,22 +184,23 @@
             'N'
         );
     </insert>
-    <select id="listUserDrop" resultMap="UserDropResultMap">
+    <select id="listUserDrop" resultMap="UserResultMap">
         SELECT
-            user_drop_id,
-            user_drop_pw,
-            user_drop_name,
-            user_drop_nickname,
-            user_drop_addr,
-            user_drop_phone,
-            user_drop_email,
-            user_drop_birth,
+            user_id,
+            user_pw,
+            user_name,
+            user_nickname,
+            user_addr,
+            user_phone,
+            user_email,
+            user_birth,
             point_state,
-            user_drop_join_date,
-            user_drop_date,
+            user_join_date,
             user_drop_state
         FROM
-            user_drop
+            user AS u
+        where
+            u.user_drop_state='Y'
     </select>
     <select id="listUserDor" resultMap="UserDorResultMap">
         <!--휴면 회원 조회-->

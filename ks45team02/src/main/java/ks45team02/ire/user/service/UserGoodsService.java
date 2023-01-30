@@ -32,7 +32,7 @@ public class UserGoodsService {
 	}
 	
 	/**
-	 * 상품 및 이미지 경로 불러오기
+	 * 상품 및 이미지 경로 특정코드 조회
 	 * @param goodsCode
 	 * @return getGoodsList
 	 */

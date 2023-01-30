@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.Basket;
@@ -22,16 +25,32 @@ public class UserBasketController {
 		this.userBasketService = userBasketService;
 	}
 	
+	//장바구니 추가
 	@GetMapping("/addBasket")
-	public String addBasket(Model model) {
+	public String addBasket(Model model, HttpSession session, RedirectAttributes reAttr
+						   ,@RequestParam(value="goodsCode") String goodsCode
+						   ,@RequestParam(value="basketAmount") int basketAmount) {
 		
-		return "user/basket/basketAdd";
-	}
-	
-	@GetMapping("/deleteBasket")
-	public String deleteBasket() {
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		String loginId = loginInfo.getLoginId();
 		
-		return "user/basket/basketDelete";
+		Basket basket = new Basket();
+		basket.setGoodsCode(goodsCode);
+		basket.setUserId(loginId);
+		basket.setBasketAmount(basketAmount);
+		
+		int result = userBasketService.addBasket(basket);
+		if(result == 10){
+			reAttr.addAttribute("msg", "이미 장바구니에 등록된 상품입니다.");
+		}else if(result == 1) {
+			reAttr.addAttribute("msg", "장바구니에 등록되었습니다.");
+		}
+		
+		reAttr.addAttribute("goodsCode", goodsCode);
+		return "redirect:/goodsContents"; 
 	}
 	
 	//회원의 장바구니 조회
@@ -52,11 +71,19 @@ public class UserBasketController {
 		return "user/basket/basketList";
 	}
 	
-	
+	//장바구니 수정 처리
 	@GetMapping("/modifyBasket")
-	public String modifyBasket() {
+	public String modifyBasket(HttpSession session
+							  ,@RequestParam(value="basketCode") String basketCode
+							  ,@RequestParam(value="basketAmount") String basketAmount) {
 		
-		return "user/basket/basketList";
+		LoginInfo loginInfo = (LoginInfo) session.getAttribute("S_MEMBER_INFO");
+		if(loginInfo == null) {
+			return "redirect:/loginUser";
+		}
+		userBasketService.modifyBasket(basketCode, basketAmount);
+		
+		return "redirect:/listBasket";
 	}
 
 }

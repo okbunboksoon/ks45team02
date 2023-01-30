@@ -65,11 +65,9 @@
                                     <td th:text ="${c.contractRegDate}"/></td>
                                     <td th:text ="${c.contractState}"/></td>
                                     <td>
-                                        <a th:href="@{/admin/modifyContract(contractCode=${c.contractCode})}">수정</a>
+                                        <a th:href="@{/admin/modifyContract(contractCode=${c.contractCode})}">수정 혹은 삭제</a>
                                     </td>
-                                    <td>
-                                        <a th:href ="@{/admin/modifyContract/{contractCode}(contractCode=${c.contractCode})}">삭제</a>
-                                    </td>
+
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(contractList)}">
                                     <td colspan="9">등록한 회원이 없습니다.</td>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ks45team02.ire.admin.dto.GoodsEmission;
 import ks45team02.ire.admin.dto.RawMaterialsEmission;
 import ks45team02.ire.admin.mapper.EmissionMapper;
+import ks45team02.ire.admin.mapper.GoodsMapper;
 
 @Service
 public class EmissionService {
@@ -137,6 +138,12 @@ public class EmissionService {
 		return GoodsEmissionInfo;
 	}
 	
+	public int checkEmission(String fabricValue, String rateValue) {
+		
+		
+		
+		return 1;
+	}
 	/**
 	 * 상품 등록 시 이산화탄소 배출량 조회
 	 */
@@ -152,5 +159,4 @@ public class EmissionService {
 	
 		return paramMap;
 	}
-
 }

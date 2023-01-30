@@ -26,4 +26,21 @@
 	WHERE
 	    g.business_code = #{business_code}
 	</select>
+	
+	<!-- 상품 매입 결제 조회 -->
+	<select id="getGoodsBuyingPaymentList" resultMap="GoodsBuyingPaymentResultMap">
+		SELECT
+			p.goods_buy_payment_code
+			,p.business_code
+			,p.business_name
+			,p.buy_total
+			,p.payment
+			,p.accounts_payable
+			,p.payment_account_type
+			,p.payment_bank
+			,p.payment_account_code
+			,p.goods_buy_payment_day
+		FROM
+			goods_buy_payment AS p	
+	</select>
 </mapper>

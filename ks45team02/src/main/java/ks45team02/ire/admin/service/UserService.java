@@ -2,7 +2,6 @@ package ks45team02.ire.admin.service;
 
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.dto.UserDor;
-import ks45team02.ire.admin.dto.UserDrop;
 import ks45team02.ire.admin.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +25,7 @@ public class UserService {
     public int addUser(User user){
         // 김재범 -회원가입 처리
         int result=userMapper.addUser(user);
-        System.out.println(result);
-        System.out.println("올릴려고 적음");
-        System.out.println(user);
         return result;
-
     }
     public int idCheck(String userId){
         // 중복 회원 아이디 체크
@@ -84,13 +79,17 @@ public class UserService {
         //휴면 회원조회
         return userMapper.listUserDor();
     }
-    public List<UserDrop>userDropList(){
+    public List<User>userDropList(){
         //탈퇴 회원 조회
         return userMapper.listUserDrop();
     }
     public int deleteUser(User user){
         //회원탈퇴=변경
         return userMapper.deleteUser(user);
+    }
+    public int logoutHistory(String userId){
+        //로그아웃시 시간 기록
+        return userMapper.logoutHistory(userId);
     }
 
 }

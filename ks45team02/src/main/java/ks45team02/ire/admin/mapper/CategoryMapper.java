@@ -21,6 +21,11 @@ public interface CategoryMapper {
 	public List<CategoryMedium> getMediumCategory();
 	
 	/**
+	 * 	카테고리 대코드로 중코드 조회
+	 */
+	public List<CategoryMedium> getmediumCodeByBigCode(String categoryBigCode);
+	
+	/**
 	 * 카테고리 대 조회
 	 */
 	public List<CategoryBig> getListBigCategory();

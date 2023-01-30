@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,8 @@ public class BoardNoticeController {
 	 * @return
 	 */
 	@PostMapping("/addBoardNotice")
-	public String addBoardNotice(BoardNotice boardNotice, RedirectAttributes reAttr) {
-
+	public String addBoardNotice(BoardNotice boardNotice, RedirectAttributes reAttr, @CookieValue String loginKeepId) {
+		boardNotice.setUserId(loginKeepId);
 		int result = boardNoticeService.addNotice(boardNotice);
 		log.info("result : {}", result);
 		if(result == 0) {

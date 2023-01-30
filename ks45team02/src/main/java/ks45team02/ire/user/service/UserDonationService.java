@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ks45team02.ire.admin.dto.Donation;
 import ks45team02.ire.user.dto.UserDonation;
 import ks45team02.ire.user.mapper.UserDonationMapper;
 
@@ -20,6 +21,26 @@ public class UserDonationService {
 		this.userDonationMapper = userDonationMapper;
 	}
 	
+	/**
+	 * 기부 등록
+	 * @param donation
+	 * @return
+	 */
+	public int addDonation(Donation donation) {
+		
+		int result = 0;
+		
+		result = userDonationMapper.addDonation(donation);
+		
+		return result;
+	}
+	
+	/**
+	 * 기부 조회
+	 * @param loginId
+	 * @param currentPage
+	 * @return
+	 */
 	public Map<String, Object> getDonationList(String loginId, int currentPage){
 		
 		//보여질 행의 갯수

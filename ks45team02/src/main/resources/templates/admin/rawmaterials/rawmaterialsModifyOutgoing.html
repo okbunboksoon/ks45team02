@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/adminDefault}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
-<body>
-modifyOutgoingRawmaterials
-</body>
+
+
+<th:block layout:fragment="customContents">
+    <div class="x_panel">
+        <div class="x_title">
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br>
+            <form id = "modifyOutgoingRawmaterials" th:action="@{/admin/modifyOutgoingRawmaterials}" method="post" data-parsley-validate class="form-horizontal form-label-left" novalidate>
+                <div class="item form-group" th:object="${modifyOutgoingRawmaterialsInfo}">
+                    <label for="rawMaterialsCode" class="col-form-label col-md-3 col-sm-3 label-align">원자재 코드</label>
+                    <div class="col-md-6 col-sm-6">
+                        <input type = "text" id="rawMaterialsCode" name="rawMaterialsCode" th:value = "*{rawMaterialsCode}" class="form-control" placeholder="raw_materials_000"/>
+                    </div>
+                        <button class="btn btn-success" type="button" id="checkRawMaterialCode">원자재 코드 중복 확인</button>
+                </div>
+                <div class="item form-group">
+                    <label for="businessCode" class="col-form-label col-md-3 col-sm-3 label-align">거래처 코드</label>
+                    <div class="col-md-6 col-sm-6 ">
+                        <select id="businessCode" name="businessCode" disabled class="form-control">
+                            <option value="business_004">제이에스팩토리(004)</option>
+                            <option value="business_006">비에이치팩토리(006)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <div class="col-md-6 col-sm-6 offset-md-3">
+                        <button class="btn btn-success" type="button" disabled id="submitBtn">등록</button>
+                        <button class="btn btn-primary" type="button" id="cancelBtn">취소</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</th:block>
+
+
+<!-- 사용자 지정 js script -->
+
+<th:block layout:fragment="customScript">
+    <script type="text/javascript" th:inline="javascript">
+        const $cancelBtn = document.getElementById('cancelBtn');
+        const $resetBtn = document.getElementById('resetBtn');
+        const $submitBtn = document.getElementById('submitBtn');
+        const $inputEle = document.querySelectorAll('.item > div > input');
+
+        console.log($inputEle);
+
+        $cancelBtn.addEventListener('click', function(){
+            location.href = '/admin/listOutgoingRawmaterials';
+        });
+
+        //원자재 중복 확인
+        $('#checkRawMaterialCode').click(function(){
+            let rawMaterialsCode = $('#rawMaterialsCode').val();
+            $.ajax({
+                url:'./checkRawMaterialCode',
+                type:'GET',
+                data: {rawMaterialsCode:rawMaterialsCode},
+                success:function(isChecked){
+                if(isChecked == 0){
+                alert("원자재 출고가 안 된 원자재 입니다.");
+                $("#businessCode").attr("disabled", false);
+                $("#submitBtn").attr("disabled", false);
+                }
+                else{
+                    alert("현재 출고된 원자재 입니다. 다시 입력해주세요");
+                    $('rawMaterialsCode').val('');
+                }
+            },
+                error:function(){
+                    alert("에러입니다.");
+                    console.log(err);
+                }
+            });
+        });
+        $submitBtn.addEventListener('click', function(){
+            let checkFlag = true;
+            $inputEle.forEach(function(item){
+                if(item.value == '' || typeof item.value == 'undefined' || item.value == null){
+                    checkFlag = false;
+                }
+            })
+            if(checkFlag){
+                $submitBtn.setAttribute("type", "submit")
+            }else{
+                alert('값을 전부 입력해주세요.');
+            }
+        });
+
+        const msg = [[${msg}]];
+        if(msg != null) {
+            alert(msg);
+        }
+
+    </script>
+
+</th:block>
+
 </html>

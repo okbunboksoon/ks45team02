@@ -4,6 +4,8 @@ import ks45team02.ire.admin.dto.Business;
 import ks45team02.ire.admin.dto.BusinessOrder;
 import ks45team02.ire.admin.dto.Goods;
 import ks45team02.ire.admin.service.BusinessOrderService;
+import ks45team02.ire.admin.service.Sales_BuyingService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,12 @@ public class BusinessOrderController {
 	private static final Logger log = LoggerFactory.getLogger(DonationController.class);
 	
 	private BusinessOrderService businessOrderService;
-
-	public BusinessOrderController(BusinessOrderService businessOrderService) {
+	private Sales_BuyingService sales_BuyingService;
+	
+	public BusinessOrderController(BusinessOrderService businessOrderService, Sales_BuyingService sales_BuyingService) {
 		
 		this.businessOrderService = businessOrderService;
+		this.sales_BuyingService = sales_BuyingService;
 
 	}
 	
@@ -123,6 +127,7 @@ public class BusinessOrderController {
 			return "redirect:/admin/addBusinessOrder";
 		}else {
 			reAttr.addAttribute("msg", "발주 등록에 성공하였습니다.");
+			sales_BuyingService.addGoodsBuying(businessOrder);
 		}
 		
 		

@@ -44,11 +44,6 @@ public class BusinessController {
 		return "redirect:/admin/listBusiness";
 	}
 	
-	@GetMapping("/deleteBusiness")
-	public String deleteBusiness() {
-		
-		return "admin/business/businessDelete";
-	}
 	//거래처 조회
 	@GetMapping("/listBusiness")
 	public String listBusiness(Model model) {
@@ -69,6 +64,7 @@ public class BusinessController {
 		model.addAttribute("businessInfo",businessInfo);
 		return "admin/business/businessModify";
 	}
+	//거래처 수정처리
 	@PostMapping("/modifyBusiness")
 	public String modifyBusiness(Business business){
 		businessService.modifyBusiness(business);

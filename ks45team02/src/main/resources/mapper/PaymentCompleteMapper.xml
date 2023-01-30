@@ -104,7 +104,12 @@
 			,#{orderDate}
 			,NULLIF(#{deliCode}, '') 
 			,#{paymentTypeCode}
-			,#{paymentDate}
+			<if test="paymentDate == null">
+				,NOW();
+			</if>
+			<if test="paymentDate != null">
+				,#{paymentDate}
+			</if>
 			<if test="pointUseGroup == 'point_use'">
 			,sf_new_point_group_code(#{pointUseGroup})
 			</if>
@@ -180,7 +185,7 @@
 		FROM 
 			payment_complete;
     </select>
-    
+
     <select id="getPaymentCompleteInfo" resultMap="PaymentCompleteResultMap" parameterType="String">
     	<!-- 결제내역 코드로 결제내역 조회 -->
         SELECT
@@ -203,5 +208,25 @@
         WHERE
        	 	payment_complete_code = #{paymentCompleteCode};
     </select>
+	<select id="getPaymentComplete" resultMap="PaymentCompleteResultMap" parameterType="String">
+		<!--total코드로 결재완료코드 조회-->
+		SELECT
+			payment_complete_code,
+			buynow_basket_total_code,
+			buynow_basket,
+			user_id,
+			final_payment_amount,
+			order_date, deli_code,
+			payment_type_code,
+			payment_date,
+			point_use_group,
+			product_order_state,
+			point_save,
+			product_order_point_group,
+			payment_complete_delete_state
+		FROM
+			payment_complete AS pc
+		WHERE pc.buynow_basket_total_code=#{buynowBasketTotalCode}
+	</select>
 
 </mapper>

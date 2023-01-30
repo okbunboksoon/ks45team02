@@ -12,8 +12,8 @@
 	</head>
 
 	<th:block layout:fragment="customContents">
-		<form class="bg0 p-b-85">
-			<div class="container">
+		<form class="bg0 p-b-85" th:action="@{/addBuyBasket}" method="get">
+			<div class="container" >
 				<div class="row">
 						<div>
 							<div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -35,9 +35,9 @@
 										</tr>
 										<tr class="table_row" th:unless="${#lists.isEmpty(userBasketList)}" th:each="l : ${userBasketList}">
 											<td style="display:none;">
-												<input type="text" name="basketCode" th:text="${l.basketCode}">
-												<input type="text" name="goodsCode" th:text="${l.goodsCode}">
-												<input type="text" name="basketGroup" th:text="${l.basketGroup}">
+												<input type="text" name="basketCode" th:value="${l.basketCode}">
+												<input type="text" name="goodsCode" th:value="${l.goodsCode}">
+												<input type="text" name="basketGroup" th:value="${l.basketGroup}">
 											</td>
 											<td class="column-1" colspan="2">
 												<a th:href="@{/goodsContents(goodsCode=${l.goodsCode})}" th:text="${l.goodsName}"></a>
@@ -61,8 +61,9 @@
 								</div>
 								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 									<div class="flex-w flex-m m-r-20 m-tb-5"></div>
-									<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10" 
-										 id="updateBasket">Update Cart</div>
+									<button type="button" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10" 
+										 id="updateBasket">Update Cart
+									</button>
 								</div>
 								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 									<div class="flex-w flex-m m-r-20 m-tb-5"></div>
@@ -73,8 +74,9 @@
 								</div>
 								<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 									<div class="flex-w flex-m m-r-20 m-tb-5"></div>
-									<div class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
-										 id="updateBasket">BUY</div>
+									<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+										 id="buyBasket">BUY
+									</button>
 								</div>
 							</div>
 						</div>
@@ -91,7 +93,10 @@
 	
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
-
+		
+			const $updateBasketBtn = document.getElementById('updateBasket');
+			const $buyBasketBtn = document.getElementById('buyBasket');
+			
 			let $expectedAmountEle = document.getElementById('expectedAmount');
 			let $basketAmount = document.querySelectorAll('#basketAmount');
 			let eachPaymentAmountArr = document.querySelectorAll('#eachPaymentAmount');
@@ -108,6 +113,7 @@
 			
 			getExpectedAmount();
 			
+			//수량 변경
 			for (const btnNumUp of btnNumUpArr) {
 				btnNumUp.addEventListener('click', function(){
 					let basketAmount = btnNumUp.previousElementSibling.value;
@@ -118,6 +124,7 @@
 					getExpectedAmount();
 				});
 			}
+			//수량 변경
 			for (const btnNumDown of btnNumDownArr) {
 				btnNumDown.addEventListener('click', function(){
 					let basketAmount = btnNumDown.nextElementSibling.value;
@@ -127,8 +134,22 @@
 
 					getExpectedAmount();
 				});
-				
 			}
+			
+			//수정버튼 경로
+			function updateBasketFormFn(frm) { 
+			    frm.action='/modifyBasket'; 
+			    frm.submit(); 
+			    return true; 
+			  } 
+			
+			$updateBasketBtn.addEventListener('click', function(){
+				$updateBasketBtn.setAttribute("type", "submit")
+				updateBasketFormFn(this.form);
+			})
+			$buyBasketBtn.addEventListener('click', function(){
+				$buyBasketBtn.setAttribute("type", "submit")
+			})
 		
 		</script>
 

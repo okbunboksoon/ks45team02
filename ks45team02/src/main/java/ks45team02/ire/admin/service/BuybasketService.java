@@ -80,7 +80,6 @@ public class BuybasketService {
 		int userPointState = userInfo.getPointState();
 		int usePoint = buybasket.getUsePoint();
 		
-		
 		if(userPointState < usePoint) {
 			return result;
 		}

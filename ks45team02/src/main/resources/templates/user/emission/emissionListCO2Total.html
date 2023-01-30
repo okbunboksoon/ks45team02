@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{user/layout/userDefault}">
+
+<head>
+
+		<!-- Datatables -->
+	    <link  th:href="@{/admin/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css}" rel="stylesheet">
+	    <link  th:href="@{/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css}" rel="stylesheet">
+	
+	<style type="text/css">
+		@font-face {
+	    font-family: 'IBMPlexSansKR-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;}
+		
+		div{
+			color: black;
+		}
+		
+		*{
+		font-family: 'IBMPlexSansKR-Regular';
+		}
+		
+		</style>
+		</head>
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+			$(function(){
+				const emissionTotalArr = [[${emissionTotal}]];
+				const labelArr = emissionTotalArr.map(function(item){
+					return item['goods_code'];
+				});
+				const data1Arr = emissionTotalArr.map(function(item){
+					return item['carbon_dioxide_emission_level'];
+				});
+				const data2Arr = emissionTotalArr.map(function(item){
+					return item['upcycling_carbon_dioxide_emission_level'];
+				});
+				const data3Arr = emissionTotalArr.map(function(item){
+					return item['goods'];
+				});
+				const data4Arr = data3Arr.map(function(item){
+					return item['goodsName'];
+				});
+				console.log(emissionTotalArr);
+				console.log(labelArr);
+				console.log(data1Arr);
+				console.log(data2Arr);
+				console.log(data3Arr);
+				console.log(data4Arr);
+			    if ($('#emissionChart').length) {
+			        var ctx = document.getElementById("emissionChart");
+			        var mybarChart = new Chart(ctx, {
+			            type: 'bar',
+			            data: {
+			                labels: data4Arr,
+			                datasets: [{
+			                    label: '# of Votes',
+			                    backgroundColor: "#26B99A",
+			                    data: data1Arr
+			                }, {
+			                    label: '# of Votes',
+			                    backgroundColor: "#03586A",
+			                    data: data2Arr
+			                }]
+			            },
+			            options: {
+			                scales: {
+			                    yAxes: [{
+			                        ticks: {
+			                            beginAtZero: true
+			                        }
+			                    }]
+			                }
+			            }
+			        });
+			  	  }
+				});
+		</script>	
+	</th:block>
+	
+<th:block layout:fragment="customContents">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			CO2 통계
+		</h2>
+	</section>
+	
+
+
+            
+			<div class="col-md-12 col-sm-12" stlye="margin: auto">
+	                <div class="x_title">
+	                  <div class="row x_title">
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <canvas id="emissionChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6 col-sm-6 ">
+	              <div class="x_panel " >
+	                <div class="x_title">
+	                  <h2>상품별 CO2 감소비율</h2>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <th:block th:if="${not #lists.isEmpty(emissionTotal)}" th:each="et : ${emissionTotal}">
+		                <div class="x_content">
+		                  <div class="widget_summary">
+		                    <div class="w_left w_25">
+	
+		                      <span th:text="${et.goods.goodsName}"></span>
+		                    </div>
+		                    <div class="w_center w_55">
+		                      <div class="progress">
+		                        <div class="progress-bar bg-black" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" 
+		                        	 th:style="'width:' + ${et.decrease_rate} + '%'">
+		                          <span class="sr-only">10% Complete</span>
+		                        </div>
+		                      </div>
+		                    </div>
+	
+		                    <div class="w_right w_20">
+		                      <span th:text="${et.decrease_rate}"></span>
+		                    </div>
+		                    <div class="clearfix"></div>
+		                  </div>
+		                </div>
+					</th:block>
+		            </div>
+	            </div>
+
+</th:block>
+
+	<!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs">
+		<!-- Datatables -->
+	    <script th:src="@{/admin/vendors/datatables.net/js/jquery.dataTables.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/dataTables.buttons.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.flash.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-buttons/js/buttons.print.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js}"></script>
+	    <script th:src="@{/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js}"></script>
+	    <script th:src="@{/admin/vendors/jszip/dist/jszip.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/pdfmake.min.js}"></script>
+	    <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
+	</th:block>
+</html>

@@ -174,8 +174,17 @@
 	</script>
 <!--===============================================================================================-->
 	<script th:src="@{/user/js/main.js}"></script>
+	
+	 <!-- 사용자 지정 js 파일 -->
+	<th:block layout:fragment="customJs"></th:block>
+	
+	<!-- 사용자 지정 js script -->
     <th:block layout:fragment="customScript"></th:block>
 	
+    <!-- Chart.js -->
+    <script th:src="@{/admin/vendors/Chart.js/dist/Chart.min.js}"></script>
+
+   
 </body>
 
 

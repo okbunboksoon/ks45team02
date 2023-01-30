@@ -1,10 +1,91 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+
+<th:block layout:fragment="customContents">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/user/css/login.css">
+        <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    </head>
+    <body>
+    <form id="deleteUser" th:action="@{/deleteUser}" method="post">
+        <div class="page-container">
+            <div class="login-form-left-side">
+                <div class="login-top-wrap">
+                    <span>Withdrawal</span>
+
+                </div>
+                <div class="login-input-container">
+                    <div class="login-input-wrap input-id">
+                        <input type="text" id="userId"
+                               name="userId"
+                               th:value="${loginInfo.getLoginId()}"
+                               readonly="readonly">
+
+                    </div>
+                    <div class="login-input-wrap input-password">
+                        <input type="password" placeholder="비밀번호를다시입력하시오"
+                               id="userPw"
+                               name="userPw">
+                    </div>
+                </div>
+                <br><br>
+                <div class="login-btn-wrap">
+                    <button class="login-btn" id="submitBtn" type="submit">로그인</button>
+                    <a href="/myPage" >취소</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+</th:block>
+<th:block layout:fragment="customScript">
+    <script>
+        $(function(){
+            function validateValue(checkValue) {
+                if(    typeof checkValue == 'undefined'
+                        || checkValue == null
+                        || checkValue == ''					){
+                    return true;
+                }
+                return false;
+
+            }
+            $(function (){
+                const msg=[[${msg}]]
+                if(msg!=null) alert(msg)
+
+                // submitBTN을 클릭시 정말로 탈퇴하시겠습니까? 확인 경고창 활성화 확인버튼을 클릭시 콘솔창에
+                //회원 탈퇴 가 출력
+                $('#submitBtn').click(function (){
+                    var PWvalue=$('#userPw').val();
+                    if(validateValue(PWvalue)){
+                        alert('회원 비밀번호를 입력하시오')
+                        $('userPw').focus();
+                        return false;
+
+                    }
+                    if(confirm('정말하시겠습니까?')){
+                        console.log('회원탈퇴');
+                        $('#deleteUser').submit();
+                    }else{
+                        alert('취소');
+                    }
+                })
+            });
+
+            $('#submitBtn').hover(function(){
+                $(this).css('background-color','gray');
+            },function(){
+                $(this).css('background-color','black');
+            })
+        });
+
+    </script>
+</th:block>
 </html>

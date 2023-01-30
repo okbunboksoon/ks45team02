@@ -28,4 +28,7 @@ public interface PaymentCompleteMapper {
     
     //결제내역 코드로 결제내역 조회
     public PaymentComplete getPaymentCompleteInfo(String paymentCompleteCode);
+	//total코드로 결재완료코드 조회
+	public PaymentComplete getPaymentComplete(String buynowBasketTotalCode);
+
 }

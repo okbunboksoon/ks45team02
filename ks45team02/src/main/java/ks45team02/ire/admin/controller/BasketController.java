@@ -80,40 +80,6 @@ public class BasketController {
 		return "admin/basket/basketAdd";
 	}
 	
-	//장바구니 삭제 처리
-	@PostMapping("/deleteBasket")
-	public String deleteBasket(@RequestParam(value="basketCode") String basketCode
-							  ,RedirectAttributes reAttr) {
-		
-		int result = basketService.deleteBasket(basketCode);
-		if(result == 0) {
-			reAttr.addAttribute("msg", "장바구니 삭제에 실패하였습니다.");
-			reAttr.addAttribute("basketCode", basketCode);
-			return "redirect:/admin/deleteBasket";
-		}else {
-			reAttr.addAttribute("msg", result + "개의 데이터가 삭제되었습니다.");
-		}
-		return "redirect:/admin/listBasket";
-	}
-	
-	//장바구니 삭제 페이지
-	@GetMapping("/deleteBasket")
-	public String deleteBasket(Model model
-							 ,@RequestParam(value="basketCode") String basketCode
-							 ,@RequestParam(value="msg", required = false) String msg) {
-		
-		Basket basketInfo = basketMapper.getBasketInfo(basketCode);
-		
-		model.addAttribute("title", "장바구니 삭제");
-		model.addAttribute("pageTitle", "장바구니 삭제");
-		model.addAttribute("basketInfo", basketInfo);
-		if(msg != null) {
-			model.addAttribute("msg", msg);
-		}
-		
-		return "admin/basket/basketDelete";
-	}
-	
 	//장바구니 조회 페이지
 	@GetMapping("/listBasket")
 	public String listBasket(Model model

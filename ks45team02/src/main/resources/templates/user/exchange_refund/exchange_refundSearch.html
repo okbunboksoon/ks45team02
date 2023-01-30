@@ -1,10 +1,107 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+<head>
+    <style type="text/css">
+        @font-face {
+            font-family: 'IBMPlexSansKR-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;}
+
+        div{
+            color: black;
+        }
+
+        *{
+            font-family: 'IBMPlexSansKR-Regular';
+        }
+
+    </style>
+</head>
+
+<th:block layout:fragment="customContents">
+    <section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
+        <h2 class="ltext-105 cl0 txt-center">
+            교환 환불
+        </h2>
+    </section>
+
+    <section class="bg0 p-t-75 p-b-120">
+        <div class="container">
+            <div class="row p-b-148">
+                <div class="col-md-7 col-lg-2"></div>
+                <div class="col-md-7 col-lg-8">
+                    <div class="p-t-7 p-r-85 p-r-15-lg p-r-0-md">
+
+                        <table id="searchExchange_Refund" class="table" cellspacing="0" width="1000"  style="margin-left: auto; margin-right: auto;">
+                            <thead>
+
+                            <tr>
+                                <th class="userId">회원아이디</th>
+                                <th class="goodsExchangeContent">교환사유</th>
+                                <th class="exchangeProcessState">교환상태</th>
+                                <th class="goodsExchangeDate">요청일자</th>
+                                <th class="managerId">담당자</th>
+                                <th class="exchangeReject">교환 불가사유</th>
+                                <th class="exchangeApproval">교환 승인</th>
+                                <th class="exchangeDate">승인 날짜</th>
+
+                            </tr>
+                                <tr th:if="${not #lists.isEmpty(useridExchangeList)}"
+                                    th:each="ue : ${useridExchangeList}">
+                                    <td th:text="${ue.userId}" />
+                                    <td th:text="${ue.goodsExchangeContent}" />
+                                    <td th:text="${ue.exchangeProcessState}" />
+                                    <td th:text="${ue.goodsExchangeDate}" />
+                                    <td th:text="${ue.managerId}" />
+                                    <td th:text="${ue.exchangeReject}" />
+                                    <td th:text="${ue.exchangeApproval}" />
+                                    <td th:text="${ue.exchangeDate}" />
+                                </tr>
+                                <tr th:unless="${not #lists.isEmpty(useridExchangeList)}">
+                                    <td colspan="5">등록된 교환이 없습니다.</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="userId">회원아이디</th>
+                                    <th class="goodsRefundCount">환불수량</th>
+                                    <th class="goodsRefundPrice">환불가격</th>
+                                    <th class="goodsRefundDate">요청일자</th>
+                                    <th class="managerId">담당자</th>
+                                    <th class="RefundReject">환불 불가사유</th>
+                                    <th class="RefundApproval">환불 승인</th>
+                                    <th class="RefundDate">승인 날짜</th>
+
+                                </tr>
+                                <tr th:if="${not #lists.isEmpty(useridRefundList)}"
+                                    th:each="ur : ${useridRefundList}">
+                                    <td th:text="${ur.userId}" />
+                                    <td th:text="${ur.goodsRefundCount}" />
+                                    <td th:text="${ur.goodsRefundPrice}" />
+                                    <td th:text="${ur.goodsRefundDate}" />
+                                    <td th:text="${ur.managerId}" />
+                                    <td th:text="${ur.RefundReject}" />
+                                    <td th:text="${ur.RefundApproval}" />
+                                    <td th:text="${ur.RefundDate}" />
+                                </tr>
+                                <tr th:unless="${not #lists.isEmpty(useridRefundList)}">
+                                    <td colspan="5">등록된 교환이 없습니다.</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-2"></div>
+            </div>
+        </div>
+    </section>
+
+
+</th:block>
 </html>

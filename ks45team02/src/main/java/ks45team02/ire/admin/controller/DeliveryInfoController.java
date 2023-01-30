@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,8 +56,8 @@ public class DeliveryInfoController {
 	 * @param model
 	 */
 	@GetMapping("/addDeliveryInfo")
-	public String addDeliveryInfo(Model model) {
-		
+	public String addDeliveryInfo(Model model, @CookieValue String loginKeepId) {
+		log.info("loginKeepId :{}", loginKeepId);
 		model.addAttribute("title", "배송정보 등록");
 		model.addAttribute("pageTitle", "배송정보 등록");
 		
@@ -71,8 +72,9 @@ public class DeliveryInfoController {
 	 */
 	@PostMapping("/addDeliveryInfo")
 	public String addDeliveryInfo(DeliveryInfo deliveryInfo
-								 ,RedirectAttributes reAttr) {
-		
+								 ,RedirectAttributes reAttr, @CookieValue String loginKeepId) {
+		deliveryInfo.setUserId(loginKeepId);
+		log.info("loginKeepId :{}", loginKeepId);
 		log.info("deliveryInfo :{}", deliveryInfo);
 		
 		int result = deliveryInfoService.addDeliveryInfo(deliveryInfo);

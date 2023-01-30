@@ -12,25 +12,41 @@
 					<ul class="main-menu">
 						<li><a href="/" style="font-size:40px; margin:40px;">Ire</a></li>
 						
-						<li><a href="listGoods">Shop</a>
+
+						<li><a href="listGoods">Product</a>
+
+						<li><a href="/listGoods">Shop</a>
+
 							<ul class="sub-menu">
-								<li><a href="listGoodsItem?item=cate_big_002">BAG</a></li>
-								<li><a href="listGoodsItem?item=cate_big_001">SHOSE</a></li>
-								<li><a href="listGoodsItem?item=cate_big_003">ACC</a></li>
+								<li><a href="/listGoodsItem?item=cate_big_002">BAG</a></li>
+								<li><a href="/listGoodsItem?item=cate_big_001">SHOSE</a></li>
+								<li><a href="/listGoodsItem?item=cate_big_003">ACC</a></li>
 							</ul>
 						</li>
 						
-						<li><a href="addDonation">Donation</a></li>
+						<li><a href="/addDonation">Donation</a></li>
 						
-						<li><a href="listBoardUserGuide">Guide</a></li>
+						<li><a href="/listBoardUserGuide">Guide</a></li>
 						
-						<li><a href="listBoardNotice">Notice</a></li>
+						<li><a href="/listBoardNotice">Notice</a></li>
 						
-						<li><a href="listBoardEvent">Event</a></li>
+						<li><a href="/listBoardEvent">Event</a></li>
 
-						<li><a href="listBoardFAQ">FAQ</a></li>
-						
-						<li><a href="listEmissionRawMaterialsGroupStatistics">CO2 통계</a></li>
+						<li><a href="/listBoardFAQ">FAQ</a></li>
+
+						<li><a href="/listBoardInquiry">Inquiry</a></li>
+
+						<li><a href="/listEmissionCO2Total">CO2 통계</a>
+							
+							<ul class="sub-menu">
+								<li><a href="/listEmissionRawMaterialsGroupStatistics">기부받은 의류 CO2 일 통계</a></li>
+								<li><a href="/listEmissionRawMaterialsGroupStatisticsMonth">기부받은 의류 CO2 월 통계</a></li>
+								<li><a href="/listEmissionRawMaterialsGroupStatisticsYear">기부받은 의류 CO2 년 통계</a></li>
+							</ul>
+						</li>
+
+
+
 					</ul>
 				</div>
 					
@@ -53,9 +69,25 @@
 
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar dropdown" >
-                                <a href="/loginUser">
-                                    <i class="bi bi-person-fill dropbtn"></i>
-                                </a>
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"><i class="bi bi-person-fill dropbtn"></i></span></a>
+                            <ul class="dropdown-menu">
+                                <th:block th:if="${session.S_MEMBER_INFO==null}">
+                                    <a href="/loginUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" >로그인</a>
+                                    <a href="/addUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4" >회원가입</a>
+                                </th:block>
+                                <th:block th:if="${session.S_MEMBER_INFO!=null}">
+                                    <a href="/myPage" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">마이페이지</a>
+                                    <a href="/modifyUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">정보 수정</a>
+                                    <a href="/listPoint" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">포인트 내역</a>
+                                    <a href="/listOrder" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">주문 내역</a>
+                                    <a href="/searchExchange_Refund" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">교환/환불 내역</a>
+                                    <a href="/listDonation" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">기부 내역</a>
+                                    <a href="/deleteUser" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">회원탈퇴</a>
+                                    <a href="/logout" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">로그아웃</a>
+                                </th:block>
+                            </ul>
 						</div>
 					</div>
 				</div>

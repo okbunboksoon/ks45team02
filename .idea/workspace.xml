@@ -4,48 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 등록&#10;변경시간: 1월 17일 16시 56분">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022-12-28__3_04__________.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/2022-12-28_오후_3_04,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+    <list default="true" id="d5eeeca1-b616-4416-b80e-47ad00c5f376" name="변경" comment="[teamproject ire]&#10;author: KJB&#10;변경사항: user에 로그아웃시 로그인내역 변경&#10;변경시간: 1월 30일 09시 11분">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BoardInquiryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BoardInquiryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/dto/BoardInquiry.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/dto/BoardInquiry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/BoardInquiryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/BoardInquiryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/BoardInquiryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/BoardInquiryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/user/controller/UserUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/BoardInquiryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/BoardInquiryMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/static/user/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/static/user/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardAddInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardAddInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardContentsInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardContentsInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardInquiryAnswer.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardInquiryAnswer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardListInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardListInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardModifyInquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/board/boardModifyInquiry.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/business/businessAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/business/businessAdd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BusinessController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/BusinessController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/IncomingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/controller/IncomingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/IncomingMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/mapper/IncomingMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/IncomingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/java/ks45team02/ire/admin/service/IncomingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/Incoming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/mapper/Incoming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/business/businessModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/business/businessModify.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/contract/contractAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/contract/contractAdd.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/contract/contractModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/contract/contractModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeAddStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeAddStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/exchangeRequest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundAddStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundAddStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundListStandard.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundListStandard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/exchange_refund/refundRequest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingListStock.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingListStock.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/incoming/incomingModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/outgoing/outgoingAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/outgoing/outgoingAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/outgoing/outgoingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/outgoing/outgoingList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userDelete.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userDelete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userList.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userListDormant.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userListDormant.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userListDrop.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userListDrop.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userLogin.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userLogin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userLoginHistory.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userLoginHistory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userModify.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/admin/user/userModify.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/user/userAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/user/userAdd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/exchange_refund/exchangeRequest.html" beforeDir="false" afterPath="$PROJECT_DIR$/ks45team02/src/main/resources/templates/user/exchange_refund/exchangeRequest.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,9 +30,9 @@
       <list>
         <option value="AnnotationType" />
         <option value="spring-beans.schema" />
-        <option value="Interface" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -111,12 +81,12 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/templates/admin/board&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/김재범/Desktop/intelij_work/ok_team02/ks45team02/src/main/resources/templates/user/board&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;아티팩트&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDK&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;,
@@ -128,6 +98,7 @@
       <recent name="ks45team02.src.main.java.ks45team02.ire" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\templates\user\board" />
       <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\templates\admin\board" />
       <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\mapper" />
       <recent name="C:\Users\김재범\Desktop\intelij_work\ok_team02\ks45team02\src\main\resources\templates\admin\exchange_refund" />
@@ -186,7 +157,24 @@
       <workItem from="1673921410914" duration="11145000" />
       <workItem from="1673945542712" duration="6748000" />
       <workItem from="1674007916575" duration="1341000" />
-      <workItem from="1674009672961" duration="9510000" />
+      <workItem from="1674009672961" duration="10702000" />
+      <workItem from="1674029032365" duration="644000" />
+      <workItem from="1674089975772" duration="3047000" />
+      <workItem from="1674108951190" duration="9853000" />
+      <workItem from="1674173234018" duration="8084000" />
+      <workItem from="1674182053749" duration="28000" />
+      <workItem from="1674182084866" duration="254000" />
+      <workItem from="1674612762620" duration="36000" />
+      <workItem from="1674612856815" duration="8568000" />
+      <workItem from="1674650724604" duration="1896000" />
+      <workItem from="1674652637242" duration="3719000" />
+      <workItem from="1674691767993" duration="19853000" />
+      <workItem from="1674734945957" duration="6670000" />
+      <workItem from="1674788923559" duration="1000" />
+      <workItem from="1674801397972" duration="5758000" />
+      <workItem from="1674984186406" duration="12455000" />
+      <workItem from="1675037364437" duration="1630000" />
+      <workItem from="1675039185558" duration="4599000" />
     </task>
     <task id="LOCAL-00001" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분">
       <created>1672216122635</created>
@@ -384,7 +372,56 @@
       <option name="project" value="LOCAL" />
       <updated>1673942204907</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:commonJs제거 밑 회원가입 취소 버튼 수정 admin쪽 1:1문의 게시판 완성&#10;변경시간: 1월 18일 15시 36분">
+      <created>1674023778278</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1674023778278</updated>
+    </task>
+    <task id="LOCAL-00030" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분">
+      <created>1674181716452</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1674181716452</updated>
+    </task>
+    <task id="LOCAL-00031" summary="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분">
+      <created>1674181875429</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1674181875429</updated>
+    </task>
+    <task id="LOCAL-00032" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: User쪽 session작업&#10;변경시간: 1월 26일 10시 13분">
+      <created>1674695600093</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1674695600093</updated>
+    </task>
+    <task id="LOCAL-00033" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: session으로 로그인 구분&#10;변경시간: 1월 26일 22시 54분">
+      <created>1674741286098</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1674741286098</updated>
+    </task>
+    <task id="LOCAL-00034" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: paymentList 올림&#10;변경시간: 1월 27일 15시 38분">
+      <created>1674801535596</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1674801535596</updated>
+    </task>
+    <task id="LOCAL-00035" summary="[teamproject ire]&#10;author: KJB&#10;변경사항: user에 로그아웃시 로그인내역 변경&#10;변경시간: 1월 30일 09시 11분">
+      <created>1675037492918</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1675037492918</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,10 +447,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 28일 17시 28분" />
-    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/fragement/3개의 파일들의 맵핑&#10;변경시간: 12월 29일 09시 53분" />
-    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: admin/controller와 html파일의 맵핑&#10;변경시간: 12월 29일 15시 00분" />
-    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: aside.html,asideFragment.html,navi.html,userAdd.html,userDelete.html,userFindId.html,userFindPw.html,userLogin.html,userModify.html&#10;변경시간: 12월 30일 15시 17분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: UserMapper.java,UserMapper.xml,UserController,UserServicer(회원가입)&#10;변경시간: 12월 30일 16시 29분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: RawnaterialsController-totalRawMatrialsInOut수정&#10;변경시간: 12월 30일 17시 02분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 유저 회원가입내용(컨트롤러,맵퍼,서비스)&#10;변경시간: 12월 30일 17시 02분" />
@@ -433,6 +466,16 @@
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: 로그인 버튼 가져다대면 변경&#10;변경시간: 1월 16일 16시46분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 로그인,수정 교환 환불옆에 페이징,로그아웃 추가&#10;변경시간: 1월 17일 15시10분" />
     <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 등록&#10;변경시간: 1월 17일 16시 56분" />
-    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항:회원 등록&#10;변경시간: 1월 17일 16시 56분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:commonJs제거 밑 회원가입 취소 버튼 수정 admin쪽 1:1문의 게시판 완성&#10;변경시간: 1월 18일 15시 36분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항:1:1문의 테이블 부터 망했대요 ㅎㅎㅎ&#10;변경시간: 1월 20일 11시 30분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: User쪽 session작업&#10;변경시간: 1월 26일 10시 13분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: session으로 로그인 구분&#10;변경시간: 1월 26일 22시 54분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: paymentList 올림&#10;변경시간: 1월 27일 15시 38분" />
+    <MESSAGE value="[teamproject ire]&#10;author: KJB&#10;변경사항: user에 로그아웃시 로그인내역 변경&#10;변경시간: 1월 30일 09시 11분" />
+    <option name="LAST_COMMIT_MESSAGE" value="[teamproject ire]&#10;author: KJB&#10;변경사항: user에 로그아웃시 로그인내역 변경&#10;변경시간: 1월 30일 09시 11분" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

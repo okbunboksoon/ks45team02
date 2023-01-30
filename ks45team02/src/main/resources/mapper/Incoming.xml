@@ -36,6 +36,7 @@
 <!--        </association>-->
     </resultMap>
     <select id="getStockAmount" resultType="map">
+        <!--재고조회-->
         SELECT
         sub_g.goods_code AS goodsCode
         ,sub_g.incomingAmount
@@ -64,6 +65,7 @@
 
 
     <select id="getInfoByIncoming" resultMap="IncomingResultMap">
+        <!--특정 입고 조회-->
         SELECT
             incoming_code,
             goods_code,
@@ -77,6 +79,7 @@
         incoming_code=#{incomingCode}
     </select>
     <insert id="addIncoming" parameterType="Incoming">
+        <!--입고 등록-->
         INSERT INTO incoming
         (incoming_code,
         goods_code,
@@ -106,4 +109,15 @@
         FROM
             incoming
     </select>
+    <update id="modifyIncoming" parameterType="Incoming">
+        UPDATE incoming
+        SET
+        incoming_code=#{incomingCode},
+        goods_code=#{goodsCode},
+        incoming_amount=#{incomingAmount},
+        incoming_date=#{incomingDate},
+        upcycling_carbon_dioxide_emission_level=#{upcyclingCarbonDioxideEmissionLevel},
+        total_co2=#{totalCo2}
+        WHERE incoming_code=#{incomingCode}
+    </update>
 </mapper>

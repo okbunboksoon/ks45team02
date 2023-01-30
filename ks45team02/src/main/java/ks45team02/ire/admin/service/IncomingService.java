@@ -29,4 +29,8 @@ public class IncomingService {
         //상품 입고 추가
         return incomingMapper.addIncoming(incoming);
     }
+    public int modifyIncoming(Incoming incoming){
+        //상품입고 수정
+        return incomingMapper.modifyIncoming(incoming);
+    }
 }

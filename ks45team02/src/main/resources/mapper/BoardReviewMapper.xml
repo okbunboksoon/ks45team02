@@ -24,26 +24,23 @@
 		</association>
 	</resultMap>
 	
-	<update id="modifyBoardReview" parameterType="BoardReview">
-		<!-- 리뷰 글 수정 -->
-		UPDATE 
-			goods_review
-		SET 
-			 user_id = #{userId}
-			,goods_code = #{goodsCode}
-			,review_star_count = #{reviewStarCount}
-			,review_content = #{reviewContent}
-			<if test="reviewImageName != null and reviewImagePath != null">
-				,review_image_name = #{reviewImageName}
-				,review_image_path = #{reviewImagePath}
-			</if>
-			,review_reg_date = #{reviewRegDate}
-			,review_point_save = #{reviewPointSave}
-			,review_point_group = #{reviewPointGroup}
-			,review_delete_state = #{reviewDeleteState}
-		WHERE
-			review_code = #{reviewCode};
-	</update>
+	<select id="getReviewForGoods" resultMap="boardReviewResultMap" parameterType="Map">
+		<!-- 특정 상품 리뷰 조회 -->
+		SELECT 
+			 review_code
+			,user_id
+			,review_star_count
+			,review_content
+			,review_image_name
+			,review_image_path
+			,review_reg_date
+		FROM
+			goods_review AS gr
+		WHERE 
+			gr.goods_code = #{goodsCode}
+			AND 
+			gr.review_delete_state = 'N';
+	</select>
 	
 	<insert id="addBoardReview" parameterType="BoardReview">
 		<!-- 리뷰 글 등록 -->

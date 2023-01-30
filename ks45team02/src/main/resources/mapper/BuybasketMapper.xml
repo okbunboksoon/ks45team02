@@ -97,7 +97,12 @@
 				,#{expectedAmount}
 				,#{usePoint}
 				,#{finalPaymentAmount}
-				,#{regDate}
+				<if test="regDate == null"> 
+					,NOW()
+				</if>
+				<if test="regDate != null"> 
+					,#{regDate}
+				</if>
 				,'N');
 	</insert>
 	

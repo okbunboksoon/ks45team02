@@ -32,6 +32,16 @@ public class CategoryService {
 	}
 	
 	/**
+	 * 	카테고리 대코드로 중코드 조회
+	 */
+	public List<CategoryMedium> getmediumCodeByBigCode(String categoryBigCode){
+		
+		List<CategoryMedium> listMedium = categoryMapper.getmediumCodeByBigCode(categoryBigCode);
+		
+		return listMedium;
+	}
+	
+	/**
 	 * 카테고리 중 전체 조회
 	 * @return listMedium
 	 */

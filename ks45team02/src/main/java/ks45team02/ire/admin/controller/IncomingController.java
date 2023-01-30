@@ -36,6 +36,7 @@ public class IncomingController {
 		this.outgoingMapper = outgoingMapper;
 	}
 
+	//상품입고 등록
 	@GetMapping("/addIncoming")
 	public String addIncoming(Model model) {
 		model.addAttribute("title","addIncoming");
@@ -44,18 +45,13 @@ public class IncomingController {
 		model.addAttribute("goodsList",goodsList);
 		return "admin/incoming/incomingAdd";
 	}
+	//상품입고 등록처리
 	@PostMapping("/addIncoming")
 	public String addIncoming(Incoming incoming){
 		incomingService.addIncoming(incoming);
 		return "redirect:/admin/listIncoming";
 	}
-	
-	@GetMapping("/deleteIncoming")
-	public String deleteIncoming() {
-		//삭제처리 없애기로 함...
-		return "admin/incoming/incomingDelete";
-	}
-	
+	//상품입고 조화
 	@GetMapping("/listIncoming")
 	public String listIncoming(Model model) {
 		model.addAttribute("title","listIncoming");
@@ -64,8 +60,7 @@ public class IncomingController {
 		model.addAttribute("incomingList",incomingList);
 		return "admin/incoming/incomingList";
 	}
-	
-	
+	//상품입고 재고
 	@GetMapping("/listIncomingStock")
 	public String listIncomingStock(Model model) {
 		//수정이 너무너무 너무 필요하다
@@ -75,6 +70,7 @@ public class IncomingController {
 		model.addAttribute("getStockAmount",getStockAmount);
 		return "admin/incoming/incomingListStock";
 	}
+	//상품입고 수정
 	@GetMapping("/modifyIncoming")
 	public String modifyIncoming(Model model,
 								 @RequestParam(value = "incomingCode",required = false)String incomingCode) {
@@ -85,6 +81,12 @@ public class IncomingController {
 		List<Goods>goodsList=goodsService.getListGoods();
 		model.addAttribute("goodsList",goodsList);
 		return "admin/incoming/incomingModify";
+	}
+	//상품 입고 수정처리
+	@PostMapping("/modifyIncoming")
+	public String modifyIncoming(Incoming incoming){
+		incomingService.modifyIncoming(incoming);
+		return "redirect:/admin/listIncoming";
 	}
 
 }

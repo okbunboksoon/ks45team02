@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpSession;
 import ks45team02.ire.admin.dto.LoginInfo;
 import ks45team02.ire.admin.dto.User;
 import ks45team02.ire.admin.dto.UserDor;
-import ks45team02.ire.admin.dto.UserDrop;
 import ks45team02.ire.admin.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,22 +89,15 @@ public class UserController {
 	}
 
 	
-	
-	@GetMapping("/deliveryUser")
-	public String deliveryUser() {
-		
-		return "admin/user/userDelivery";
-	}
-	
 	@GetMapping("/findIdUser")
 	public String findIdUser() {
-		
+		//미구현
 		return "admin/user/userFindId";
 	}
 	
 	@GetMapping("/findPwUser")
 	public String findPwUser() {
-		
+		//미구현
 		return "admin/user/userFindPw";
 	}
 
@@ -134,7 +126,7 @@ public class UserController {
 	public String listDrop(Model model) {
 		model.addAttribute("title","DropUser");
 		model.addAttribute("pageTitle","탈퇴회원 조회");
-		List<UserDrop>userDropList=userService.userDropList();
+		List<User>userDropList=userService.userDropList();
 		model.addAttribute("userDropList",userDropList);
 		return "admin/user/userListDrop";
 	}

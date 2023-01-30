@@ -56,16 +56,25 @@ public class UserGoodsController {
 	 * @param model, goodsCode
 	 */
 	@GetMapping("/goodsContents")
-	public String goodsContents(Model model,
-								@RequestParam(value = "goodsCode")String goodsCode) {
+	public String goodsContents(Model model
+							   ,@RequestParam(value = "goodsCode")String goodsCode
+							   ,@RequestParam(value="msg", required = false) String msg){
 		log.info("goodsCode : {}", goodsCode);
 		List<UserGoods> getGoodsList = userGoodsService.getGoodsFileByCode(goodsCode);
 		model.addAttribute("title", "Ire");
 		model.addAttribute("getGoodsList", getGoodsList);
+		if(msg != null) {
+			model.addAttribute("msg", msg);
+		}
 		
 		return "user/goods/goodsContents";
 	}
 	
+	/**
+	 * 상품 카테고리별 목록
+	 * @param model, item
+	 * @return listGoods
+	 */
 	@GetMapping("/listGoodsItem")
 	public String listGoodsItem(Model model, @RequestParam(value = "item") String item ) {
 		log.info("item : {}", item);

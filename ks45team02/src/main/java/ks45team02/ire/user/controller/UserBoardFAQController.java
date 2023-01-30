@@ -54,5 +54,7 @@ public class UserBoardFAQController {
 		
 		return "user/board/boardContentsFAQ";
 	}
+	
+
 }
 

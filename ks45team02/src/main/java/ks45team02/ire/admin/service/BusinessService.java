@@ -32,6 +32,7 @@ public class BusinessService {
         return businessMapper.modifyBusiness(business);
     }
     public Business getInfoByBusiness(String businessCode){
+        //특정 거래처 조회
         return businessMapper.getInfoByBusiness(businessCode);
     }
 }
