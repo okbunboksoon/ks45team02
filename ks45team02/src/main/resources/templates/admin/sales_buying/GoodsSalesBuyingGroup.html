@@ -30,7 +30,8 @@
 </th:block>
 <th:block layout:fragment="customContents">
     <div class="col-md-12 col-sm-12 ">
-        <button type = "button" class ="btn btn-secondary btn-s" id = "goodsSalesBuyingMonthGroup">월 단위 조회</button>
+        <button type="submit" class="btn btn-primary" style="float: right">
+            <a style ="color:white" th:href="@{/admin/goodsSalesBuyingMonthGroup}">월 단위 조회</a></button>
         <!--새창으로 바꾸기 -->
             <div class="x_panel">
                 <div class="x_content">
@@ -102,14 +103,5 @@
     <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 </th:block>
 
-    <th:block layout:fragment="customScript">
-        <script type = "text/javascript" th:inline="javascript">
-            const $goodsSalesBuyingMonthGroup = document.getElementById('goodsSalesBuyingMonthGroup');
 
-            $goodsSalesBuyingMonthGroup.addEventListener('click', function(){
-                window.name = "MonthGroupInfo";
-                let openWin = window.open('/admin/goodsSalesBuyingMonthGroup', '월단위 조회',  'width=1000, height=600, top=100, left=100 scrollbar = yes');
-            })
-        </script>
-    </th:block>
 </html>

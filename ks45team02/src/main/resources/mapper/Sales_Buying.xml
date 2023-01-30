@@ -236,4 +236,13 @@
 		FROM
 			sales_buying_monthgroup AS sbm
 	</select>
+	<select id="goodsSalesBuyingYearGroup" resultMap="SalesBuyingResultMap">
+		SELECT
+			sby.sales_buying_yeargroup, sby.final_payment_amount, sby.buy_total, sby.reg_date, sby.user_id, sby.`year`, sby.Jan
+			, sby.Feb, sby.Mar, sby.Apr, sby.May, sby.Jun, sby.Jul, sby.Aug, sby.Sept, sby.Sept, sby.Nov, sby.`Dec`
+		FROM
+			sales_buying_yeargroup AS sby
+
+
+	</select>
     </mapper>
