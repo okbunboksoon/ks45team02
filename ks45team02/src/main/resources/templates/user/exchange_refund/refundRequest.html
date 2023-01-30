@@ -1,10 +1,137 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{user/layout/userDefault}">
 
-</body>
+<head>
+    <style type="text/css">
+        .styleTitle {
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<th:block layout:fragment="customContents">
+    <div class="">
+        <div class="page-title"></div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel" >
+                    <div class="x_content" >
+                        <br><br>
+                        <h5 class="styleTitle">상품 환불</h5>
+                        <center>
+                        <th:block th:object="${getPaymentComplete}" >
+                            <form id="requestExchange" th:action="@{/requestRefund}" method="post" >
+
+                                <div class="item form-group">
+                                    <label for="exchangeStandardCode" class="col-form-label col-md-3 col-sm-3 label-align">교환기준코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="exchangeStandardCode" name="exchangeStandardCode" class="form-control" >
+                                            <th:block th:if="${not #lists.isEmpty(refundStandardList)}"
+                                                      th:each="e : ${refundStandardList}">
+                                                <option th:value="${e.refundStandardCode}">[[${e.goodsRefundCondition}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(refundStandardList)}">
+                                                <option>교환기준코드가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="paymentCompleteCode" class="col-form-label col-md-3 col-sm-3 label-align">결제완료</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="paymentCompleteCode"
+                                               name="paymentCompleteCode"
+                                               th:value="*{paymentCompleteCode}"
+                                               class="form-control"
+                                               readonly="readonly">
+                                    </div>
+                                </div>
+
+
+                                <div class="item form-group">
+                                    <label for="userId" class="col-form-label col-md-3 col-sm-3 label-align">구매자아이디</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="userId"
+                                               name="userId"
+                                               th:value="*{userId}"
+                                               class="form-control"
+                                               readonly="readonly">
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="goodsCode" class="col-form-label col-md-3 col-sm-3 label-align">상품코드</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <select id="goodsCode" name="goodsCode" class="form-control" >
+                                            <th:block th:if="${not #lists.isEmpty(goodsList)}"
+                                                      th:each="g : ${goodsList}">
+                                                <option th:value="${g.goodsCode}">[[${g.goodsName}]]</option>
+                                            </th:block>
+                                            <th:block th:unless="${not #lists.isEmpty(goodsList)}">
+                                                <option>상품코드가 없습니다.</option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="goodsExchangeCount" class="col-form-label col-md-3 col-sm-3 label-align">상품수량</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsExchangeCount" name="goodsExchangeCount"
+                                               placeholder=" 상품 수량 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label for="goodsExchangePrice" class="col-form-label col-md-3 col-sm-3 label-align">교환금액</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsExchangePrice" name="goodsExchangePrice"
+                                               placeholder="교환금액 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label for="goodsExchangeContent" class="col-form-label col-md-3 col-sm-3 label-align">교환요청사유</label>
+                                    <div class="col-md-6 col-sm-6 ">
+                                        <input type="text" id="goodsExchangeContent" name="goodsExchangeContent"
+                                               placeholder="환불 요청사유 입력해주세요." class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <div  class="col-md-6 col-sm-6 offset-md-3" style="text-align: center;">
+                                        <button class="btn btn-primary" type="submit" id="submitBtn">등록</button>
+                                        <button class="btn btn-danger" type="reset" id="resetBtn">취소</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </th:block>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- 사용자 지정 js 파일 -->
+<th:block layout:fragment="customjs">
+    <!-- jQuery -->
+    <script th:src="@{/admin/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/admin/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/admin/vendors/nprogress/nprogress.js}"></script>
+
+    <script th:src="@{/admin/build/js/custom.min.js}"></script>
+
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <script th:src="@{admin/vendors/validator/multifield.js}"></script>
+    <script th:src="@{admin/vendors/validator/validator.js}"></script>
+</th:block>
 </html>
