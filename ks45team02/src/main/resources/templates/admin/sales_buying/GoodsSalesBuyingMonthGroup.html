@@ -25,8 +25,8 @@
 </th:block>
 <th:block layout:fragment="customContents">
     <div class="col-md-12 col-sm-12 ">
-
-        <button type = "button" class ="btn btn-secondary btn-s" id = "goodsSalesBuyingMonthGroup">월 단위 조회</button>
+        <button type="submit" class="btn btn-primary" style="float: right">
+            <a style ="color:white" th:href="@{/admin/goodsSalesBuyingYearGroup}">년 단위 조회</a></button>
         <div class="x_panel">
             <div class="x_content">
                 <div class="row">
@@ -49,14 +49,13 @@
                                 </thead>
                                 <tbody>
                                 <tr th:if ="${not #lists.isEmpty(goodsSalesBuyingMonthGroup)}"
-                                    th:each="c : ${goodsSalesBuyingGroup}">
+                                    th:each="c : ${goodsSalesBuyingMonthGroup}">
                                     <td th:text ="${c.salesBuyingMonthGroupCode}"/></td>
                                     <td th:text ="${c.finalPaymentAmount}"/></td>
                                     <td th:text ="${c.buyTotal}"/></td>
                                     <td th:text ="${c.userId}"/></td>
                                     <td th:text ="${c.regDate}"/></td>
                                     <td th:text ="${c.monthAndYear}"/></td>
-                                    <td th:text ="${c.userId}"/></td>
                                     <td th:text ="${c.salesBuyingYearGroupCode}"/></td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(goodsSalesBuyingMonthGroup)}">
@@ -92,14 +91,4 @@
     <script th:src="@{/admin/vendors/pdfmake/build/vfs_fonts.js}"></script>
 </th:block>
 
-<th:block layout:fragment="customScript">
-    <script type = "text/javascript" th:inline="javascript">
-        const $goodsSalesBuyingMonthGroup = document.getElementById('goodsSalesBuyingMonthGroup');
-
-        $goodsSalesBuyingMonthGroup.addEventListener('click', function(){
-            window.name = "MonthGroupInfo";
-            let openWin = window.open('/admin/goodsSalesBuyingMonthGroup', '월단위 조회',  'width=1000, height=600, top=100, left=100 scrollbar = yes');
-        })
-    </script>
-</th:block>
 </html>
