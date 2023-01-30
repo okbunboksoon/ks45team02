@@ -20,6 +20,7 @@
         <result property="exchangeApproval" column="exchange_approval"/>
     </resultMap>
     <select id="listGoodsExchange" resultMap="GoodsExchangeResultMap">
+        <!--교환 요청 조회-->
         SELECT
         goods_exchange_code,
         exchange_standard_code,
@@ -38,6 +39,7 @@
         goods_exchange
     </select>
     <update id="modifyGoodsExchange" parameterType="GoodsExchange">
+        <!--교환 요청 수정-->
         UPDATE goods_exchange
         set
             goods_exchange_code=#{goodsExchangeCode}
@@ -57,6 +59,7 @@
         WHERE goods_exchange_code=#{goodsExchangeCode}
     </update>
     <select id="getGoodsExchange" resultMap="GoodsExchangeResultMap">
+        <!--교환요청 조회-->
         SELECT
             goods_exchange_code,
             exchange_standard_code,
@@ -76,6 +79,7 @@
         WHERE goods_exchange_code=#{goodsExchangeCode}
     </select>
     <insert id="addGoodsExchange" parameterType="GoodsExchange">
+        <!--교환 요청-->
         INSERT INTO goods_exchange
             (goods_exchange_code,
             exchange_standard_code,
@@ -85,14 +89,54 @@
             goods_exchange_price,
             goods_exchange_date,
             goods_exchange_content,
+            exchange_process_state
+            )
+        VALUES
+        (sf_new_goods_exchange(),
+        #{exchangeStandardCode}, #{paymentCompleteCode}, #{userId},
+        #{goodsCode},#{goodsExchangeCount},#{goodsExchangePrice},
+        NOW(), #{goodsExchangeContent},'교환요청중')
+    </insert>
+    <select id="getUserExchangeList" resultMap="GoodsExchangeResultMap" parameterType="String">
+        <!--교환요청 코드별 조회-->
+        SELECT
+            goods_exchange_code,
+            exchange_standard_code,
+            payment_complete_code,
+            user_id,
+            goods_code,
+            goods_exchange_count,
+            goods_exchange_price,
+            goods_exchange_date,
+            goods_exchange_content,
             exchange_process_state,
             manager_id,
             exchange_date,
             exchange_reject,
-            exchange_approval)
-        VALUES
-        (sf_new_goods_exchange(),
-        #{exchangeStandardCode}, #{paymentCompleteCode}, #{userId},#{goodsCode},#{goodsExchangeCount},#{goodsExchangePrice},
-        NOW(), #{goodsExchangeContent},'교환요청중', #{managerId},#{exchangeDate},#{exchangeReject},#{exchangeApproval})
-    </insert>
+            exchange_approval
+        FROM
+            goods_exchange
+        WHERE payment_complete_code={paymentCompleteCode}
+    </select>
+    <select id="useridExchangeList" resultMap="GoodsExchangeResultMap">
+        <!--아이디로 조회-->
+        SELECT
+            goods_exchange_code,
+            exchange_standard_code,
+            payment_complete_code,
+            user_id,
+            goods_code,
+            goods_exchange_count,
+            goods_exchange_price,
+            goods_exchange_date,
+            goods_exchange_content,
+            exchange_process_state,
+            manager_id,
+            exchange_date,
+            exchange_reject,
+            exchange_approval
+            FROM
+            goods_exchange
+        WHERE user_id=#{userId}
+    </select>
 </mapper>

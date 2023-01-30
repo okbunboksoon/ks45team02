@@ -28,5 +28,7 @@ public interface UserMapper {
     public List<User>listUserDrop();
     //회원 탈퇴처리
     public int deleteUser(User user);
+    //로그아웃 시간 기록
+    public int logoutHistory(String userId);
 
 }

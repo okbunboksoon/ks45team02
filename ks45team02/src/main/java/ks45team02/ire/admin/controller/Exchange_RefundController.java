@@ -132,7 +132,7 @@ public class Exchange_RefundController {
 	@PostMapping("/requestExchange")
 	public String requestExchange(GoodsExchange goodsExchange){
 		goodsExchangeService.addGoodsExchange(goodsExchange);
-		return "redirect:/admin/approvalExchange_Refund";
+		return "redirect:/admin/listPayment";
 	}
 
 	//환불기중등록페이지
