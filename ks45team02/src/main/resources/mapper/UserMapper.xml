@@ -69,6 +69,13 @@
         )
 
     </insert>
+    <update id="logoutHistory" parameterType="String">
+        <!--로그아웃시 로그아웃 시간 기록-->
+        UPDATE loginout_history
+        SET
+        logout_time=NOW()
+        WHERE user_id=#{userId}
+    </update>
     <select id="getLoginHistory" resultMap="UserResultMap">
         <!--로그인 내역 확인(중복 제거 기능.....?)-->
         SELECT

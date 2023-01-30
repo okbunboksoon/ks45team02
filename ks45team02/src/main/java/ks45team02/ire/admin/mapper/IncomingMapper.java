@@ -16,5 +16,6 @@ public interface IncomingMapper {
     public Incoming getInfoByIncoming(String incomingCode);
     //상품재고조회
     public List<Map<String,Object>> getStockAmount();
+    public int modifyIncoming(Incoming incoming);
 
 }

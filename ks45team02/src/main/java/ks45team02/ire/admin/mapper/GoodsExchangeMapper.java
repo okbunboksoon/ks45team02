@@ -15,4 +15,7 @@ public interface GoodsExchangeMapper {
     public GoodsExchange getGoodsExchange(String goodsExchangeCode);
     //교환수정
     public int modifyGoodsExchange(GoodsExchange goodsExchange);
+    //아이디로 조회
+    public List<GoodsExchange> useridExchangeList(String userId);
+
 }

@@ -26,7 +26,6 @@ public class UserService {
         // 김재범 -회원가입 처리
         int result=userMapper.addUser(user);
         return result;
-
     }
     public int idCheck(String userId){
         // 중복 회원 아이디 체크
@@ -87,6 +86,10 @@ public class UserService {
     public int deleteUser(User user){
         //회원탈퇴=변경
         return userMapper.deleteUser(user);
+    }
+    public int logoutHistory(String userId){
+        //로그아웃시 시간 기록
+        return userMapper.logoutHistory(userId);
     }
 
 }

@@ -37,13 +37,12 @@ public class UserUserController {
 			cookie.setMaxAge(0);
 			response.addCookie(cookie);
 		}
-
+		userService.logoutHistory(session.getId());
 		return "redirect:/";
 	}
 	//마이페이지
 	@GetMapping("/myPage")
 	public String myPage(Model model) {
-
 		return "user/user/myPage";
 	}
 

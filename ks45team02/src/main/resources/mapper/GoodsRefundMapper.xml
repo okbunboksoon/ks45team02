@@ -20,25 +20,27 @@
         <result property="RefundApproval" column="refund_approval"/>
     </resultMap>
     <update id="modifyRefund" parameterType="GoodsRefund">
+        <!--환불수정-->
         UPDATE goods_refund
         SET
-        goods_refund_code=#{goodsRefundCode},
-        refund_standard_code=#{RefundStandardCode},
-        payment_complete_code=#{paymentCompleteCode},
-        user_id=#{userId},
-        goods_code=#{goodsCode},
-        goods_refund_count=#{goodsRefundCount},
-        goods_refund_price=#{goodsRefundPrice},
-        good_refund_content=#{goodsRefundContent},
-        goods_refund_date=#{goodsRefundDate},
-        refund_process_state=#{RefundProcessState},
-        manager_id=#{managerId},
-        refund_date=NOW(),
-        refund_reject=#{RefundReject},
-        refund_approval=#{RefundApproval}
+            goods_refund_code=#{goodsRefundCode},
+            refund_standard_code=#{RefundStandardCode},
+            payment_complete_code=#{paymentCompleteCode},
+            user_id=#{userId},
+            goods_code=#{goodsCode},
+            goods_refund_count=#{goodsRefundCount},
+            goods_refund_price=#{goodsRefundPrice},
+            good_refund_content=#{goodsRefundContent},
+            goods_refund_date=#{goodsRefundDate},
+            refund_process_state=#{RefundProcessState},
+            manager_id=#{managerId},
+            refund_date=NOW(),
+            refund_reject=#{RefundReject},
+            refund_approval=#{RefundApproval}
         WHERE goods_refund_code=#{goodsRefundCode}
     </update>
     <select id="listGoodsRefund" resultMap="GoodsRefundResultMap">
+        <!--환불 조회-->
         SELECT
             goods_refund_code,
             refund_standard_code,
@@ -57,6 +59,7 @@
             goods_refund
     </select>
     <insert id="addGoodsRefund" parameterType="GoodsRefund">
+        <!--환불 요청-->
         INSERT INTO goods_refund
         (goods_refund_code,
         refund_standard_code,
@@ -78,6 +81,7 @@
         #{RefundDate},#{RefundReject},#{RefundApproval})
     </insert>
     <select id="getGoodsRefund" resultMap="GoodsRefundResultMap">
+        <!--특정 환불 조회-->
         SELECT
         goods_refund_code,
         refund_standard_code,
@@ -95,5 +99,10 @@
         FROM
         goods_refund
         WHERE goods_refund_code=#{goodsRefundCode}
+    </select>
+    <select id="useridRefundList" resultMap="GoodsRefundResultMap">
+        SELECT goods_refund_code, refund_standard_code, payment_complete_code, user_id, goods_code, goods_refund_count, goods_refund_price, good_refund_content, goods_refund_date, refund_process_state, manager_id, refund_date, refund_reject, refund_approval
+        FROM goods_refund
+        WHERE user_id=#{userId}
     </select>
 </mapper>

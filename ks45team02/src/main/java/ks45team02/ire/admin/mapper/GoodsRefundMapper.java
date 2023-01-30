@@ -15,4 +15,6 @@ public interface GoodsRefundMapper {
     public GoodsRefund getGoodsRefund(String goodsRefundCode);
     //환불수정
     public int modifyRefund(GoodsRefund goodsRefund);
+    //아이디로 환불조회
+    public List<GoodsRefund>useridRefundList(String userId);
 }
