@@ -64,6 +64,7 @@ public class BusinessController {
 		model.addAttribute("businessInfo",businessInfo);
 		return "admin/business/businessModify";
 	}
+	//거래처 수정처리
 	@PostMapping("/modifyBusiness")
 	public String modifyBusiness(Business business){
 		businessService.modifyBusiness(business);
