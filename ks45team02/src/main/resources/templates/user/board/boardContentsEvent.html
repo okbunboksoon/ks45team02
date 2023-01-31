@@ -76,7 +76,8 @@
             </div>
             <div id="contents">
                 <div th:text="${l.eventContents}"></div>
-                <div th:text="${l.eventFileIdx}"></div>
+                <img id = "eventImagePath" th:if="*{l.eventImagePath != null}" th:src="*{l.eventImagePath}"
+                     alt = "이벤트 이미지" width = "200px" height = "200px"/>
                 <div th:text="|이벤트 시작일 ${l.eventStartDate}|" ></div>
                 <div th:text="|이벤트 종료일 ${l.eventEndDate}|"></div>
                 <!-- 더 좋은 방법 있으면 찾아보기 -->

@@ -32,7 +32,7 @@ public class BoardEventService {
     public int addBoardEvent(BoardEvent boardEvent, MultipartFile eventImage) throws IllegalStateException, IOException {
 
         if(!eventImage.isEmpty()){
-            String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/eventImages";
+            String projectPath = System.getProperty("user.dir") + "/ks45team02/src/main/resources/static/eventImages";
 
             UUID uuid = UUID.randomUUID();
 

@@ -71,4 +71,10 @@ public interface Sales_BuyingMapper {
 	 * 상품매입결제 수정
 	 */
 	public int modifyGoodsBuyingPayment(GoodsBuyingPayment goodsBuyingPayment);
+
+	List<SalesBuying> goodsSalesBuyingMonthGroup();
+
+    List<SalesBuying> goodsSalesBuyingYearGroup();
+    //월단위
+
 }
